@@ -1,6 +1,6 @@
 ﻿namespace TennisProjekt24.Interfaces
 {
-    public class IEventService
+    public interface IEventService
     {
     }
 }

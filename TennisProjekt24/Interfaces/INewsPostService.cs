@@ -1,6 +1,6 @@
 ﻿namespace TennisProjekt24.Interfaces
 {
-    public class INewsPostService
+    public interface INewsPostService
     {
     }
 }

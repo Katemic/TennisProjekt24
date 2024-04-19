@@ -1,6 +1,6 @@
 ﻿namespace TennisProjekt24.Interfaces
 {
-    public class IPracticeService
+    public interface IPracticeService
     {
     }
 }
