@@ -1,8 +1,8 @@
 ﻿namespace TennisProjekt24.Services
 {
     public class Connection
-    { 
-        //coonection
-
+    {
+        //connection
+        protected string connectionString = Secret.ConnectionString;
     }
 }
