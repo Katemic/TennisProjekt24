@@ -11,7 +11,7 @@ namespace TennisProjekt24.Interfaces
 
         bool UpdateMember(Member member, int memberId);
 
-        Member GetMember(Member member);
+        Member GetMember(int memberId);
 
         List<Member> GetAllMembers();   
 

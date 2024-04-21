@@ -84,12 +84,12 @@ namespace TennisProjekt24.Services
                         string phoneNo = reader.GetString("PhoneNo");
                         string address = reader.GetString("Address");
                         string postcode = reader.GetString("PostCode");
-                        //MemberTypeEnum membertype = reader.GetString("MemberType"); ???
+                        string memberType = reader.GetString("MemberType");
+                        MemberTypeEnum memberTypeEnum = (MemberTypeEnum) Enum.Parse(typeof(MemberTypeEnum), memberType);
+                        //MemberTypeEnum membertype = Enum.TryParse(typeof(MemberTypeEnum), reader.GetString("MemberType")); 
                         bool admin = reader.GetBoolean("Admin");
-                        //udfyld constructor
-                        //Member member = new Member();
-                        //tilføj til liste 
-                        //members.Add(member);
+                        Member member = new Member(memberId,username,password,name,email,phoneNo,address,postcode,memberTypeEnum,admin);
+                        members.Add(member);
                     }
                     reader.Close();
 
@@ -116,9 +116,36 @@ namespace TennisProjekt24.Services
 
         }
 
-        public Member GetMember(Member member)
+        public Member GetMember(int memberId)
         {
-            throw new NotImplementedException();
+            Member member = null;
+            using (SqlConnection connection = new SqlConnection(connectionString)) 
+            {
+                
+                try
+                {
+
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+
+                    throw sqlEx;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+
+
+            }
+            return member;
         }
 
         public bool UpdateMember(Member member, int memberId)
