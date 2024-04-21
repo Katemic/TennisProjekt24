@@ -1,4 +1,6 @@
-﻿namespace TennisProjekt24.Models
+﻿using Azure.Identity;
+
+namespace TennisProjekt24.Models
 {
     public class Member
     {
@@ -21,6 +23,23 @@
         public Member()
         {
              
+        }
+
+        public Member(int memberId, string username, string password, string name, string email, string phoneNumber, 
+            string address, string postcode, MemberTypeEnum memberType, bool admin)
+        {
+            MemberId = memberId;
+            Username = username;
+            Password = password;
+            Name = name; 
+            Email = email; 
+            PhoneNumber = phoneNumber;
+            Address = address;
+            PostCode = postcode;
+            MemberType = memberType;
+            Admin = admin;
+
+
         }
 
     }
