@@ -13,7 +13,9 @@ namespace TennisProjekt24.Services
         private string DeleteMemberSQL = "DELETE FROM Members WHERE MemberId = @Id";
         private string GetAllMembersSQL = "SELECT MemberId, Username, Password, Name, Email, PhoneNo, Address, Postcode, MemberType, Admin FROM Members";
         private string GetMemberSQL = "SELECT MemberId, Username, Password, Name, Email, PhoneNo, Address, Postcode, MemberType, Admin FROM Members WHERE MemberId = @Id";
-        private string UpdateMemberSQL = "";
+        private string UpdateMemberSQL = "UPDATE Members SET Username = @Username, Password = @Password, Name = @Name, Email = @Email, PhoneNo = @PhoneNo, " +
+            "Address = @Address, Postcode = @Postcode, MemberType = @MemberType, Admin = @Admin  " +
+            "WHERE MemberId = @Id";
 
 
         public bool AddMember(Member member)
