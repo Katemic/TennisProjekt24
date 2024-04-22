@@ -23,7 +23,7 @@ namespace TennisProjekt24.Services
                     SqlCommand command = new SqlCommand(_insertSql, connection);
                     command.Parameters.AddWithValue("@Outdoor", court.Outdoor);
                     command.Parameters.AddWithValue("@CourtNumber", court.CourtNumber);
-                    command.Parameters.AddWithValue("@CourtType", court.CourtType);      //needs correcting
+                    command.Parameters.AddWithValue("@CourtType", court.CourtType);
                     command.Parameters.AddWithValue("@Availability", court.Availability);
                     command.Connection.Open();
                     int noOfRows = command.ExecuteNonQuery();
@@ -108,74 +108,76 @@ namespace TennisProjekt24.Services
         public List<Court> GetAllCourts()
         {
             List<Court> courts = new List<Court>();
-            //using (SqlConnection connection = new SqlConnection(connectionString))
-            //{
-            //    try
-            //    {
-            //        SqlCommand command = new SqlCommand(_getAllString, connection);
-            //        command.Connection.Open();
-            //        SqlDataReader reader = command.ExecuteReader();
-            //        while (reader.Read())
-            //        {
-            //            int courtId = reader.GetInt32("CourtId");
-            //            bool outdoor = reader.GetBoolean("Outdoor");
-            //            double courtNumber = reader.GetDouble("CourtNumber");
-            //            int courtType = reader.GetInt32("CourtType");
-            //            int availability = reader.GetInt32("Availability");
-            //            Court court = new Court(courtId, outdoor, courtNumber, courtType, availability);
-            //            courts.Add(court);
-            //        }
-            //        reader.Close();
-            //    }
-            //    catch (SqlException sqlEx)
-            //    {
-            //        Console.WriteLine("Database error: " + sqlEx.Message);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Console.WriteLine("General fejl: " + ex.Message);
-            //    }
-            //    finally
-            //    {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(_getAllString, connection);
+                    command.Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int courtId = reader.GetInt32("CourtId");
+                        bool outdoor = reader.GetBoolean("Outdoor");
+                        int courtNumber = reader.GetInt32("CourtNumber");
+                        string courtType = reader.GetString("CourtType");
+                        Enum.TryParse(courtType, out CourtTypeEnum courtTypeEnum);
+                        bool availability = reader.GetBoolean("Availability");
+                        Court court = new Court(courtId, outdoor, courtNumber, courtTypeEnum, availability);
+                        courts.Add(court);
+                    }
+                    reader.Close();
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("Database error: " + sqlEx.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("General fejl: " + ex.Message);
+                }
+                finally
+                {
 
-            //    }
-            //}
+                }
+            }
             return courts;
         }
 
         public Court GetCourt(int courtId)
         {
-            //using (SqlConnection connection = new SqlConnection(connectionString))
-            //{
-            //    try
-            //    {
-            //        SqlCommand command = new SqlCommand(_getByIdSql, connection);
-            //        command.Parameters.AddWithValue("@CourtId", courtId);
-            //        command.Connection.Open();
-            //        SqlDataReader reader = command.ExecuteReader();
-            //        if (reader.Read())
-            //        {
-            //            bool outdoor = reader.GetBoolean("Outdoor");
-            //            double courtNumber = reader.GetDouble("CourtNumber");
-            //            int courtType = reader.GetInt32("CourtType");
-            //            int availability = reader.GetInt32("Availability");
-            //            Court court = new Court(courtId, outdoor, courtNumber, courtType, availability);
-            //            return court;
-            //        }
-            //    }
-            //    catch (SqlException sqlEx)
-            //    {
-            //        Console.WriteLine("Database error: " + sqlEx.Message);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Console.WriteLine("General fejl: " + ex.Message);
-            //    }
-            //    finally
-            //    {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(_getByIdSql, connection);
+                    command.Parameters.AddWithValue("@CourtId", courtId);
+                    command.Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        bool outdoor = reader.GetBoolean("Outdoor");
+                        int courtNumber = reader.GetInt32("CourtNumber");
+                        string courtType = reader.GetString("CourtType");
+                        Enum.TryParse(courtType, out CourtTypeEnum courtTypeEnum);
+                        bool availability = reader.GetBoolean("Availability");
+                        Court court = new Court(courtId, outdoor, courtNumber, courtTypeEnum, availability);
+                        return court;
+                    }
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("Database error: " + sqlEx.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("General fejl: " + ex.Message);
+                }
+                finally
+                {
 
-            //    }
-            //}
+                }
+            }
             return null;
         }
 

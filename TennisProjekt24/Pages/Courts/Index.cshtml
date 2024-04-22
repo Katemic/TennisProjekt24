@@ -1,0 +1,61 @@
+﻿@page
+@model TennisProjekt24.Pages.Courts.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+<h4>Baner</h4>
+
+<a asp-page="/Courts/CreateCourt">Create</a>|
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Udendørs
+            </th>
+            <th>
+                Nummer
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                TilGængelig
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Courts.Count() != 0)
+        {
+            @foreach (var item in Model.Courts)
+            {
+                <tr>
+                    <td>
+                        @item.CourtId
+                    </td>
+                    <td>
+                        @item.Outdoor
+                    </td>
+                    <td>
+                        @item.CourtNumber
+                    </td>
+                    <td>
+                        @item.CourtType
+                    </td>
+                    <td>
+                        @item.Availability
+                    </td>
+                    <td>
+                        <p>
+                @*             <a asp-page="/Rooms/DeleteRoom" asp-route-room_no="@item.Room_No" asp-route-hotel_no="@item.Hotel_No">Delete</a>|
+                            <a asp-page="/Rooms/UpdateRoom" asp-route-room_no="@item.Room_No" asp-route-hotel_no="@item.Hotel_No">Edit</a>| *@
+                        </p>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

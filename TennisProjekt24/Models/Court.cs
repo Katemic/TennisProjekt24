@@ -1,5 +1,10 @@
 ﻿namespace TennisProjekt24.Models
 {
+    public enum CourtTypeEnum
+    {
+        Padel, Tennis, PickleBall
+    }
+
     public class Court
     {
 
@@ -15,11 +20,16 @@
             
         }
 
-
-        public enum CourtTypeEnum
+        public Court(int courtId, bool outdoor, int courtNumber, CourtTypeEnum courtType, bool availability)
         {
-            Padel, Tennis, PickleBall
+            CourtId = courtId;
+            Outdoor = outdoor;
+            CourtNumber = courtNumber;
+            CourtType = courtType;
+            Availability = availability;
         }
+
+  
 
     }
 }

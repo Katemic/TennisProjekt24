@@ -1,0 +1,41 @@
+﻿@page
+@model TennisProjekt24.Pages.Courts.CreateCourtsModel
+@{
+    ViewData["Title"] = "CreateCourt";
+}
+
+<h1>Create court</h1>
+
+<form method="post">
+
+@*     <div class="form-group">
+        <label asp-for="@Model.NewCourt.CourtId" class="control-label"></label>
+        <input asp-for="@Model.NewCourt.CourtId" class="form-control" /> *@
+        @* <span asp-validation-for="@Model.NewCourt.CourtId" class="text-danger"></span> *@
+    </div>
+    <div class="form-group">
+        <input type="radio" asp-for="@Model.NewCourt.Outdoor" value="0"/>Outdoor<br />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewCourt.CourtNumber" class="control-label"></label>
+        <input asp-for="@Model.NewCourt.CourtNumber" class="form-control" />
+        @* <span asp-validation-for="@Model.NewCourt.CourtNumber" class="text-danger"></span> *@
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewCourt.CourtType" class="control-label"></label>
+        <input asp-for="@Model.NewCourt.CourtType" class="form-control" />
+        @* <span asp-validation-for="@Model.NewCourt.CourtType" class="text-danger"></span> *@
+    </div>
+    <div class="form-group">
+        <input type="radio" asp-for="@Model.NewCourt.Availability" value="0" />Tilgængelig<br />
+
+
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create a court" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
