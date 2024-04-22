@@ -6,7 +6,7 @@
         public DateTime StartDate { get; set; }
         public string Title { get; set; }
         public int NoOfTrainings { get; set; }
-        public int MaxNoOfAteendees { get; set; }
+        public int MaxNoOfAtendees { get; set; }
         public int InstructorId { get; set; }
         public PracticeTypeEnum Type { get; set; }
 
@@ -20,7 +20,7 @@
             StartDate = startDate;
             Title = title;
             NoOfTrainings = noOfTrainings;
-            MaxNoOfAteendees = maxNoOfAteendees;
+            MaxNoOfAtendees = maxNoOfAteendees;
             InstructorId = instructorId;
             Type = type;
         }

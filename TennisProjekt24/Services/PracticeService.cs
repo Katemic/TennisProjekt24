@@ -9,7 +9,7 @@ namespace TennisProjekt24.Services
 {
     public class PracticeService : Connection, IPracticeService
     {
-        private string _getAllPracticesString = $"SELECT PracticeId, Date, Title, NoOfTrainings, MaxNoOfAteendees, Type, InstructorId FROM Practices";
+        private string _getAllPracticesString = $"SELECT PracticeId, Date, Title, NoOfTrainings, MaxNoOfAteendees, InstructorId, Type FROM Practices";
         private string _getPracticeString = $"SELECT * FROM Practices WHERE PracticeID = @ID";
         private string _addPracticeString = $"INSERT INTO Practices VALUES(@Date, @Title, @NoTrain, @MaxAtendees, @InstructorId, @Type)";
         private string _deletePracticeString = $"DELETE FROM Practices WHERE PracticeId = @ID";
@@ -25,7 +25,7 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@Date", practice.StartDate);
                     command.Parameters.AddWithValue("@Title", practice.Title);
                     command.Parameters.AddWithValue("@NoTrain", practice.NoOfTrainings);
-                    command.Parameters.AddWithValue("@MaxAtendees", practice.MaxNoOfAteendees);
+                    command.Parameters.AddWithValue("@MaxAtendees", practice.MaxNoOfAtendees);
                     command.Parameters.AddWithValue("InstructorId", practice.InstructorId);
                     command.Parameters.AddWithValue("@Type", practice.Type);
                     command.Connection.Open();
@@ -117,7 +117,7 @@ namespace TennisProjekt24.Services
                         DateTime date = reader.GetDateTime("Date");
                         string title = (string)reader["Title"];
                         int NoOfTrainings = reader.GetInt32("NoOfTrainings");
-                        int MaxNoOfAteendees = reader.GetInt32("MaxNoOfAteendees");
+                        int MaxNoOfAteendees = reader.GetInt32("MaxNoOfAtendees");
                         int InstructorId = reader.GetInt32("InstructorId");
                         Enum.TryParse((string)reader["Type"], out PracticeTypeEnum Type);
                         Practice practice = new Practice(practiceId, date, title, NoOfTrainings, MaxNoOfAteendees, InstructorId, Type);

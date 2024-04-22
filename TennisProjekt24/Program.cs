@@ -1,8 +1,11 @@
+using TennisProjekt24.Interfaces;
+using TennisProjekt24.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-
+builder.Services.AddTransient<IPracticeService, PracticeService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
