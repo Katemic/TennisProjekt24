@@ -2,6 +2,11 @@
 
 namespace TennisProjekt24.Models
 {
+    public enum MemberTypeEnum
+        {
+            Senior, YoungSenior, Junior, Family, Passive
+        }
+
     public class Member
     {
         public int MemberId { get; set; }
@@ -15,11 +20,7 @@ namespace TennisProjekt24.Models
         public MemberTypeEnum MemberType { get; set; }
         public bool Admin { get; set; } 
 
-        public enum MemberTypeEnum
-        {
-            Senior, YoungSenior, Junior, Family, Passive
-        }
-
+        
         public Member()
         {
              

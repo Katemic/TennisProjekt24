@@ -61,7 +61,37 @@ namespace TennisProjekt24.Services
 
         public bool DeleteMember(int memberId)
         {
-            throw new NotImplementedException();
+
+            using (SqlConnection connection = new SqlConnection(connectionString)) 
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(DeleteMemberSQL, connection);
+                    command.Parameters.AddWithValue("@Id", memberId);
+                    command.Connection.Open();
+                    int noOfRows = command.ExecuteNonQuery();
+                    return noOfRows == 1;
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+
+                    throw sqlEx;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+
+
+            }
+
         }
 
         public List<Member> GetAllMembers()
@@ -124,6 +154,27 @@ namespace TennisProjekt24.Services
                 
                 try
                 {
+                    SqlCommand command = new SqlCommand(GetMemberSQL, connection);
+                    command.Parameters.AddWithValue("@Id", memberId);
+                    command.Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read()) 
+                    {
+                        int memberID = reader.GetInt32("MemberId");
+                        string username = reader.GetString("Username");
+                        string password = reader.GetString("Password");
+                        string name = reader.GetString("Name");
+                        string email = reader.GetString("Email");
+                        string phoneNo = reader.GetString("PhoneNo");
+                        string address = reader.GetString("Address");
+                        string postcode = reader.GetString("PostCode");
+                        string memberType = reader.GetString("MemberType");
+                        MemberTypeEnum memberTypeEnum = (MemberTypeEnum)Enum.Parse(typeof(MemberTypeEnum), memberType);
+                        //MemberTypeEnum membertype = Enum.TryParse(typeof(MemberTypeEnum), reader.GetString("MemberType")); 
+                        bool admin = reader.GetBoolean("Admin");
+                        member = new Member(memberID, username, password, name, email, phoneNo, address, postcode, memberTypeEnum, admin);
+
+                    }
 
                 }
                 catch (SqlException sqlEx)
