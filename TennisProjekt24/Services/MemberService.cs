@@ -203,7 +203,44 @@ namespace TennisProjekt24.Services
 
         public bool UpdateMember(Member member, int memberId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString)) 
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(_updateMemberSQL, connection);
+                    command.Parameters.AddWithValue("@Id", memberId);
+                    command.Parameters.AddWithValue("@Username",member.Username);
+                    command.Parameters.AddWithValue("@Password",member.Password);
+                    command.Parameters.AddWithValue("@Name",member.Name);
+                    command.Parameters.AddWithValue("@Email",member.Email);
+                    command.Parameters.AddWithValue("@PhoneNo",member.PhoneNumber);
+                    command.Parameters.AddWithValue("@Address",member.Address);
+                    command.Parameters.AddWithValue("@Postcode",member.PostCode);
+                    command.Parameters.AddWithValue("@MemberType",member.MemberType);
+                    command.Parameters.AddWithValue("@Admin", member.Admin);
+                    command.Connection.Open();
+                    int noOfRows = command.ExecuteNonQuery();
+                    return noOfRows == 1;
+
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+
+                    throw sqlEx;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+
+            }
         }
     }
 }
