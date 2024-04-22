@@ -11,7 +11,8 @@ namespace TennisProjekt24.Services
     {
         private string _getAllPracticesString = $"SELECT PracticeId, Date, Title, NoOfTrainings, MaxNoOfAteendees, Type, InstructorId FROM Practices";
         private string _getPracticeString = $"SELECT * FROM Practices WHERE PracticeID = @ID";
-        private string _AddPracticeString = $"INSERT INTO Practices VALUES(@ID, @Date, @Title, @NoTrain, @MaxAtendees, @InstructorId, @Type)";
+        private string _addPracticeString = $"INSERT INTO Practices VALUES(@Date, @Title, @NoTrain, @MaxAtendees, @InstructorId, @Type)";
+        private string _deletePracticeString = $"DELETE FROM Practices WHERE PracticeId = @ID";
 
         public bool AddPractice(Practice practice)
         {
@@ -19,11 +20,14 @@ namespace TennisProjekt24.Services
             {
                 try
                 {
-                    SqlCommand command = new SqlCommand(_AddPracticeString, connection);
-                    command.Parameters.AddWithValue("@ID", practice.PracticeId);
+                    SqlCommand command = new SqlCommand(_addPracticeString, connection);
+                    //command.Parameters.AddWithValue("@ID", practice.PracticeId);
                     command.Parameters.AddWithValue("@Date", practice.StartDate);
                     command.Parameters.AddWithValue("@Title", practice.Title);
-                    command.Parameters.AddWithValue("", practice.NoOfTrainings);
+                    command.Parameters.AddWithValue("@NoTrain", practice.NoOfTrainings);
+                    command.Parameters.AddWithValue("@MaxAtendees", practice.MaxNoOfAteendees);
+                    command.Parameters.AddWithValue("InstructorId", practice.InstructorId);
+                    command.Parameters.AddWithValue("@Type", practice.Type);
                     command.Connection.Open();
                     int noOfRows = command.ExecuteNonQuery();
                     return noOfRows == 1;
@@ -42,7 +46,19 @@ namespace TennisProjekt24.Services
 
         public bool DeletePractice(int id)
         {
-            throw new NotImplementedException();
+            Practice practice = GetPractice(id);
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(_deletePracticeString, connection))
+                {
+                    command.Parameters.AddWithValue("@ID", id);
+                    command.Connection.Open();
+                    command.ExecuteNonQuery();
+                    int noOfRows = command.ExecuteNonQuery();
+                    return noOfRows == 1;
+                }
+            }
+            return false;
         }
 
         public List<Practice> GetAllPractices()
