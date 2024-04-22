@@ -9,11 +9,11 @@ namespace TennisProjekt24.Services
     public class MemberService : Connection, IMemberService
     {
 
-        private string AddMemberSQL = "INSERT INTO Members VALUES(@Username, @Password, @Name, @Email, @PhoneNo, @Address, @Postcode, @MemberType, @Admin)";
-        private string DeleteMemberSQL = "DELETE FROM Members WHERE MemberId = @Id";
-        private string GetAllMembersSQL = "SELECT MemberId, Username, Password, Name, Email, PhoneNo, Address, Postcode, MemberType, Admin FROM Members";
-        private string GetMemberSQL = "SELECT MemberId, Username, Password, Name, Email, PhoneNo, Address, Postcode, MemberType, Admin FROM Members WHERE MemberId = @Id";
-        private string UpdateMemberSQL = "UPDATE Members SET Username = @Username, Password = @Password, Name = @Name, Email = @Email, PhoneNo = @PhoneNo, " +
+        private string _addMemberSQL = "INSERT INTO Members VALUES(@Username, @Password, @Name, @Email, @PhoneNo, @Address, @Postcode, @MemberType, @Admin)";
+        private string _deleteMemberSQL = "DELETE FROM Members WHERE MemberId = @Id";
+        private string _getAllMembersSQL = "SELECT MemberId, Username, Password, Name, Email, PhoneNo, Address, Postcode, MemberType, Admin FROM Members";
+        private string _getMemberSQL = "SELECT MemberId, Username, Password, Name, Email, PhoneNo, Address, Postcode, MemberType, Admin FROM Members WHERE MemberId = @Id";
+        private string _updateMemberSQL = "UPDATE Members SET Username = @Username, Password = @Password, Name = @Name, Email = @Email, PhoneNo = @PhoneNo, " +
             "Address = @Address, Postcode = @Postcode, MemberType = @MemberType, Admin = @Admin  " +
             "WHERE MemberId = @Id";
 
@@ -24,7 +24,7 @@ namespace TennisProjekt24.Services
             {
                 try
                 {
-                    SqlCommand command = new SqlCommand(AddMemberSQL, connection);
+                    SqlCommand command = new SqlCommand(_addMemberSQL, connection);
                     command.Parameters.AddWithValue("@Username", member.Username);
                     command.Parameters.AddWithValue("@Password", member.Password);
                     command.Parameters.AddWithValue("@Name", member.Name);
@@ -68,7 +68,7 @@ namespace TennisProjekt24.Services
             {
                 try
                 {
-                    SqlCommand command = new SqlCommand(DeleteMemberSQL, connection);
+                    SqlCommand command = new SqlCommand(_deleteMemberSQL, connection);
                     command.Parameters.AddWithValue("@Id", memberId);
                     command.Connection.Open();
                     int noOfRows = command.ExecuteNonQuery();
@@ -103,7 +103,7 @@ namespace TennisProjekt24.Services
             {
                 try
                 {
-                    SqlCommand command = new SqlCommand(GetAllMembersSQL, connection);
+                    SqlCommand command = new SqlCommand(_getAllMembersSQL, connection);
                     command.Connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read()) 
@@ -156,7 +156,7 @@ namespace TennisProjekt24.Services
                 
                 try
                 {
-                    SqlCommand command = new SqlCommand(GetMemberSQL, connection);
+                    SqlCommand command = new SqlCommand(_getMemberSQL, connection);
                     command.Parameters.AddWithValue("@Id", memberId);
                     command.Connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
