@@ -25,7 +25,7 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@Date", practice.StartDate);
                     command.Parameters.AddWithValue("@Title", practice.Title);
                     command.Parameters.AddWithValue("@NoTrain", practice.NoOfTrainings);
-                    command.Parameters.AddWithValue("@MaxAtendees", practice.MaxNoOfAtendees);
+                    command.Parameters.AddWithValue("@MaxAtendees", practice.MaxNoOfAttendees);
                     command.Parameters.AddWithValue("InstructorId", practice.InstructorId);
                     command.Parameters.AddWithValue("@Type", practice.Type);
                     command.Connection.Open();
@@ -117,7 +117,7 @@ namespace TennisProjekt24.Services
                         DateTime date = reader.GetDateTime("Date");
                         string title = (string)reader["Title"];
                         int NoOfTrainings = reader.GetInt32("NoOfTrainings");
-                        int MaxNoOfAteendees = reader.GetInt32("MaxNoOfAtendees");
+                        int MaxNoOfAteendees = reader.GetInt32("MaxNoOfAteendees");
                         int InstructorId = reader.GetInt32("InstructorId");
                         Enum.TryParse((string)reader["Type"], out PracticeTypeEnum Type);
                         Practice practice = new Practice(practiceId, date, title, NoOfTrainings, MaxNoOfAteendees, InstructorId, Type);
