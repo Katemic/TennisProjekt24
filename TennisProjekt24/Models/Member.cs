@@ -14,13 +14,29 @@ namespace TennisProjekt24.Models
 
         [Required(ErrorMessage = "Udfyld brugernavn")]
         public string Username { get; set; }
+
+        [Required(ErrorMessage ="Udfyld password")]
         public string Password { get; set; }
+
+        [Required(ErrorMessage = "Indtast navn")]
         public string Name { get; set; }
+
+        [Required(ErrorMessage ="Indtast email")]
+        [EmailAddress(ErrorMessage ="Indtast gyldig email")]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "Indtast telefonnummer")]
         public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Indtast adresse")]
         public string Address { get; set; }
+
+        [Required(ErrorMessage = "Indtast postnummer")]
         public string PostCode { get; set; }
+
+        [Required(ErrorMessage = "vælg medlemstype")]
         public MemberTypeEnum MemberType { get; set; }
+        
         public bool Admin { get; set; } 
 
         
