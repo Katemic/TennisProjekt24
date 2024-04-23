@@ -52,7 +52,9 @@ namespace TennisProjekt24.Services.Tests
         [TestMethod()]
         public void UpdatePracticeTest()
         {
-            Assert.Fail();
+            Setup();
+            Practice update = new Practice(0, DateTime.Now, "Den kunne opdateres", 6, 10, 2, PracticeTypeEnum.Intermediate);
+            Assert.IsTrue(service.UpdatePractice(update, 1019));
         }
     }
 }

@@ -13,6 +13,8 @@ namespace TennisProjekt24.Services
         private string _getPracticeString = $"SELECT * FROM Practices WHERE PracticeID = @ID";
         private string _addPracticeString = $"INSERT INTO Practices VALUES(@Date, @Title, @NoTrain, @MaxAtendees,  @Type , @InstructorId)";
         private string _deletePracticeString = $"DELETE FROM Practices WHERE PracticeId = @ID";
+        private string _updatePracticeString = $"UPDATE Practices SET Date = @Date, Title = @Title, NoOfTrainings = @NoTrain, " +
+                                                "MaxNoOfAteendees = @MaxAtendees, Type = @Type , InstructorId = @InstructorId WHERE PracticeId = @ID";
 
         public bool AddPractice(Practice practice)
         {
@@ -147,7 +149,28 @@ namespace TennisProjekt24.Services
 
         public bool UpdatePractice(Practice practice, int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(_updatePracticeString, connection))
+                {
+                    command.Parameters.AddWithValue("@Date", practice.StartDate);
+                    command.Parameters.AddWithValue("@Title", practice.Title);
+                    command.Parameters.AddWithValue("@NoTrain", practice.NoOfTrainings);
+                    command.Parameters.AddWithValue("@MaxAtendees", practice.MaxNoOfAttendees);
+                    command.Parameters.AddWithValue("@InstructorId", practice.InstructorId);
+                    command.Parameters.AddWithValue("@Type", practice.Type);
+                    command.Parameters.AddWithValue("@ID", id);
+                    command.Connection.Open();
+
+                    int noOfRows = command.ExecuteNonQuery();
+                    if (noOfRows == 1)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+            }
         }
     }
 }
