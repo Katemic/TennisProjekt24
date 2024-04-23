@@ -1,5 +1,9 @@
 ﻿namespace TennisProjekt24.Models
 {
+    public enum PracticeTypeEnum
+    {
+        Kids, Junior, Beginner, Intermediate, Advanced, ForEveryone
+    }
     public class Practice
     {
         public int PracticeId {  get; set; }
@@ -25,10 +29,7 @@
             Type = type;
         }
 
-        public enum PracticeTypeEnum
-        {
-            Kids, Junior, Beginner, Intermediate, Advanced, ForEveryone
-        }
+       
 
 
     }

@@ -20,7 +20,7 @@ namespace TennisProjekt24.Services.Tests
         public void AddPracticeTest()
         {
             Setup();
-            Practice tester = new Practice(0, DateTime.Now, "Test fra unit", 4, 5, 1, Practice.PracticeTypeEnum.Kids);
+            Practice tester = new Practice(0, DateTime.Now, "Test fra unit", 4, 5, 1, PracticeTypeEnum.ForEveryone);
             Assert.IsTrue(service.AddPractice(tester));
             //Assert.Fail();
         }
