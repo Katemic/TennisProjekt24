@@ -26,9 +26,9 @@ namespace TennisProjekt24.Pages.Practices
             return RedirectToPage("Index");
         }
 
-        public IActionResult OnCancel()
+        public IActionResult OnPostCancel()
         {
-            return RedirectToAction("Index");
+            return RedirectToPage("Index");
         }
 
     }

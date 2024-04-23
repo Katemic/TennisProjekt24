@@ -11,7 +11,7 @@ namespace TennisProjekt24.Services
     {
         private string _getAllPracticesString = $"SELECT PracticeId, Date, Title, NoOfTrainings, MaxNoOfAteendees, InstructorId, Type FROM Practices";
         private string _getPracticeString = $"SELECT * FROM Practices WHERE PracticeID = @ID";
-        private string _addPracticeString = $"INSERT INTO Practices VALUES(@Date, @Title, @NoTrain, @MaxAtendees, @InstructorId, @Type)";
+        private string _addPracticeString = $"INSERT INTO Practices VALUES(@Date, @Title, @NoTrain, @MaxAtendees,  @Type , @InstructorId)";
         private string _deletePracticeString = $"DELETE FROM Practices WHERE PracticeId = @ID";
 
         public bool AddPractice(Practice practice)
@@ -26,7 +26,7 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@Title", practice.Title);
                     command.Parameters.AddWithValue("@NoTrain", practice.NoOfTrainings);
                     command.Parameters.AddWithValue("@MaxAtendees", practice.MaxNoOfAttendees);
-                    command.Parameters.AddWithValue("InstructorId", practice.InstructorId);
+                    command.Parameters.AddWithValue("@InstructorId", practice.InstructorId);
                     command.Parameters.AddWithValue("@Type", practice.Type);
                     command.Connection.Open();
                     int noOfRows = command.ExecuteNonQuery();
