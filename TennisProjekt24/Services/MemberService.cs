@@ -16,6 +16,7 @@ namespace TennisProjekt24.Services
         private string _updateMemberSQL = "UPDATE Members SET Username = @Username, Password = @Password, Name = @Name, Email = @Email, PhoneNo = @PhoneNo, " +
             "Address = @Address, Postcode = @Postcode, MemberType = @MemberType, Admin = @Admin  " +
             "WHERE MemberId = @Id";
+        private string _VerifyLogin = "SELECT MemberId FROM Members WHERE Username = @Username AND Password = @Password";
 
 
         public bool AddMember(Member member)
@@ -233,6 +234,7 @@ namespace TennisProjekt24.Services
                 {
                     Console.WriteLine("Generel fejl: " + ex.Message);
 
+
                     throw ex;
                 }
                 finally
@@ -241,6 +243,55 @@ namespace TennisProjekt24.Services
                 }
 
             }
+        }
+
+
+        public Member VerifyLogin(string username, string password)
+        {
+            
+            Member member = null;
+            
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                
+                try
+                {
+                    SqlCommand command = new SqlCommand(_VerifyLogin, connection);
+                    command.Parameters.AddWithValue("@Username", username);
+                    command.Parameters.AddWithValue("@Password", password);
+                    command.Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int memberID = reader.GetInt32("MemberId");
+
+                        member = GetMember(memberID);
+
+                    }
+
+
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+
+                    throw sqlEx;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+
+            }
+
+
+            return member;
         }
     }
 }

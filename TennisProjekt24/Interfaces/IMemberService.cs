@@ -15,7 +15,7 @@ namespace TennisProjekt24.Interfaces
 
         List<Member> GetAllMembers();   
 
-
+        Member VerifyLogin(string username, string password);
 
 
     }
