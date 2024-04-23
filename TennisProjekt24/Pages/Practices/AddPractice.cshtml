@@ -30,11 +30,18 @@
         <input asp-for="@Model.Practice.InstructorId" class="form-control" />
         <span asp-validation-for="Practice.InstructorId" class="text-danger"></span>
     </div>
-    <div class="Form-group">
-        <label asp-for="@Model.Type" class="control-label"></label>
-        <select asp-asp-for="@Model.Type" asp-items="Html.GetEnumSelectList<PracticeTypeEnum>()" class="form-control">
-            <option selected="selected" value="">Please select</option>
-            </select>
+    <div class="form-group">
+        <label asp-for="@Model.Practice.Type" class="control-label">Type af trænning</label>
+    <br />
+    @foreach (var c in System.Enum.GetValues(typeof(PracticeTypeEnum)))
+    {
+        <input type="radio" asp-for="@Model.Practice.Type" value="@c" />
+        <label class="control-label">@c</label>
+        <br />
+
+    }
+
+    <span asp-validation-for="Practice.Type" class="text-danger"></span>
     </div>
     <div>
         <input type="submit" value="Add Practice" class="btn btn-primary" />
