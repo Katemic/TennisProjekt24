@@ -1,4 +1,5 @@
 ﻿using Azure.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace TennisProjekt24.Models
 {
@@ -10,6 +11,8 @@ namespace TennisProjekt24.Models
     public class Member
     {
         public int MemberId { get; set; }
+
+        [Required(ErrorMessage = "Udfyld brugernavn")]
         public string Username { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
