@@ -9,6 +9,5 @@ namespace TennisProjekt24.Interfaces
         bool UpdateCourt(int courtId, Court court);
         Court GetCourt(int courtId);
         List<Court> GetAllCourts();
-        void ChangeAvailability(int courtId);
     }
 }

@@ -9,9 +9,9 @@ namespace TennisProjekt24.Services
     {
         private string _getAllString = "SELECT * FROM Courts";
         private string _getByIdSql = "SELECT * FROM Courts WHERE CourtId=@CourtId";
-        private string _insertSql = "INSERT INTO Courts VALUES(@Outdoor, @CourtNumber, @CourtType, @Availability)";
+        private string _insertSql = "INSERT INTO Courts VALUES(@CourtNumber, @Outdoor, @CourtType, @Availability)";
         private string _deleteSql = "DELETE FROM Courts WHERE CourtId=@CourtId";
-        private string _updateSql = "UPDATE Courts SET Outdoor=@Outdoor, CourtNumber=@CourtNumber, CourtType=@CourtType, Availability=@Availability WHERE CourtId=@CourtId";
+        private string _updateSql = "UPDATE Courts SET Outdoor=@Outdoor, CourtNo=@CourtNumber, Type=@CourtType, Availability=@Availability WHERE CourtId=@CourtId";
         private string _availabilitySql = "UPDATE Courts SET Availability=@Availability WHERE CourtId=@CourtId";
 
         public bool AddCourt(Court court)
@@ -43,36 +43,6 @@ namespace TennisProjekt24.Services
                 }
             }
             return false;
-        }
-
-        public void ChangeAvailability(int courtId)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    SqlCommand command = new SqlCommand(_availabilitySql, connection);
-                    command.Parameters.AddWithValue("@CourtId", courtId);
-                    if (GetCourt(courtId).Availability)
-                        command.Parameters.AddWithValue("@Availability", true);
-                    else
-                        command.Parameters.AddWithValue("@Availability", false);
-                    command.Connection.Open();
-                    int noOfRows = command.ExecuteNonQuery();
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("Database error: " + sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("General fejl: " + ex.Message);
-                }
-                finally
-                {
-
-                }
-            }
         }
 
         public bool DeleteCourt(int courtId)
@@ -119,11 +89,10 @@ namespace TennisProjekt24.Services
                     {
                         int courtId = reader.GetInt32("CourtId");
                         bool outdoor = reader.GetBoolean("Outdoor");
-                        int courtNumber = reader.GetInt32("CourtNumber");
-                        string courtType = reader.GetString("CourtType");
-                        Enum.TryParse(courtType, out CourtTypeEnum courtTypeEnum);
+                        int courtNumber = reader.GetInt32("CourtNo");
+                        CourtTypeEnum courtType = (CourtTypeEnum)reader.GetInt32("Type");
                         bool availability = reader.GetBoolean("Availability");
-                        Court court = new Court(courtId, outdoor, courtNumber, courtTypeEnum, availability);
+                        Court court = new Court(courtId, outdoor, courtNumber, courtType, availability);
                         courts.Add(court);
                     }
                     reader.Close();
@@ -157,11 +126,10 @@ namespace TennisProjekt24.Services
                     if (reader.Read())
                     {
                         bool outdoor = reader.GetBoolean("Outdoor");
-                        int courtNumber = reader.GetInt32("CourtNumber");
-                        string courtType = reader.GetString("CourtType");
-                        Enum.TryParse(courtType, out CourtTypeEnum courtTypeEnum);
+                        int courtNumber = reader.GetInt32("CourtNo");
+                        CourtTypeEnum courtType = (CourtTypeEnum)reader.GetInt32("Type");
                         bool availability = reader.GetBoolean("Availability");
-                        Court court = new Court(courtId, outdoor, courtNumber, courtTypeEnum, availability);
+                        Court court = new Court(courtId, outdoor, courtNumber, courtType, availability);
                         return court;
                     }
                 }

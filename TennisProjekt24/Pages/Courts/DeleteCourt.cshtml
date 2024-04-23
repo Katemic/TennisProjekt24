@@ -1,0 +1,18 @@
+﻿@page
+@model TennisProjekt24.Pages.Courts.DeleteCourtModel
+@{
+    ViewData["Title"] = "Delete court";
+}
+
+<h1>Slet bane</h1>
+<form method="post">
+    <div class="form-group">
+        <label>id</label> : @Model.DeleteCourt.CourtId <br />
+        <label>outdoor</label> : @Model.DeleteCourt.Outdoor <br />
+        <label>number</label> : @Model.DeleteCourt.CourtNumber <br />
+        <label>type</label> : @Model.DeleteCourt.CourtType <br />
+        <label>availability</label> : @Model.DeleteCourt.Availability <br />
+
+        <input type="submit" asp-page-handler="Delete" asp-route-courtId="@Model.DeleteCourt.CourtId" value="Delete court" />
+    </div>
+</form>
