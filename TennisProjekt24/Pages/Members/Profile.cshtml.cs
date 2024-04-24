@@ -20,13 +20,13 @@ namespace TennisProjekt24.Pages.Members
 
         public IActionResult OnGet()
         {
-            int sessionMemberId = (int) HttpContext.Session.GetInt32("MemberId");
-            if (sessionMemberId == null) 
+            if (HttpContext.Session.GetInt32("MemberId") == null)
             {
                 return RedirectToPage("LogIn");
             }
             else
             {
+                int sessionMemberId = (int) HttpContext.Session.GetInt32("MemberId");
                 CurrentMember = _memberService.GetMember(sessionMemberId);
                 return Page();
             }

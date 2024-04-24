@@ -24,8 +24,15 @@ namespace TennisProjekt24.Pages.Members
         }
 
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (HttpContext.Session.GetInt32("MemberId") != null)
+            {
+                return RedirectToPage("Profile");
+            }
+
+            return Page();
+
         }
 
 

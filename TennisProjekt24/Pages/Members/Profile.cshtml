@@ -51,4 +51,13 @@
             <td>@Model.CurrentMember.Admin</td>
         </tr>
     </table>
+
+    <a asp-page="/Members/DeleteMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Slet</a>
+    <a asp-page="/Members/UpdateMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Opdater</a>
+    <a asp-page="/UKENDT" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">begivengeds tilmeldinger</a>
+    <a asp-page="/UKENDT" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Bane booking</a>
+    <a asp-page="/UKENDT" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Trænings tilmeldinger</a>
+    <a asp-page="/Members/index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Se medlemmer</a>
+
+
 </div>
