@@ -14,6 +14,7 @@ namespace TennisProjekt24.Models
         public bool Outdoor { get; set; }
         [Required(ErrorMessage = "Bane nummer er påkrævet")]
         public int CourtNumber { get; set; }
+        [Required(ErrorMessage = "Bane type er påkrævet")]
         public CourtTypeEnum CourtType { get; set; }
         public bool Availability { get; set; }
 

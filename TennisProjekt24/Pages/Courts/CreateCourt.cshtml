@@ -17,18 +17,15 @@
         <span asp-validation-for="@Model.NewCourt.CourtNumber" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.NewCourt.CourtType" class="control-label"></label>
-        <input asp-for="@Model.NewCourt.CourtType" class="form-control" />
-        @* <span asp-validation-for="@Model.NewCourt.CourtType" class="text-danger"></span> *@
-@* 
-        @foreach (var type in Enum.GetNames(typeof(@CourtTypeEnum)).Length)
+
+        @foreach (var type in System.Enum.GetValues(typeof(@CourtTypeEnum)))
         {
             <input type="radio" asp-for="@Model.NewCourt.CourtType" value="@type" />
-
-            @type
-
+            <label class="control-label">@type</label>
             <br />
-        } *@
+        }
+        <span asp-validation-for="@Model.NewCourt.CourtType" class="text-danger"></span>
+
     </div>
     <div class="form-group">
         <input asp-for="@Model.NewCourt.Availability" />Tilgængelig<br />
