@@ -33,7 +33,20 @@ namespace TennisProjekt24.Models
             Availability = availability;
         }
 
-  
+        public override bool Equals(object? obj)
+        {
+            if (obj == null) return false;
+            if (!(obj is Court)) return false;
+            if (
+                (((Court)obj).CourtId == this.CourtId) &&
+                (((Court)obj).Outdoor == this.Outdoor) &&
+                (((Court)obj).CourtNumber == this.CourtNumber) &&
+                (((Court)obj).CourtType == this.CourtType) &&
+                (((Court)obj).Availability == this.Availability)
+            ) return true;
+            return false;
+        }
+
 
     }
 }
