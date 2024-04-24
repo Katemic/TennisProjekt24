@@ -5,4 +5,50 @@
 }
 
 <h1>Min side</h1>
-<p>@Model.CurrentMember.Username</p>
+<p> Hej @Model.CurrentMember.Username</p>
+
+
+<div class="form-group">
+    <table class="table">
+        <tr>
+            <th>Medlems id</th>
+            <td>@Model.CurrentMember.MemberId</td>
+        </tr>
+        <tr>
+            <th>Brugernavn</th>
+            <td>@Model.CurrentMember.Username</td>
+        </tr>
+        <tr>
+            <th>Password</th>
+            <td>@Model.CurrentMember.Password</td>
+        </tr>
+        <tr>
+            <th>Navn</th>
+            <td>@Model.CurrentMember.Name</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>@Model.CurrentMember.Email</td>
+        </tr>
+        <tr>
+            <th>Telefon Nummer</th>
+            <td>@Model.CurrentMember.PhoneNumber</td>
+        </tr>
+        <tr>
+            <th>Adresse</th>
+            <td>@Model.CurrentMember.Address</td>
+        </tr>
+        <tr>
+            <th>Postnummer</th>
+            <td>@Model.CurrentMember.PostCode</td>
+        </tr>
+        <tr>
+            <th>Type af medlemsskab</th>
+            <td>@Model.CurrentMember.MemberType</td>
+        </tr>
+        <tr>
+            <th>Admin</th>
+            <td>@Model.CurrentMember.Admin</td>
+        </tr>
+    </table>
+</div>
