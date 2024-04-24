@@ -1,4 +1,6 @@
-﻿namespace TennisProjekt24.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TennisProjekt24.Models
 {
     public enum CourtTypeEnum
     {
@@ -10,6 +12,7 @@
 
         public int CourtId { get; set; }
         public bool Outdoor { get; set; }
+        [Required(ErrorMessage = "Bane nummer er påkrævet")]
         public int CourtNumber { get; set; }
         public CourtTypeEnum CourtType { get; set; }
         public bool Availability { get; set; }

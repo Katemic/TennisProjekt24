@@ -12,6 +12,8 @@ namespace TennisProjekt24.Pages.Courts
 
         [BindProperty]
         public Court NewCourt { get; set; }
+        [BindProperty]
+        public int Type {  get; set; }
 
         public CreateCourtsModel(ICourtService courtService)
         {
@@ -23,6 +25,10 @@ namespace TennisProjekt24.Pages.Courts
 
         public IActionResult OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             try
             {
                 _courtService.AddCourt(NewCourt);
