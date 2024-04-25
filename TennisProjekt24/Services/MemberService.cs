@@ -17,7 +17,7 @@ namespace TennisProjekt24.Services
             "Address = @Address, Postcode = @Postcode, MemberType = @MemberType, Admin = @Admin  " +
             "WHERE MemberId = @Id";
         private string _verifyLoginSQL = "SELECT MemberId FROM Members WHERE Username = @Username AND Password = @Password";
-        private string _checkUsernameSQL = "";
+        private string _checkUsernameSQL = "SELECT * FROM Members WHERE Username = @Username";
 
 
         public bool AddMember(Member member)
@@ -298,7 +298,46 @@ namespace TennisProjekt24.Services
 
         public bool CheckUsername(string username)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+                bool check = true;
+
+                try
+                {
+                    SqlCommand command = new SqlCommand(_checkUsernameSQL, connection);
+                    command.Parameters.AddWithValue("@Username", username);
+                    command.Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        check = false;
+                    }
+                    reader.Close();
+
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+
+                    throw sqlEx;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+
+                return check;
+            }
+
+            
+
         }
 
     }
