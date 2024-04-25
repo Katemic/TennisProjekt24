@@ -17,6 +17,8 @@ namespace TennisProjekt24.Interfaces
 
         Member VerifyLogin(string username, string password);
 
+        bool CheckUsername(string username);
+
 
     }
 }

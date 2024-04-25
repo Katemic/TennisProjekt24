@@ -21,7 +21,7 @@ namespace TennisProjekt24.Services
 
         public bool AddMember(Member member)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString)) 
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
                 {
@@ -58,14 +58,14 @@ namespace TennisProjekt24.Services
 
 
             }
-            
-            
+
+
         }
 
         public bool DeleteMember(int memberId)
         {
 
-            using (SqlConnection connection = new SqlConnection(connectionString)) 
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
                 {
@@ -100,14 +100,14 @@ namespace TennisProjekt24.Services
         public List<Member> GetAllMembers()
         {
             List<Member> members = new List<Member>();
-            using (SqlConnection connection = new SqlConnection(connectionString)) 
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
                 {
                     SqlCommand command = new SqlCommand(_getAllMembersSQL, connection);
                     command.Connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read()) 
+                    while (reader.Read())
                     {
                         int memberId = reader.GetInt32("MemberId");
                         string username = reader.GetString("Username");
@@ -121,7 +121,7 @@ namespace TennisProjekt24.Services
                         //MemberTypeEnum memberTypeEnum = (MemberTypeEnum) Enum.Parse(typeof(MemberTypeEnum), memberType);
                         //MemberTypeEnum membertype = Enum.TryParse(typeof(MemberTypeEnum), reader.GetString("MemberType")); 
                         bool admin = reader.GetBoolean("Admin");
-                        Member member = new Member(memberId,username,password,name,email,phoneNo,address,postcode,memberType,admin);
+                        Member member = new Member(memberId, username, password, name, email, phoneNo, address, postcode, memberType, admin);
                         members.Add(member);
                     }
                     reader.Close();
@@ -152,16 +152,16 @@ namespace TennisProjekt24.Services
         public Member GetMember(int memberId)
         {
             Member member = null;
-            using (SqlConnection connection = new SqlConnection(connectionString)) 
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                
+
                 try
                 {
                     SqlCommand command = new SqlCommand(_getMemberSQL, connection);
                     command.Parameters.AddWithValue("@Id", memberId);
                     command.Connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read()) 
+                    while (reader.Read())
                     {
                         int memberID = reader.GetInt32("MemberId");
                         string username = reader.GetString("Username");
@@ -171,7 +171,7 @@ namespace TennisProjekt24.Services
                         string phoneNo = reader.GetString("PhoneNo");
                         string address = reader.GetString("Address");
                         string postcode = reader.GetString("PostCode");
-                        MemberTypeEnum memberType = (MemberTypeEnum) reader.GetInt32("MemberType");
+                        MemberTypeEnum memberType = (MemberTypeEnum)reader.GetInt32("MemberType");
                         //MemberTypeEnum memberTypeEnum = (MemberTypeEnum)Enum.Parse(typeof(MemberTypeEnum), memberType);
                         //MemberTypeEnum membertype = Enum.TryParse(typeof(MemberTypeEnum), reader.GetString("MemberType")); 
                         bool admin = reader.GetBoolean("Admin");
@@ -204,20 +204,20 @@ namespace TennisProjekt24.Services
 
         public bool UpdateMember(Member member, int memberId)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString)) 
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
                 {
                     SqlCommand command = new SqlCommand(_updateMemberSQL, connection);
                     command.Parameters.AddWithValue("@Id", memberId);
-                    command.Parameters.AddWithValue("@Username",member.Username);
-                    command.Parameters.AddWithValue("@Password",member.Password);
-                    command.Parameters.AddWithValue("@Name",member.Name);
-                    command.Parameters.AddWithValue("@Email",member.Email);
-                    command.Parameters.AddWithValue("@PhoneNo",member.PhoneNumber);
-                    command.Parameters.AddWithValue("@Address",member.Address);
-                    command.Parameters.AddWithValue("@Postcode",member.PostCode);
-                    command.Parameters.AddWithValue("@MemberType",member.MemberType);
+                    command.Parameters.AddWithValue("@Username", member.Username);
+                    command.Parameters.AddWithValue("@Password", member.Password);
+                    command.Parameters.AddWithValue("@Name", member.Name);
+                    command.Parameters.AddWithValue("@Email", member.Email);
+                    command.Parameters.AddWithValue("@PhoneNo", member.PhoneNumber);
+                    command.Parameters.AddWithValue("@Address", member.Address);
+                    command.Parameters.AddWithValue("@Postcode", member.PostCode);
+                    command.Parameters.AddWithValue("@MemberType", member.MemberType);
                     command.Parameters.AddWithValue("@Admin", member.Admin);
                     command.Connection.Open();
                     int noOfRows = command.ExecuteNonQuery();
@@ -248,12 +248,12 @@ namespace TennisProjekt24.Services
 
         public Member VerifyLogin(string username, string password)
         {
-            
+
             Member member = null;
-            
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                
+
                 try
                 {
                     SqlCommand command = new SqlCommand(_VerifyLogin, connection);
@@ -293,5 +293,13 @@ namespace TennisProjekt24.Services
 
             return member;
         }
+
+
+        public bool CheckUsername(string username)
+        {
+            throw new NotImplementedException();
+        }
+
     }
+
 }
