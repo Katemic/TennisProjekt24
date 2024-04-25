@@ -1,0 +1,65 @@
+﻿@page
+@model TennisProjekt24.Pages.Members.ProfileModel
+@{
+    ViewData["Title"] = "Login page";
+}
+
+<h1>Min side</h1>
+<p> Hej @Model.CurrentMember.Username</p>
+
+
+<div class="form-group">
+    <table class="table">
+        <tr>
+            <th>Medlems id</th>
+            <td>@Model.CurrentMember.MemberId</td>
+        </tr>
+        <tr>
+            <th>Brugernavn</th>
+            <td>@Model.CurrentMember.Username</td>
+        </tr>
+        <tr>
+            <th>Password</th>
+            <td>@Model.CurrentMember.Password</td>
+        </tr>
+        <tr>
+            <th>Navn</th>
+            <td>@Model.CurrentMember.Name</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>@Model.CurrentMember.Email</td>
+        </tr>
+        <tr>
+            <th>Telefon Nummer</th>
+            <td>@Model.CurrentMember.PhoneNumber</td>
+        </tr>
+        <tr>
+            <th>Adresse</th>
+            <td>@Model.CurrentMember.Address</td>
+        </tr>
+        <tr>
+            <th>Postnummer</th>
+            <td>@Model.CurrentMember.PostCode</td>
+        </tr>
+        <tr>
+            <th>Type af medlemsskab</th>
+            <td>@Model.CurrentMember.MemberType</td>
+        </tr>
+        <tr>
+            <th>Admin</th>
+            <td>@Model.CurrentMember.Admin</td>
+        </tr>
+    </table>
+
+    <a asp-page="/Members/DeleteMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Slet</a>
+    <a asp-page="/Members/UpdateMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Opdater</a>
+    <a asp-page="/Members/index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Se medlemmer</a>
+    <br /> <br /> 
+    <a asp-page="/UKENDT" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">begivenheds tilmeldinger</a>
+    <a asp-page="/UKENDT" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Bane booking</a>
+    <a asp-page="/UKENDT" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Trænings tilmeldinger</a>
+    <br />
+    <a asp-page="/Members/LogIn" asp-page-handler="Logout" class="btn btn-warning">Log ud</a>
+
+</div>

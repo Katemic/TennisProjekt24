@@ -1,0 +1,88 @@
+﻿@page
+@using TennisProjekt24.Models;
+@model TennisProjekt24.Pages.Members.UpdateMemberModel
+@{
+    ViewData["Title"] = "Update Member";
+}
+
+<h1>Opdater dine oplysninger</h1>
+
+
+<form method="post">
+
+    <div class="form-group">
+        <label asp-for="@Model.UpdatedMember.MemberId" class="control-label">Bruger Id</label>
+        <input asp-for="@Model.UpdatedMember.MemberId" class="form-control" readonly="readonly" />
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="@Model.UpdatedMember.Username" class="control-label">Brugernavn</label>
+        <input asp-for="@Model.UpdatedMember.Username" class="form-control" />
+        <span asp-validation-for="UpdatedMember.Username" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+    <label asp-for="@Model.UpdatedMember.Password" class="control-label">Password</label>
+    <input asp-for="@Model.UpdatedMember.Password" class="form-control" />
+    <span asp-validation-for="UpdatedMember.Password" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+    <label asp-for="@Model.UpdatedMember.Name" class="control-label">Navn</label>
+    <input asp-for="@Model.UpdatedMember.Name" class="form-control" />
+    <span asp-validation-for="UpdatedMember.Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+    <label asp-for="@Model.UpdatedMember.Email" class="control-label">Email</label>
+    <input asp-for="@Model.UpdatedMember.Email" class="form-control" />
+    <span asp-validation-for="UpdatedMember.Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+    <label asp-for="@Model.UpdatedMember.PhoneNumber" class="control-label">Telefon nummer</label>
+    <input asp-for="@Model.UpdatedMember.PhoneNumber" class="form-control" />
+    <span asp-validation-for="UpdatedMember.PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+    <label asp-for="@Model.UpdatedMember.Address" class="control-label">Adresse</label>
+    <input asp-for="@Model.UpdatedMember.Address" class="form-control" />
+    <span asp-validation-for="UpdatedMember.Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+    <label asp-for="@Model.UpdatedMember.PostCode" class="control-label">Postnummer</label>
+    <input asp-for="@Model.UpdatedMember.PostCode" class="form-control" />
+    <span asp-validation-for="UpdatedMember.PostCode" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+    <label asp-for="@Model.UpdatedMember.MemberType" class="control-label">Type af medlemsskab</label>
+        <br />
+        @foreach (var c in System.Enum.GetValues(typeof(MemberTypeEnum)))
+        {
+        <input type="radio" asp-for="@Model.UpdatedMember.MemberType" value="@c" />
+            <label class="control-label">@c</label>
+            <br />
+
+        }
+
+    <span asp-validation-for="UpdatedMember.MemberType" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+    <label asp-for="@Model.UpdatedMember.Admin" class="control-label">Admin</label>
+    <input type="checkbox" asp-for="@Model.UpdatedMember.Admin" class="form-check-input">
+    <span asp-validation-for="UpdatedMember.Admin" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <br /> <br />
+        <input type="submit" asp-route-id="@Model.UpdatedMember.MemberId" value="Opdater medlem" class="btn btn-primary" />
+        <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+    </div>
+</form>
+
