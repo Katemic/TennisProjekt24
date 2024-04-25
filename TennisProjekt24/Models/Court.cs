@@ -4,7 +4,7 @@ namespace TennisProjekt24.Models
 {
     public enum CourtTypeEnum
     {
-        Padel, Tennis, PickleBall
+        None, Padel, Tennis, PickleBall
     }
 
     public class Court
@@ -13,7 +13,8 @@ namespace TennisProjekt24.Models
         public int CourtId { get; set; }
         public bool Outdoor { get; set; }
         [Required(ErrorMessage = "Bane nummer er påkrævet")]
-        public int CourtNumber { get; set; }
+        [Range(1, 100, ErrorMessage = "Bane nummer er påkrævet")]
+        public int? CourtNumber { get; set; }
         [Required(ErrorMessage = "Bane type er påkrævet")]
         public CourtTypeEnum CourtType { get; set; }
         public bool Availability { get; set; }

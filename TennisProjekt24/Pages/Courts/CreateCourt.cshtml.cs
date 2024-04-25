@@ -23,6 +23,10 @@ namespace TennisProjekt24.Pages.Courts
 
         public IActionResult OnPost()
         {
+            if (NewCourt.CourtType == CourtTypeEnum.None)
+            {
+                return Page();
+            }
             if (!ModelState.IsValid)
             {
                 return Page();
