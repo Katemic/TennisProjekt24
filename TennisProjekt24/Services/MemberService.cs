@@ -16,7 +16,8 @@ namespace TennisProjekt24.Services
         private string _updateMemberSQL = "UPDATE Members SET Username = @Username, Password = @Password, Name = @Name, Email = @Email, PhoneNo = @PhoneNo, " +
             "Address = @Address, Postcode = @Postcode, MemberType = @MemberType, Admin = @Admin  " +
             "WHERE MemberId = @Id";
-        private string _VerifyLogin = "SELECT MemberId FROM Members WHERE Username = @Username AND Password = @Password";
+        private string _verifyLoginSQL = "SELECT MemberId FROM Members WHERE Username = @Username AND Password = @Password";
+        private string _checkUsernameSQL = "";
 
 
         public bool AddMember(Member member)
@@ -256,7 +257,7 @@ namespace TennisProjekt24.Services
 
                 try
                 {
-                    SqlCommand command = new SqlCommand(_VerifyLogin, connection);
+                    SqlCommand command = new SqlCommand(_verifyLoginSQL, connection);
                     command.Parameters.AddWithValue("@Username", username);
                     command.Parameters.AddWithValue("@Password", password);
                     command.Connection.Open();
