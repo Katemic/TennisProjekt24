@@ -23,7 +23,13 @@ namespace TennisProjekt24.Models
         {
             
         }
-
+        public Court(bool outdoor, int courtNumber, CourtTypeEnum courtType, bool availability)
+        {
+            Outdoor = outdoor;
+            CourtNumber = courtNumber;
+            CourtType = courtType;
+            Availability = availability;
+        }
         public Court(int courtId, bool outdoor, int courtNumber, CourtTypeEnum courtType, bool availability)
         {
             CourtId = courtId;

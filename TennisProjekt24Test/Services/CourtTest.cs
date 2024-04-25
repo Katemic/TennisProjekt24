@@ -15,7 +15,7 @@ namespace TennisProjekt24Test.Services
         {
             int numberBefore = _courtService.GetAllCourts().Count();
 
-            Court court = new Court(29, false, 2, CourtTypeEnum.Padel, true);
+            Court court = new Court(false, 2, CourtTypeEnum.Padel, true);
             _courtService.AddCourt(court);
 
             int numberAfter = _courtService.GetAllCourts().Count();
@@ -26,7 +26,7 @@ namespace TennisProjekt24Test.Services
         [TestMethod]
         public void TestDeleteCourt() 
         {
-            Court court = new Court(29, false, 2, CourtTypeEnum.Padel, true);
+            Court court = new Court(false, 2, CourtTypeEnum.Padel, true);
             _courtService.AddCourt(court);
             int numberBefore = _courtService.GetAllCourts().Count();
 
@@ -38,7 +38,7 @@ namespace TennisProjekt24Test.Services
         [TestMethod]
         public void TestUpdateCourt() 
         {
-            Court court = new Court(29, false, 2, CourtTypeEnum.Padel, true);
+            Court court = new Court(false, 2, CourtTypeEnum.Padel, true);
             _courtService.AddCourt(court);
 
             Court newCourt = new Court(_courtService.GetAllCourts().Last().CourtId, true, 1, CourtTypeEnum.PickleBall, false);
