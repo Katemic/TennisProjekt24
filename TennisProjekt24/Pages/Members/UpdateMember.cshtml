@@ -20,6 +20,7 @@
         <label asp-for="@Model.UpdatedMember.Username" class="control-label">Brugernavn</label>
         <input asp-for="@Model.UpdatedMember.Username" class="form-control" />
         <span asp-validation-for="UpdatedMember.Username" class="text-danger"></span>
+        <p class="text-danger">@Model.UsernameMessage</p>
     </div>
 
     <div class="form-group">
