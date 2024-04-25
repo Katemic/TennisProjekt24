@@ -35,6 +35,11 @@ namespace TennisProjekt24.Pages.Members
 
         }
 
+        public void OnGetLogout()
+        {
+            HttpContext.Session.Remove("MemberId");
+        }
+
 
         public IActionResult OnPost() 
         {
