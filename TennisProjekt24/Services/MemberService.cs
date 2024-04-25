@@ -117,11 +117,11 @@ namespace TennisProjekt24.Services
                         string phoneNo = reader.GetString("PhoneNo");
                         string address = reader.GetString("Address");
                         string postcode = reader.GetString("PostCode");
-                        string memberType = reader.GetString("MemberType");
-                        MemberTypeEnum memberTypeEnum = (MemberTypeEnum) Enum.Parse(typeof(MemberTypeEnum), memberType);
+                        MemberTypeEnum memberType = (MemberTypeEnum)reader.GetInt32("MemberType");
+                        //MemberTypeEnum memberTypeEnum = (MemberTypeEnum) Enum.Parse(typeof(MemberTypeEnum), memberType);
                         //MemberTypeEnum membertype = Enum.TryParse(typeof(MemberTypeEnum), reader.GetString("MemberType")); 
                         bool admin = reader.GetBoolean("Admin");
-                        Member member = new Member(memberId,username,password,name,email,phoneNo,address,postcode,memberTypeEnum,admin);
+                        Member member = new Member(memberId,username,password,name,email,phoneNo,address,postcode,memberType,admin);
                         members.Add(member);
                     }
                     reader.Close();
@@ -171,11 +171,11 @@ namespace TennisProjekt24.Services
                         string phoneNo = reader.GetString("PhoneNo");
                         string address = reader.GetString("Address");
                         string postcode = reader.GetString("PostCode");
-                        string memberType = reader.GetString("MemberType");
-                        MemberTypeEnum memberTypeEnum = (MemberTypeEnum)Enum.Parse(typeof(MemberTypeEnum), memberType);
+                        MemberTypeEnum memberType = (MemberTypeEnum) reader.GetInt32("MemberType");
+                        //MemberTypeEnum memberTypeEnum = (MemberTypeEnum)Enum.Parse(typeof(MemberTypeEnum), memberType);
                         //MemberTypeEnum membertype = Enum.TryParse(typeof(MemberTypeEnum), reader.GetString("MemberType")); 
                         bool admin = reader.GetBoolean("Admin");
-                        member = new Member(memberID, username, password, name, email, phoneNo, address, postcode, memberTypeEnum, admin);
+                        member = new Member(memberID, username, password, name, email, phoneNo, address, postcode, memberType, admin);
 
                     }
 
