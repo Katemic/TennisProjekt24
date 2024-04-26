@@ -81,8 +81,8 @@ namespace TennisProjekt24.Services
                         int NoOfTrainings = reader.GetInt32("NoOfTrainings");
                         int MaxNoOfAteendees = reader.GetInt32("MaxNoOfAteendees");
                         int InstructorId = reader.GetInt32("InstructorId");
-                        Enum.TryParse((string)reader["Type"], out PracticeTypeEnum Type);
-                        Practice practice = new Practice(practiceId, date, title, NoOfTrainings, MaxNoOfAteendees, InstructorId, Type);
+                        PracticeTypeEnum type = (PracticeTypeEnum)reader.GetInt32("Type");
+                        Practice practice = new Practice(practiceId, date, title, NoOfTrainings, MaxNoOfAteendees, InstructorId, type);
                         practices.Add(practice);
                     }
                 }
@@ -121,8 +121,8 @@ namespace TennisProjekt24.Services
                         int NoOfTrainings = reader.GetInt32("NoOfTrainings");
                         int MaxNoOfAteendees = reader.GetInt32("MaxNoOfAteendees");
                         int InstructorId = reader.GetInt32("InstructorId");
-                        Enum.TryParse((string)reader["Type"], out PracticeTypeEnum Type);
-                        Practice practice = new Practice(practiceId, date, title, NoOfTrainings, MaxNoOfAteendees, InstructorId, Type);
+                        PracticeTypeEnum type = (PracticeTypeEnum)reader.GetInt32("Type");
+                        Practice practice = new Practice(practiceId, date, title, NoOfTrainings, MaxNoOfAteendees, InstructorId, type);
                         return practice;
                     }
                 }

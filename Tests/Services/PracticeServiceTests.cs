@@ -34,7 +34,8 @@ namespace TennisProjekt24.Services.Tests
         [TestMethod()]
         public void GetAllPracticesTest()
         {
-            Assert.Fail();
+            Setup();
+            Assert.AreEqual(8, service.GetAllPractices().Count);
         }
 
         [TestMethod()]

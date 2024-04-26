@@ -13,5 +13,13 @@
         {
             
         }
+        public Instructor(int id, string name, string phonNo, string desc, string img)
+        {
+            InstructorId = id;
+            Name = name;
+            PhoneNumber = phonNo;
+            Description = desc;
+            Image = img;
+        }
     }
 }
