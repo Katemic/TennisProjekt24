@@ -29,7 +29,8 @@ namespace TennisProjekt24.Services.Tests
         [TestMethod()]
         public void DeleteInstructorTest()
         {
-            Assert.Fail();
+            Setup();
+            Assert.IsTrue(_instructorService.DeleteInstructor(1003));
         }
 
         [TestMethod()]
