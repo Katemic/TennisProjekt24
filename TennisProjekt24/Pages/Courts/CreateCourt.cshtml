@@ -22,7 +22,7 @@
     <div class="form-group">
         <label asp-for="@Model.NewCourt.CourtType" class="control-label"></label>
         <br />
-        @foreach (var type in System.Enum.GetValues(typeof(@CourtTypeEnum)))  //tilføj none radio button
+        @foreach (var type in System.Enum.GetValues(typeof(@CourtTypeEnum)))
         {
             <input type="radio" asp-for="@Model.NewCourt.CourtType" value="@type" />
             <label class="control-label">@type</label>
