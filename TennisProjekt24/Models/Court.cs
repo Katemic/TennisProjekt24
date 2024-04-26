@@ -16,7 +16,8 @@ namespace TennisProjekt24.Models
         [Range(1, 100, ErrorMessage = "Bane nummer er påkrævet")]
         public int? CourtNumber { get; set; }
         [Required(ErrorMessage = "Bane type er påkrævet")]
-        public CourtTypeEnum CourtType { get; set; }
+        [Range(1, 100, ErrorMessage = "Bane type er påkrævet")]
+        public CourtTypeEnum? CourtType { get; set; }
         public bool Availability { get; set; }
 
 
