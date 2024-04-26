@@ -1,0 +1,59 @@
+﻿@page
+@model TennisProjekt24.Pages.Members.DeleteMemberModel
+@{
+    ViewData["Title"] = "Delete Member";
+}
+
+
+<h1>Slet medlem</h1>
+
+<form method="post">
+    <div class="form-group">
+        <table class="table">
+            <tr>
+                <th>Medlems id</th>
+                <td>@Model.MemberToDelete.MemberId</td>
+            </tr>
+            <tr>
+                <th>Brugernavn</th>
+                <td>@Model.MemberToDelete.Username</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>@Model.MemberToDelete.Password</td>
+            </tr>
+            <tr>
+                <th>Navn</th>
+                <td>@Model.MemberToDelete.Name</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>@Model.MemberToDelete.Email</td>
+            </tr>
+            <tr>
+                <th>Telefon Nummer</th>
+                <td>@Model.MemberToDelete.PhoneNumber</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>@Model.MemberToDelete.Address</td>
+            </tr>
+            <tr>
+                <th>Postnummer</th>
+                <td>@Model.MemberToDelete.PostCode</td>
+            </tr>
+            <tr>
+                <th>Type af medlemsskab</th>
+                <td>@Model.MemberToDelete.MemberType</td>
+            </tr>
+            <tr>
+                <th>Admin</th>
+                <td>@Model.MemberToDelete.Admin</td>
+            </tr>
+        </table>
+
+        <br />
+        <input type="submit" value="Slet" asp-route-id="@Model.MemberToDelete.MemberId" class="btn btn-danger" />
+        <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+    </div>
+</form>
