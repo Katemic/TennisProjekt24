@@ -1,4 +1,7 @@
-﻿using TennisProjekt24.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.Data.SqlClient;
+using System.Data;
+using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
 
 namespace TennisProjekt24.Services
@@ -15,27 +18,198 @@ namespace TennisProjekt24.Services
 
         public bool AddPost(NewsPost newsPost)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString)) 
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(_addPostSQL, connection);
+                    command.Parameters.AddWithValue("@Title", newsPost.Title);
+                    command.Parameters.AddWithValue("@Text", newsPost.Text);
+                    command.Parameters.AddWithValue("@Date", newsPost.Date);
+                    command.Parameters.AddWithValue("@MemberId", newsPost.MemberId);
+                    command.Connection.Open();
+                    int noOfRows = command.ExecuteNonQuery();
+                    return noOfRows == 1;
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+
+                    throw sqlEx;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+
+
+            }
         }
 
         public bool DeletePost(int newsPostId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(_deletePostSQL, connection);
+                    command.Parameters.AddWithValue("@Id", newsPostId);
+                    command.Connection.Open();
+                    int noOfRows = command.ExecuteNonQuery();
+                    return noOfRows == 1;
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+
+                    throw sqlEx;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+
+            }
         }
+
+
 
         public List<NewsPost> GetAllPosts()
         {
-            throw new NotImplementedException();
+            List<NewsPost> posts = new List<NewsPost>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(_getAllPostsSQL, connection);
+                    command.Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read()) 
+                    {
+                        int newsPostId = reader.GetInt32("NewsPostId");
+                        string title = reader.GetString("Title");
+                        string text = reader.GetString("Text");
+                        DateTime date = reader.GetDateTime("Date");
+                        int memberId = reader.GetInt32("MemberId");
+                        NewsPost newsPost = new NewsPost(newsPostId, title, text, date, memberId);
+                        posts.Add(newsPost);
+                    }
+                    reader.Close();
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+
+                    throw sqlEx;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+
+            }
+
+            return posts;
+
         }
 
         public NewsPost GetPost(int newsPostId)
         {
-            throw new NotImplementedException();
+            NewsPost newsPost = null;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(_getPostSQL, connection);
+                    command.Parameters.AddWithValue("@Id",newsPostId);
+                    command.Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int postId = reader.GetInt32("NewsPostId");
+                        string title = reader.GetString("Title");
+                        string text = reader.GetString("Text");
+                        DateTime date = reader.GetDateTime("Date");
+                        int memberId = reader.GetInt32("MemberId");
+                        newsPost = new NewsPost(postId, title, text, date, memberId);
+                    }
+                    reader.Close();
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+
+                    throw sqlEx;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+
+            }
+
+            return newsPost;
         }
 
         public bool UpdatePost(NewsPost newsPost, int newsPostId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(_updatePostSQL, connection);
+                    command.Parameters.AddWithValue("@Id", newsPostId);
+                    command.Parameters.AddWithValue("@Title", newsPost.Title);
+                    command.Parameters.AddWithValue("@Text", newsPost.Text);
+                    command.Parameters.AddWithValue("@Date", newsPost.Date);
+                    command.Parameters.AddWithValue("@MemberId", newsPost.MemberId);
+                    command.Connection.Open();
+                    int noOfRows = command.ExecuteNonQuery();
+                    return noOfRows == 1;
+
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+
+                    throw sqlEx;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+
+            }
         }
     }
 }
