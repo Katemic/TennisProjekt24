@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 builder.Services.AddTransient<IMemberService,MemberService>();
+builder.Services.AddTransient<INewsPostService,NewsPostService>();
 
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
