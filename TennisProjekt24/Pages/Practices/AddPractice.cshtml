@@ -1,0 +1,46 @@
+﻿@page
+@using TennisProjekt24.Models
+@model TennisProjekt24.Pages.Practices.AddPracticeModel
+@{
+    ViewData["Title"] = "Add Practice";
+}
+<form method="post">
+    <div class="form-group datepickers" >
+        <label asp-for="@Model.Practice.StartDate" class="control-label"></label>
+        <input asp-for="@Model.Practice.StartDate" class="form-control" />
+        <span asp-validation-for="Practice.StartDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Practice.Title" class="control-label"></label>
+        <input asp-for="@Model.Practice.Title" class="form-control" />
+        <span asp-validation-for="Practice.Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Practice.NoOfTrainings" class="control-label"></label>
+        <input asp-for="@Model.Practice.NoOfTrainings" class="form-control" />
+        <span asp-validation-for="Practice.NoOfTrainings" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Practice.MaxNoOfAttendees" class="control-label"></label>
+        <input asp-for="@Model.Practice.MaxNoOfAttendees" class="form-control" />
+        <span asp-validation-for="Practice.MaxNoOfAttendees" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Practice.InstructorId" class="control-label"></label>
+        <input asp-for="@Model.Practice.InstructorId" class="form-control" />
+        <span asp-validation-for="Practice.InstructorId" class="text-danger"></span>
+    </div>
+    <div class="Form-group">
+        <label asp-for="@Model.Type" class="control-label"></label>
+        <select asp-asp-for="@Model.Type" asp-items="Html.GetEnumSelectList<Practice.PracticeTypeEnum>()" class="form-control">
+            <option selected="selected" value="">Please select</option>
+            </select>
+    </div>
+    <div>
+        <input type="submit" value="Create a Hotel" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
