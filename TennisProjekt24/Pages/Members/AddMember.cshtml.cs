@@ -28,16 +28,16 @@ namespace TennisProjekt24.Pages.Members
 
         public IActionResult OnPost() 
         {
-            if (_memberService.CheckUsername(NewMember.Username) == false)  
-            {
-                UsernameMessage = "Brugernavnet er allerede taget, vælg venligst et andet";
-                return Page();
-            }
+           
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            
+             if (_memberService.CheckUsername(NewMember.Username) == false)  
+            {
+                UsernameMessage = "Brugernavnet er allerede taget, vælg venligst et andet";
+                return Page();
+            }
 
             _memberService.AddMember(NewMember);
             return RedirectToPage("Index");
