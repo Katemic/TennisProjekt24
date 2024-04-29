@@ -1,0 +1,44 @@
+﻿@page
+@model TennisProjekt24.Pages.NewsPosts.AddPostModel
+@{
+    ViewData["Title"] = "Create NewsPost";
+}
+
+
+<h1>Opret nyhedsopslag</h1>
+
+<form method="post">
+
+
+    <div class="form-group">
+        <label asp-for="@Model.NewPost.Title" class="control-label">Overskrift</label>
+        <input asp-for="@Model.NewPost.Title" class="form-control" />
+        <span asp-validation-for="NewPost.Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewPost.Date" class="control-label">Dato</label>
+        <input asp-for="@Model.NewPost.Date" class="form-control" />
+        <span asp-validation-for="NewPost.Date" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewPost.Text" class="control-label">Tekst</label>
+        @* <input asp-for="@Model.NewPost.Text" class="form-control" /> *@
+        <textarea asp-for="@Model.NewPost.Text" class="form-control" id="text" rows="10"></textarea>
+        <span asp-validation-for="NewPost.Text" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewPost.MemberId" class="control-label">Skrevet af</label>
+        <input asp-for="@Model.NewPost.MemberId" class="form-control" />
+        <span asp-validation-for="NewPost.MemberId" class="text-danger"></span>
+    </div>
+
+
+
+
+    <div class="form-group">
+        <br /> <br />
+        <input type="submit" value="Opret opslag" class="btn btn-primary" />
+        <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+    </div>
+
+</form>

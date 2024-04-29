@@ -1,0 +1,68 @@
+﻿@page
+@model TennisProjekt24.Pages.Events.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Events</h1>
+<a asp-page="AddEvent" class="btn btn-primary">Opret event</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Event Id
+            </th>
+            <th>
+                Dato
+            </th>
+            <th>
+                Titel
+            </th>
+            <th>
+                Beskrivelse
+            </th>
+            <th>
+                Lokation
+            </th>
+            <th>
+                Medlem Id
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.events.Count() != 0)
+        {
+            @foreach (var item in Model.events)
+            {
+                <tr>
+                    <td>
+                        @item.EventId
+                    </td>
+                    <td>
+                        @item.Date
+                    </td>
+                    <td>
+                        @item.Title
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.Place
+                    </td>
+                    <td>
+                        @item.MemberId
+                    </td>
+                    <td>
+                        <p>
+                            <a asp-page="/Events/DeleteEvent" asp-route-eventId="@item.EventId">Slet</a>
+                            <a asp-page="/Events/UpdateEvent" asp-route-eventId="@item.EventId">Rediger</a>
+
+                        </p>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

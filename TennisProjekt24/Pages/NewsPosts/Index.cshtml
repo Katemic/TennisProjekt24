@@ -1,0 +1,34 @@
+﻿@page
+@model TennisProjekt24.Pages.NewsPosts.IndexModel
+@{
+    ViewData["Title"] = "News Index";
+}
+
+<h1>Klubbens nyheder</h1>
+
+<a asp-page="AddPost" class="btn btn-primary">Opret nyt opslag</a>
+<br /><br />
+
+
+@foreach (var item in Model.posts)
+{
+
+    <div class="card">
+
+        <h2 align="center">@item.Title</h2>
+        <h7 align="center">@item.Date.ToString("dddd, dd MMMM yyyy HH:mm")</h7>
+        <h7 align="center">skrevet af @item.MemberId </h7>
+        <pre align="center" style="font-family:Verdana">@item.Text</pre>
+
+        <br />
+
+        <div>
+            <a asp-page="DeletePost" asp-route-id="@item.NewsPostId" class="btn btn-secondary">Slet opslag</a>
+            <a asp-page="UpdatePost" asp-route-id="@item.NewsPostId" class="btn btn-secondary">Rediger opslag</a>
+        </div>
+        
+    </div>
+
+    <br />
+    
+}

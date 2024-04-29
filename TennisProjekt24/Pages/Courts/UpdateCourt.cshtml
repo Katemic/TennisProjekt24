@@ -1,0 +1,30 @@
+﻿@page
+@model TennisProjekt24.Pages.Courts.UpdateCourtModel
+@{
+    ViewData["Title"] = "Update court";
+}
+
+<h1>Opdater bane</h1>
+
+<form method="post">
+
+    <input type="hidden" asp-for="@Model.CourtToUpdate.CourtId" />
+    <div class="form-group">
+        <input asp-for="@Model.CourtToUpdate.Outdoor" />Outdoor<br />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.CourtToUpdate.CourtNumber" class="control-label"></label>
+        <input asp-for="@Model.CourtToUpdate.CourtNumber" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.CourtToUpdate.CourtType" class="control-label"></label>
+        <input asp-for="@Model.CourtToUpdate.CourtType" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input asp-for="@Model.CourtToUpdate.Availability" />Tilgængelig<br />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="opdater en bane" asp-page-handler="Update" class="btn btn-primary" />
+        <input type="submit" value="slet en bane" asp-page-handler="Delete" class="btn btn-primary" />
+    </div>
+</form>
