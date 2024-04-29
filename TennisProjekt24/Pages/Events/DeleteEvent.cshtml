@@ -1,0 +1,37 @@
+﻿@page
+@model TennisProjekt24.Pages.Events.DeleteEventModel
+@{
+    ViewData["Title"] = "Delete Event";
+}
+
+
+<h1>Opret event</h1>
+
+<form method="post">
+    <div class="form-group">
+        <table class="table">
+            <tr>
+                <th>Event Id</th>
+                <td>@Model.EventDelete.EventId</td>
+            </tr>
+            <tr>
+                <th>Dato</th>
+                <td>@Model.EventDelete.Date</td>
+            </tr>
+            <tr>
+                <th>Titel</th>
+                <td>@Model.EventDelete.Title</td>
+            </tr>
+            <tr>
+                <th>Beskrivelse</th>
+                <td>@Model.EventDelete.Description</td>
+            </tr>
+            <tr>
+                <th>Medlem Id</th>
+                <td>@Model.EventDelete.MemberId</td>
+            </tr>
+        </table>
+        <input type="submit" value="Slet" asp-route-eventId="@Model.EventDelete.EventId" class="btn btn-danger" />
+        <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+    </div>
+</form>

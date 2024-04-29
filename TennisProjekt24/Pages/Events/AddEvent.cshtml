@@ -1,0 +1,45 @@
+﻿@page
+@model TennisProjekt24.Pages.Events.AddEventModel
+@{
+    ViewData["Title"] = "Add Event";
+}
+
+
+<h1>Opret event</h1>
+
+<form method="post">
+@*     <div class="form-group">
+        <label asp-for="@Model.NewEvent.EventId" class="control-label">ID</label>
+        <input asp-for="@Model.NewEvent.EventId" class="form-control" />
+    </div> *@
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.Date" class="control-label">Dato</label>
+        <input asp-for="@Model.NewEvent.Date" class="form-control" />
+        <span asp-validation-for="NewEvent.Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.Title" class="control-label">Titel</label>
+        <input asp-for="@Model.NewEvent.Title" class="form-control" />
+        <span asp-validation-for="NewEvent.Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.Description" class="control-label">Beskrivelse</label>
+        <input asp-for="@Model.NewEvent.Description" class="form-control" />
+        <span asp-validation-for="NewEvent.Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.Place" class="control-label">Lokation</label>
+        <input asp-for="@Model.NewEvent.Place" class="form-control" />
+        <span asp-validation-for="NewEvent.Place" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewEvent.MemberId" class="control-label">Medlems Id</label>
+        <input asp-for="@Model.NewEvent.MemberId" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Opret Event" class="btn btn-primary" />
+        <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+    </div>
+
+</form>

@@ -8,6 +8,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddTransient<ICourtService, CourtService>();
 
 builder.Services.AddTransient<IMemberService,MemberService>();
+builder.Services.AddTransient<IEventService, EventService>();
 
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
