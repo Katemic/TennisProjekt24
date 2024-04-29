@@ -1,0 +1,89 @@
+﻿@page
+@model TennisProjekt24.Pages.Bookings.IndexModel
+@{
+    ViewData["Title"] = "Booking Index";
+}
+
+<h1>Bane Bookinger</h1>
+
+<a asp-page="AddBooking" class="btn btn-primary">Opret booking</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                BookingID
+            </th>
+            <th>
+                Dato
+            </th>
+            <th>
+                Tidspunkt
+            </th>
+            <th>
+                Længde
+            </th>
+            <th>
+                MedlemsID
+            </th>
+            <th>
+                Anden spiller
+            </th>
+            <th>
+                BaneID
+            </th>
+            <th>
+                Booking type
+            </th>
+            <th>
+                Note
+            </th>
+ 
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.BookingsList.Count() != 0)
+        {
+            @foreach (var item in Model.BookingsList)
+            {
+                <tr>
+                    <td>
+                        @item.BookingId
+                    </td>
+                    <td>
+                        @item.Date
+                    </td>
+                    <td>
+                        @item.Time
+                    </td>
+                    <td>
+                        @item.Duration
+                    </td>
+                    <td>
+                        @item.MemberId
+                    </td>
+                    <td>
+                        @item.SecondMember
+                    </td>
+                    <td>
+                        @item.Court
+                    </td>
+                    <td>
+                        @item.Type
+                    </td>
+                    <td>
+                        @item.Note
+                    </td>
+
+                    <td>
+                        <p>
+                            <a asp-page="/Bookings/DeleteBooking" asp-route-id="@item.BookingId">Slet</a> |
+                            
+
+                        </p>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
