@@ -8,10 +8,6 @@
         public string Title { get; set; }
         public string Text { get; set; }
 
-        public BuddyForum()
-        {
-            
-        }
         public BuddyForum(int postId, DateTime dateTime, int memberId, string title, string text)
         {
             PostId = postId;
