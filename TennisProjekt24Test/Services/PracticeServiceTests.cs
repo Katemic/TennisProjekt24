@@ -20,7 +20,7 @@ namespace TennisProjekt24.Services.TestsProjektTest24
         public void AddPracticeTest()
         {
             Setup();
-            Practice tester = new Practice(0, DateTime.Now, "Test fra unit", 4, 5, 1, PracticeTypeEnum.ForEveryone);
+            Practice tester = new Practice(0, DateTime.Now, "Test fra unit","Der testes", 4, 5, 1, PracticeTypeEnum.ForEveryone);
             Assert.IsTrue(service.AddPractice(tester));
             //Assert.Fail();
         }
@@ -53,7 +53,7 @@ namespace TennisProjekt24.Services.TestsProjektTest24
         public void UpdatePracticeTest()
         {
             Setup();
-            Practice update = new Practice(0, DateTime.Now, "Den kunne opdateres", 6, 10, 2, PracticeTypeEnum.Intermediate);
+            Practice update = new Practice(0, DateTime.Now, "Den kunne opdateres", "Det opdateres", 6, 10, 2, PracticeTypeEnum.Intermediate);
             Assert.IsTrue(service.UpdatePractice(update, 1019));
         }
     }

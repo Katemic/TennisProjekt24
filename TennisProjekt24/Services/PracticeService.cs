@@ -9,11 +9,11 @@ namespace TennisProjekt24.Services
 {
     public class PracticeService : Connection, IPracticeService
     {
-        private string _getAllPracticesString = $"SELECT PracticeId, Date, Title, NoOfTrainings, MaxNoOfAteendees, InstructorId, Type FROM Practices";
+        private string _getAllPracticesString = $"SELECT PracticeId, Date, Title. Description, NoOfTrainings, MaxNoOfAteendees, InstructorId, Type FROM Practices";
         private string _getPracticeString = $"SELECT * FROM Practices WHERE PracticeID = @ID";
-        private string _addPracticeString = $"INSERT INTO Practices VALUES(@Date, @Title, @NoTrain, @MaxAtendees,  @Type , @InstructorId)";
+        private string _addPracticeString = $"INSERT INTO Practices VALUES(@Date, @Title, @Desc,  @NoTrain, @MaxAtendees,  @Type , @InstructorId)";
         private string _deletePracticeString = $"DELETE FROM Practices WHERE PracticeId = @ID";
-        private string _updatePracticeString = $"UPDATE Practices SET Date = @Date, Title = @Title, NoOfTrainings = @NoTrain, " +
+        private string _updatePracticeString = $"UPDATE Practices SET Date = @Date, Title = @Title, Description = @Desc NoOfTrainings = @NoTrain, " +
                                                 "MaxNoOfAteendees = @MaxAtendees, Type = @Type , InstructorId = @InstructorId WHERE PracticeId = @ID";
 
         /**
@@ -84,11 +84,12 @@ namespace TennisProjekt24.Services
                         int practiceId = reader.GetInt32("PracticeID");//.GetInt32(0);
                         DateTime date = reader.GetDateTime("Date");
                         string title = (string)reader["Title"];
+                        string description = (string)reader["Description"];
                         int NoOfTrainings = reader.GetInt32("NoOfTrainings");
                         int MaxNoOfAteendees = reader.GetInt32("MaxNoOfAteendees");
                         int InstructorId = reader.GetInt32("InstructorId");
                         PracticeTypeEnum type = (PracticeTypeEnum)reader.GetInt32("Type");
-                        Practice practice = new Practice(practiceId, date, title, NoOfTrainings, MaxNoOfAteendees, InstructorId, type);
+                        Practice practice = new Practice(practiceId, date, title, description, NoOfTrainings, MaxNoOfAteendees, InstructorId, type);
                         practices.Add(practice);
                     }
                 }
@@ -124,11 +125,12 @@ namespace TennisProjekt24.Services
                         int practiceId = reader.GetInt32("PracticeID");//.GetInt32(0);
                         DateTime date = reader.GetDateTime("Date");
                         string title = (string)reader["Title"];
+                        string description = (string)reader["Description"];
                         int NoOfTrainings = reader.GetInt32("NoOfTrainings");
                         int MaxNoOfAteendees = reader.GetInt32("MaxNoOfAteendees");
                         int InstructorId = reader.GetInt32("InstructorId");
                         PracticeTypeEnum type = (PracticeTypeEnum)reader.GetInt32("Type");
-                        Practice practice = new Practice(practiceId, date, title, NoOfTrainings, MaxNoOfAteendees, InstructorId, type);
+                        Practice practice = new Practice(practiceId, date, title, description, NoOfTrainings, MaxNoOfAteendees, InstructorId, type);
                         return practice;
                     }
                 }

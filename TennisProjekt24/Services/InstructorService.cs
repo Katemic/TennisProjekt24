@@ -12,6 +12,7 @@ namespace TennisProjekt24.Services
         private string _getAllInstructorsString = $"SELECT InstructorId, Name, PhoneNo, Description, Image FROM Instructors";
         private string _getInstructorString = $"SELECT InstructorId, Name, PhoneNo, Description, Image FROM Instructors WHERE InstructorId = @ID";
         private string _deleteInstructorString = $"DELETE FROM Instructors WHERE InstructorId = @ID";
+        private string _updateInstructorString = $"UPDATE Instructors";
         public bool AddInstructor(Instructor instructor)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
