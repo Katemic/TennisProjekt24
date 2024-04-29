@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TennisProjekt24.Models;
 
-namespace TennisProjekt24.Services.Tests
+namespace TennisProjekt24.Services.TestsProjektTest24
 {
     [TestClass()]
     public class PracticeServiceTests

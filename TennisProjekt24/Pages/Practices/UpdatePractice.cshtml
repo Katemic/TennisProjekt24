@@ -1,10 +1,10 @@
 ﻿@page
 @using TennisProjekt24.Models
-@model TennisProjekt24.Pages.Practices.AddPracticeModel
+@model TennisProjekt24.Pages.Practices.UpdatePracticeModel
 @{
-    ViewData["Title"] = "Add Practice";
 }
 <form method="post">
+    <input type="hidden" asp-for="@Model.Practice.PracticeId"/>
     <div class="form-group datepickers" >
         <label asp-for="@Model.Practice.StartDate" class="control-label"></label>
         <input asp-for="@Model.Practice.StartDate" class="form-control" />
@@ -31,21 +31,19 @@
         <span asp-validation-for="Practice.InstructorId" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Practice.Type" class="control-label">Type af trænning</label>
+    <label asp-for="@Model.Practice.Type" class="control-label">Type af trænning</label>
+    <br />
+    @foreach (var c in System.Enum.GetValues(typeof(PracticeTypeEnum)))
+    {
+        <input type="radio" asp-for="@Model.Practice.Type" value="@c" />
+        <label class="control-label">@c</label>
         <br />
-            @foreach (var c in System.Enum.GetValues(typeof(PracticeTypeEnum)))
-                {
-                    <input type="radio" asp-for="@Model.Practice.Type" value="@c" />
-                    <label class="control-label">@c</label>
-                <br />
-                }
-                <span asp-validation-for="Practice.Type" class="text-danger"></span>
+
+    }
+
+    <span asp-validation-for="Practice.Type" class="text-danger"></span>
     </div>
     <div>
-        <input type="submit" value="Add Practice" class="btn btn-primary" />
+        <input type="submit" value="Update" asp-page-handler="Update" class="btn btn-primary" />
     </div>
 </form>
-
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>

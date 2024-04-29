@@ -6,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<ICourtService, CourtService>();
+builder.Services.AddTransient<IPracticeService, PracticeService>();
+
 
 builder.Services.AddTransient<IMemberService,MemberService>();
 builder.Services.AddTransient<IEventService, EventService>();

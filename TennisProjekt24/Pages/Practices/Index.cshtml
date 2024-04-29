@@ -45,7 +45,8 @@
                     <td>
                         @item.Type
                     </td>
-                    <td><a asp-page="DeletePractice" asp-route-id="@item.PracticeId">Delete</a></td>                 
+                    <td><a asp-page="DeletePractice" asp-route-id="@item.PracticeId">Delete</a></td>
+                    <td><a asp-page="UpdatePractice" asp-route-id="@item.PracticeId">Update</a></td>
                 </tr>
             }
         }
