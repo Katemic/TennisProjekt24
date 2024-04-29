@@ -14,13 +14,13 @@
 
     <div class="form-group">
         <label asp-for="@Model.NewBooking.Date" class="control-label">Dato</label>
-        <input asp-for="@Model.NewBooking.Date" class="form-control" />
+        <input asp-for="@Model.NewBooking.Date" class="form-control" type="date" />
         <span asp-validation-for="NewBooking.Date" class="text-danger"></span>
         
     </div>
     <div class="form-group">
         <label asp-for="@Model.NewBooking.Time" class="control-label">Tidspunkt</label>
-        <input asp-for="@Model.NewBooking.Time" class="form-control" />
+        <input asp-for="@Model.NewBooking.Time" class="form-control" type="time" />
         <span asp-validation-for="NewBooking.Time" class="text-danger"></span>
 
     </div>
