@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TennisProjekt24", "TennisProjekt24\TennisProjekt24.csproj", "{D2792F64-1E3E-4B7C-BA22-169152989F7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TennisProjekt24Test", "TennisProjekt24Test\TennisProjekt24Test.csproj", "{72DD097F-45B9-42BF-BFE6-F3701055CBAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TennisProjekt24Test", "TennisProjekt24Test\TennisProjekt24Test.csproj", "{72DD097F-45B9-42BF-BFE6-F3701055CBAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

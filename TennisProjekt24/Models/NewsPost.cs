@@ -14,5 +14,16 @@
             
         }
 
+        public NewsPost(int newsPostId, string title, string text, DateTime date, int memberId)
+        {
+            NewsPostId = newsPostId;
+            Title = title;
+            Text = text;
+            Date = date;
+            MemberId = memberId;
+             
+        }
+
+
     }
 }
