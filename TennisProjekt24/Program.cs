@@ -14,6 +14,7 @@ builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 
 
+builder.Services.AddTransient<IPracticeService, PracticeService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
