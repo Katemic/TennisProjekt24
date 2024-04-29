@@ -1,0 +1,46 @@
+﻿@page
+@model TennisProjekt24.Pages.Instructors.IndexModel
+@{
+    ViewData["Title"] = "Practice index";
+}
+<p>
+    <a asp-page="AddInstructor">Add Instructor</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Instructor Id</th>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Description</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Instructors.Count != 0)
+        {
+            @foreach (var item in Model.Instructors)
+            {
+                <tr>
+                    <td>
+                        @item.InstructorId
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.PhoneNumber
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.Image
+                    </td>
+                    <td><a asp-page="DeletePractice" asp-route-id="@item.InstructorId">Delete</a></td>
+                    <td><a asp-page="UpdatePractice" asp-route-id="@item.InstructorId">Update</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

@@ -10,13 +10,14 @@ builder.Services.AddTransient<IPracticeService, PracticeService>();
 
 
 builder.Services.AddTransient<IMemberService,MemberService>();
+builder.Services.AddTransient<IInstructorService, InstructorService>();
 builder.Services.AddTransient<IEventService, EventService>();
 
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 
 
-builder.Services.AddTransient<IPracticeService, PracticeService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

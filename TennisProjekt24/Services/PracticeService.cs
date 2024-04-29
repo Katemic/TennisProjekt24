@@ -16,14 +16,20 @@ namespace TennisProjekt24.Services
         private string _updatePracticeString = $"UPDATE Practices SET Date = @Date, Title = @Title, NoOfTrainings = @NoTrain, " +
                                                 "MaxNoOfAteendees = @MaxAtendees, Type = @Type , InstructorId = @InstructorId WHERE PracticeId = @ID";
 
+        /**
+         * return type: bool, which is determined by wheter the sql query changed exactly 1 row
+         * The method takes one parameter and has no overloads. The parameter is of the type Practice
+         * The purpose of the method is to add the Practice given as a parameter to a database via SqlCoomand
+         */
         public bool AddPractice(Practice practice)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
                 {
+                    //Here is the pre written query given to SqlCommand
                     SqlCommand command = new SqlCommand(_addPracticeString, connection);
-                    //command.Parameters.AddWithValue("@ID", practice.PracticeId);
+                    //Here the data from the Practice parameter is feed into the query 
                     command.Parameters.AddWithValue("@Date", practice.StartDate);
                     command.Parameters.AddWithValue("@Title", practice.Title);
                     command.Parameters.AddWithValue("@NoTrain", practice.NoOfTrainings);
@@ -48,7 +54,7 @@ namespace TennisProjekt24.Services
 
         public bool DeletePractice(int id)
         {
-            Practice practice = GetPractice(id);
+            //Practice practice = GetPractice(id);
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand command = new SqlCommand(_deletePracticeString, connection))
@@ -81,8 +87,8 @@ namespace TennisProjekt24.Services
                         int NoOfTrainings = reader.GetInt32("NoOfTrainings");
                         int MaxNoOfAteendees = reader.GetInt32("MaxNoOfAteendees");
                         int InstructorId = reader.GetInt32("InstructorId");
-                        Enum.TryParse((string)reader["Type"], out PracticeTypeEnum Type);
-                        Practice practice = new Practice(practiceId, date, title, NoOfTrainings, MaxNoOfAteendees, InstructorId, Type);
+                        PracticeTypeEnum type = (PracticeTypeEnum)reader.GetInt32("Type");
+                        Practice practice = new Practice(practiceId, date, title, NoOfTrainings, MaxNoOfAteendees, InstructorId, type);
                         practices.Add(practice);
                     }
                 }
@@ -121,8 +127,8 @@ namespace TennisProjekt24.Services
                         int NoOfTrainings = reader.GetInt32("NoOfTrainings");
                         int MaxNoOfAteendees = reader.GetInt32("MaxNoOfAteendees");
                         int InstructorId = reader.GetInt32("InstructorId");
-                        Enum.TryParse((string)reader["Type"], out PracticeTypeEnum Type);
-                        Practice practice = new Practice(practiceId, date, title, NoOfTrainings, MaxNoOfAteendees, InstructorId, Type);
+                        PracticeTypeEnum type = (PracticeTypeEnum)reader.GetInt32("Type");
+                        Practice practice = new Practice(practiceId, date, title, NoOfTrainings, MaxNoOfAteendees, InstructorId, type);
                         return practice;
                     }
                 }
