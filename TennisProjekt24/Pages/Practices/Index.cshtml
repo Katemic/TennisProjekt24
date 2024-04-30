@@ -1,7 +1,7 @@
 ﻿@page
 @model TennisProjekt24.Pages.Practices.IndexModel
 @{
-    ViewData["Title"] = "Instructor index";
+    ViewData["Title"] = "Practice index";
 }
 <p>
     <a asp-page="AddPractice">Add Practice</a>
@@ -12,6 +12,7 @@
             <th>Practice Id</th>
             <th>Date</th>
             <th>Title</th>
+            <th>Description</th>
             <th>Number of Practices</th>
             <th>Max Number of Atendees</th>
             <th>Instructor Id</th>
@@ -33,6 +34,7 @@
                     <td>
                         @item.Title
                     </td>
+                    <td>@item.Description</td>
                     <td>
                         @item.NoOfTrainings
                     </td>

@@ -9,7 +9,7 @@ namespace TennisProjekt24.Services
 {
     public class PracticeService : Connection, IPracticeService
     {
-        private string _getAllPracticesString = $"SELECT PracticeId, Date, Title. Description, NoOfTrainings, MaxNoOfAteendees, InstructorId, Type FROM Practices";
+        private string _getAllPracticesString = $"SELECT PracticeId, Date, Title, Description, NoOfTrainings, MaxNoOfAteendees, InstructorId, Type FROM Practices";
         private string _getPracticeString = $"SELECT * FROM Practices WHERE PracticeID = @ID";
         private string _addPracticeString = $"INSERT INTO Practices VALUES(@Date, @Title, @Desc,  @NoTrain, @MaxAtendees,  @Type , @InstructorId)";
         private string _deletePracticeString = $"DELETE FROM Practices WHERE PracticeId = @ID";
@@ -23,6 +23,7 @@ namespace TennisProjekt24.Services
          */
         public bool AddPractice(Practice practice)
         {
+            //In this line the Microsoft.Data.SqlClient is utilized to connect to the data base and establish a SQL query
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
@@ -32,11 +33,14 @@ namespace TennisProjekt24.Services
                     //Here the data from the Practice parameter is feed into the query 
                     command.Parameters.AddWithValue("@Date", practice.StartDate);
                     command.Parameters.AddWithValue("@Title", practice.Title);
+                    command.Parameters.AddWithValue("@Desc", practice.Description);
                     command.Parameters.AddWithValue("@NoTrain", practice.NoOfTrainings);
                     command.Parameters.AddWithValue("@MaxAtendees", practice.MaxNoOfAttendees);
                     command.Parameters.AddWithValue("@InstructorId", practice.InstructorId);
                     command.Parameters.AddWithValue("@Type", practice.Type);
+                    //Here the connection gets established
                     command.Connection.Open();
+                    //In this line the query gets executed and the result of that, the number of rows affected, gets saved in an int
                     int noOfRows = command.ExecuteNonQuery();
                     return noOfRows == 1;
                 }
@@ -163,6 +167,7 @@ namespace TennisProjekt24.Services
                 {
                     command.Parameters.AddWithValue("@Date", practice.StartDate);
                     command.Parameters.AddWithValue("@Title", practice.Title);
+                    command.Parameters.AddWithValue("@Desc", practice.Description);
                     command.Parameters.AddWithValue("@NoTrain", practice.NoOfTrainings);
                     command.Parameters.AddWithValue("@MaxAtendees", practice.MaxNoOfAttendees);
                     command.Parameters.AddWithValue("@InstructorId", practice.InstructorId);
