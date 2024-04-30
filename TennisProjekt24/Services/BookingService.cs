@@ -8,10 +8,13 @@ namespace TennisProjekt24.Services
     public class BookingService : Connection, IBookingService
     {
         private string _addBookingSQL = "INSERT INTO Bookings VALUES(@Date, @Duration, @MemberId, @SecondMember, @CourtId, @Type, @Note, @Time)";
-        private string _getAllBookingsSQL = "SELECT BookingId, Date, Duration, MemberId, SecondMember, CourtId, Type,  Note, Time FROM Bookings";
+        private string _getAllBookingsSQL = "SELECT BookingId, Date, Duration, MemberId, SecondMember, CourtId, Type, Note, Time FROM Bookings";
         private string _checkAvailabilitySQL = "SELECT * FROM Bookings WHERE CourtId = @CourtId AND Date = @Date AND Time = @Time";
-        private string _deleteBookingSQL = "";
-        private string _getAllBookingsByDateSQL = "";
+        private string _deleteBookingSQL = "DELETE FROM Bookings WHERE BookingId = @Id";
+        private string _getBookingSQL = "SELECT BookingId, Date, Duration, MemberId, SecondMember, CourtId, Type, Note, Time FROM Bookings WHERE BookingId = @Id";
+        private string _getAllBookingsByDateSQL = "SELECT BookingId, Date, Duration, MemberId, SecondMember, CourtId, Type, Note, Time FROM Bookings WHERE Date = @Date";
+        private string _getBookingsByMemberSQL = "SELECT BookingId, Date, Duration, MemberId, SecondMember, CourtId, Type, Note, Time FROM Bookings WHERE MemberId = @MemberId";
+        private string _updateBookingSQL = "UPDATE Bookings SET SecondMember = @SecondMemberId, Type = @Type WHERE BookingId = @Id";
 
 
 
@@ -99,7 +102,36 @@ namespace TennisProjekt24.Services
 
         public bool DeleteBooking(int bookingId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(_deleteBookingSQL, connection);
+                    command.Parameters.AddWithValue("@Id", bookingId);
+                    command.Connection.Open();
+                    int noOfRows = command.ExecuteNonQuery();
+                    return noOfRows == 1;
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+
+                    throw sqlEx;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+
+
+            }
+
         }
 
         public List<Booking> GetAllBookings()
@@ -158,12 +190,115 @@ namespace TennisProjekt24.Services
 
         public Booking GetBooking(int bookingId)
         {
-            throw new NotImplementedException();
+            Booking booking = null;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+
+                    SqlCommand command = new SqlCommand(_getBookingSQL, connection);
+                    command.Parameters.AddWithValue("@Id", bookingId);
+                    command.Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int bookingID = reader.GetInt32("BookingId");
+                        //string dateParse = reader.GetDateTime("Date").Date.ToString();
+                        DateTime datetime = reader.GetDateTime("Date");
+                        DateOnly date = DateOnly.FromDateTime(datetime);
+                        int duration = reader.GetByte("Duration");
+                        int memberId = reader.GetInt32("MemberId");
+                        int secondMember = reader.GetInt32("SecondMember");
+                        int courtId = reader.GetInt32("CourtId");
+                        BookingTypeEnum bookingType = (BookingTypeEnum)reader.GetInt32("Type");
+                        string note = reader.GetString("Note");
+                        //string timeParse = reader.GetDateTime("Time").Hour.ToString();
+                        TimeSpan datetimeTime = (TimeSpan)reader["Time"];
+                        TimeOnly time = TimeOnly.FromTimeSpan(datetimeTime);
+                        booking = new Booking(bookingID, date, time, duration, memberId, secondMember, courtId, bookingType, note);
+                        
+                    }
+
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+
+                    throw sqlEx;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+
+
+            }
+
+            return booking;
         }
 
-        public List<Booking> GetBookingByDate(DateOnly date)
+        public List<Booking> GetBookingsByDate(DateOnly date)
         {
-            throw new NotImplementedException();
+            List<Booking> bookings = new List<Booking> ();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+
+                    SqlCommand command = new SqlCommand(_getAllBookingsByDateSQL, connection);
+                    command.Parameters.AddWithValue("@Date", date);
+                    command.Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int bookingID = reader.GetInt32("BookingId");
+                        //string dateParse = reader.GetDateTime("Date").Date.ToString();
+                        DateTime datetime = reader.GetDateTime("Date");
+                        DateOnly date2 = DateOnly.FromDateTime(datetime);
+                        int duration = reader.GetByte("Duration");
+                        int memberId = reader.GetInt32("MemberId");
+                        int secondMember = reader.GetInt32("SecondMember");
+                        int courtId = reader.GetInt32("CourtId");
+                        BookingTypeEnum bookingType = (BookingTypeEnum)reader.GetInt32("Type");
+                        string note = reader.GetString("Note");
+                        //string timeParse = reader.GetDateTime("Time").Hour.ToString();
+                        TimeSpan datetimeTime = (TimeSpan)reader["Time"];
+                        TimeOnly time = TimeOnly.FromTimeSpan(datetimeTime);
+                        Booking booking = new Booking(bookingID, date2, time, duration, memberId, secondMember, courtId, bookingType, note);
+                        bookings.Add(booking);
+
+                    }
+
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+
+                    throw sqlEx;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+
+
+            }
+
+            return bookings;
         }
 
         public List<Booking> GetBookingsByCourt(int courtId)

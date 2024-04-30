@@ -1,4 +1,7 @@
-﻿namespace TennisProjekt24.Models
+﻿using TennisProjekt24.Interfaces;
+using TennisProjekt24.Services;
+
+namespace TennisProjekt24.Models
 {
 
     public enum BookingTypeEnum
@@ -17,7 +20,6 @@
         public int Court { get; set; }
         public BookingTypeEnum Type { get; set; }
         public string Note { get; set; }
-
 
 
         public Booking(int bookingId, DateOnly date, TimeOnly time, int duration, int memberId, 
