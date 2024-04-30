@@ -2,6 +2,7 @@
 using System.Data;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TennisProjekt24.Services
 {
@@ -308,7 +309,59 @@ namespace TennisProjekt24.Services
 
         public List<Booking> GetBookingsByMember(int memberId)
         {
-            throw new NotImplementedException();
+            List<Booking> bookings = new List<Booking>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+
+                    SqlCommand command = new SqlCommand(_getBookingsByMemberSQL, connection);
+                    command.Parameters.AddWithValue("@MemberId", memberId);
+                    command.Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int bookingID = reader.GetInt32("BookingId");
+                        //string dateParse = reader.GetDateTime("Date").Date.ToString();
+                        DateTime datetime = reader.GetDateTime("Date");
+                        DateOnly date2 = DateOnly.FromDateTime(datetime);
+                        int duration = reader.GetByte("Duration");
+                        int memberID = reader.GetInt32("MemberId");
+                        int secondMember = reader.GetInt32("SecondMember");
+                        int courtId = reader.GetInt32("CourtId");
+                        BookingTypeEnum bookingType = (BookingTypeEnum)reader.GetInt32("Type");
+                        string note = reader.GetString("Note");
+                        //string timeParse = reader.GetDateTime("Time").Hour.ToString();
+                        TimeSpan datetimeTime = (TimeSpan)reader["Time"];
+                        TimeOnly time = TimeOnly.FromTimeSpan(datetimeTime);
+                        Booking booking = new Booking(bookingID, date2, time, duration, memberID, secondMember, courtId, bookingType, note);
+                        bookings.Add(booking);
+
+                    }
+
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+
+                    throw sqlEx;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+
+
+            }
+
+            return bookings;
         }
 
         public bool updateBooking(Booking booking, int bookingId)

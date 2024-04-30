@@ -8,9 +8,9 @@ namespace TennisProjekt24.Pages.Bookings
     public class FancyIndexModel : PageModel
     {
 
-        private IBookingService _bookingService { get; set; }
+        private IBookingService _bookingService;
 
-        private ICourtService _courtService {  get; set; }
+        private ICourtService _courtService;
 
         [BindProperty]
         public DateOnly Date {  get; set; }

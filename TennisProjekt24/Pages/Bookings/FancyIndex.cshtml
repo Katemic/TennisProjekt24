@@ -10,14 +10,16 @@
 @foreach (var item in Model.Courts)
 {
 
-    @item.CourtNumber
+    <p>@item.CourtId</p>
+    
 
-    foreach (var ting in Model.Bookings.Where(c => c.Court == item.CourtNumber))
+    foreach (var ting in Model.Bookings.Where(c => c.Court == item.CourtId))
     {
 
-
-        @ting.Court
-        @ting.BookingId
+        @* <p>@ting.Court</p> *@
+        <p>@ting.BookingId</p>
+        
+        
 
 
 

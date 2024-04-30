@@ -1,0 +1,56 @@
+﻿@page
+@model TennisProjekt24.Pages.Bookings.DeleteBookingModel
+@{
+    ViewData["Title"] = "Delete Booking";
+}
+
+<h1>Slet booking</h1>
+
+
+<form method="post">
+    <div class="form-group">
+        <table class="table">
+            <tr>
+                <th>Booking id</th>
+                <td>@Model.BookingToDelete.BookingId</td>
+            </tr>
+            <tr>
+                <th>Dato</th>
+                <td>@Model.BookingToDelete.Date</td>
+            </tr>
+            <tr>
+                <th>Tidspunkt</th>
+                <td>@Model.BookingToDelete.Time</td>
+            </tr>
+            <tr>
+                <th>Varighed</th>
+                <td>@Model.BookingToDelete.Duration</td>
+            </tr>
+            <tr>
+                <th>Medlems id</th>
+                <td>@Model.BookingToDelete.MemberId</td>
+            </tr>
+            <tr>
+                <th>Anden spiller</th>
+                <td>@Model.BookingToDelete.SecondMember</td>
+            <tr>
+                <th>Bane</th>
+                <td>@Model.BookingToDelete.Court</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>@Model.BookingToDelete.Type</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>@Model.BookingToDelete.Note</td>
+            </tr>
+            
+
+        </table>
+
+        <br />
+        <input type="submit" value="Slet" asp-route-id="@Model.BookingToDelete.BookingId" class="btn btn-danger" />
+        <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+    </div>
+</form>
