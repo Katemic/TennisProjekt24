@@ -12,7 +12,7 @@ namespace TennisProjekt24.Services
         private string _insertSql = "INSERT INTO BuddyForums VALUES(@DateTime, @MemberId, @Title, @Text, @SkillType)";
         private string _deleteSql = "DELETE FROM BuddyForums WHERE PostId=@PostId";
         private string _getByIdSql = "SELECT * FROM BuddyForums WHERE PostId=@PostId";
-        private string _updateSql = "UPDATE BuddyForums SET DateTime=@DateTime, Title=@Title, Text=@Text WHERE PostId=@PostId";
+        private string _updateSql = "UPDATE BuddyForums SET Title=@Title, Text=@Text WHERE PostId=@PostId";
 
         public bool CreatePost(BuddyForum post)
         {
@@ -160,7 +160,6 @@ namespace TennisProjekt24.Services
                 {
                     SqlCommand command = new SqlCommand(_updateSql, connection);
                     command.Parameters.AddWithValue("@PostId", postId);
-                    command.Parameters.AddWithValue("@DateTime", post.DateTime);
                     command.Parameters.AddWithValue("@Title", post.Title);
                     command.Parameters.AddWithValue("@Text", post.Text);
                     command.Connection.Open();

@@ -54,12 +54,15 @@
                     <td>
                         @item.SkillType
                     </td>
-                    <td>
-                        <p>
-                            <a asp-page="/Courts/DeleteCourt" asp-route-courtId="@item.PostId">Slet</a>|
-                            <a asp-page="/Courts/UpdateCourt" asp-route-courtId="@item.PostId">Opdater</a>|
+                    @if (item.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
+                    {
+                        <td>
+                            <p>
+                            <a asp-page="/BuddyForums/DeleteBuddyForum" asp-route-postId="@item.PostId">Slet</a>|
+                            <a asp-page="/BuddyForums/UpdateBuddyForum" asp-route-postId="@item.PostId">Opdater</a>|
                         </p>
                     </td>
+                    }
                 </tr>
             }
         }
