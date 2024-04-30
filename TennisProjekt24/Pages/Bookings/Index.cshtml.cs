@@ -8,7 +8,7 @@ namespace TennisProjekt24.Pages.Bookings
     public class IndexModel : PageModel
     {
 
-        private IBookingService _bookingService;
+        public IBookingService _bookingService;
 
         public List<Booking> BookingsList { get; set; }
 

@@ -1,4 +1,5 @@
 ﻿@page
+@using TennisProjekt24.Models
 @model TennisProjekt24.Pages.Bookings.IndexModel
 @{
     ViewData["Title"] = "Booking Index";
@@ -87,3 +88,13 @@
         }
     </tbody>
 </table>
+
+
+@* @foreach (var item in Model.BookingsList)
+{
+    List<Booking> list = Model._bookingService.GetBookingsByCourt(item.BookingId);
+        foreach (var item2 in list)
+    {
+        
+    }
+} *@

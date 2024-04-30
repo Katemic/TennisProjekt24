@@ -21,6 +21,8 @@ namespace TennisProjekt24.Interfaces
 
         List<Booking> GetBookingsByMember(int memberId);
 
+        List<Booking> GetBookingByDate(DateOnly date);
+
         //noget med at checke om man har booket for mange timer
 
 

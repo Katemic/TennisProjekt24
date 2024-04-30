@@ -1,0 +1,29 @@
+﻿@page
+@model TennisProjekt24.Pages.Bookings.FancyIndexModel
+@{
+    ViewData["Title"] = "Index - Fancy";
+}
+
+
+
+    
+@foreach (var item in Model.Courts)
+{
+
+    @item.CourtNumber
+
+    foreach (var ting in Model.Bookings.Where(c => c.Court == item.CourtNumber))
+    {
+
+
+        @ting.Court
+        @ting.BookingId
+
+
+
+    }
+
+
+
+
+}

@@ -9,7 +9,9 @@ namespace TennisProjekt24.Services
     {
         private string _addBookingSQL = "INSERT INTO Bookings VALUES(@Date, @Duration, @MemberId, @SecondMember, @CourtId, @Type, @Note, @Time)";
         private string _getAllBookingsSQL = "SELECT BookingId, Date, Duration, MemberId, SecondMember, CourtId, Type,  Note, Time FROM Bookings";
-        private string _checkAvailability = "SELECT * FROM Bookings WHERE CourtId = @CourtId AND Date = @Date AND Time = @Time";
+        private string _checkAvailabilitySQL = "SELECT * FROM Bookings WHERE CourtId = @CourtId AND Date = @Date AND Time = @Time";
+        private string _deleteBookingSQL = "";
+        private string _getAllBookingsByDateSQL = "";
 
 
 
@@ -60,7 +62,7 @@ namespace TennisProjekt24.Services
 
                 try
                 {
-                    SqlCommand command = new SqlCommand(_checkAvailability, connection);
+                    SqlCommand command = new SqlCommand(_checkAvailabilitySQL, connection);
                     command.Parameters.AddWithValue("@CourtId", courtId);
                     command.Parameters.AddWithValue("@Date", date);
                     command.Parameters.AddWithValue("@Time", time);
@@ -155,6 +157,11 @@ namespace TennisProjekt24.Services
         }
 
         public Booking GetBooking(int bookingId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Booking> GetBookingByDate(DateOnly date)
         {
             throw new NotImplementedException();
         }
