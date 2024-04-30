@@ -12,7 +12,8 @@ namespace TennisProjekt24.Services
         private string _getAllInstructorsString = $"SELECT InstructorId, Name, PhoneNo, Description, Image FROM Instructors";
         private string _getInstructorString = $"SELECT InstructorId, Name, PhoneNo, Description, Image FROM Instructors WHERE InstructorId = @ID";
         private string _deleteInstructorString = $"DELETE FROM Instructors WHERE InstructorId = @ID";
-        private string _updateInstructorString = $"UPDATE Instructors";
+        private string _updateInstructorString = $"UPDATE Instructors SET Name = @Name, PhoneNo = @Phone, Description = @Desc, Image = @Img " +
+                                                 $"WHERE InstructorId = @ID";
         public bool AddInstructor(Instructor instructor)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -132,7 +133,26 @@ namespace TennisProjekt24.Services
 
         public bool UpdateInstructor(Instructor instructor, int instructorId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(_updateInstructorString, connection))
+                {
+                    command.Parameters.AddWithValue("@Name", instructor.Name);
+                    command.Parameters.AddWithValue("@Phone", instructor.PhoneNumber);
+                    command.Parameters.AddWithValue("@Desc", instructor.Description);
+                    command.Parameters.AddWithValue("@Img", instructor.Image);
+                    command.Parameters.AddWithValue("@ID", instructorId);
+                    command.Connection.Open();
+
+                    int noOfRows = command.ExecuteNonQuery();
+                    if (noOfRows == 1)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+            }
         }
     }
 }
