@@ -12,12 +12,14 @@ namespace TennisProjekt24.Pages.Bookings
 
         private ICourtService _courtService;
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public DateOnly Date {  get; set; }
 
         public List<Court> Courts { get; set; } 
 
         public List<Booking> Bookings { get; set; }
+
+        public List<TimeOnly> TimeOnly = new List<TimeOnly> { new TimeOnly(8,00), new TimeOnly(9,00), new TimeOnly(10,00) };
 
 
         public FancyIndexModel(IBookingService bookingService, ICourtService courtService)
@@ -27,10 +29,25 @@ namespace TennisProjekt24.Pages.Bookings
         }
 
 
+
         public void OnGet()
         {
+             
             Courts = _courtService.GetAllCourts();
-            Bookings = _bookingService.GetAllBookings();
+
+            if (Date.Equals(new DateOnly(1,1,1)))
+            {
+                Date = DateOnly.FromDateTime(DateTime.Now);
+                Bookings = _bookingService.GetBookingsByDate(Date);
+            }
+            else 
+            {
+                Bookings = _bookingService.GetBookingsByDate(Date);
+            }
+
+
+            //Courts = _courtService.GetAllCourts();
+            //Bookings = _bookingService.GetAllBookings();
 
         }
     }

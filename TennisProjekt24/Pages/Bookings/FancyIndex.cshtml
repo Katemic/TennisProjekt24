@@ -5,27 +5,55 @@
 }
 
 
+<form method="get">
 
-    
-@foreach (var item in Model.Courts)
-{
+    <label asp-for="@Model.Date">Dato:</label>
+    <input type="date" asp-for="@Model.Date" min="2024-04-01" value="@DateOnly.FromDateTime(DateTime.Now)" />
+    <input type="submit" value="filter" />
+</form>
 
-    <p>@item.CourtId</p>
-    
+<h2>valgt dato: @Model.Date</h2>
 
-    foreach (var ting in Model.Bookings.Where(c => c.Court == item.CourtId))
-    {
+<table class="table">
+    <tbody>
+        <tr>
+            <td>tid</td>
+            @foreach(var item in Model.Courts)
+            {
+                <td>@item.CourtNumber</td>
+            }
+            
+        </tr>
 
-        @* <p>@ting.Court</p> *@
-        <p>@ting.BookingId</p>
+
+        @foreach (var item in Model.TimeOnly)
+        {
+            <tr>
+
+
+
+                <td>@item</td>
+
+                @foreach (var ting in Model.Courts)
+                {
+                    <td><a asp-page="/Bookings/AddBookingFancy" asp-route-id="@ting.CourtId" asp-route-date="@Model.Date" asp-route-time="@item" class="btn btn-outline-info"></a></td>
+
+
+                }
+            </tr>
+
+
+        }
+
+       
         
-        
+    </tbody>
+</table>
 
-
-
-    }
-
-
-
-
-}
+@* <td>8.00</td>
+            @foreach(var item in Model.Courts)
+            {
+                <td>
+                    <a asp-page="/Bookings/AddBookingFancy" asp-route-id="@item.CourtId" asp-route-date="@Model.Date" asp-route-time="8:00" class="btn btn-outline-info"></a>
+                </td>
+            } *@
