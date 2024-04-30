@@ -8,7 +8,7 @@ namespace TennisProjekt24.Services
     public class BuddyForumService : Connection, IBuddyForumService
     {
         private string _getAllString = "SELECT * FROM BuddyForums";
-        private string _insertSql = "INSERT INTO BuddyForums VALUES(@DateTime, @MemberId, @Title, @Text)";
+        private string _insertSql = "INSERT INTO BuddyForums VALUES(@DateTime, @MemberId, @Title, @Text, @SkillType)";
         private string _deleteSql = "DELETE FROM BuddyForums WHERE PostId=@PostId";
         private string _getByIdSql = "SELECT * FROM BuddyForums WHERE PostId=@PostId";
         private string _updateSql = "UPDATE BuddyForums SET DateTime=@DateTime, Title=@Title, Text=@Text WHERE PostId=@PostId";
@@ -24,6 +24,7 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@MemberId", post.MemberId);
                     command.Parameters.AddWithValue("@Title", post.Title);
                     command.Parameters.AddWithValue("@Text", post.Text);
+                    command.Parameters.AddWithValue("@SkillType", post.SkillType);
                     command.Connection.Open();
                     int noOfRows = command.ExecuteNonQuery();
                     return noOfRows == 1;
@@ -91,7 +92,8 @@ namespace TennisProjekt24.Services
                         string title = reader.GetString("Title");
                         string text = reader.GetString("Text");
                         int memberId = reader.GetInt32("MemberId");
-                        BuddyForum post = new BuddyForum(postId, dateTime, memberId, title, text);
+                        SkillTypeEnum skillType = (SkillTypeEnum)reader.GetInt32("SkillType");
+                        BuddyForum post = new BuddyForum(postId, dateTime, memberId, title, text, skillType);
                         posts.Add(post);
                     }
                     reader.Close();
@@ -128,7 +130,8 @@ namespace TennisProjekt24.Services
                         string title = reader.GetString("Title");
                         string text = reader.GetString("Text");
                         int memberId = reader.GetInt32("MemberId");
-                        BuddyForum post = new BuddyForum(postId, dateTime, memberId, title, text);
+                        SkillTypeEnum skillType = (SkillTypeEnum)reader.GetInt32("SkillType");
+                        BuddyForum post = new BuddyForum(postId, dateTime, memberId, title, text, skillType);
                         return post;
                     }
                 }
@@ -178,6 +181,5 @@ namespace TennisProjekt24.Services
             }
             return false;
         }
-    }
     }
 }

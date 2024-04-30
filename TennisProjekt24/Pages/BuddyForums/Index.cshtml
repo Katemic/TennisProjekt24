@@ -1,4 +1,61 @@
 ﻿@page
 @model TennisProjekt24.Pages.BuddyForums.IndexModel
 @{
+    ViewData["Title"] = "Index";
 }
+@* <h4>Baner</h4>
+
+<a asp-page="/Courts/CreateCourt">Create</a>|
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Udendørs
+            </th>
+            <th>
+                Nummer
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Tilgængelig
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Courts.Count() != 0)
+        {
+            @foreach (var item in Model.Courts)
+            {
+                <tr>
+                    <td>
+                        @item.CourtId
+                    </td>
+                    <td>
+                        @item.Outdoor
+                    </td>
+                    <td>
+                        @item.CourtNumber
+                    </td>
+                    <td>
+                        @item.CourtType
+                    </td>
+                    <td>
+                        @item.Availability
+                    </td>
+                    <td>
+                        <p>
+                            <a asp-page="/Courts/DeleteCourt" asp-route-courtId="@item.CourtId">Slet</a>|
+                            <a asp-page="/Courts/UpdateCourt" asp-route-courtId="@item.CourtId">Opdater</a>|
+                        </p>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table> *@
