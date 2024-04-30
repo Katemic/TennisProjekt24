@@ -13,6 +13,7 @@ builder.Services.AddTransient<IMemberService,MemberService>();
 builder.Services.AddTransient<IInstructorService, InstructorService>();
 builder.Services.AddTransient<IEventService, EventService>();
 builder.Services.AddTransient<INewsPostService,NewsPostService>();
+builder.Services.AddTransient<IBuddyForumService, BuddyForumService>();
 
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();

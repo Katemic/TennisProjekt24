@@ -6,22 +6,32 @@ using TennisProjekt24.Models;
 
 namespace TennisProjekt24.Pages.BuddyForums
 {
-    public class IndexModel : PageModel
+    public class CreateBuddyForumModel : PageModel
     {
         private IBuddyForumService _buddyForumService;
 
-        public List<BuddyForum> buddyForums { get; set; }
+        [BindProperty]
+        public BuddyForum NewBuddyForum { get; set; }
 
-        public IndexModel(IBuddyForumService buddyForumService)
+        public CreateBuddyForumModel(IBuddyForumService buddyForumService)
         {
             _buddyForumService = buddyForumService;
         }
-
         public void OnGet()
         {
+        }
+
+        public IActionResult OnPost()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             try
             {
-                buddyForums = _buddyForumService.GetAllPosts();
+                NewBuddyForum.MemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                NewBuddyForum.DateTime = DateTime.Now;
+                _buddyForumService.CreatePost(NewBuddyForum);
             }
             catch (SqlException sql)
             {
@@ -29,9 +39,9 @@ namespace TennisProjekt24.Pages.BuddyForums
             }
             catch (Exception ex)
             {
-                buddyForums = new List<BuddyForum>();
                 ViewData["ErrorMessage"] = ex.Message;
             }
+            return RedirectToPage("Index");
         }
     }
 }
