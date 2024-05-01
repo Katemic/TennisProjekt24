@@ -32,16 +32,26 @@
     </div>
     <div class="form-group">
         <label asp-for="@Model.NewBooking.MemberId" class="control-label">Medlem</label>
-        <input asp-for="@Model.NewBooking.MemberId" class="form-control" />
+        <input asp-for="@Model.CurrentMember.Name" class="form-control" disabled />
         <span asp-validation-for="NewBooking.MemberId" class="text-danger"></span>
 
     </div>
-    <div class="form-group">
+   @*  <div class="form-group">
         <label asp-for="@Model.NewBooking.SecondMember" class="control-label">Anden spiller</label>
         <input asp-for="@Model.NewBooking.SecondMember" class="form-control" />
         <span asp-validation-for="NewBooking.SecondMember" class="text-danger"></span>
 
+    </div> *@
+
+    <div class="form-group">
+        <label asp-for="@Model.NewBooking.SecondMemberFull" class="control-label">Anden spiller</label>
+        <select asp-for ="@Model.NewBooking.SecondMemberFull" asp-items="@Model.MemberList" class="form-control">
+            <option>---vælg bruger---</option>
+        </select>
+        <span asp-validation-for="NewBooking.SecondMember" class="text-danger"></span>
+
     </div>
+
     <div class="form-group">
         <label asp-for="@Model.NewBooking.Court" class="control-label">Bane</label>
         <input asp-for="@Model.NewBooking.Court" class="form-control" />

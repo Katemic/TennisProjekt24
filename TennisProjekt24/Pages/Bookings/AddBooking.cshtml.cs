@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
 
@@ -10,25 +11,53 @@ namespace TennisProjekt24.Pages.Bookings
 
         private IBookingService _bookingService;
 
+        private IMemberService _memberService;
+
+        
+        public Member CurrentMember { get; set; }
+
+        public SelectList MemberList { get; set;}
+
+
         [BindProperty]
         public Booking NewBooking { get; set; }
 
         public string Message { get; set; }
 
 
-        public AddBookingModel(IBookingService bookingService)
+        public AddBookingModel(IBookingService bookingService, IMemberService memberService)
         {
-              _bookingService = bookingService;
+            _bookingService = bookingService;
+            _memberService = memberService;
+
+            List<Member> members = _memberService.GetAllMembers();
+            MemberList = new SelectList(members);
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (HttpContext.Session.GetInt32("MemberId") == null)
+            {
+                return RedirectToPage("/Members/LogIn");
+            }
+            else
+            {
+                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                CurrentMember = _memberService.GetMember(sessionMemberId);
+                return Page();
+            }
+
 
         }
 
 
         public IActionResult OnPost()
         {
+
+            int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+            CurrentMember = _memberService.GetMember(sessionMemberId);
+
+
             //if (!ModelState.IsValid)
             //{
             //    return Page();
@@ -41,6 +70,7 @@ namespace TennisProjekt24.Pages.Bookings
 
             }
 
+            NewBooking.Member = CurrentMember;
             _bookingService.AddBooking(NewBooking);
             return RedirectToPage("Index");
 

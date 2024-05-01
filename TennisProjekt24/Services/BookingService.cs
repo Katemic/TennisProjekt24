@@ -34,8 +34,8 @@ namespace TennisProjekt24.Services
                     SqlCommand command = new SqlCommand(_addBookingSQL, connection);
                     command.Parameters.AddWithValue("@Date",booking.Date);
                     command.Parameters.AddWithValue("@Duration", booking.Duration);
-                    command.Parameters.AddWithValue("@MemberId", booking.MemberId);
-                    command.Parameters.AddWithValue("@SecondMember", booking.SecondMember);
+                    command.Parameters.AddWithValue("@MemberId", booking.Member.MemberId);
+                    command.Parameters.AddWithValue("@SecondMember", booking.SecondMemberFull.MemberId);
                     command.Parameters.AddWithValue("@CourtId", booking.Court);
                     command.Parameters.AddWithValue("@Type", booking.Type);
                     command.Parameters.AddWithValue("@Note", booking.Note);
@@ -218,14 +218,17 @@ namespace TennisProjekt24.Services
                         DateOnly date = DateOnly.FromDateTime(datetime);
                         int duration = reader.GetByte("Duration");
                         int memberId = reader.GetInt32("MemberId");
-                        int secondMember = reader.GetInt32("SecondMember");
+                        int secondMemberId = reader.GetInt32("SecondMember");
                         int courtId = reader.GetInt32("CourtId");
                         BookingTypeEnum bookingType = (BookingTypeEnum)reader.GetInt32("Type");
                         string note = reader.GetString("Note");
                         //string timeParse = reader.GetDateTime("Time").Hour.ToString();
                         TimeSpan datetimeTime = (TimeSpan)reader["Time"];
                         TimeOnly time = TimeOnly.FromTimeSpan(datetimeTime);
-                        booking = new Booking(bookingID, date, time, duration, memberId, secondMember, courtId, bookingType, note);
+                        Member member = _memberService.GetMember(memberId);
+                        Member secondMember = _memberService.GetMember(secondMemberId);
+                        booking = new Booking(bookingId, date, time, duration, member, secondMember, courtId, bookingType, note);
+                        
                         
                     }
 
@@ -274,14 +277,17 @@ namespace TennisProjekt24.Services
                         DateOnly date2 = DateOnly.FromDateTime(datetime);
                         int duration = reader.GetByte("Duration");
                         int memberId = reader.GetInt32("MemberId");
-                        int secondMember = reader.GetInt32("SecondMember");
+                        int secondMemberId = reader.GetInt32("SecondMember");
                         int courtId = reader.GetInt32("CourtId");
                         BookingTypeEnum bookingType = (BookingTypeEnum)reader.GetInt32("Type");
                         string note = reader.GetString("Note");
                         //string timeParse = reader.GetDateTime("Time").Hour.ToString();
                         TimeSpan datetimeTime = (TimeSpan)reader["Time"];
                         TimeOnly time = TimeOnly.FromTimeSpan(datetimeTime);
-                        Booking booking = new Booking(bookingID, date2, time, duration, memberId, secondMember, courtId, bookingType, note);
+                        Member member = _memberService.GetMember(memberId);
+                        Member secondMember = _memberService.GetMember(secondMemberId);
+                        Booking booking = new Booking(bookingID, date, time, duration, member, secondMember, courtId, bookingType, note);
+                        
                         bookings.Add(booking);
 
                     }
@@ -336,14 +342,17 @@ namespace TennisProjekt24.Services
                         DateOnly date2 = DateOnly.FromDateTime(datetime);
                         int duration = reader.GetByte("Duration");
                         int memberID = reader.GetInt32("MemberId");
-                        int secondMember = reader.GetInt32("SecondMember");
+                        int secondMemberId = reader.GetInt32("SecondMember");
                         int courtId = reader.GetInt32("CourtId");
                         BookingTypeEnum bookingType = (BookingTypeEnum)reader.GetInt32("Type");
                         string note = reader.GetString("Note");
                         //string timeParse = reader.GetDateTime("Time").Hour.ToString();
                         TimeSpan datetimeTime = (TimeSpan)reader["Time"];
                         TimeOnly time = TimeOnly.FromTimeSpan(datetimeTime);
-                        Booking booking = new Booking(bookingID, date2, time, duration, memberID, secondMember, courtId, bookingType, note);
+                        Member member = _memberService.GetMember(memberID);
+                        Member secondMember = _memberService.GetMember(secondMemberId);
+                        Booking booking = new Booking(bookingID, date2, time, duration, member, secondMember, courtId, bookingType, note);
+
                         bookings.Add(booking);
 
                     }
