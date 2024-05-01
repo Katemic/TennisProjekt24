@@ -2,3 +2,62 @@
 @model TennisProjekt24.Pages.BuddyForums.GetBuddyForumModel
 @{
 }
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .heading {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 34px;
+            padding: 0 14px;
+        }
+        .post {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            /* max-width: 300px; */
+            margin: auto;
+            /* text-align: center; */
+            font-family: arial;
+        }
+        .textBlog {
+            margin: 3%;
+            text-align: center;
+        }
+/*         .date {
+            text-align: left;
+        }
+        .title {
+            text-align: center;
+        }
+        .skillType {
+            text-align: right;
+        } */
+
+    </style>
+</head>
+<body>
+    <div class="post">
+        <div class="heading">
+            <p>@Model.GetBuddyForum.DateTime</p>
+            <p>@Model.GetBuddyForum.Title</p>
+            <p>@Model.GetBuddyForum.SkillType</p>
+        </div>
+@*         <div class="date">
+            <p>@Model.GetBuddyForum.DateTime</p>
+        </div>
+        <div class=".title">
+            <p>@Model.GetBuddyForum.Title</p>
+        </div>
+        <div class="skillType">
+            <p>@Model.GetBuddyForum.SkillType</p>
+        </div> *@
+        <div class="textBlog">
+        <p>@Model.GetBuddyForum.Text</p>
+        </div>
+    </div>
+
+</body>
+</html>
