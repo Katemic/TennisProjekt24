@@ -46,7 +46,7 @@
                         @item.MemberId
                     </td>
                     <td>
-                        @item.Title
+                        <a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@item.PostId">@item.Title</a>
                     </td>
                     <td>
                         @item.Text
@@ -58,8 +58,8 @@
                     {
                         <td>
                             <p>
-                            <a asp-page="/BuddyForums/DeleteBuddyForum" asp-route-postId="@item.PostId">Slet</a>|
-                            <a asp-page="/BuddyForums/UpdateBuddyForum" asp-route-postId="@item.PostId">Opdater</a>|
+                            <a asp-page="/BuddyForums/DeleteBuddyForum" asp-route-postId="@item.PostId">Slet</a>
+                            <a asp-page="/BuddyForums/UpdateBuddyForum" asp-route-postId="@item.PostId">Opdater</a>
                         </p>
                     </td>
                     }
