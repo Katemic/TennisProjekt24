@@ -31,9 +31,9 @@
 
     </div>
     <div class="form-group">
-        <label asp-for="@Model.NewBooking.MemberId" class="control-label">Medlem</label>
+        <label asp-for="@Model.NewBooking.Member" class="control-label">Medlem</label>
         <input asp-for="@Model.CurrentMember.Name" class="form-control" disabled />
-        <span asp-validation-for="NewBooking.MemberId" class="text-danger"></span>
+        <span asp-validation-for="NewBooking.Member" class="text-danger"></span>
 
     </div>
    @*  <div class="form-group">
@@ -45,10 +45,10 @@
 
     <div class="form-group">
         <label asp-for="@Model.NewBooking.SecondMemberFull" class="control-label">Anden spiller</label>
-        <select asp-for ="@Model.NewBooking.SecondMemberFull" asp-items="@Model.MemberList" class="form-control">
+        <select asp-for ="@Model.SecondMemberId" asp-items="@Model.MemberList2" class="form-control">
             <option>---vælg bruger---</option>
         </select>
-        <span asp-validation-for="NewBooking.SecondMember" class="text-danger"></span>
+       
 
     </div>
 
@@ -82,7 +82,7 @@
 
     <div class="form-group">
         <br /> <br />
-        <input type="submit" value="Opret booking" class="btn btn-primary" />
+        <input type="submit" value="Opret booking" class="btn btn-primary"  />
         <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
     </div>
 </form>

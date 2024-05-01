@@ -16,7 +16,11 @@ namespace TennisProjekt24.Pages.Bookings
         
         public Member CurrentMember { get; set; }
 
+        
         public SelectList MemberList { get; set;}
+
+        [BindProperty]
+        public int SecondMemberId { get; set; }
 
 
         [BindProperty]
@@ -24,14 +28,18 @@ namespace TennisProjekt24.Pages.Bookings
 
         public string Message { get; set; }
 
+        [BindProperty]
+        public List<SelectListItem> MemberList2 { get; set; }
+
 
         public AddBookingModel(IBookingService bookingService, IMemberService memberService)
         {
             _bookingService = bookingService;
             _memberService = memberService;
 
-            List<Member> members = _memberService.GetAllMembers();
-            MemberList = new SelectList(members);
+            //List<Member> members = _memberService.GetAllMembers();
+            //MemberList = new SelectList(members, "Name", "Name");
+            
         }
 
         public IActionResult OnGet()
@@ -44,6 +52,14 @@ namespace TennisProjekt24.Pages.Bookings
             {
                 int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
                 CurrentMember = _memberService.GetMember(sessionMemberId);
+
+                List<Member> members = _memberService.GetAllMembers();
+                
+                MemberList2 = members.Select(x=> new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
+
+
+
+
                 return Page();
             }
 
@@ -57,6 +73,7 @@ namespace TennisProjekt24.Pages.Bookings
             int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
             CurrentMember = _memberService.GetMember(sessionMemberId);
 
+            NewBooking.SecondMemberFull = _memberService.GetMember(SecondMemberId);
 
             //if (!ModelState.IsValid)
             //{
