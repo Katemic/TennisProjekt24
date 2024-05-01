@@ -21,6 +21,9 @@ namespace TennisProjekt24.Models
         public BookingTypeEnum Type { get; set; }
         public string Note { get; set; }
 
+        public Member? Member { get; set; }
+        public Member? SecondMemberFull { get; set; }
+
 
         public Booking(int bookingId, DateOnly date, TimeOnly time, int duration, int memberId, 
             int secondMember, int court, BookingTypeEnum type, string note)
@@ -36,6 +39,22 @@ namespace TennisProjekt24.Models
             Note = note;
 
              
+        }
+
+        public Booking(int bookingId, DateOnly date, TimeOnly time, int duration, Member member,Member secondMember, 
+            int court, BookingTypeEnum type, string note)
+        {
+            BookingId = bookingId;
+            Date = date;
+            Time = time;
+            Duration = duration;
+            Member = member;
+            SecondMemberFull = secondMember;
+            Court = court;
+            Type = type;
+            Note = note;
+
+
         }
 
         public Booking()

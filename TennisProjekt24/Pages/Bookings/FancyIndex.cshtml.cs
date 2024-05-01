@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using TennisProjekt24.Helpers;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
 
@@ -8,7 +9,7 @@ namespace TennisProjekt24.Pages.Bookings
     public class FancyIndexModel : PageModel
     {
 
-        private IBookingService _bookingService;
+        public IBookingService _bookingService;
 
         private ICourtService _courtService;
 
@@ -19,7 +20,11 @@ namespace TennisProjekt24.Pages.Bookings
 
         public List<Booking> Bookings { get; set; }
 
-        public List<TimeOnly> TimeOnly = new List<TimeOnly> { new TimeOnly(8,00), new TimeOnly(9,00), new TimeOnly(10,00) };
+        //public List<TimeOnly> TimeOnly = new List<TimeOnly> { new TimeOnly(8,00), new TimeOnly(9,00), new TimeOnly(10,00) };
+
+        public List<TimeOnly> TimeOnly = new TimeOnlyGenerator().TimeOnlyList;
+
+
 
 
         public FancyIndexModel(IBookingService bookingService, ICourtService courtService)
@@ -44,6 +49,7 @@ namespace TennisProjekt24.Pages.Bookings
             {
                 Bookings = _bookingService.GetBookingsByDate(Date);
             }
+
 
 
             //Courts = _courtService.GetAllCourts();

@@ -44,7 +44,7 @@
     </div>
     <div class="form-group">
         <label asp-for="@Model.NewBooking.Court" class="control-label">Bane</label>
-        <input asp-for="@Model.CourtId" class="form-control" disabled />
+        <input asp-for="@Model.CourtId" class="form-control" type="number" disabled />
         <span asp-validation-for="NewBooking.Court" class="text-danger"></span>
 
     </div>
@@ -72,7 +72,7 @@
 
     <div class="form-group">
         <br /> <br />
-        <input type="submit" value="Opret booking" class="btn btn-primary" />
+        <input type="submit" value="Opret booking" class="btn btn-primary" asp-route-courtId=" @Model.CourtId" asp-route-date="@Model.Date" asp-route-time="@Model.Time" />
         <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
     </div>
 </form>

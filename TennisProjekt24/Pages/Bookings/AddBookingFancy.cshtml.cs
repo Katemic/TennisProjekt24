@@ -41,12 +41,17 @@ namespace TennisProjekt24.Pages.Bookings
         }
 
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(int courtId, DateOnly date, TimeOnly time)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+
+            NewBooking.Date = date;
+            NewBooking.Time = time;
+            NewBooking.Court = courtId;
+
 
             if (_bookingService.CheckAvailability(NewBooking.Court, NewBooking.Date, NewBooking.Time) == false)
             {
@@ -54,6 +59,8 @@ namespace TennisProjekt24.Pages.Bookings
                 return Page();
 
             }
+
+            
 
             _bookingService.AddBooking(NewBooking);
             return RedirectToPage("Index");

@@ -25,7 +25,6 @@
             
         </tr>
 
-
         @foreach (var item in Model.TimeOnly)
         {
             <tr>
@@ -36,7 +35,27 @@
 
                 @foreach (var ting in Model.Courts)
                 {
-                    <td><a asp-page="/Bookings/AddBookingFancy" asp-route-id="@ting.CourtId" asp-route-date="@Model.Date" asp-route-time="@item" class="btn btn-outline-info"></a></td>
+                    if (Model.Date < DateOnly.FromDateTime(DateTime.Now) || Model.Date == DateOnly.FromDateTime(DateTime.Now) && item < TimeOnly.FromDateTime(DateTime.Now))
+                    {
+                        <td>
+                            <a asp-page="" class="btn btn-secondary">-</a>
+                        </td>
+                        
+                    }
+                    else if (Model._bookingService.CheckAvailability(ting.CourtId, Model.Date, item))
+                    {
+                        <td>
+                            <a asp-page="/Bookings/AddBookingFancy" asp-route-id="@ting.CourtId" asp-route-date="@Model.Date" asp-route-time="@item" class="btn btn-success">O</a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a asp-page="" class="btn btn-danger">X</a>
+                        </td>
+                    }
+
+                   
 
 
                 }
@@ -49,6 +68,11 @@
         
     </tbody>
 </table>
+
+
+
+
+
 
 @* <td>8.00</td>
             @foreach(var item in Model.Courts)

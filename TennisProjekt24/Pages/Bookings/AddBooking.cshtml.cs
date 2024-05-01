@@ -29,10 +29,10 @@ namespace TennisProjekt24.Pages.Bookings
 
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid) 
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
             if (_bookingService.CheckAvailability(NewBooking.Court, NewBooking.Date, NewBooking.Time) == false ) 
             {

@@ -17,7 +17,12 @@ namespace TennisProjekt24.Services
         private string _getBookingsByMemberSQL = "SELECT BookingId, Date, Duration, MemberId, SecondMember, CourtId, Type, Note, Time FROM Bookings WHERE MemberId = @MemberId";
         private string _updateBookingSQL = "UPDATE Bookings SET SecondMember = @SecondMemberId, Type = @Type WHERE BookingId = @Id";
 
+        private IMemberService _memberService;
 
+        public BookingService(IMemberService memberService)
+        {
+             _memberService = memberService;
+        }
 
 
         public bool AddBooking(Booking booking)
@@ -155,14 +160,17 @@ namespace TennisProjekt24.Services
                         DateOnly date = DateOnly.FromDateTime(datetime);
                         int duration = reader.GetByte("Duration");
                         int memberId = reader.GetInt32("MemberId");
-                        int secondMember = reader.GetInt32("SecondMember");
+                        int secondMemberId = reader.GetInt32("SecondMember");
                         int courtId = reader.GetInt32("CourtId");
                         BookingTypeEnum bookingType = (BookingTypeEnum)reader.GetInt32("Type");
                         string note = reader.GetString("Note");
                         //string timeParse = reader.GetDateTime("Time").Hour.ToString();
                         TimeSpan datetimeTime = (TimeSpan) reader["Time"];
                         TimeOnly time = TimeOnly.FromTimeSpan (datetimeTime);
-                        Booking booking = new Booking(bookingId, date, time, duration, memberId, secondMember, courtId, bookingType, note);
+                        Member member = _memberService.GetMember(memberId);
+                        Member secondMember = _memberService.GetMember(secondMemberId);
+                        Booking booking = new Booking(bookingId, date, time, duration, member, secondMember, courtId, bookingType, note);
+
                         bookings.Add(booking);
                     }
 
