@@ -13,8 +13,12 @@ namespace TennisProjekt24.Pages.Bookings
 
         private ICourtService _courtService;
 
+        private IMemberService _memberService;
+
         [BindProperty(SupportsGet = true)]
         public DateOnly Date {  get; set; }
+
+        public Member CurrentMember { get; set; }
 
         public List<Court> Courts { get; set; } 
 
@@ -27,10 +31,11 @@ namespace TennisProjekt24.Pages.Bookings
 
 
 
-        public FancyIndexModel(IBookingService bookingService, ICourtService courtService)
+        public FancyIndexModel(IBookingService bookingService, ICourtService courtService, IMemberService memberService)
         {
             _bookingService = bookingService;
             _courtService = courtService;
+            _memberService = memberService;
         }
 
 
@@ -48,6 +53,12 @@ namespace TennisProjekt24.Pages.Bookings
             else 
             {
                 Bookings = _bookingService.GetBookingsByDate(Date);
+            }
+
+            if (HttpContext.Session.GetInt32("MemberId") != null)
+            {
+                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                CurrentMember = _memberService.GetMember(sessionMemberId);
             }
 
 

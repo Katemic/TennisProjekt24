@@ -15,7 +15,7 @@ namespace TennisProjekt24.Services
         private string _getBookingSQL = "SELECT BookingId, Date, Duration, MemberId, SecondMember, CourtId, Type, Note, Time FROM Bookings WHERE BookingId = @Id";
         private string _getAllBookingsByDateSQL = "SELECT BookingId, Date, Duration, MemberId, SecondMember, CourtId, Type, Note, Time FROM Bookings WHERE Date = @Date";
         private string _getBookingsByMemberSQL = "SELECT BookingId, Date, Duration, MemberId, SecondMember, CourtId, Type, Note, Time FROM Bookings WHERE MemberId = @MemberId";
-        private string _updateBookingSQL = "UPDATE Bookings SET SecondMember = @SecondMemberId, Type = @Type WHERE BookingId = @Id";
+        private string _updateBookingSQL = "UPDATE Bookings SET SecondMember = @SecondMemberId, Type = @Type, Note = @Note WHERE BookingId = @Id";
 
         private IMemberService _memberService;
         private ICourtService _courtService;
@@ -389,7 +389,36 @@ namespace TennisProjekt24.Services
 
         public bool updateBooking(Booking booking, int bookingId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString)) 
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(_updateBookingSQL, connection);
+                    command.Parameters.AddWithValue("@Id", bookingId);
+                    command.Parameters.AddWithValue("@SecondMemberId", booking.SecondMemberFull.MemberId);
+                    command.Parameters.AddWithValue("@Type", booking.Type);
+                    command.Parameters.AddWithValue("@Note", booking.Note);
+                    command.Connection.Open();
+                    int NoOfRows = command.ExecuteNonQuery();
+                    return NoOfRows == 1;
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+
+                    throw sqlEx;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+            }
         }
     }
 }

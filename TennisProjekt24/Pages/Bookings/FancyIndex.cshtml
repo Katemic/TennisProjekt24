@@ -14,6 +14,15 @@
 
 <h2>valgt dato: @Model.Date</h2>
 
+@if (Model.CurrentMember != null && Model.CurrentMember.Admin)
+{
+
+    <a asp-page="/Bookings/Index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-primary" style="float: right;">Se alle bookinger</a>
+
+}
+
+
+
 <table class="table">
     <tbody>
         <tr>

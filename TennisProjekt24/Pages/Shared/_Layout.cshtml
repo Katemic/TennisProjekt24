@@ -61,13 +61,13 @@
                     @inject IHttpContextAccessor HttpContextAccessor
                     @if (HttpContextAccessor.HttpContext.Session.GetInt32("MemberId") == null)
                     {
-                        <a class="btn btn-secondary rounded-pill" asp-area="" asp-page="/Members/LogIn">
+                        <a class="btn btn-success rounded-pill" asp-area="" asp-page="/Members/LogIn">
                             <span class="text-light">Log ind</span>
                         </a>
                     }
                     else
                     {
-                        <a class="btn btn-secondary rounded-pill" asp-area="" asp-page="/Members/Profile">
+                        <a class="btn btn-success rounded-pill" asp-area="" asp-page="/Members/Profile">
                             <span>Min profil</span>
                         </a>
                     }
