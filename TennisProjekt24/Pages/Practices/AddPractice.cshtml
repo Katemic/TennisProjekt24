@@ -33,7 +33,9 @@
     </div>
     <div class="form-group">
         <label asp-for="@Model.Practice.Instructor" class="control-label"></label>
-        <input asp-for="@Model.Practice.Instructor" class="form-control" />
+        <select asp-for="@Model.Practice.Instructor" asp-items="Model.Instructors" class="form-control">
+        <option value="">Vælg en træner</option>
+        </select>
         <span asp-validation-for="Practice.Instructor" class="text-danger"></span>
     </div>
     <div class="form-group">

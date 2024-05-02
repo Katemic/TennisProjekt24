@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Hosting;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
+using TennisProjekt24.Services;
 using static TennisProjekt24.Models.Practice;
 
 namespace TennisProjekt24.Pages.Practices
@@ -10,22 +12,33 @@ namespace TennisProjekt24.Pages.Practices
     public class AddPracticeModel : PageModel
     {
         private IPracticeService _service;
+        private IInstructorService _instructorService;
         [BindProperty]
         public Practice Practice { get; set; }
         [BindProperty]
         public PracticeTypeEnum Type { get; set; }
+        [BindProperty]
+        public List<SelectListItem> Instructors { get; set; }
         public void OnGet()
         {
+            Instructors = _instructorService.GetAllInstructors().Select(i => 
+                                            new SelectListItem { 
+                                                Value = i.InstructorId.ToString(),
+                                                Text = i.Name}
+                                            ).ToList();
         }
 
-        public AddPracticeModel(IPracticeService serv)
+        public AddPracticeModel(IPracticeService serv, IInstructorService instructorService)
         {
             _service = serv;
+            _instructorService = instructorService;
+           
         }
 
 
         public IActionResult OnPost()
         {
+
             if (!ModelState.IsValid)
             {
                 return Page();
