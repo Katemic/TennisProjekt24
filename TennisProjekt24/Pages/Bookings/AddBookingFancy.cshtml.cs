@@ -80,10 +80,11 @@ namespace TennisProjekt24.Pages.Bookings
             int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
             CurrentMember = _memberService.GetMember(sessionMemberId);
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
             NewBooking.Date = date;
             NewBooking.Time = time;
