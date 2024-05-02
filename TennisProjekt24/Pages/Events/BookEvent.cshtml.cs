@@ -12,7 +12,9 @@ namespace TennisProjekt24.Pages.Events
         private IMemberService _memberService;
         [BindProperty]
         public Event EventBook { get; set; }
-        public List<Member> members = new List<Member>();
+        [BindProperty]
+        public Member CurrentMember { get; set; }
+        //public List<Member> members = new List<Member>();
         [BindProperty]
         public Participant Attendee { get; set; }
         //[BindProperty]
@@ -27,21 +29,33 @@ namespace TennisProjekt24.Pages.Events
             _participantService = participantService;
             _memberService = memberService;
         }
-        public void OnGet(int eventId)
+        public IActionResult OnGet(int eventId)
         {
-            EventBook = _eventService.GetEvent(eventId);
-            members = _memberService.GetAllMembers();
-        }
-        public IActionResult OnPost(int eventId, int memberId)
-        {
-            Attendee.EventId = eventId;
-            Attendee.MemberId = memberId;
-            if (!ModelState.IsValid)
+            if (HttpContext.Session.GetInt32("MemberId") == null)
             {
+                return RedirectToPage("/Members/LogIn");
+            }
+            else
+            {
+                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                CurrentMember = _memberService.GetMember(sessionMemberId);
                 EventBook = _eventService.GetEvent(eventId);
-                members = _memberService.GetAllMembers();
                 return Page();
             }
+            //members = _memberService.GetAllMembers();
+        }
+        public IActionResult OnPost(int eventId)
+        {
+            int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+            CurrentMember = _memberService.GetMember(sessionMemberId);
+            Attendee.EventId = eventId;
+            Attendee.MemberId = sessionMemberId;
+            //if (!ModelState.IsValid)
+            //{
+            //    EventBook = _eventService.GetEvent(eventId);
+            //    members = _memberService.GetAllMembers();
+            //    return Page();
+            //}
             
             //Attendee.NoOfParticipants = NoOfParticipants;
             //Attendee.Note = note;
