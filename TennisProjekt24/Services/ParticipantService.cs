@@ -8,17 +8,19 @@ namespace TennisProjekt24.Services
 {
     public class ParticipantService : Connection, IParticipantService
     {
-        public EventService EventService { get; set; }
-        public ParticipantService() { }
-        private string addEBsql = "INSERT INTO Participants VALUES(@EventId, @MemberId, @DESCRIPTION, @PLACE)";
+        //public EventService EventService { get; set; }
+        //public ParticipantService() { }
+        private string addEBsql = "INSERT INTO Participants VALUES(@EventId, @MemberId, @NoOfParticipants, @note)";
         private string deleteSql = "DELETE FROM Participants WHERE EventId=@EventId AND MemberId=@MemberId";
-        public bool AddEvBooking(int memberId, int eventId)
+        public bool AddEvBooking(Participant participant)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(addEBsql, connection);
-                command.Parameters.AddWithValue("@EventId", eventId);
-                command.Parameters.AddWithValue("@MemberId", memberId);
+                command.Parameters.AddWithValue("@EventId", participant.EventId);
+                command.Parameters.AddWithValue("@MemberId", participant.MemberId);
+                command.Parameters.AddWithValue("@NoOfParticipants", participant.NoOfParticipants);
+                command.Parameters.AddWithValue("@note", participant.Note);
                 try
                 {
                     command.Connection.Open();

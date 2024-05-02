@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<ICourtService, CourtService>();
 builder.Services.AddTransient<IPracticeService, PracticeService>();
+builder.Services.AddTransient<IParticipantService, ParticipantService>();
 
 
 builder.Services.AddTransient<IMemberService,MemberService>();
