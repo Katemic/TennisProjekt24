@@ -37,7 +37,7 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@Desc", practice.Description);
                     command.Parameters.AddWithValue("@NoTrain", practice.NoOfTrainings);
                     command.Parameters.AddWithValue("@MaxAtendees", practice.MaxNoOfAttendees);
-                    command.Parameters.AddWithValue("@Instructor", practice.Instructor);
+                    command.Parameters.AddWithValue("@Instructor", practice.Instructor.InstructorId);
                     command.Parameters.AddWithValue("@Type", practice.Type);
                     //Here the connection gets established
                     command.Connection.Open();
@@ -171,7 +171,7 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@Desc", practice.Description);
                     command.Parameters.AddWithValue("@NoTrain", practice.NoOfTrainings);
                     command.Parameters.AddWithValue("@MaxAtendees", practice.MaxNoOfAttendees);
-                    command.Parameters.AddWithValue("@Instructor", practice.Instructor);
+                    command.Parameters.AddWithValue("@Instructor", practice.Instructor.InstructorId);
                     command.Parameters.AddWithValue("@Type", practice.Type);
                     command.Parameters.AddWithValue("@ID", id);
                     command.Connection.Open();
