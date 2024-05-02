@@ -11,11 +11,12 @@ namespace TennisProjekt24.Services
     {
         private string _getAllPracticesString = $"SELECT PracticeId, Date, Title, Description, NoOfTrainings, MaxNoOfAteendees, InstructorId, Type FROM Practices";
         private string _getPracticeString = $"SELECT * FROM Practices WHERE PracticeID = @ID";
-        private string _addPracticeString = $"INSERT INTO Practices VALUES(@Date, @Title, @Desc,  @NoTrain, @MaxAtendees,  @Type , @InstructorId)";
+        private string _addPracticeString = $"INSERT INTO Practices VALUES(@Date, @Title, @Desc,  @NoTrain, @MaxAtendees,  @Type , @Instructor)";
         private string _deletePracticeString = $"DELETE FROM Practices WHERE PracticeId = @ID";
         private string _updatePracticeString = $"UPDATE Practices SET Date = @Date, Title = @Title, Description = @Desc NoOfTrainings = @NoTrain, " +
-                                                "MaxNoOfAteendees = @MaxAtendees, Type = @Type , InstructorId = @InstructorId WHERE PracticeId = @ID";
+                                                "MaxNoOfAteendees = @MaxAtendees, Type = @Type , InstructorId = @Instructor WHERE PracticeId = @ID";
 
+        private IInstructorService _instructorService = new InstructorService();
         /**
          * return type: bool, which is determined by wheter the sql query changed exactly 1 row
          * The method takes one parameter and has no overloads. The parameter is of the type Practice
@@ -36,7 +37,7 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@Desc", practice.Description);
                     command.Parameters.AddWithValue("@NoTrain", practice.NoOfTrainings);
                     command.Parameters.AddWithValue("@MaxAtendees", practice.MaxNoOfAttendees);
-                    command.Parameters.AddWithValue("@InstructorId", practice.InstructorId);
+                    command.Parameters.AddWithValue("@Instructor", practice.Instructor);
                     command.Parameters.AddWithValue("@Type", practice.Type);
                     //Here the connection gets established
                     command.Connection.Open();
@@ -91,9 +92,9 @@ namespace TennisProjekt24.Services
                         string description = (string)reader["Description"];
                         int NoOfTrainings = reader.GetInt32("NoOfTrainings");
                         int MaxNoOfAteendees = reader.GetInt32("MaxNoOfAteendees");
-                        int InstructorId = reader.GetInt32("InstructorId");
+                        Instructor Instructor = _instructorService.GetInstructor(reader.GetInt32("InstructorId"));
                         PracticeTypeEnum type = (PracticeTypeEnum)reader.GetInt32("Type");
-                        Practice practice = new Practice(practiceId, date, title, description, NoOfTrainings, MaxNoOfAteendees, InstructorId, type);
+                        Practice practice = new Practice(practiceId, date, title, description, NoOfTrainings, MaxNoOfAteendees, Instructor, type);
                         practices.Add(practice);
                     }
                 }
@@ -132,9 +133,9 @@ namespace TennisProjekt24.Services
                         string description = (string)reader["Description"];
                         int NoOfTrainings = reader.GetInt32("NoOfTrainings");
                         int MaxNoOfAteendees = reader.GetInt32("MaxNoOfAteendees");
-                        int InstructorId = reader.GetInt32("InstructorId");
+                        Instructor Instructor = _instructorService.GetInstructor(reader.GetInt32("InstructorId"));
                         PracticeTypeEnum type = (PracticeTypeEnum)reader.GetInt32("Type");
-                        Practice practice = new Practice(practiceId, date, title, description, NoOfTrainings, MaxNoOfAteendees, InstructorId, type);
+                        Practice practice = new Practice(practiceId, date, title, description, NoOfTrainings, MaxNoOfAteendees, Instructor, type);
                         return practice;
                     }
                 }
@@ -170,7 +171,7 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@Desc", practice.Description);
                     command.Parameters.AddWithValue("@NoTrain", practice.NoOfTrainings);
                     command.Parameters.AddWithValue("@MaxAtendees", practice.MaxNoOfAttendees);
-                    command.Parameters.AddWithValue("@InstructorId", practice.InstructorId);
+                    command.Parameters.AddWithValue("@Instructor", practice.Instructor);
                     command.Parameters.AddWithValue("@Type", practice.Type);
                     command.Parameters.AddWithValue("@ID", id);
                     command.Connection.Open();
