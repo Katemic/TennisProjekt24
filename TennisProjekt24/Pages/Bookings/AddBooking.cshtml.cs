@@ -80,7 +80,7 @@ namespace TennisProjekt24.Pages.Bookings
             //    return Page();
             //}
 
-            if (_bookingService.CheckAvailability(NewBooking.Court, NewBooking.Date, NewBooking.Time) == false ) 
+            if (_bookingService.CheckAvailability(NewBooking.Court.CourtId, NewBooking.Date, NewBooking.Time) == false ) 
             {
                 Message = "Banen er allerede booket på valgte tidspunkt, vælg et andet tidspunkt og prøv igen";
                 return Page();

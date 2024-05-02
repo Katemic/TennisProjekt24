@@ -18,10 +18,12 @@ namespace TennisProjekt24.Services
         private string _updateBookingSQL = "UPDATE Bookings SET SecondMember = @SecondMemberId, Type = @Type WHERE BookingId = @Id";
 
         private IMemberService _memberService;
+        private ICourtService _courtService;
 
-        public BookingService(IMemberService memberService)
+        public BookingService(IMemberService memberService, ICourtService courtService)
         {
              _memberService = memberService;
+            _courtService = courtService;
         }
 
 
@@ -36,7 +38,7 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@Duration", booking.Duration);
                     command.Parameters.AddWithValue("@MemberId", booking.Member.MemberId);
                     command.Parameters.AddWithValue("@SecondMember", booking.SecondMemberFull.MemberId);
-                    command.Parameters.AddWithValue("@CourtId", booking.Court);
+                    command.Parameters.AddWithValue("@CourtId", booking.Court.CourtId);
                     command.Parameters.AddWithValue("@Type", booking.Type);
                     command.Parameters.AddWithValue("@Note", booking.Note);
                     command.Parameters.AddWithValue("@Time", booking.Time);
@@ -169,7 +171,8 @@ namespace TennisProjekt24.Services
                         TimeOnly time = TimeOnly.FromTimeSpan (datetimeTime);
                         Member member = _memberService.GetMember(memberId);
                         Member secondMember = _memberService.GetMember(secondMemberId);
-                        Booking booking = new Booking(bookingId, date, time, duration, member, secondMember, courtId, bookingType, note);
+                        Court court = _courtService.GetCourt(courtId);
+                        Booking booking = new Booking(bookingId, date, time, duration, member, secondMember, court, bookingType, note);
 
                         bookings.Add(booking);
                     }
@@ -227,7 +230,8 @@ namespace TennisProjekt24.Services
                         TimeOnly time = TimeOnly.FromTimeSpan(datetimeTime);
                         Member member = _memberService.GetMember(memberId);
                         Member secondMember = _memberService.GetMember(secondMemberId);
-                        booking = new Booking(bookingId, date, time, duration, member, secondMember, courtId, bookingType, note);
+                        Court court = _courtService.GetCourt(courtId);
+                        booking = new Booking(bookingId, date, time, duration, member, secondMember, court, bookingType, note);
                         
                         
                     }
@@ -286,7 +290,8 @@ namespace TennisProjekt24.Services
                         TimeOnly time = TimeOnly.FromTimeSpan(datetimeTime);
                         Member member = _memberService.GetMember(memberId);
                         Member secondMember = _memberService.GetMember(secondMemberId);
-                        Booking booking = new Booking(bookingID, date, time, duration, member, secondMember, courtId, bookingType, note);
+                        Court court = _courtService.GetCourt(courtId);
+                        Booking booking = new Booking(bookingID, date, time, duration, member, secondMember, court, bookingType, note);
                         
                         bookings.Add(booking);
 
@@ -351,7 +356,8 @@ namespace TennisProjekt24.Services
                         TimeOnly time = TimeOnly.FromTimeSpan(datetimeTime);
                         Member member = _memberService.GetMember(memberID);
                         Member secondMember = _memberService.GetMember(secondMemberId);
-                        Booking booking = new Booking(bookingID, date2, time, duration, member, secondMember, courtId, bookingType, note);
+                        Court court = _courtService.GetCourt(courtId);
+                        Booking booking = new Booking(bookingID, date2, time, duration, member, secondMember, court, bookingType, note);
 
                         bookings.Add(booking);
 

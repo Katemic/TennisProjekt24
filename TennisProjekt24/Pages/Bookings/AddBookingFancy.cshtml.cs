@@ -13,6 +13,8 @@ namespace TennisProjekt24.Pages.Bookings
 
         private IMemberService _memberService;
 
+        private ICourtService _courtService;
+
         [BindProperty]
         public Booking NewBooking { get; set; }
 
@@ -39,10 +41,11 @@ namespace TennisProjekt24.Pages.Bookings
         public int SecondMemberId { get; set; }
 
 
-        public AddBookingFancyModel(IBookingService bookingService, IMemberService memberService)
+        public AddBookingFancyModel(IBookingService bookingService, IMemberService memberService, ICourtService courtService)
         {
             _bookingService = bookingService;
             _memberService = memberService;
+            _courtService = courtService;
         }
 
         public IActionResult OnGet(int id, DateOnly date, TimeOnly time)
@@ -80,19 +83,21 @@ namespace TennisProjekt24.Pages.Bookings
             int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
             CurrentMember = _memberService.GetMember(sessionMemberId);
 
-
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
             NewBooking.Date = date;
             NewBooking.Time = time;
-            NewBooking.Court = courtId;
+            NewBooking.Court = _courtService.GetCourt(courtId);
             NewBooking.SecondMemberFull = _memberService.GetMember(SecondMemberId);
             NewBooking.Member = CurrentMember;
+            NewBooking.Duration = 1;
 
-            if (_bookingService.CheckAvailability(NewBooking.Court, NewBooking.Date, NewBooking.Time) == false)
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
+
+
+
+            if (_bookingService.CheckAvailability(NewBooking.Court.CourtId, NewBooking.Date, NewBooking.Time) == false)
             {
                 Message = "Banen er allerede booket på valgte tidspunkt, vælg et andet tidspunkt og prøv igen";
                 return Page();
