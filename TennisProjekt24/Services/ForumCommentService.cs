@@ -5,7 +5,7 @@ namespace TennisProjekt24.Services
 {
     public class ForumCommentService : Connection, IForumCommentService
     {
-        public bool CreateComment()
+        public bool CreateComment(int postId)
         {
             throw new NotImplementedException();
         }
@@ -15,7 +15,7 @@ namespace TennisProjekt24.Services
             throw new NotImplementedException();
         }
 
-        public List<ForumComment> GetForumComments()
+        public List<ForumComment> GetPostComments(int postId)
         {
             throw new NotImplementedException();
         }

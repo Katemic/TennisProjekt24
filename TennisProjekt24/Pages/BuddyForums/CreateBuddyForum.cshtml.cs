@@ -9,13 +9,15 @@ namespace TennisProjekt24.Pages.BuddyForums
     public class CreateBuddyForumModel : PageModel
     {
         private IBuddyForumService _buddyForumService;
+        private IMemberService _memberService;
 
         [BindProperty]
         public BuddyForum NewBuddyForum { get; set; }
 
-        public CreateBuddyForumModel(IBuddyForumService buddyForumService)
+        public CreateBuddyForumModel(IBuddyForumService buddyForumService, IMemberService memberService)
         {
             _buddyForumService = buddyForumService;
+            _memberService = memberService;
         }
         public void OnGet()
         {
@@ -29,7 +31,7 @@ namespace TennisProjekt24.Pages.BuddyForums
             }
             try
             {
-                NewBuddyForum.MemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                NewBuddyForum.Poster = _memberService.GetMember((int)HttpContext.Session.GetInt32("MemberId"));
                 NewBuddyForum.DateTime = DateTime.Now;
                 _buddyForumService.CreatePost(NewBuddyForum);
             }

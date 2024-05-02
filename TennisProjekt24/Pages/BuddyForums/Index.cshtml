@@ -14,6 +14,9 @@
                 PostId
             </th> *@
             <th>
+                Medlem
+            </th>
+            <th>
                 Dato
             </th>
 @*             <th>
@@ -40,6 +43,9 @@
                         @item.PostId
                     </td> *@
                     <td>
+                        @item.Poster.Name
+                    </td>
+                    <td>
                         @item.DateTime
                     </td>
                    @*  <td>
@@ -54,7 +60,7 @@
                     <td>
                         @item.SkillType
                     </td>
-                    @if (item.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
+                    @if (item.Poster.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
                     {
                         <td>
                             <p>

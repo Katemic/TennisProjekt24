@@ -4,9 +4,9 @@ namespace TennisProjekt24.Interfaces
 {
     public interface IForumCommentService
     {
-        public bool CreateComment();
+        public bool CreateComment(int postId);
         public bool DeleteComment(int commentId);
         public bool UpdateComment(ForumComment forumComment, int commentId);
-        public List<ForumComment> GetForumComments();
+        public List<ForumComment> GetPostComments(int postId);
     }
 }

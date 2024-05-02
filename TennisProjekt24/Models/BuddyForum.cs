@@ -6,7 +6,7 @@ namespace TennisProjekt24.Models
     {
         public int PostId { get; set; }
         public DateTime DateTime { get; set; }
-        public int MemberId { get; set; }
+        public Member? Poster { get; set; }
         public string Title { get; set; }
         public string Text { get; set; }
         public SkillTypeEnum SkillType { get; set; }
@@ -16,11 +16,11 @@ namespace TennisProjekt24.Models
             
         }
 
-        public BuddyForum(int postId, DateTime dateTime, int memberId, string title, string text, SkillTypeEnum skillType)
+        public BuddyForum(int postId, DateTime dateTime, Member poster, string title, string text, SkillTypeEnum skillType)
         {
             PostId = postId;
             DateTime = dateTime;
-            MemberId = memberId;
+            Poster = poster;
             Title = title;
             Text = text;
             SkillType = skillType;

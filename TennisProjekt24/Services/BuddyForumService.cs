@@ -14,6 +14,8 @@ namespace TennisProjekt24.Services
         private string _getByIdSql = "SELECT * FROM BuddyForums WHERE PostId=@PostId";
         private string _updateSql = "UPDATE BuddyForums SET Title=@Title, Text=@Text WHERE PostId=@PostId";
 
+        private MemberService _memberService = new MemberService();
+
         public bool CreatePost(BuddyForum post)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -22,7 +24,7 @@ namespace TennisProjekt24.Services
                 {
                     SqlCommand command = new SqlCommand(_insertSql, connection);
                     command.Parameters.AddWithValue("@DateTime", post.DateTime);
-                    command.Parameters.AddWithValue("@MemberId", post.MemberId);
+                    command.Parameters.AddWithValue("@MemberId", post.Poster.MemberId);
                     command.Parameters.AddWithValue("@Title", post.Title);
                     command.Parameters.AddWithValue("@Text", post.Text);
                     command.Parameters.AddWithValue("@SkillType", post.SkillType);
@@ -92,9 +94,9 @@ namespace TennisProjekt24.Services
                         DateTime dateTime = reader.GetDateTime("DateTime");
                         string title = reader.GetString("Title");
                         string text = reader.GetString("Text");
-                        int memberId = reader.GetInt32("MemberId");
+                        Member poster = _memberService.GetMember(reader.GetInt32("MemberId"));
                         SkillTypeEnum skillType = (SkillTypeEnum)reader.GetInt32("SkillType");
-                        BuddyForum post = new BuddyForum(postId, dateTime, memberId, title, text, skillType);
+                        BuddyForum post = new BuddyForum(postId, dateTime, poster, title, text, skillType);
                         posts.Add(post);
                     }
                     reader.Close();
@@ -130,9 +132,9 @@ namespace TennisProjekt24.Services
                         DateTime dateTime = reader.GetDateTime("DateTime");
                         string title = reader.GetString("Title");
                         string text = reader.GetString("Text");
-                        int memberId = reader.GetInt32("MemberId");
+                        Member poster = _memberService.GetMember(reader.GetInt32("MemberId"));
                         SkillTypeEnum skillType = (SkillTypeEnum)reader.GetInt32("SkillType");
-                        BuddyForum post = new BuddyForum(postId, dateTime, memberId, title, text, skillType);
+                        BuddyForum post = new BuddyForum(postId, dateTime, poster, title, text, skillType);
                         return post;
                     }
                 }
