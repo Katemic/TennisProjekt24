@@ -14,7 +14,7 @@ namespace TennisProjekt24.Services
         private string _deleteBookingSQL = "DELETE FROM Bookings WHERE BookingId = @Id";
         private string _getBookingSQL = "SELECT BookingId, Date, Duration, MemberId, SecondMember, CourtId, Type, Note, Time FROM Bookings WHERE BookingId = @Id";
         private string _getAllBookingsByDateSQL = "SELECT BookingId, Date, Duration, MemberId, SecondMember, CourtId, Type, Note, Time FROM Bookings WHERE Date = @Date";
-        private string _getBookingsByMemberSQL = "SELECT BookingId, Date, Duration, MemberId, SecondMember, CourtId, Type, Note, Time FROM Bookings WHERE MemberId = @MemberId";
+        private string _getBookingsByMemberSQL = "SELECT BookingId, Date, Duration, MemberId, SecondMember, CourtId, Type, Note, Time FROM Bookings WHERE MemberId = @MemberId OR SecondMember = @MemberId";
         private string _updateBookingSQL = "UPDATE Bookings SET SecondMember = @SecondMemberId, Type = @Type, Note = @Note WHERE BookingId = @Id";
 
         private IMemberService _memberService;

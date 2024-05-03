@@ -27,10 +27,10 @@ namespace TennisProjekt24.Pages.NewsPosts
         public IActionResult OnPost() 
         {
             
-            if (!ModelState.IsValid) 
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid) 
+            //{
+            //    return Page();
+            //}
 
             _newsPostService.UpdatePost(UpdatedPost, UpdatedPost.NewsPostId);
             return RedirectToPage("Index");

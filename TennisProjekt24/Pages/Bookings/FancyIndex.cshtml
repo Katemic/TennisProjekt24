@@ -47,7 +47,7 @@
                     if (Model.Date < DateOnly.FromDateTime(DateTime.Now) || Model.Date == DateOnly.FromDateTime(DateTime.Now) && item < TimeOnly.FromDateTime(DateTime.Now))
                     {
                         <td>
-                            <a asp-page="" class="btn btn-secondary">-</a>
+                            <span class="btn btn-secondary">-</span>
                         </td>
                         
                     }
@@ -61,7 +61,8 @@
                     {
                         
                         <td>
-                            <a asp-page="" class="btn btn-danger">X</a>
+                            @* <a asp-page="" class="btn btn-danger">X</a> *@
+                            <span class ="btn btn-danger">X</span>
                         </td>
                     }
 
