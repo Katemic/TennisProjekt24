@@ -34,7 +34,7 @@ namespace TennisProjekt24.Pages.Bookings
             {
                 int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
                 CurrentMember = _memberService.GetMember(sessionMemberId);
-                BookingsList = _bookingService.GetBookingsByMember(CurrentMember.MemberId);
+                BookingsList = _bookingService.GetBookingsByMember(CurrentMember.MemberId).Where(c => c.Date >= DateOnly.FromDateTime(DateTime.Now)).OrderBy(c => c.Date).ThenBy(c => c.Time).ToList();
                 return Page();
             }
         }
