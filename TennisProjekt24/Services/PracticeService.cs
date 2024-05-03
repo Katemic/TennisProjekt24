@@ -17,11 +17,12 @@ namespace TennisProjekt24.Services
                                                 "MaxNoOfAteendees = @MaxAtendees, Type = @Type , InstructorId = @Instructor WHERE PracticeId = @ID";
 
         private IInstructorService _instructorService = new InstructorService();
+
         /**
-         * return type: bool, which is determined by wheter the sql query changed exactly 1 row
-         * The method takes one parameter and has no overloads. The parameter is of the type Practice
-         * The purpose of the method is to add the Practice given as a parameter to a database via SqlCoomand
-         */
+* return type: bool, which is determined by wheter the sql query changed exactly 1 row
+* The method takes one parameter and has no overloads. The parameter is of the type Practice
+* The purpose of the method is to add the Practice given as a parameter to a database via SqlCoomand
+*/
         public bool AddPractice(Practice practice)
         {
             //In this line the Microsoft.Data.SqlClient is utilized to connect to the data base and establish a SQL query
@@ -74,6 +75,8 @@ namespace TennisProjekt24.Services
             return false;
         }
 
+       
+
         public List<Practice> GetAllPractices()
         {
             List<Practice> practices = new List<Practice>();
@@ -113,6 +116,8 @@ namespace TennisProjekt24.Services
             }
             return practices;
         }
+
+       
 
         public Practice GetPractice(int id)
         {
@@ -185,6 +190,148 @@ namespace TennisProjekt24.Services
                     return false;
                 }
             }
+        }
+
+        //MemberPractice
+        private string _addMemberPractice = $"INSERT INTO PracticesMembers VALUES (@PID, @MID)";
+        private string _getMemberPractice = $"SELECT * FROM PracticesMembers Where PracticeId = @PID ANS MemberId = @MID";
+        private string _getAllMemberPractice = $"SELECT PracticeId, MemberId FROM PracticesMembers";
+        private string _getMemberPracticeByPractice = $"SELECT * FROM PracticesMembers Where PracticeId = @PID";
+        private string _getMemberPracticeByMember = $"SELECT * FROM PracticesMembers Where MemberId = @MID";
+
+        //IMemberService _memberService = new MemberService();
+
+        public bool AddMemberPractice(int memberId, int practiceId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(_addMemberPractice, connection);
+                    command.Parameters.AddWithValue("@PID", practiceId);
+                    command.Parameters.AddWithValue("@MID", memberId);
+                    command.Connection.Open();
+                    int noOfRows = command.ExecuteNonQuery();
+                    return noOfRows == 1;
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("Database error " + sqlEx.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl " + ex.Message);
+                }
+            }
+            return false;
+        }
+
+        //public (Member, Practice) GetMemberPractice(int memberId, int practiceId)
+        //{
+        //    Practice practice = GetPractice(practiceId);
+        //    Member member = _memberService.GetMember(memberId);
+        //    return (member, practice);
+        //}
+
+        public List<(int, int)> GetAllMemberPractices()
+        {
+            List<(int, int)> memberPractices = new List<(int, int)>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand commmand = new SqlCommand(_getAllMemberPractice, connection);
+                    commmand.Connection.Open();
+                    SqlDataReader reader = commmand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int practiceId = reader.GetInt32("PracticeID");//.GetInt32(0);
+                        int memberId = reader.GetInt32("MemberId");
+                        memberPractices.Add((memberId, practiceId));
+                    }
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("Database error " + sqlEx.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl " + ex.Message);
+                }
+                finally
+                {
+
+                }
+            }
+            return memberPractices;
+        }
+
+        public List<(int, int)> GetAllMemberPracticesByMember(int memberId)
+        {
+            List<(int, int)> memberPractices = new List<(int, int)>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand commmand = new SqlCommand(_getMemberPracticeByMember, connection);
+                    commmand.Parameters.AddWithValue("@MID", memberId);
+                    commmand.Connection.Open();
+                    SqlDataReader reader = commmand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int practiceId = reader.GetInt32("PracticeID");//.GetInt32(0);
+                        //int memberId = reader.GetInt32("MemberId");
+                        memberPractices.Add((memberId, practiceId));
+                    }
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("Database error " + sqlEx.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl " + ex.Message);
+                }
+                finally
+                {
+
+                }
+            }
+            return memberPractices;
+        }
+
+        public List<(int, int)> GetAllMemberPracticesByPractice(int practiceId)
+        {
+            List<(int, int)> memberPractices = new List<(int, int)>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand commmand = new SqlCommand(_getMemberPracticeByPractice, connection);
+                    commmand.Parameters.AddWithValue("@PID", practiceId);
+                    commmand.Connection.Open();
+                    SqlDataReader reader = commmand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        //int practiceId = reader.GetInt32("PracticeID");//.GetInt32(0);
+                        int memberId = reader.GetInt32("MemberId");
+                        memberPractices.Add((memberId, practiceId));
+                    }
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("Database error " + sqlEx.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl " + ex.Message);
+                }
+                finally
+                {
+
+                }
+            }
+            return memberPractices;
         }
     }
 }
