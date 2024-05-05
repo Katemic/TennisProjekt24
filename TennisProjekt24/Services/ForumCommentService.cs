@@ -13,6 +13,8 @@ namespace TennisProjekt24.Services
         private string _getByIdSql = "SELECT * FROM ForumComments WHERE PostId=@PostId";
         private string _getCommentSql = "SELECT * FROM ForumComments WHERE CommentId=@CommentId";
         private string _deleteSql = "DELETE FROM ForumComments WHERE CommentId=@CommentId";
+        private string _updateSql = "UPDATE ForumComments SET Text=@Text WHERE CommentId=@CommentId";
+
 
 
         private MemberService _memberService = new MemberService();
@@ -154,7 +156,32 @@ namespace TennisProjekt24.Services
 
         public bool UpdateComment(ForumComment forumComment, int commentId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(_updateSql, connection);
+                    command.Parameters.AddWithValue("@CommentId", commentId);
+                    command.Parameters.AddWithValue("@Text", forumComment.Text);
+                    command.Connection.Open();
+                    int noOfRows = command.ExecuteNonQuery();
+                    return noOfRows == 1;
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("Database error: " + sqlEx.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("General fejl: " + ex.Message);
+                }
+                finally
+                {
+
+                }
+            }
+            return false;
         }
+    }
     }
 }
