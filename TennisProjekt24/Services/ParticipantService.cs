@@ -12,23 +12,33 @@ namespace TennisProjekt24.Services
     {
         //public EventService EventService { get; set; }
         private IMemberService _memberService;
-        public ParticipantService(IMemberService memberService)
+        private IEventService _eventService;
+        public ParticipantService(IMemberService memberService, IEventService eventService)
         {
             _memberService = memberService;
+            _eventService = eventService;
         }
 
         private string addEBsql = "INSERT INTO Participants VALUES(@EventId, @MemberId, @NoOfParticipants, @note)";
         private string deleteSql = "DELETE FROM Participants WHERE EventId=@EventId AND MemberId=@MemberId";
         private string getAllParticipants = "Select * FROM Participants WHERE EventId=@EventId";
+        private string getAllEventsByParticipant = "Select * FROM Participants WHERE MemberId=@MemberId";
         public bool AddEvBooking(Participant participant)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(addEBsql, connection);
-                command.Parameters.AddWithValue("@EventId", participant.EventId);
+                command.Parameters.AddWithValue("@EventId", participant.Event.EventId);
                 command.Parameters.AddWithValue("@MemberId", participant.Member.MemberId);
                 command.Parameters.AddWithValue("@NoOfParticipants", participant.NoOfParticipants);
-                command.Parameters.AddWithValue("@note", participant.Note);
+                if (participant.Note != null)
+                {
+                    command.Parameters.AddWithValue("@note", participant.Note);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("@note", DBNull.Value);
+                }
                 try
                 {
                     command.Connection.Open();
@@ -83,9 +93,45 @@ namespace TennisProjekt24.Services
             return false;
         }
 
-        public List<Event> GetAllEventsByParticipant(int memberId)
+        public List<Participant> GetAllEventsByParticipant(int memberId)
         {
-            throw new NotImplementedException();
+            List<Participant> participants = new List<Participant>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(getAllEventsByParticipant, connection);
+                    //command.Parameters.AddWithValue("@EventId", participant.Event.EventId);
+                    command.Parameters.AddWithValue("@MemberId", memberId);
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int evId = reader.GetInt32("EventId");
+                        Event ev = _eventService.GetEvent(evId);
+                        int memberID = reader.GetInt32("MemberId");
+                        int noOfParticipants = reader.GetInt32("NoOfParticipants");
+                        string? description = null;
+                        if (!reader.IsDBNull(3))
+                        {
+                            description = reader.GetString(3);
+                        }
+                        Member member = _memberService.GetMember(memberID);
+                        Participant p = new Participant(ev, member, noOfParticipants, description);
+                        participants.Add(p);
+                    }
+                    reader.Close();
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("Database error " + sqlEx.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("General error " + ex.Message);
+                }
+            }
+            return participants;
         }
 
         public List<Participant> GetAllParticipants(int eventId)
@@ -102,11 +148,16 @@ namespace TennisProjekt24.Services
                     while (reader.Read())
                     {
                         int evId = reader.GetInt32("EventId");
+                        Event ev = _eventService.GetEvent(evId);
                         int memberId = reader.GetInt32("MemberId");
                         int noOfParticipants = reader.GetInt32("NoOfParticipants");
-                        string description = reader.GetString("note");
+                        string? description = null;
+                        if (!reader.IsDBNull(3))
+                        {
+                            description = reader.GetString(3);
+                        }
                         Member member = _memberService.GetMember(memberId);
-                        Participant participant = new Participant(evId, member, noOfParticipants, description);
+                        Participant participant = new Participant(ev, member, noOfParticipants, description);
                         participants.Add(participant);
                     }
                     reader.Close();

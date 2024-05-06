@@ -48,7 +48,7 @@ namespace TennisProjekt24.Pages.Events
         {
             int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
             CurrentMember = _memberService.GetMember(sessionMemberId);
-            Attendee.EventId = eventId;
+            Attendee.Event = _eventService.GetEvent(eventId);
             Attendee.Member = CurrentMember;
             //if (!ModelState.IsValid)
             //{

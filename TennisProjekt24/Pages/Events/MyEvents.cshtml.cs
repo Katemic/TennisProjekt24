@@ -1,29 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
-using TennisProjekt24.Services;
 
 namespace TennisProjekt24.Pages.Events
 {
-    public class RemoveEvBookModel : PageModel
+    public class MyEventsModel : PageModel
     {
-
-        [BindProperty]
-        public Event EventBook { get; set; }
-        public Member CurrentMember { get; set; }
-        public List <Participant> Participants { get; set; }
-
         private IParticipantService _participantService;
         private IEventService _eventService;
         private IMemberService _memberService;
-        public RemoveEvBookModel(IParticipantService participantService, IEventService eventService, IMemberService memberService)
+        public Member CurrentMember { get; set; }
+        public List<Participant> Participants { get; set; }
+        public MyEventsModel(IParticipantService participantService, IEventService eventService, IMemberService memberService)
         {
             _participantService = participantService;
             _eventService = eventService;
             _memberService = memberService;
+            //Participants = new List<Participant>();
         }
-        public IActionResult OnGet(int eventId)
+        public IActionResult OnGet(int memberId)
         {
             if (HttpContext.Session.GetInt32("MemberId") == null)
             {
@@ -33,15 +30,11 @@ namespace TennisProjekt24.Pages.Events
             {
                 int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
                 CurrentMember = _memberService.GetMember(sessionMemberId);
-                Participants = _participantService.GetAllParticipants(eventId);
-                EventBook = _eventService.GetEvent(eventId);
+                memberId = sessionMemberId;
+                Participants = _participantService.GetAllEventsByParticipant(memberId);
+                //EventBook = _eventService.GetEvent(eventId);
                 return Page();
             }
-        }
-        public IActionResult OnPost(int memberId, int eventId)
-        {
-            _participantService.DeleteEvBooking(memberId, eventId);
-            return RedirectToPage("Index");
         }
     }
 }

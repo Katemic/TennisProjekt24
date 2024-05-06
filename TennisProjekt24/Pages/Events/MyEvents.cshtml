@@ -1,66 +1,61 @@
 ﻿@page
-@model TennisProjekt24.Pages.Events.IndexModel
+@model TennisProjekt24.Pages.Events.MyEventsModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "MyEvents";
 }
 
 <h1>Events</h1>
 <a asp-page="AddEvent" class="btn btn-primary">Opret event</a>
-<a asp-page="MyEvents" class="btn btn-primary">Mine event tilmeldinger</a>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                Event Id
+                Event
             </th>
             <th>
                 Dato
             </th>
             <th>
-                Titel
+                Lokation
             </th>
             <th>
                 Beskrivelse
             </th>
             <th>
-                Lokation
+                Arrangør
             </th>
             <th>
-                Medlem Id
+                Deltager
             </th>
         </tr>
     </thead>
     <tbody>
-        @if (Model.events.Count() != 0)
+        @if (Model.Participants.Count() != 0)
         {
-            @foreach (var item in Model.events)
+            @foreach (var item in Model.Participants)
             {
                 <tr>
                     <td>
-                        @item.EventId
+                        @item.Event.Title
                     </td>
                     <td>
-                        @item.Date
+                        @item.Event.Date
                     </td>
                     <td>
-                        @item.Title
+                        @item.Event.Place
                     </td>
                     <td>
-                        @item.Description
+                        @item.Event.Description
                     </td>
                     <td>
-                        @item.Place
+                        @item.Event.Member.Name
                     </td>
                     <td>
-                        @item.Member.MemberId
+                        @item.Member.Name
                     </td>
                     <td>
                         <p>
-                            <a asp-page="/Events/DeleteEvent" asp-route-eventId="@item.EventId">Slet</a>
-                            <a asp-page="/Events/UpdateEvent" asp-route-eventId="@item.EventId">Rediger</a>
-                            <a asp-page="/Events/BookEvent" asp-route-eventId="@item.EventId">Tildmeld</a>
-
                         </p>
                     </td>
                 </tr>
