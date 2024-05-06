@@ -1,0 +1,21 @@
+﻿@page
+@model TennisProjekt24.Pages.ForumComments.UpdateCommentModel
+@{
+}
+
+<h1>Opdater kommentar</h1>
+
+<form method="post">
+
+    <input type="hidden" asp-for="@Model.CommentToUpdate.CommentId" />
+
+    <div class="form-group">
+        <label asp-for="@Model.CommentToUpdate.Text" class="control-label"></label>
+        <input asp-for="@Model.CommentToUpdate.Text" class="form-control" />
+        <span asp-validation-for="@Model.CommentToUpdate.Text" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="opdater din kommentar" asp-page-handler="Update" class="btn btn-primary" />
+        <input type="submit" value="slet din kommentar" asp-page-handler="Delete" class="btn btn-primary" />
+    </div>
+</form>

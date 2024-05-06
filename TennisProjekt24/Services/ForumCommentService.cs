@@ -183,5 +183,4 @@ namespace TennisProjekt24.Services
             return false;
         }
     }
-    }
 }
