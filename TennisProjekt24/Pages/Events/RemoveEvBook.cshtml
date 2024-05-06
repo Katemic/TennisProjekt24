@@ -1,0 +1,37 @@
+﻿@page
+@model TennisProjekt24.Pages.Events.RemoveEvBookModel
+@{
+    ViewData["Title"] = "Remove Eventbooking";
+}
+
+
+<form method="post">
+
+    <table class="table">
+        <tr>
+            <th>Event Id</th>
+            <td>@Model.EventBook.EventId</td>
+        </tr>
+        <tr>
+            <th>Dato</th>
+            <td>@Model.EventBook.Date</td>
+        </tr>
+        <tr>
+            <th>Titel</th>
+            <td>@Model.EventBook.Title</td>
+        </tr>
+        <tr>
+            <th>Beskrivelse</th>
+            <td>@Model.EventBook.Description</td>
+        </tr>
+        <tr>
+            <th>Arrangør</th>
+            <td>@Model.EventBook.Member.MemberId</td>
+        </tr>
+    </table>
+
+    <input type="submit" value="Afmeld" asp-route-eventId="@Model.EventBook.EventId" asp-route-memberId="@Model.CurrentMember.MemberId" class="btn btn-success" />
+
+    <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+
+</form>

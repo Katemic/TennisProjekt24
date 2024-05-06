@@ -21,10 +21,10 @@ namespace TennisProjekt24.Pages.Events
 
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
             _eventService.AddEvent(NewEvent);
             return RedirectToPage("Index");
         }
