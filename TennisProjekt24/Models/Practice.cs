@@ -14,12 +14,14 @@ namespace TennisProjekt24.Models
         [Required(ErrorMessage = "Title must not be empty")]
         [StringLength(50)]
         public string Title { get; set; }
+        [Required, MaxLength(500)]
+        public string Description { get; set; } 
         [Required(), Range(1, int.MaxValue, ErrorMessage = "Number of trainings must be more than 0")]
         public int NoOfTrainings { get; set; }
         [Required(), Range(1,int.MaxValue, ErrorMessage ="Max attendees must be more than 0")]
         public int MaxNoOfAttendees { get; set; }
-        [Required(ErrorMessage ="ID must not be empty")]
-        public int InstructorId { get; set; }
+        [Required(ErrorMessage ="Instructor must be chosen")]
+        public Instructor Instructor { get; set; }
         [Required(ErrorMessage ="Choose a practice type")]
         public PracticeTypeEnum Type { get; set; }
 
@@ -27,14 +29,15 @@ namespace TennisProjekt24.Models
         {
                 
         }
-        public Practice(int practiceId, DateTime startDate, string title, int noOfTrainings, int maxNoOfAteendees, int instructorId, PracticeTypeEnum type)
+        public Practice(int practiceId, DateTime startDate, string title, string desc, int noOfTrainings, int maxNoOfAteendees, Instructor instructor, PracticeTypeEnum type)
         {
             PracticeId = practiceId;
             StartDate = startDate;
             Title = title;
+            Description = desc;
             NoOfTrainings = noOfTrainings;
             MaxNoOfAttendees = maxNoOfAteendees;
-            InstructorId = instructorId;
+            Instructor = instructor;
             Type = type;
         }
 
