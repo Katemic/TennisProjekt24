@@ -15,7 +15,7 @@ namespace TennisProjekt24.Models
         [Required(ErrorMessage = "Vælg Lokation")]
         [StringLength(50, ErrorMessage = "Lokation må max være 50 karakterer")]
         public string Place { get; set; }
-        public int MemberId { get; set; }
+        public Member Member { get; set; }
         public int EventId { get; set; }
         public class FutureDateAttribute : ValidationAttribute
         {
@@ -37,14 +37,14 @@ namespace TennisProjekt24.Models
             
         }
 
-        public Event(int eventId, DateTime date, string title, string description, string place, int memberId)
+        public Event(int eventId, DateTime date, string title, string description, string place, Member member)
         {
             EventId = eventId;
             Date = date;
             Title = title;
             Description = description;
             Place = place;
-            MemberId = memberId;
+            Member = member;
         }
     }
 }

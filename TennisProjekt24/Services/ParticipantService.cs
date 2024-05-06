@@ -3,6 +3,7 @@ using System.Data;
 using System.Windows.Input;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
+using TennisProjekt24.Pages.Members;
 using TennisProjekt24.Services;
 
 namespace TennisProjekt24.Services
@@ -10,7 +11,12 @@ namespace TennisProjekt24.Services
     public class ParticipantService : Connection, IParticipantService
     {
         //public EventService EventService { get; set; }
-        //public ParticipantService() { }
+        private IMemberService _memberService;
+        public ParticipantService(IMemberService memberService)
+        {
+            _memberService = memberService;
+        }
+
         private string addEBsql = "INSERT INTO Participants VALUES(@EventId, @MemberId, @NoOfParticipants, @note)";
         private string deleteSql = "DELETE FROM Participants WHERE EventId=@EventId AND MemberId=@MemberId";
         private string getAllParticipants = "Select * FROM Participants WHERE EventId=@EventId";
@@ -20,7 +26,7 @@ namespace TennisProjekt24.Services
             {
                 SqlCommand command = new SqlCommand(addEBsql, connection);
                 command.Parameters.AddWithValue("@EventId", participant.EventId);
-                command.Parameters.AddWithValue("@MemberId", participant.MemberId);
+                command.Parameters.AddWithValue("@MemberId", participant.Member.MemberId);
                 command.Parameters.AddWithValue("@NoOfParticipants", participant.NoOfParticipants);
                 command.Parameters.AddWithValue("@note", participant.Note);
                 try
@@ -99,7 +105,8 @@ namespace TennisProjekt24.Services
                         int memberId = reader.GetInt32("MemberId");
                         int noOfParticipants = reader.GetInt32("NoOfParticipants");
                         string description = reader.GetString("note");
-                        Participant participant = new Participant(evId, memberId, noOfParticipants, description);
+                        Member member = _memberService.GetMember(memberId);
+                        Participant participant = new Participant(evId, member, noOfParticipants, description);
                         participants.Add(participant);
                     }
                     reader.Close();

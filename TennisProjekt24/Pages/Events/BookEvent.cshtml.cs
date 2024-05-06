@@ -49,7 +49,7 @@ namespace TennisProjekt24.Pages.Events
             int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
             CurrentMember = _memberService.GetMember(sessionMemberId);
             Attendee.EventId = eventId;
-            Attendee.MemberId = sessionMemberId;
+            Attendee.Member = CurrentMember;
             //if (!ModelState.IsValid)
             //{
             //    EventBook = _eventService.GetEvent(eventId);
