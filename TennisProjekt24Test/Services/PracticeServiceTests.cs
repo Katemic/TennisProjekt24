@@ -13,14 +13,17 @@ namespace TennisProjekt24.Services.TestsProjektTest24
     public class PracticeServiceTests
     {
         private PracticeService service;
+        private InstructorService instructorService;
+        Practice tester;
         private void Setup() { 
             service = new PracticeService();
+            instructorService = new InstructorService();
+            tester = new Practice(0, DateTime.Now, "Test fra unit", "Der testes", 4, 5, instructorService.GetInstructor(2), PracticeTypeEnum.ForEveryone);
         }
         [TestMethod()]
         public void AddPracticeTest()
         {
             Setup();
-            Practice tester = new Practice(0, DateTime.Now, "Test fra unit","Der testes", 4, 5, 1, PracticeTypeEnum.ForEveryone);
             Assert.IsTrue(service.AddPractice(tester));
             //Assert.Fail();
         }
