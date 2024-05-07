@@ -1,8 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Reflection.Metadata;
 using TennisProjekt24.Helpers;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TennisProjekt24.Pages.Bookings
 {
@@ -16,11 +20,11 @@ namespace TennisProjekt24.Pages.Bookings
         private IMemberService _memberService;
 
         [BindProperty(SupportsGet = true)]
-        public DateOnly Date {  get; set; }
+        public DateOnly Date { get; set; }
 
         public Member CurrentMember { get; set; }
 
-        public List<Court> Courts { get; set; } 
+        public List<Court> Courts { get; set; }
 
         public List<Booking> Bookings { get; set; }
 
@@ -28,8 +32,15 @@ namespace TennisProjekt24.Pages.Bookings
 
         public List<TimeOnly> TimeOnly = new TimeOnlyGenerator().TimeOnlyList;
 
+        [BindProperty(SupportsGet = true)]
+        public string TypeFilter { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string OutdoorFilter { get; set; }
 
+        public List<string> TypeChoice = new List<string> { "Alle", "Tennis", "Paddel" };
+
+        public List<string> OutdoorChoice = new List<string> { "Alle", "Udendørs", "Indendørs" };
 
         public FancyIndexModel(IBookingService bookingService, ICourtService courtService, IMemberService memberService)
         {
@@ -42,9 +53,35 @@ namespace TennisProjekt24.Pages.Bookings
 
         public void OnGet()
         {
-             
-            
-            Courts = _courtService.GetAllCourts();
+
+
+            string sql = "";
+            if (TypeFilter == "Tennis")
+            {
+                sql += "AND Type = 2 ";
+            }
+            if (TypeFilter == "Paddel")
+            {
+                sql += "AND Type = 1 ";
+            }
+            if (OutdoorFilter == "Udendørs")
+            {
+                sql += "AND Outdoor = 1 ";
+            }
+            if (OutdoorFilter == "Indendørs")
+            {
+                sql += "AND Outdoor = 0 ";
+            }
+
+            if (sql.Length == 0)
+            {
+                Courts = _courtService.GetAllCourts();
+            }
+            else
+            {
+                Courts = _courtService.GetAllCourts(sql);
+            }
+
 
             if (Date.Equals(new DateOnly(1,1,1)))
             {
@@ -68,5 +105,21 @@ namespace TennisProjekt24.Pages.Bookings
             //Bookings = _bookingService.GetAllBookings();
 
         }
+
+        public PageResult AddTime1()
+        {
+            Date.AddDays(1);
+            return Page();
+        }
+
+
+
+        //public List<T> Filter<T>(List<T> listToFilter,List<Predicate<T>> filterConditions)
+        //{
+           
+        //}
+
+
+
     }
 }

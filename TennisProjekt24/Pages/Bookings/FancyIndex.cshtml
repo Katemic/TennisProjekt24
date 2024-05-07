@@ -1,4 +1,5 @@
 ﻿@page
+@using TennisProjekt24.Models
 @model TennisProjekt24.Pages.Bookings.FancyIndexModel
 @{
     ViewData["Title"] = "Index - Fancy";
@@ -8,24 +9,57 @@
 <form method="get">
 
     <label asp-for="@Model.Date">Dato:</label>
-    <input type="date" asp-for="@Model.Date" min="2024-04-01" value="@Model.Date" />
+    <input type="date" asp-for="@Model.Date" min="2024-04-01" />
+
+    
+
+    <select id="TypeFilter" name="TypeFilter" asp-for="@Model.TypeFilter">
+        @foreach (string item in Model.TypeChoice)
+        {
+            <option class="dropdown-button" value="@item">@item</option>
+        }
+        <option value="Tennis">Tennis</option>
+    </select>
+
+
+    <select asp-for="@Model.OutdoorFilter">
+        @foreach (var item in Model.OutdoorChoice)
+        {
+            <option value="@item">@item</option>
+        }
+    </select>
+
+
     <input type="submit" value="filter" />
 </form>
 
-<div align="right">
+
+
+@* <div align="center">
     <form method="get">
         <div>
-            <p>Bane type</p>
-            <input type="radio" id="1" name="CourtType" value="Tennis">
-            <label for="tennis">Tennis</label><br>
+           
+            <select id="TypeFilter" name="TypeFilter" asp-for="@Model.TypeFilter">
+                @foreach ( string item in Model.TypeChoice)
+                {
+                    <option class="dropdown-button" value="@item">@item</option>
+                }
+                <option value="Tennis">Tennis</option>
+            </select>
 
-            <p>Bane lokation</p>
 
+            <select asp-for="@Model.OutdoorFilter">
+                @foreach (var item in Model.OutdoorChoice)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+            <input type="submit" value="filter" />
         </div>
 
 
     </form>
-</div>
+</div> *@
 
 
 <h2>valgt dato: @Model.Date</h2>
@@ -46,7 +80,18 @@
             @foreach(var item in Model.Courts)
             {
 
-                <td>bane @item.CourtNumber</td>
+                <td>
+                    bane @item.CourtNumber
+                    <br /> @item.CourtType
+                    <br /> @if(item.Outdoor==true)
+                    {
+                        <p>udendørs</p>
+                    }
+                    else
+                    {
+                        <p>idendørs</p>
+                    }
+                </td>
                 
             }
             
