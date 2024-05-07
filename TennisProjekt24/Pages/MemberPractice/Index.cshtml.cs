@@ -15,8 +15,8 @@ namespace TennisProjekt24.Pages.MemberPractice
         public List<Member> Members { get; set; }
         [BindProperty]
         public List<(int, int)> MembersPractices { get; set; }
-        [BindProperty]
-        public var View = from 
+        //[BindProperty]
+        //public var View;
         public void OnGet(int practiceId)
         {
             Practice = _practiceService.GetPractice(practiceId);

@@ -23,10 +23,11 @@ namespace TennisProjekt24.Models
         public Instructor Instructor { get; set; }
         [Required(ErrorMessage ="Choose a practice type")]
         public PracticeTypeEnum Type { get; set; }
+        public List<Member> Members { get; set; }
 
         public Practice()
         {
-                
+            Members = new List<Member>();
         }
         public Practice(int practiceId, DateTime startDate, string title, string desc, int noOfTrainings, int maxNoOfAteendees, Instructor instructor, PracticeTypeEnum type)
         {
@@ -38,6 +39,7 @@ namespace TennisProjekt24.Models
             MaxNoOfAttendees = maxNoOfAteendees;
             Instructor = instructor;
             Type = type;
+            Members = new List<Member>();
         }
 
        
