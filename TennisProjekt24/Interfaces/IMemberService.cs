@@ -13,7 +13,7 @@ namespace TennisProjekt24.Interfaces
 
         Member GetMember(int memberId);
 
-        List<Member> GetAllMembers();   
+        List<Member> GetAllMembers(int? pId = null);   
 
         Member VerifyLogin(string username, string password);
 

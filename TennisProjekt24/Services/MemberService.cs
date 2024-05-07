@@ -98,14 +98,24 @@ namespace TennisProjekt24.Services
 
         }
 
-        public List<Member> GetAllMembers()
+        public List<Member> GetAllMembers(int? pId = null)
         {
             List<Member> members = new List<Member>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
                 {
-                    SqlCommand command = new SqlCommand(_getAllMembersSQL, connection);
+                    string sql = _getAllMembersSQL;
+                    if(pId != null)
+                    {
+                        sql += " WHERE MemberId IN (SELECT MemberId FROM PracticesMembers WHERE PracticeId = @pId)";
+                        
+                    }
+                    SqlCommand command = new SqlCommand(sql, connection);
+                    if (pId != null)
+                    {
+                        command.Parameters.AddWithValue("@pId", pId);
+                    }
                     command.Connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
