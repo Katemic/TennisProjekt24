@@ -1,31 +1,37 @@
 ﻿@page
-@model TennisProjekt24.Pages.Events.MyEventsModel
+@model TennisProjekt24.Pages.Events.ParticipantsModel
 @{
-    ViewData["Title"] = "MyEvents";
+    ViewData["Title"] = "Participants";
 }
 
-<h1>Events</h1>
+<h1>Deltagere</h1>
+@if(Model.CurrentAttendees != 0)
+{
+    <h2>Antal deltagere på dette event: @Model.CurrentAttendees</h2>
+}
+else
+{
+    <h2>Der er ingen deltagere på nuværende tidspunkt</h2>
+}
+
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                Event
+                Navn
             </th>
             <th>
-                Dato
+                Telefon
             </th>
             <th>
-                Lokation
+                Email
             </th>
             <th>
-                Beskrivelse
+                Medlemstype
             </th>
             <th>
-                Arrangør
-            </th>
-            <th>
-                Deltager
+                Antal deltagere
             </th>
         </tr>
     </thead>
@@ -36,29 +42,23 @@
             {
                 <tr>
                     <td>
-                        @item.Event.Title
-                    </td>
-                    <td>
-                        @item.Event.Date
-                    </td>
-                    <td>
-                        @item.Event.Place
-                    </td>
-                    <td>
-                        @item.Event.Description
-                    </td>
-                    <td>
-                        @item.Event.Member.Name
-                    </td>
-                    <td>
                         @item.Member.Name
                     </td>
                     <td>
-                        <p>
-                        </p>
+                        @item.Member.PhoneNumber
+                    </td>
+                    <td>
+                        @item.Member.Email
+                    </td>
+                    <td>
+                        @item.Member.MemberType
+                    </td>
+                    <td>
+                        @item.NoOfParticipants
                     </td>
                 </tr>
             }
         }
     </tbody>
 </table>
+

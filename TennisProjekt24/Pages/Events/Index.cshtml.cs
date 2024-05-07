@@ -11,28 +11,32 @@ namespace TennisProjekt24.Pages.Events
     {
         private IEventService _eventService;
         private IMemberService _memberService;
+        private IParticipantService _participantService;
 
         public List<Event> events { get; set; }
         public Member CurrentMember { get; set; }
+        public List<Participant> Participants { get; set; }
 
-        public IndexModel(IEventService eventService, IMemberService memberService)
+        public IndexModel(IEventService eventService, IMemberService memberService, IParticipantService participantService)
         {
             _eventService = eventService;
             _memberService = memberService;
+            _participantService = participantService;
         }
         public IActionResult OnGet()
         {
-            //if (HttpContext.Session.GetInt32("MemberId") == null)
-            //{
-            //    return RedirectToPage("/Members/LogIn");
-            //}
-            //else
-            //{
-                //int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
-                //CurrentMember = _memberService.GetMember(sessionMemberId);
+            if (HttpContext.Session.GetInt32("MemberId") == null)
+            {
+                return RedirectToPage("/Members/LogIn");
+            }
+            else
+            {
+                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                CurrentMember = _memberService.GetMember(sessionMemberId);
                 events = _eventService.GetAllEvents();
+                Participants = _participantService.GetAllEventsByParticipant(sessionMemberId);
                 return Page();
-            //}
+            }
 
         }
     }
