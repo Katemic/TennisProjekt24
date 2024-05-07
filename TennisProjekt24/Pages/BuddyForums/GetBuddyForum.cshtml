@@ -17,24 +17,13 @@
         }
         .post {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            /* max-width: 300px; */
             margin: auto;
-            /* text-align: center; */
             font-family: arial;
         }
         .textBlog {
             margin: 3%;
             text-align: center;
         }
-/*         .date {
-            text-align: left;
-        }
-        .title {
-            text-align: center;
-        }
-        .skillType {
-            text-align: right;
-        } */
         .comment {
 
         }
@@ -53,46 +42,30 @@
             <p>@Model.GetBuddyForum.Text</p>
         </div>
     </div>
+
     <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Medlem
-                </th>
-                <th>
-                    Dato
-                </th>
-                <th>
-                    Text
-                </th>
-            </tr>
-        </thead>
-        <tbody>
             <div class="comment">
                 @if (Model.ForumComments.Count() != 0)
                 {
                     @foreach (var item in Model.ForumComments)
                     {
-                    <tr>
-                        <td>
-                                @item.Commenter.Name
-                        </td>
-                        <td>
-                                @item.DateTime
-                        </td>
-                        <td>
-                                @item.Text
-                        </td>
-                            @if (item.Commenter.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
-                            {
-                            <td>
-                                <p>
-                                    <a asp-page="/ForumComments/DeleteComment" asp-route-commentId="@item.CommentId">Slet</a>
-                                    <a asp-page="/ForumComments/UpdateComment" asp-route-commentId="@item.CommentId">Opdater</a>
-                                </p>
-                            </td>
-                            }
-                    </tr>
+                        <div class="card-group">
+                            <div class="card" style="width: 50rem;" >
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.Commenter.Name -------- @item.DateTime</h5>
+                                    <p class="card-text">@item.Text</p>
+                                </div>
+                            </div>
+                            <tr>
+                                @if (item.Commenter.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
+                                {
+                                    <p>
+                                        <a asp-page="/ForumComments/DeleteComment" asp-route-commentId="@item.CommentId">Slet</a>
+                                        <a asp-page="/ForumComments/UpdateComment" asp-route-commentId="@item.CommentId">Opdater</a>
+                                    </p>
+                                }
+                            </tr>
+                        </div>
                     }
                 }
             </div>

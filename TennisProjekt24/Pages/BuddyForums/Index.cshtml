@@ -10,24 +10,15 @@
 <table class="table">
     <thead>
         <tr>
-@*             <th>
-                PostId
-            </th> *@
             <th>
                 Medlem
             </th>
             <th>
                 Dato
             </th>
-@*             <th>
-                MedlemsId
-            </th> *@
             <th>
                 Title
             </th>
-@*             <th>
-                Text
-            </th> *@
             <th>
                 Erfarings niveau
             </th>
@@ -39,24 +30,15 @@
             @foreach (var item in Model.buddyForums)
             {
                 <tr>
-                    @* <td>
-                        @item.PostId
-                    </td> *@
                     <td>
                         @item.Poster.Name
                     </td>
                     <td>
                         @item.DateTime
                     </td>
-                   @*  <td>
-                        @item.MemberId
-                    </td> *@
                     <td>
                         <a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@item.PostId">@item.Title</a>
                     </td>
-                    @* <td>
-                        @item.Text
-                    </td> *@
                     <td>
                         @item.SkillType
                     </td>
