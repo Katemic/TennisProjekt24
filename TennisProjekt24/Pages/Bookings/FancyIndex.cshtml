@@ -8,9 +8,25 @@
 <form method="get">
 
     <label asp-for="@Model.Date">Dato:</label>
-    <input type="date" asp-for="@Model.Date" min="2024-04-01" value="@DateOnly.FromDateTime(DateTime.Now)" />
+    <input type="date" asp-for="@Model.Date" min="2024-04-01" value="@Model.Date" />
     <input type="submit" value="filter" />
 </form>
+
+<div align="right">
+    <form method="get">
+        <div>
+            <p>Bane type</p>
+            <input type="radio" id="1" name="CourtType" value="Tennis">
+            <label for="tennis">Tennis</label><br>
+
+            <p>Bane lokation</p>
+
+        </div>
+
+
+    </form>
+</div>
+
 
 <h2>valgt dato: @Model.Date</h2>
 
@@ -29,7 +45,9 @@
             <td>tid</td>
             @foreach(var item in Model.Courts)
             {
+
                 <td>bane @item.CourtNumber</td>
+                
             }
             
         </tr>
@@ -62,7 +80,7 @@
                         
                         <td>
                             @* <a asp-page="" class="btn btn-danger">X</a> *@
-                            <span class ="btn btn-danger">X</span>
+                            <span class ="btn btn-danger">X</span> 
                         </td>
                     }
 

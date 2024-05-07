@@ -43,6 +43,7 @@ namespace TennisProjekt24.Pages.Bookings
         public void OnGet()
         {
              
+            
             Courts = _courtService.GetAllCourts();
 
             if (Date.Equals(new DateOnly(1,1,1)))
