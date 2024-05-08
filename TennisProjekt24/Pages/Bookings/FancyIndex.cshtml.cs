@@ -106,12 +106,7 @@ namespace TennisProjekt24.Pages.Bookings
 
         }
 
-        public PageResult AddTime1()
-        {
-            Date.AddDays(1);
-            return Page();
-        }
-
+     
 
 
         //public List<T> Filter<T>(List<T> listToFilter,List<Predicate<T>> filterConditions)
