@@ -1,0 +1,94 @@
+﻿@page
+@model TennisProjekt24.Pages.Bookings.FancyIndexModel
+@{
+    ViewData["Title"] = "Index - Fancy";
+}
+
+
+<form method="get">
+
+    <label asp-for="@Model.Date">Dato:</label>
+    <input type="date" asp-for="@Model.Date" min="2024-04-01" value="@DateOnly.FromDateTime(DateTime.Now)" />
+    <input type="submit" value="filter" />
+</form>
+
+<h2>valgt dato: @Model.Date</h2>
+
+@if (Model.CurrentMember != null && Model.CurrentMember.Admin)
+{
+
+    <a asp-page="/Bookings/Index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-primary" style="float: right;">Se alle bookinger</a>
+
+}
+
+
+
+<table class="table">
+    <tbody>
+        <tr>
+            <td>tid</td>
+            @foreach(var item in Model.Courts)
+            {
+                <td>bane @item.CourtNumber</td>
+            }
+            
+        </tr>
+
+        @foreach (var item in Model.TimeOnly)
+        {
+            <tr>
+
+
+
+                <td>@item</td>
+
+                @foreach (var ting in Model.Courts)
+                {
+                    if (Model.Date < DateOnly.FromDateTime(DateTime.Now) || Model.Date == DateOnly.FromDateTime(DateTime.Now) && item < TimeOnly.FromDateTime(DateTime.Now))
+                    {
+                        <td>
+                            <span class="btn btn-secondary">-</span>
+                        </td>
+                        
+                    }
+                    else if (Model._bookingService.CheckAvailability(ting.CourtId, Model.Date, item))
+                    {
+                        <td>
+                            <a asp-page="/Bookings/AddBookingFancy" asp-route-id="@ting.CourtId" asp-route-date="@Model.Date" asp-route-time="@item" class="btn btn-success">O</a>
+                        </td>
+                    }
+                    else
+                    {
+                        
+                        <td>
+                            @* <a asp-page="" class="btn btn-danger">X</a> *@
+                            <span class ="btn btn-danger">X</span>
+                        </td>
+                    }
+
+                   
+
+
+                }
+            </tr>
+
+
+        }
+
+       
+        
+    </tbody>
+</table>
+
+
+
+
+
+
+@* <td>8.00</td>
+            @foreach(var item in Model.Courts)
+            {
+                <td>
+                    <a asp-page="/Bookings/AddBookingFancy" asp-route-id="@item.CourtId" asp-route-date="@Model.Date" asp-route-time="8:00" class="btn btn-outline-info"></a>
+                </td>
+            } *@

@@ -7,12 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<ICourtService, CourtService>();
 builder.Services.AddTransient<IPracticeService, PracticeService>();
+builder.Services.AddTransient<IParticipantService, ParticipantService>();
 
 
 builder.Services.AddTransient<IMemberService,MemberService>();
 builder.Services.AddTransient<IInstructorService, InstructorService>();
 builder.Services.AddTransient<IEventService, EventService>();
 builder.Services.AddTransient<INewsPostService,NewsPostService>();
+builder.Services.AddTransient<IBookingService, BookingService>();
 
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();

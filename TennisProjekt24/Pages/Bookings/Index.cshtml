@@ -1,0 +1,100 @@
+﻿@page
+@using TennisProjekt24.Models
+@model TennisProjekt24.Pages.Bookings.IndexModel
+@{
+    ViewData["Title"] = "Booking Index";
+}
+
+<h1>Bane Bookinger</h1>
+
+<a asp-page="AddBooking" class="btn btn-primary">Opret booking</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                BookingID
+            </th>
+            <th>
+                Dato
+            </th>
+            <th>
+                Tidspunkt
+            </th>
+            <th>
+                Længde
+            </th>
+            <th>
+                Medlem
+            </th>
+            <th>
+                Anden spiller
+            </th>
+            <th>
+                Bane nr
+            </th>
+            <th>
+                Booking type
+            </th>
+            <th>
+                Note
+            </th>
+ 
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.BookingsList.Count() != 0)
+        {
+            @foreach (var item in Model.BookingsList)
+            {
+                <tr>
+                    <td>
+                        @item.BookingId
+                    </td>
+                    <td>
+                        @item.Date
+                    </td>
+                    <td>
+                        @item.Time
+                    </td>
+                    <td>
+                        @item.Duration
+                    </td>
+                    <td>
+                        @item.Member.Name
+                    </td>
+                    <td>
+                        @item.SecondMemberFull.Name
+                    </td>
+                    <td>
+                        @item.Court.CourtNumber
+                    </td>
+                    <td>
+                        @item.Type
+                    </td>
+                    <td>
+                        @item.Note
+                    </td>
+
+                    <td>
+                        <p>
+                            <a asp-page="/Bookings/DeleteBooking" asp-route-id="@item.BookingId">Slet</a> |
+                            <a asp-page="/Bookings/UpdateBooking" asp-route-id="@item.BookingId">Rediger</a>
+
+                        </p>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+@* @foreach (var item in Model.BookingsList)
+{
+    List<Booking> list = Model._bookingService.GetBookingsByCourt(item.BookingId);
+        foreach (var item2 in list)
+    {
+        
+    }
+} *@

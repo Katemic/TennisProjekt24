@@ -38,19 +38,39 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Members/Index">Medlemmer</a>
                         </li>
-                        <li class="nav-item">
+                       @*  <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Members/LogIn">Log ind</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Members/Profile">Min side</a>
-                        </li>
+                        </li> *@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Events/Index">Events</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/NewsPosts/Index">Nyheder</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/Index">Booking</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/FancyIndex">Booking fancy</a>
+                        </li>
                     </ul>
+                    @using Microsoft.AspNetCore.Http;
+                    @inject IHttpContextAccessor HttpContextAccessor
+                    @if (HttpContextAccessor.HttpContext.Session.GetInt32("MemberId") == null)
+                    {
+                        <a class="btn btn-success rounded-pill" asp-area="" asp-page="/Members/LogIn">
+                            <span class="text-light">Log ind</span>
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-success rounded-pill" asp-area="" asp-page="/Members/Profile">
+                            <span>Min profil</span>
+                        </a>
+                    }
                 </div>
             </div>
         </nav>

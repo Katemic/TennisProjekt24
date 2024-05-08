@@ -16,6 +16,15 @@ namespace TennisProjekt24.Services
         private string _updatePostSQL = "UPDATE NewsPosts SET Title = @Title, Text = @Text, Date = @Date, MemberId = @MemberId WHERE NewsPostId = @Id";
 
 
+        private IMemberService _memberService;
+
+        public NewsPostService(IMemberService memberService)
+        {
+            _memberService = memberService;
+        }
+
+
+
         public bool AddPost(NewsPost newsPost)
         {
             using (SqlConnection connection = new SqlConnection(connectionString)) 
@@ -26,7 +35,7 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@Title", newsPost.Title);
                     command.Parameters.AddWithValue("@Text", newsPost.Text);
                     command.Parameters.AddWithValue("@Date", newsPost.Date);
-                    command.Parameters.AddWithValue("@MemberId", newsPost.MemberId);
+                    command.Parameters.AddWithValue("@MemberId", newsPost.Member.MemberId);
                     command.Connection.Open();
                     int noOfRows = command.ExecuteNonQuery();
                     return noOfRows == 1;
@@ -103,7 +112,8 @@ namespace TennisProjekt24.Services
                         string text = reader.GetString("Text");
                         DateTime date = reader.GetDateTime("Date");
                         int memberId = reader.GetInt32("MemberId");
-                        NewsPost newsPost = new NewsPost(newsPostId, title, text, date, memberId);
+                        Member member = _memberService.GetMember(memberId);
+                        NewsPost newsPost = new NewsPost(newsPostId, title, text, date, member);
                         posts.Add(newsPost);
                     }
                     reader.Close();
@@ -149,7 +159,8 @@ namespace TennisProjekt24.Services
                         string text = reader.GetString("Text");
                         DateTime date = reader.GetDateTime("Date");
                         int memberId = reader.GetInt32("MemberId");
-                        newsPost = new NewsPost(postId, title, text, date, memberId);
+                        Member member = _memberService.GetMember(memberId);
+                        newsPost = new NewsPost(postId, title, text, date, member);
                     }
                     reader.Close();
                 }
@@ -186,7 +197,7 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@Title", newsPost.Title);
                     command.Parameters.AddWithValue("@Text", newsPost.Text);
                     command.Parameters.AddWithValue("@Date", newsPost.Date);
-                    command.Parameters.AddWithValue("@MemberId", newsPost.MemberId);
+                    command.Parameters.AddWithValue("@MemberId", newsPost.Member.MemberId);
                     command.Connection.Open();
                     int noOfRows = command.ExecuteNonQuery();
                     return noOfRows == 1;

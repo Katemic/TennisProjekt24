@@ -1,0 +1,88 @@
+﻿@page
+@using TennisProjekt24.Models
+@model TennisProjekt24.Pages.Bookings.AddBookingModel
+@{
+    ViewData["Title"] = "Create booking";
+}
+
+
+<h1>Opret booking</h1>
+
+<p class="text-danger">@Model.Message</p>
+
+<form method="post">
+
+    <div class="form-group">
+        <label asp-for="@Model.NewBooking.Date" class="control-label">Dato</label>
+        <input asp-for="@Model.NewBooking.Date" class="form-control" type="date" />
+        <span asp-validation-for="NewBooking.Date" class="text-danger"></span>
+        
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewBooking.Time" class="control-label">Tidspunkt</label>
+        <input asp-for="@Model.NewBooking.Time" class="form-control" type="time" />
+        <span asp-validation-for="NewBooking.Time" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewBooking.Duration" class="control-label">længde</label>
+        <input asp-for="@Model.NewBooking.Duration" class="form-control" />
+        <span asp-validation-for="NewBooking.Duration" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewBooking.Member" class="control-label">Medlem</label>
+        <input asp-for="@Model.CurrentMember.Name" class="form-control" disabled />
+        <span asp-validation-for="NewBooking.Member" class="text-danger"></span>
+
+    </div>
+   @*  <div class="form-group">
+        <label asp-for="@Model.NewBooking.SecondMember" class="control-label">Anden spiller</label>
+        <input asp-for="@Model.NewBooking.SecondMember" class="form-control" />
+        <span asp-validation-for="NewBooking.SecondMember" class="text-danger"></span>
+
+    </div> *@
+
+    <div class="form-group">
+        <label asp-for="@Model.NewBooking.SecondMemberFull" class="control-label">Anden spiller</label>
+        <select asp-for ="@Model.SecondMemberId" asp-items="@Model.MemberList2" class="form-control">
+            <option>---vælg bruger---</option>
+        </select>
+       
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.NewBooking.Court" class="control-label">Bane</label>
+        <input asp-for="@Model.NewBooking.Court" class="form-control" />
+        <span asp-validation-for="NewBooking.Court" class="text-danger"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.NewBooking.Type" class="control-label">Type af booking</label>
+        <br />
+        @foreach (var c in System.Enum.GetValues(typeof(BookingTypeEnum)))
+        {
+            <input type="radio" asp-for="@Model.NewBooking.Type" value="@c" />
+            <label class="control-label">@c</label>
+            <br />
+
+        }
+
+        <span asp-validation-for="NewBooking.Type" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.NewBooking.Note" class="control-label">Note</label>
+        <input asp-for="@Model.NewBooking.Note" class="form-control" />
+        <span asp-validation-for="NewBooking.Note" class="text-danger"></span>
+
+    </div>
+
+    <div class="form-group">
+        <br /> <br />
+        <input type="submit" value="Opret booking" class="btn btn-primary"  />
+        <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+    </div>
+</form>

@@ -1,7 +1,7 @@
 ﻿@page
 @model TennisProjekt24.Pages.Members.ProfileModel
 @{
-    ViewData["Title"] = "Login page";
+    ViewData["Title"] = "Profile";
 }
 
 <h1>Min side</h1>
@@ -57,7 +57,7 @@
     <a asp-page="/Members/index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Se medlemmer</a>
     <br /> <br /> 
     <a asp-page="/UKENDT" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">begivenheds tilmeldinger</a>
-    <a asp-page="/UKENDT" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Bane booking</a>
+    <a asp-page="/Bookings/BookingsMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Bane booking</a>
     <a asp-page="/UKENDT" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Trænings tilmeldinger</a>
     <br />
     <a asp-page="/Members/LogIn" asp-page-handler="Logout" class="btn btn-warning">Log ud</a>
