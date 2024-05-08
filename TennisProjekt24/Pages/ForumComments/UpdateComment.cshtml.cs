@@ -22,7 +22,7 @@ namespace TennisProjekt24.Pages.ForumComments
             CommentToUpdate = _commentService.GetComment(commentId);
         }
 
-        public IActionResult OnPostUpdate()
+        public IActionResult OnPostUpdate(int postId)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace TennisProjekt24.Pages.ForumComments
             {
                 ViewData["ErrorMessage"] = ex.Message;
             }
-            return RedirectToPage("Index");
+            return RedirectToPage("/BuddyForums/GetBuddyForum", postId);
         }
 
         public IActionResult OnPostDelete()
@@ -53,7 +53,7 @@ namespace TennisProjekt24.Pages.ForumComments
             {
                 ViewData["ErrorMessage"] = ex.Message;
             }
-            return RedirectToPage("Index");
+            return RedirectToPage("/BuddyForums/GetBuddyForum", new { postId = CommentToUpdate.PostId });
         }
     }
 }

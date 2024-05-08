@@ -58,7 +58,7 @@ namespace TennisProjekt24.Pages.BuddyForums
             {
                 ViewData["ErrorMessage"] = ex.Message;
             }
-            return Page();
+            return RedirectToPage("/BuddyForums/GetBuddyForum", new { postId = CreateComment.PostId });
         }
     }
 }

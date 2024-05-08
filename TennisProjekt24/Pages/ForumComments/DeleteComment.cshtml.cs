@@ -9,6 +9,7 @@ namespace TennisProjekt24.Pages.ForumComments
     public class DeleteCommentModel : PageModel
     {
         private IForumCommentService _commentService;
+        [BindProperty]
         public ForumComment DeleteComment { get; set; }
 
         public DeleteCommentModel(IForumCommentService commentService)
@@ -46,7 +47,7 @@ namespace TennisProjekt24.Pages.ForumComments
             {
                 ViewData["ErrorMessage"] = ex.Message;
             }
-            return RedirectToPage("/BuddyForums/GetBuddyForum");
+            return RedirectToPage("/BuddyForums/GetBuddyForum", new { postId = DeleteComment.PostId });
         }
     }
 }
