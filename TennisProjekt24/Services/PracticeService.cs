@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
 using static TennisProjekt24.Models.Practice;
+using System.Security.Cryptography;
 
 namespace TennisProjekt24.Services
 {
@@ -77,14 +78,21 @@ namespace TennisProjekt24.Services
 
        
 
-        public List<Practice> GetAllPractices()
+        public List<Practice> GetAllPractices(int? mId = null)
         {
             List<Practice> practices = new List<Practice>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
                 {
-                    SqlCommand commmand = new SqlCommand(_getAllPracticesString, connection);
+                    string sql = _getAllPracticesString;
+                    if (mId != null)
+                    {
+                        sql += " WHERE PracticeId IN (SELECT PracticeId FROM PracticesMembers WHERE MemberId = @mId)";
+
+                    }
+                    SqlCommand commmand = new SqlCommand(sql, connection);
+                    commmand.Parameters.AddWithValue("@mId", mId);
                     commmand.Connection.Open();
                     SqlDataReader reader = commmand.ExecuteReader();
                     while (reader.Read())
