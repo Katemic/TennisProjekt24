@@ -42,7 +42,7 @@
             <p>@Model.GetBuddyForum.Text</p>
         </div>
     </div>
-
+    <input type="radio" asp-for="@Model.Descending" value="" />
     <table class="table">
             <div class="comment">
                 @if (Model.ForumComments.Count() != 0)

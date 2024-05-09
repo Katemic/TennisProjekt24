@@ -16,6 +16,7 @@ namespace TennisProjekt24.Pages.BuddyForums
         [BindProperty]
         public ForumComment CreateComment { get; set; }
         public List<ForumComment> ForumComments { get; set; }
+        public bool Descending { get; set; }
 
         public GetBuddyForumModel(IBuddyForumService buddyForumService, IMemberService memberService, IForumCommentService forumCommentService)
         {
@@ -29,7 +30,14 @@ namespace TennisProjekt24.Pages.BuddyForums
             try
             {
                 GetBuddyForum = _buddyForumService.GetPostById(postId);
-                ForumComments = _forumCommentService.GetPostComments(postId);
+                if (Descending)
+                {
+                    ForumComments = _forumCommentService.GetPostCommentsDesc(postId);
+                }
+                else
+                {
+                    ForumComments = _forumCommentService.GetPostComments(postId);
+                }
             }
             catch (SqlException sql)
             {

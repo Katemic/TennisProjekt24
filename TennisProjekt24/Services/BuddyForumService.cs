@@ -8,7 +8,7 @@ namespace TennisProjekt24.Services
 {
     public class BuddyForumService : Connection, IBuddyForumService
     {
-        private string _getAllString = "SELECT * FROM BuddyForums";
+        private string _getAllString = "SELECT * FROM BuddyForums ORDER BY DateTime DESC";
         private string _insertSql = "INSERT INTO BuddyForums VALUES(@DateTime, @MemberId, @Title, @Text, @SkillType)";
         private string _deleteSql = "DELETE FROM BuddyForums WHERE PostId=@PostId";
         private string _getByIdSql = "SELECT * FROM BuddyForums WHERE PostId=@PostId";
