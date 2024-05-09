@@ -3,8 +3,7 @@
 @{
 }
 
-<!DOCTYPE html>
-<html>
+
 <head>
     <style>
         .heading {
@@ -31,48 +30,55 @@
     </style>
 </head>
 
-<body>
-    <div class="post">
-        <div class="heading">
-            <p>@Model.GetBuddyForum.DateTime</p>
-            <p>@Model.GetBuddyForum.Title</p>
-            <p>@Model.GetBuddyForum.SkillType</p>
-        </div>
-        <div class="textBlog">
-            <p>@Model.GetBuddyForum.Text</p>
-        </div>
-    </div>
-    <input type="radio" asp-for="@Model.Descending" value="" />
-    <table class="table">
-            <div class="comment">
-                @if (Model.ForumComments.Count() != 0)
-                {
-                    @foreach (var item in Model.ForumComments)
-                    {
-                        <div class="card-group">
-                            <div class="card" style="width: 50rem;" >
-                                <div class="card-body">
-                                    <h5 class="card-title">@item.Commenter.Name -------- @item.DateTime</h5>
-                                    <p class="card-text">@item.Text</p>
-                                </div>
-                            </div>
-                            <tr>
-                                @if (item.Commenter.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
-                                {
-                                    <p>
-                                        <a asp-page="/ForumComments/DeleteComment" asp-route-commentId="@item.CommentId">Slet</a>
-                                        <a asp-page="/ForumComments/UpdateComment" asp-route-commentId="@item.CommentId">Opdater</a>
-                                    </p>
-                                }
-                            </tr>
-                        </div>
-                    }
-                }
+<form method="get">
+    <body>
+        <div class="post">
+            <div class="heading">
+                <p>@Model.GetBuddyForum.DateTime</p>
+                <p>@Model.GetBuddyForum.Title</p>
+                <p>@Model.GetBuddyForum.SkillType</p>
             </div>
-        </tbody>
-    </table>
-</body>
-
+            <div class="textBlog">
+                <p>@Model.GetBuddyForum.Text</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="custom-control-label">Sort Order</label> <br />
+            <select asp-for="SortOrderAscDesc" onchange="this.form.submit()">
+                <option value="Ascending">Ascending</option>
+                <option value="Descending">Descending</option>
+            </select>
+        </div>
+        <table class="table">
+                <div class="comment">
+                    @if (Model.ForumComments.Count() != 0)
+                    {
+                        @foreach (var item in Model.ForumComments)
+                        {
+                            <div class="card-group">
+                                <div class="card" style="width: 50rem;" >
+                                    <div class="card-body">
+                                        <h5 class="card-title">@item.Commenter.Name -------- @item.DateTime</h5>
+                                        <p class="card-text">@item.Text</p>
+                                    </div>
+                                </div>
+                                <tr>
+                                    @if (item.Commenter.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
+                                    {
+                                        <p>
+                                            <a asp-page="/ForumComments/DeleteComment" asp-route-commentId="@item.CommentId">Slet</a>
+                                            <a asp-page="/ForumComments/UpdateComment" asp-route-commentId="@item.CommentId">Opdater</a>
+                                        </p>
+                                    }
+                                </tr>
+                            </div>
+                        }
+                    }
+                </div>
+            </tbody>
+        </table>
+    </body>
+</form>
 
 
 <form method="post">
@@ -86,4 +92,3 @@
         </div>
     </body>
 </form>
-</html>

@@ -9,5 +9,6 @@ namespace TennisProjekt24.Interfaces
         bool UpdatePost(int postId, BuddyForum post);
         BuddyForum GetPostById(int postId);
         List<BuddyForum> GetAllPosts();
+        List<BuddyForum> GetBySkillPosts(int skill);
     }
 }

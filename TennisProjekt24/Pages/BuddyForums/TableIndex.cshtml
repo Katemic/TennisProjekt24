@@ -1,39 +1,32 @@
 ﻿@page
 @model TennisProjekt24.Pages.BuddyForums.IndexModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "TableIndex";
 }
-
-
-<head>
-    <style>
-        .heading {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            width: 100%;
-            font-size: 34px;
-            padding: 0 14px;
-        }
-
-        .post {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            margin: auto;
-            font-family: arial;
-        }
-
-        .textBlog {
-            margin: 3%;
-            text-align: center;
-        }
-    </style>
-</head>
 
 <h4>Makker forum</h4>
 
 <a asp-page="/BuddyForums/CreateBuddyForum">Opret</a>
 
 <form method="get">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Medlem
+                </th>
+                <th>
+                    Dato
+                </th>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Erfarings niveau
+                </th>
+            </tr>
+        </thead>
+        <tbody>
             <div class="form-group">
                 <label class="custom-control-label">Sortering for erfarings niveau</label></br>
                 @* @foreach (Helpers.SkillTypeEnum skillType in (Helpers.SkillTypeEnum[])Enum.GetValues(typeof(Helpers.SkillTypeEnum))) { } *@
@@ -47,17 +40,19 @@
             {
                 @foreach (var item in Model.buddyForums)
                 {
-                    <div class="post">
-                        <div class="heading">
-                            <p>@item.DateTime</p>
+                    <tr>
+                        <td>
+                            @item.Poster.Name
+                        </td>
+                        <td>
+                            @item.DateTime
+                        </td>
+                        <td>
                             <a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@item.PostId">@item.Title</a>
-                            <p>@item.SkillType</p>
-                        </div>
-                        <h1>@item.Poster.Name</h1>
-                        <div class="textBlog">
-                            <p>@item.Text</p>
-                        </div>
-                    </div>
+                        </td>
+                        <td>
+                            @item.SkillType
+                        </td>
                         @if (item.Poster.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
                         {
                             <td>
@@ -67,6 +62,9 @@
                             </p>
                         </td>
                         }
+                    </tr>
                 }
             }
+        </tbody>
+    </table>
 </form>

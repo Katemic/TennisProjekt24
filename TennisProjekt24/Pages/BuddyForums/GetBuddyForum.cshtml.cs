@@ -17,6 +17,8 @@ namespace TennisProjekt24.Pages.BuddyForums
         public ForumComment CreateComment { get; set; }
         public List<ForumComment> ForumComments { get; set; }
         public bool Descending { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string SortOrderAscDesc { get; set; }
 
         public GetBuddyForumModel(IBuddyForumService buddyForumService, IMemberService memberService, IForumCommentService forumCommentService)
         {
@@ -25,12 +27,12 @@ namespace TennisProjekt24.Pages.BuddyForums
             _forumCommentService = forumCommentService;
         }
 
-        public IActionResult OnGet(int postId)
+        public void OnGet(int postId)
         {
             try
             {
                 GetBuddyForum = _buddyForumService.GetPostById(postId);
-                if (Descending)
+                 if (SortOrderAscDesc == "Descending")
                 {
                     ForumComments = _forumCommentService.GetPostCommentsDesc(postId);
                 }
@@ -47,7 +49,7 @@ namespace TennisProjekt24.Pages.BuddyForums
             {
                 ViewData["ErrorMessage"] = ex.Message;
             }
-            return Page();
+            //return Page();
         }
         public IActionResult OnPost(int postId)
         {

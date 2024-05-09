@@ -9,6 +9,7 @@ namespace TennisProjekt24.Services
     public class BuddyForumService : Connection, IBuddyForumService
     {
         private string _getAllString = "SELECT * FROM BuddyForums ORDER BY DateTime DESC";
+        private string _getBySkillString = "SELECT * FROM BuddyForums WHERE SkillType=@SkillType ORDER BY DateTime DESC";
         private string _insertSql = "INSERT INTO BuddyForums VALUES(@DateTime, @MemberId, @Title, @Text, @SkillType)";
         private string _deleteSql = "DELETE FROM BuddyForums WHERE PostId=@PostId";
         private string _getByIdSql = "SELECT * FROM BuddyForums WHERE PostId=@PostId";
@@ -86,6 +87,46 @@ namespace TennisProjekt24.Services
                 try
                 {
                     SqlCommand command = new SqlCommand(_getAllString, connection);
+                    command.Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int postId = reader.GetInt32("PostId");
+                        DateTime dateTime = reader.GetDateTime("DateTime");
+                        string title = reader.GetString("Title");
+                        string text = reader.GetString("Text");
+                        Member poster = _memberService.GetMember(reader.GetInt32("MemberId"));
+                        SkillTypeEnum skillType = (SkillTypeEnum)reader.GetInt32("SkillType");
+                        BuddyForum post = new BuddyForum(postId, dateTime, poster, title, text, skillType);
+                        posts.Add(post);
+                    }
+                    reader.Close();
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("Database error: " + sqlEx.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("General fejl: " + ex.Message);
+                }
+                finally
+                {
+
+                }
+            }
+            return posts;
+        }
+
+        public List<BuddyForum> GetBySkillPosts(int skill)
+        {
+            List<BuddyForum> posts = new List<BuddyForum>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(_getBySkillString, connection);
+                    command.Parameters.AddWithValue("@SkillType", skill);
                     command.Connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())

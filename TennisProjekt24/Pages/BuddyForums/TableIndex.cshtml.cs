@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
+using System.Reflection.Metadata.Ecma335;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
 
 namespace TennisProjekt24.Pages.BuddyForums
 {
-    public class IndexModel : PageModel
+    public class TableIndexModel : PageModel
     {
         private IBuddyForumService _buddyForumService;
 
@@ -14,7 +15,7 @@ namespace TennisProjekt24.Pages.BuddyForums
         [BindProperty(SupportsGet = true)]
         public string SkillLevel { get; set; }
 
-        public IndexModel(IBuddyForumService buddyForumService)
+        public TableIndexModel(IBuddyForumService buddyForumService)
         {
             _buddyForumService = buddyForumService;
         }
