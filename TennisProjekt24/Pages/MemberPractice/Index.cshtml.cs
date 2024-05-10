@@ -32,7 +32,7 @@ namespace TennisProjekt24.Pages.MemberPractice
             {
                 int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
                 _practiceService.AddMemberPractice(sessionMemberId, practiceId);
-                return RedirectToPage(this.Url);
+                return RedirectToPage("/Practices/Index");
             }
         }
     }

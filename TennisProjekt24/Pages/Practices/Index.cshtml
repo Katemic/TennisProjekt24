@@ -53,6 +53,11 @@
                     {
                         <td><a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Attend</a></td>
                     }
+                    else
+                    {
+                        <td>Holdet er fyldt</td>
+                    }
+
                 </tr>
             }
         }
