@@ -2,3 +2,45 @@
 @model TennisProjekt24.Pages.MemberPractice.IndexModel
 @{
 }
+<form method="post">
+    <div class="form-group">
+        @if (Model.Practice.MaxNoOfAttendees > Model.Practice.Members.Count) {
+            <input asp-route-practiceId="@Model.Practice.PracticeId" type="submit" value="Attend" class="btn btn-primary" />
+        }
+        else{
+            <td>Holdet tager ikke imod flere deltagere</td>
+        }
+
+    </div>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Brugernavn
+            </th>
+            <th>
+                Navn
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Practice.Members.Count() != 0)
+        {
+            @foreach (var item in Model.Practice.Members)
+            {
+                <tr>
+                    <td>
+                        @item.Username
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+    <td><a asp-page="/Practices/Index">Back</a></td>
+</table>

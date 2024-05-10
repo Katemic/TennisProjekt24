@@ -11,7 +11,7 @@ namespace TennisProjekt24.Pages.Practices
         IPracticeService practiceService { get; set; }
         public void OnGet()
         {
-            Practices = practiceService.GetAllPractices();
+            Practices = practiceService.GetAllPractices(null);
         }
         public IndexModel(IPracticeService prac)
         {

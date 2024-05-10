@@ -8,7 +8,7 @@ namespace TennisProjekt24.Interfaces
         bool AddPractice(Practice practice);
         bool DeletePractice(int id);
         bool UpdatePractice(Practice practice, int id);
-        List<Practice> GetAllPractices();
+        List<Practice> GetAllPractices(int? mId);
         List<Practice> GetPracticeByType();
 
         //MemberPractice

@@ -11,23 +11,29 @@ namespace TennisProjekt24.Pages.MemberPractice
         private IMemberService _memberService;
         [BindProperty]
         public Practice Practice { get; set; }
-        [BindProperty]
-        public List<Member> Members { get; set; }
-        [BindProperty]
-        public List<(int, int)> MembersPractices { get; set; }
-        //[BindProperty]
-        //public var View;
-        public void OnGet(int practiceId)
+  
+        public void OnGet(int id)
         {
-            Practice = _practiceService.GetPractice(practiceId);
-            Members = _memberService.GetAllMembers();
-            MembersPractices = _practiceService.GetAllMemberPracticesByPractice(practiceId);
+            Practice = _practiceService.GetPractice(id);
+            Practice.Members = _memberService.GetAllMembers(id);
 
         }
         public IndexModel(IPracticeService serv, IMemberService memberService)
         {
             _practiceService = serv;
             _memberService = memberService;
+        }
+
+        public IActionResult OnPost(int practiceId)
+        {
+            if (HttpContext.Session.GetInt32("MemberId") == null)
+                return RedirectToPage("/Members/LogIn");
+            else
+            {
+                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                _practiceService.AddMemberPractice(sessionMemberId, practiceId);
+                return RedirectToPage(this.Url);
+            }
         }
     }
 }

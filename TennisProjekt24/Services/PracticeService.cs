@@ -92,7 +92,8 @@ namespace TennisProjekt24.Services
 
                     }
                     SqlCommand commmand = new SqlCommand(sql, connection);
-                    commmand.Parameters.AddWithValue("@mId", mId);
+                    if (mId != null) 
+                        commmand.Parameters.AddWithValue("@mId", mId);
                     commmand.Connection.Open();
                     SqlDataReader reader = commmand.ExecuteReader();
                     while (reader.Read())
@@ -201,7 +202,7 @@ namespace TennisProjekt24.Services
         }
 
         //MemberPractice
-        private string _addMemberPractice = $"INSERT INTO PracticesMembers VALUES (@PID, @MID)";
+        private string _addMemberPractice = $"INSERT INTO PracticesMembers VALUES (@MID, @PID)";
         private string _getMemberPractice = $"SELECT * FROM PracticesMembers Where PracticeId = @PID ANS MemberId = @MID";
         private string _getAllMemberPractice = $"SELECT PracticeId, MemberId FROM PracticesMembers";
         private string _getMemberPracticeByPractice = $"SELECT * FROM PracticesMembers Where PracticeId = @PID";

@@ -49,9 +49,9 @@
                     </td>
                     <td><a asp-page="DeletePractice" asp-route-id="@item.PracticeId">Delete</a></td>
                     <td><a asp-page="UpdatePractice" asp-route-id="@item.PracticeId">Update</a></td>
-                    @if (item.MaxNoOfAttendees > 0)
+                    @if (item.MaxNoOfAttendees > item.Members.Count)
                     {
-                        <td><a asp-page="MemberPractice" asp-route-id="item.PracticeId">Attend</a></td>
+                        <td><a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Attend</a></td>
                     }
                 </tr>
             }
