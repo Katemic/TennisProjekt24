@@ -15,6 +15,9 @@
                 Medlem Id
             </th>
             <th>
+                Billede
+            </th>
+            <th>
                 Brugernavn
             </th>
             <th>
@@ -51,6 +54,9 @@
                 <tr>
                     <td>
                         @item.MemberId
+                    </td>
+                    <td>
+                        <img src="~/images/memberimages/@item.Image" class="avatar thumbnail">
                     </td>
                     <td>
                         @item.Username
@@ -91,3 +97,32 @@
         }
     </tbody>
 </table>
+
+
+
+<style>
+
+    .avatar {
+        vertical-align: middle;
+        width: 50px;
+        height: 50px;
+        border-radius: 40%;
+    }
+
+
+    .thumbnail {
+        top: -50px;
+        left: -35px;
+        display: block;
+        z-index: 999;
+        cursor: pointer;
+        -webkit-transition-property: all;
+        -webkit-transition-duration: 0.3s;
+        -webkit-transition-timing-function: ease;
+    }
+
+        /*change the number below to scale to the appropriate size*/
+        .thumbnail:hover {
+            transform: scale(3);
+        }
+</style>

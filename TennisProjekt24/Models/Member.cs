@@ -44,8 +44,9 @@ namespace TennisProjekt24.Models
         [Required(ErrorMessage = "vælg medlemstype")]
         public MemberTypeEnum MemberType { get; set; }
         
-        public bool Admin { get; set; } 
+        public bool Admin { get; set; }
 
+        public string? Image {  get; set; }
         
         public Member()
         {
@@ -53,7 +54,7 @@ namespace TennisProjekt24.Models
         }
 
         public Member(int memberId, string username, string password, string name, string email, string phoneNumber, 
-            string address, string postcode, MemberTypeEnum memberType, bool admin)
+            string address, string postcode, MemberTypeEnum memberType, bool admin, string image)
         {
             MemberId = memberId;
             Username = username;
@@ -65,8 +66,20 @@ namespace TennisProjekt24.Models
             PostCode = postcode;
             MemberType = memberType;
             Admin = admin;
+            Image = image;
 
 
+        }
+
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null) return false;
+            else if (!(obj is Member)) return false;
+
+            else if (((Member)obj).MemberId == this.MemberId) return true;
+
+            return false;
         }
 
     }
