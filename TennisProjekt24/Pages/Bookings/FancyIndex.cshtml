@@ -114,13 +114,35 @@
                         <td>
                             <span class="btn btn-secondary">-</span>
                         </td>
-                        
+
                     }
                     else if (Model._bookingService.CheckAvailability(ting.CourtId, Model.Date, item))
                     {
-                        <td>
-                            <a asp-page="/Bookings/AddBookingFancy" asp-route-id="@ting.CourtId" asp-route-date="@Model.Date" asp-route-time="@item" class="btn btn-success">O</a>
-                        </td>
+
+                        if(Model.CurrentMember==null)
+                        { 
+                            <td>
+                            <a asp-page="/Members/LogIn" class="btn btn-success">O</a>
+                            </td>
+                        }
+
+                        else if (Model.Date>DateOnly.FromDateTime(DateTime.Now.AddDays(14)) && !Model.CurrentMember.Admin)
+                        {
+                            <td>
+                                
+                                <div  class="popup" onclick="DateRule()">
+                                    <span class="btn btn-success">O</span> 
+                                   
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a asp-page="/Bookings/AddBookingFancy" asp-route-id="@ting.CourtId" asp-route-date="@Model.Date" asp-route-time="@item" class="btn btn-success">O</a>
+                            </td>
+                        }
+                        
                     }
                     else
                     {
@@ -157,3 +179,13 @@
                     <a asp-page="/Bookings/AddBookingFancy" asp-route-id="@item.CourtId" asp-route-date="@Model.Date" asp-route-time="8:00" class="btn btn-outline-info"></a>
                 </td>
             } *@
+
+ 
+<script>
+
+    function DateRule() {
+        alert ('Du må ikke booke mere end 14 dage frem')
+    }
+</script>
+
+
