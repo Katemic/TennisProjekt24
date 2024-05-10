@@ -56,6 +56,12 @@ else
                     <td>
                         @item.NoOfParticipants
                     </td>
+                    <td>
+                        @if (Model.CurrentMember.Admin == true)
+                        {
+                            <a asp-page="/Events/RemoveEvBook" asp-page-handler="Admin" asp-route-eventId="@item.Event.EventId" asp-route-adminmemberId="@item.Member.MemberId" asp-route-adminMode="1">Afmeld</a>
+                        }
+                    </td>
                 </tr>
             }
         }

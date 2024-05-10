@@ -28,10 +28,25 @@
             <th>Arrangør</th>
             <td>@Model.EventBook.Member.MemberId</td>
         </tr>
+        <tr>
+            <th>Deltager</th>
+            <td>@Model.MemberToRemove.Name</td>
+        </tr>
     </table>
 
-    <input type="submit" value="Afmeld" asp-route-eventId="@Model.EventBook.EventId" asp-route-memberId="@Model.CurrentMember.MemberId" class="btn btn-success" />
-
+    @if (HttpContext.Request.Query.ContainsKey("adminMode"))
+    {
+        <form method="post" asp-page-handler="Admin">
+            <input type="hidden" name="eventId" value="@Model.EventBook.EventId" />
+            <input type="hidden" name="memberToRemoveId" value="@Model.MemberToRemoveId" />
+            <button type="submit">Afmeld Deltager</button>
+        </form>
+    }
+    else
+    {
+        <input type="submit" value="Afmeld" asp-route-eventId="@Model.EventBook.EventId" asp-route-memberId="@Model.CurrentMember.MemberId" class="btn btn-success" />
+    }
+    
     <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
 
 </form>

@@ -13,12 +13,13 @@ namespace TennisProjekt24.Pages.Events
         private IMemberService _memberService;
         public Member CurrentMember { get; set; }
         public List<Participant> Participants { get; set; }
+        public List<Participant> ParticipantsFuture { get; set; }
         public MyEventsModel(IParticipantService participantService, IEventService eventService, IMemberService memberService)
         {
             _participantService = participantService;
             _eventService = eventService;
             _memberService = memberService;
-            //Participants = new List<Participant>();
+            ParticipantsFuture = new List<Participant>();
         }
         public IActionResult OnGet(int memberId)
         {
@@ -32,6 +33,13 @@ namespace TennisProjekt24.Pages.Events
                 CurrentMember = _memberService.GetMember(sessionMemberId);
                 memberId = sessionMemberId;
                 Participants = _participantService.GetAllEventsByParticipant(memberId);
+                foreach (var participant in Participants)
+                {
+                    if (participant.Event.Date > DateTime.Now)
+                    {
+                        ParticipantsFuture.Add(participant);
+                    }
+                }
                 //EventBook = _eventService.GetEvent(eventId);
                 return Page();
             }

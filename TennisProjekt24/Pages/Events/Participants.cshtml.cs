@@ -8,20 +8,33 @@ namespace TennisProjekt24.Pages.Events
     public class ParticipantsModel : PageModel
     {
         private IParticipantService _participantService;
+        private IMemberService _memberService;
         public List<Participant> Participants { get; set; }
         public int CurrentAttendees { get; set; }
-        public ParticipantsModel(IParticipantService participantService)
+        public Member CurrentMember { get; set; }
+        public ParticipantsModel(IParticipantService participantService, IMemberService memberService)
         {
             _participantService = participantService;
-            
+            _memberService = memberService;           
         }
-        public void OnGet(int eventId)
+        public IActionResult OnGet(int eventId)
         {
-            Participants = _participantService.GetAllParticipants(eventId);
-            foreach (var participant in Participants)
+            if (HttpContext.Session.GetInt32("MemberId") == null)
             {
-                CurrentAttendees = CurrentAttendees +participant.NoOfParticipants;
+                return RedirectToPage("/Members/LogIn");
             }
+            else
+            {
+                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                CurrentMember = _memberService.GetMember(sessionMemberId);
+                Participants = _participantService.GetAllParticipants(eventId);
+                foreach (var participant in Participants)
+                {
+                    CurrentAttendees = CurrentAttendees + participant.NoOfParticipants;
+                }
+                return Page();
+            }
+            
         }
     }
 }
