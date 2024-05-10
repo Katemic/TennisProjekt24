@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
+using TennisProjekt24.Helpers;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
 
@@ -12,7 +13,7 @@ namespace TennisProjekt24.Pages.BuddyForums
 
         public List<BuddyForum> buddyForums { get; set; }
         [BindProperty(SupportsGet = true)]
-        public string SkillLevel { get; set; }
+        public SkillTypeEnum SkillLevel { get; set; }
 
         public IndexModel(IBuddyForumService buddyForumService)
         {
@@ -23,14 +24,14 @@ namespace TennisProjekt24.Pages.BuddyForums
         {
             try
             {
-                if (SkillLevel == "LetØvet")
-                    buddyForums = _buddyForumService.GetBySkillPosts(1);
-                else if (SkillLevel == "Øvet")
-                    buddyForums = _buddyForumService.GetBySkillPosts(2);
-                else if (SkillLevel == "Rutineret")
-                    buddyForums = _buddyForumService.GetBySkillPosts(3);
+                if ((int)SkillLevel > 0)
+                {
+                    buddyForums = _buddyForumService.GetBySkillPosts((int)SkillLevel);
+                }
                 else
+                {
                     buddyForums = _buddyForumService.GetAllPosts();
+                }
 
             }
             catch (SqlException sql)

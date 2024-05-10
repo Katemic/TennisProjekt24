@@ -26,9 +26,12 @@
         <br />
         @foreach (var type in System.Enum.GetValues(typeof(@SkillTypeEnum)))
         {
-            <input type="radio" asp-for="@Model.NewBuddyForum.SkillType" value="@type" />
-            <label class="control-label">@type</label>
-            <br />
+            @if ((int)type != 0)
+            {
+                <input type="radio" asp-for="@Model.NewBuddyForum.SkillType" value="@type" />
+                <label class="control-label">@type</label>
+                <br />
+            }
         }
         <span asp-validation-for="@Model.NewBuddyForum.SkillType" class="text-danger"></span>
     </div>

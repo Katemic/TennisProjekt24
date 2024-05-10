@@ -36,12 +36,20 @@
 <form method="get">
             <div class="form-group">
                 <label class="custom-control-label">Sortering for erfarings niveau</label></br>
-                @* @foreach (Helpers.SkillTypeEnum skillType in (Helpers.SkillTypeEnum[])Enum.GetValues(typeof(Helpers.SkillTypeEnum))) { } *@
 
-                <input type="radio" asp-for="@Model.SkillLevel" value="None" onclick="this.form.submit()" /> Alle
-                <input type="radio" asp-for="@Model.SkillLevel" value="LetØvet" onclick="this.form.submit()" /> LetØvet
-                <input type="radio" asp-for="@Model.SkillLevel" value="Øvet" onclick="this.form.submit()" /> Øvet
-                <input type="radio" asp-for="@Model.SkillLevel" value="Rutineret" onclick="this.form.submit()" /> Rutineret
+                @foreach (var type in System.Enum.GetValues(typeof(Helpers.SkillTypeEnum)))
+                {
+                    if ((int)type == 0)
+                    {
+                        <input type="radio" asp-for="@Model.SkillLevel" value="None" onclick="this.form.submit()"/>
+                        <label class="control-label">Alle</label>
+                    } 
+                    else 
+                    {
+                    <input type="radio" asp-for="@Model.SkillLevel" value="@type" onclick="this.form.submit()" />
+                    <label class="control-label">@type</label>
+                    }
+                }
             </div>
             @if (Model.buddyForums.Count() != 0)
             {
@@ -50,12 +58,13 @@
                     <div class="post">
                         <div class="heading">
                             <p>@item.DateTime</p>
-                            <a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@item.PostId">@item.Title</a>
+                            <p>@item.Title</p>
                             <p>@item.SkillType</p>
                         </div>
                         <h1>@item.Poster.Name</h1>
                         <div class="textBlog">
                             <p>@item.Text</p>
+                            <p><a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@item.PostId">se kommentare</a></p>
                         </div>
                     </div>
                         @if (item.Poster.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))

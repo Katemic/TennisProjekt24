@@ -5,6 +5,6 @@
     }
     public enum SkillTypeEnum
     {
-        None, LetØvet, Øvet, Rutineret
+        None, LetØvet, Øvet, Rutineret, ForSjov
     }
 }
