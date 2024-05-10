@@ -6,60 +6,30 @@
 <p>
     <a asp-page="AddPractice">Add Practice</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Practice Id</th>
-            <th>Date</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Number of Practices</th>
-            <th>Max Number of Atendees</th>
-            <th>Instructor Id</th>
-            <th>Type</th>
-        </tr>
-    </thead>
-    <tbody>
+
         @if(Model.Practices.Count != 0)
         {
             @foreach(var item in Model.Practices)
             {
-                <tr>
-                    <td>
-                        @item.PracticeId
-                    </td>
-                    <td>
-                        @item.StartDate
-                    </td>
-                    <td>
-                        @item.Title
-                    </td>
-                    <td>@item.Description</td>
-                    <td>
-                        @item.NoOfTrainings
-                    </td>
-                    <td>
-                        @item.MaxNoOfAttendees
-                    </td>
-                    <td>
-                        @item.Instructor.Name
-                    </td>
-                    <td>
-                        @item.Type
-                    </td>
-                    <td><a asp-page="DeletePractice" asp-route-id="@item.PracticeId">Delete</a></td>
-                    <td><a asp-page="UpdatePractice" asp-route-id="@item.PracticeId">Update</a></td>
-                    @if (item.MaxNoOfAttendees > item.Members.Count)
-                    {
-                        <td><a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Attend</a></td>
-                    }
-                    else
-                    {
-                        <td>Holdet er fyldt</td>
-                    }
-
-                </tr>
+                <div class="card" style="width: 30rem;">    
+                <div class="card-body">
+                <h3> @item.Title</h3>
+                <h4>@item.StartDate</h4>
+                <h5>@item.Type</h5>
+                <h6>Ved: @item.Instructor.Name</h6>
+                <p>@item.Description</p>
+                <a class="card-link" asp-page="DeletePractice" asp-route-id="@item.PracticeId">Delete</a>
+                <a class="card-link" asp-page="UpdatePractice" asp-route-id="@item.PracticeId">Update</a>
+                @if (item.MaxNoOfAttendees > item.Members.Count)
+                {
+                    <a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Attend</a>
+                }
+                else
+                {
+                    <p>Holdet er fyldt</p>
+                }
+                </div>
+    
+            </div>
             }
         }
-    </tbody>
-</table>
