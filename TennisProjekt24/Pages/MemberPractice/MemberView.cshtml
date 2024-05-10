@@ -1,0 +1,21 @@
+﻿@page
+@model TennisProjekt24.Pages.MemberPractice.MemberViewModel
+@{
+    ViewData["Title"] = "Practice index for members";
+}
+@if (Model.Practices.Count != 0)
+{
+    @foreach (var item in Model.Practices)
+    {
+        <div class="card" style="width: 30rem;">
+            <div class="card-body">
+                <h3> @item.Title</h3>
+                <h4>@item.StartDate</h4>
+                <h5>@item.Type</h5>
+                <h6>Ved: @item.Instructor.Name</h6>
+                <p>@item.Description</p>
+            </div>
+
+        </div>
+    }
+}
