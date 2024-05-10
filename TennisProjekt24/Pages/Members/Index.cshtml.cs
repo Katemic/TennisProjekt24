@@ -12,15 +12,28 @@ namespace TennisProjekt24.Pages.Members
 
         public List<Member> members { get; set; }
 
+        public Member CurrentMember { get; set; }
+
         public IndexModel(IMemberService memberService)
         {
              _memberService = memberService;
         }
 
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            members = _memberService.GetAllMembers();
+            if (HttpContext.Session.GetInt32("MemberId") == null)
+            {
+                return RedirectToPage("LogIn");
+            }
+            else
+            {
+                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                CurrentMember = _memberService.GetMember(sessionMemberId);
+                members = _memberService.GetAllMembers();
+                return Page();
+            }
+            
         }
     }
 }
