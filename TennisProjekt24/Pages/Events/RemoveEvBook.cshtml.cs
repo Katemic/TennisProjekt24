@@ -26,7 +26,7 @@ namespace TennisProjekt24.Pages.Events
             _eventService = eventService;
             _memberService = memberService;
         }
-        public IActionResult OnGet(int eventId)
+        public IActionResult OnGet(int eventId, int id)
         {
             if (HttpContext.Session.GetInt32("MemberId") == null)
             {
@@ -38,6 +38,7 @@ namespace TennisProjekt24.Pages.Events
                 CurrentMember = _memberService.GetMember(sessionMemberId);
                 Participants = _participantService.GetAllParticipants(eventId);
                 EventBook = _eventService.GetEvent(eventId);
+                MemberToRemove = _memberService.GetMember(id);
                 return Page();
             }
         }

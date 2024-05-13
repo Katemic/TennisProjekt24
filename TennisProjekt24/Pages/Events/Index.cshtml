@@ -65,7 +65,7 @@
 
                                 if (isAttending)
                                 {
-                                    <a asp-page="/Events/RemoveEvBook" asp-route-eventId="@item.EventId">Afmeld</a>
+                                    <a asp-page="/Events/RemoveEvBook" asp-route-eventId="@item.EventId" asp-route-id="@item.Member.MemberId">Afmeld</a>
                                 }
                                 else
                                 {
