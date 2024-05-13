@@ -7,6 +7,8 @@ namespace TennisProjekt24.Interfaces
         bool AddEvBooking(Participant participant);
         bool DeleteEvBooking(int memberId, int eventId);
         List<Participant> GetAllParticipants(int eventId);
-        List<Event> GetAllEventsByParticipant(int memberId);
+        List<Participant> GetAllEventsByParticipant(int memberId);
+        Participant GetParticipant(int eventId, int memberId);
+        bool UpdateParticipant(Participant p);
     }
 }

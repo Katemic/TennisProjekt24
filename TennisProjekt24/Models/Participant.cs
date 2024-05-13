@@ -5,7 +5,7 @@ namespace TennisProjekt24.Models
     public class Participant
     {
 
-        public int EventId { get; set; }
+        public Event Event { get; set; }
         public Member Member { get; set; }
         [Required(ErrorMessage = "Vælg antal deltagere")]
         [Range(1, 5, ErrorMessage = "Antal skal være mellem 1 og 5")]
@@ -16,9 +16,9 @@ namespace TennisProjekt24.Models
         {
             
         }
-        public Participant(int eventId, Member member, int noOfParticipants, string note)
+        public Participant(Event ev, Member member, int noOfParticipants, string note)
         {
-            EventId = eventId;
+            Event = ev;
             Member = member;
             NoOfParticipants = noOfParticipants;
             Note = note;

@@ -1,0 +1,64 @@
+﻿@page
+@model TennisProjekt24.Pages.Events.MyEventsModel
+@{
+    ViewData["Title"] = "MyEvents";
+}
+
+<h1>Events</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Event
+            </th>
+            <th>
+                Dato
+            </th>
+            <th>
+                Lokation
+            </th>
+            <th>
+                Beskrivelse
+            </th>
+            <th>
+                Arrangør
+            </th>
+            <th>
+                Deltager
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Participants.Count() != 0)
+        {
+            @foreach (var item in Model.ParticipantsFuture)
+            {
+                <tr>
+                    <td>
+                        @item.Event.Title
+                    </td>
+                    <td>
+                        @item.Event.Date
+                    </td>
+                    <td>
+                        @item.Event.Place
+                    </td>
+                    <td>
+                        @item.Event.Description
+                    </td>
+                    <td>
+                        @item.Event.Member.Name
+                    </td>
+                    <td>
+                        @item.Member.Name
+                    </td>
+                    <td>
+                        <p>
+                        </p>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

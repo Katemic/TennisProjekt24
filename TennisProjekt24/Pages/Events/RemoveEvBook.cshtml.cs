@@ -12,7 +12,10 @@ namespace TennisProjekt24.Pages.Events
         [BindProperty]
         public Event EventBook { get; set; }
         public Member CurrentMember { get; set; }
-        List <Participant> Participants { get; set; }
+        [BindProperty]
+        public int MemberToRemoveId { get; set; }
+        public Member MemberToRemove { get; set; }
+        public List <Participant> Participants { get; set; }
 
         private IParticipantService _participantService;
         private IEventService _eventService;
@@ -38,9 +41,24 @@ namespace TennisProjekt24.Pages.Events
                 return Page();
             }
         }
+        public void OnGetAdmin(int eventId, int adminmemberId)
+        {
+            Participants = _participantService.GetAllParticipants(eventId);
+            EventBook = _eventService.GetEvent(eventId);
+            MemberToRemoveId = adminmemberId;
+            MemberToRemove = _memberService.GetMember(MemberToRemoveId);
+        }
+
+
+
         public IActionResult OnPost(int memberId, int eventId)
         {
             _participantService.DeleteEvBooking(memberId, eventId);
+            return RedirectToPage("Index");
+        }
+        public IActionResult OnPostAdmin(int memberToRemoveId, int eventId)
+        {
+            _participantService.DeleteEvBooking(memberToRemoveId, eventId);
             return RedirectToPage("Index");
         }
     }

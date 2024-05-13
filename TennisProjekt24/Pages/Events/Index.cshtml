@@ -6,6 +6,7 @@
 
 <h1>Events</h1>
 <a asp-page="AddEvent" class="btn btn-primary">Opret event</a>
+<a asp-page="MyEvents" class="btn btn-primary">Mine event tilmeldinger</a>
 
 <table class="table">
     <thead>
@@ -31,9 +32,9 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model.events.Count() != 0)
+        @if (Model.Events.Count() != 0)
         {
-            @foreach (var item in Model.events)
+            @foreach (var item in Model.EventsFuture)
             {
                 <tr>
                     <td>
@@ -57,9 +58,25 @@
                     <td>
                         <p>
                             <a asp-page="/Events/DeleteEvent" asp-route-eventId="@item.EventId">Slet</a>
-                            <a asp-page="/Events/UpdateEvent" asp-route-eventId="@item.EventId">Rediger</a>
-                            <a asp-page="/Events/BookEvent" asp-route-eventId="@item.EventId">Tildmeld</a>
+                            <a asp-page="/Events/UpdateEvent" asp-route-eventId="@item.EventId">Rediger</a> 
+                            @if (Model.CurrentMember != null)
+                            {
+                                var isAttending = Model.Participants.Any(e => e.Event.EventId == item.EventId);
 
+                                if (isAttending)
+                                {
+                                    <a asp-page="/Events/RemoveEvBook" asp-route-eventId="@item.EventId">Afmeld</a>
+                                }
+                                else
+                                {
+                                    <a asp-page="/Events/BookEvent" asp-route-eventId="@item.EventId">Tilmeld</a>
+                                }
+                            }
+                            else
+                            {
+                                <a asp-page="/Members/LogIn">Log ind for at tilmelde</a>
+                            }
+                            <a asp-page="/Events/Participants" asp-route-eventId="@item.EventId">Deltagere</a>
                         </p>
                     </td>
                 </tr>

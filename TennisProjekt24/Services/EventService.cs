@@ -165,14 +165,14 @@ namespace TennisProjekt24.Services
             return ev;
         }
 
-        public bool UpdateEvent(Event ev, int eventId)
+        public bool UpdateEvent(Event ev)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
                 {
                     SqlCommand command = new SqlCommand(updateSql, connection);
-                    command.Parameters.AddWithValue("@ID", eventId);
+                    command.Parameters.AddWithValue("@ID", ev.EventId);
                     command.Parameters.AddWithValue("@Date", ev.Date);
                     command.Parameters.AddWithValue("@Title", ev.Title);
                     command.Parameters.AddWithValue("@DESCRIPTION", ev.Description);
