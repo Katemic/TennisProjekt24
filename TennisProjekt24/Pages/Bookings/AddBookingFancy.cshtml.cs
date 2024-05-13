@@ -40,6 +40,8 @@ namespace TennisProjekt24.Pages.Bookings
         [BindProperty]
         public int SecondMemberId { get; set; }
 
+        
+
 
         public AddBookingFancyModel(IBookingService bookingService, IMemberService memberService, ICourtService courtService)
         {
@@ -63,7 +65,7 @@ namespace TennisProjekt24.Pages.Bookings
                 CourtId = id;
                 Date = date;
                 Time = time;
-                List<Member> members = _memberService.GetAllMembers();
+                List<Member> members = _memberService.GetAllMembers().Where(c => c.MemberId > 3).ToList();
 
                 MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
 
@@ -77,16 +79,61 @@ namespace TennisProjekt24.Pages.Bookings
         }
 
 
-        public IActionResult OnPost(int courtId, DateOnly date, TimeOnly time)
+        public IActionResult OnPost(int id, DateOnly date, TimeOnly time)
         {
 
+            DateOnly pastDate = date.AddDays(-7);
+            DateOnly futureDate = date.AddDays(7);
+            
             int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
             CurrentMember = _memberService.GetMember(sessionMemberId);
 
+            List<Booking> bookings = _bookingService.GetBookingsByMember(CurrentMember.MemberId).Where(c => c.Date > pastDate && c.Date < futureDate).ToList();
+            //bookings.Where(c => c.Date > DateOnly.FromDateTime(DateTime.Now.AddDays(-14)) && c.Date < DateOnly.FromDateTime(DateTime.Now)).ToList();
+            //bookings.Where(c=> c.Date > date.AddDays(-14) && c.Date < date.AddDays(14)).ToList();
+
+            
+            //bookings.Where(c => c.Date > pastDate && c.Date < futureDate).ToList();
+            //bookings.Where(c => c.Date > pastDate).Where(c=> c.Date < futureDate).ToList();
+
+            if (bookings.Count >=4 && CurrentMember.Admin==false)
+            {
+                Message = "Du har for mange bookinger, du må kun booke 4 timer inden for 14 dages periode";
+
+                //CourtId= id;
+                //Time = time;
+                //Date = date;
+
+                //List<Member> members = _memberService.GetAllMembers();
+
+                //MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
+
+                return Page();
+            }
+            NewBooking.SecondMemberFull = _memberService.GetMember(SecondMemberId);
+            bookings = _bookingService.GetBookingsByMember(SecondMemberId).Where(c => c.Date > pastDate && c.Date < futureDate).ToList();
+            //bookings.Where(c => c.Date > DateOnly.FromDateTime(DateTime.Now.AddDays(-14)) && c.Date < DateOnly.FromDateTime(DateTime.Now)).ToList();
+            if (bookings.Count >= 4 &&  NewBooking.SecondMemberFull.Admin == false)
+            {
+                Message = "Din makker har for mange bookinger";
+
+                //CourtId= id;
+                //Time = time;
+                //Date = date;
+
+                List<Member> members = _memberService.GetAllMembers();
+
+                MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
+
+                return Page();
+            }
+
+
+
             NewBooking.Date = date;
             NewBooking.Time = time;
-            NewBooking.Court = _courtService.GetCourt(courtId);
-            NewBooking.SecondMemberFull = _memberService.GetMember(SecondMemberId);
+            NewBooking.Court = _courtService.GetCourt(id);
+            //NewBooking.SecondMemberFull = _memberService.GetMember(SecondMemberId);
             NewBooking.Member = CurrentMember;
             NewBooking.Duration = 1;
 

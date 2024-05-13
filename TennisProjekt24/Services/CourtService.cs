@@ -75,14 +75,19 @@ namespace TennisProjekt24.Services
             return false;
         }
 
-        public List<Court> GetAllCourts()
+        public List<Court> GetAllCourts(string? filter = null)
         {
             List<Court> courts = new List<Court>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
                 {
-                    SqlCommand command = new SqlCommand(_getAllString, connection);
+                    string sql = _getAllString;
+                    if (filter != null)
+                    {
+                        sql += " WHERE 1=1 " + filter;
+                    }
+                    SqlCommand command = new SqlCommand(sql, connection);
                     command.Connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())

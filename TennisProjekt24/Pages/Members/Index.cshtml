@@ -86,11 +86,16 @@
                         @item.Admin
                     </td>
                     <td>
-                        <p>
-                            <a asp-page="/Members/DeleteMember" asp-route-id="@item.MemberId">Slet</a> |
-                            <a asp-page="/Members/UpdateMember" asp-route-id="@item.MemberId">Opdater</a>
 
-                        </p>
+                            @if (Model.CurrentMember.MemberId == item.MemberId || Model.CurrentMember.Admin)
+                            {
+                            <p>
+                                <a asp-page="/Members/DeleteMember" asp-route-id="@item.MemberId">Slet</a> |
+                                <a asp-page="/Members/UpdateMember" asp-route-id="@item.MemberId">Opdater</a>
+                            </p>
+                            }
+                            
+                        
                     </td>
                 </tr>
             }
