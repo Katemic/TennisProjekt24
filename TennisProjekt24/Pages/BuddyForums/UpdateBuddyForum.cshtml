@@ -1,0 +1,27 @@
+﻿@page
+@model TennisProjekt24.Pages.BuddyForums.UpdateBuddyForumModel
+@{
+    ViewData["Title"] = "UpdateBuddyForum";
+}
+
+<h1>Opdater post</h1>
+
+<form method="post">
+
+    <input type="hidden" asp-for="@Model.PostToUpdate.PostId" />
+    <div class="form-group">
+        <label asp-for="@Model.PostToUpdate.Title" class="control-label"></label>
+        <input asp-for="@Model.PostToUpdate.Title" class="form-control" />
+        <span asp-validation-for="@Model.PostToUpdate.Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.PostToUpdate.Text" class="control-label"></label>
+        <input asp-for="@Model.PostToUpdate.Text" class="form-control" />
+        <span asp-validation-for="@Model.PostToUpdate.Text" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="opdater en post" asp-page-handler="Update" class="btn btn-primary" />
+        <input type="submit" value="slet en post" asp-page-handler="Delete" class="btn btn-primary" />
+    </div>
+</form>

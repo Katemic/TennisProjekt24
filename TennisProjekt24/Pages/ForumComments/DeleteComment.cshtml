@@ -1,0 +1,16 @@
+﻿@page
+@model TennisProjekt24.Pages.ForumComments.DeleteCommentModel
+@{
+}
+
+<h1>Slet kommentar</h1>
+<form method="post">
+    <div class="form-group">
+        @* <label>CommentId</label> : @Model.DeleteComment.CommentId <br /> *@
+        <label>PostId</label> : @Model.DeleteComment.PostId <br />
+        <label>Medlem</label> : @Model.DeleteComment.Commenter.Name <br />
+        <label>Text</label> : @Model.DeleteComment.Text <br />
+        <label>Dato</label> : @Model.DeleteComment.DateTime <br />
+        <input type="submit" asp-page-handler="Delete" asp-route-commentId="@Model.DeleteComment.CommentId" asp-route-postId="@Model.DeleteComment.PostId" value="Slet" />
+    </div>
+</form>

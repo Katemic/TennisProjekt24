@@ -8,10 +8,10 @@
 <form method="post">
     <div class="form-group">
         <label>id</label> : @Model.DeleteCourt.CourtId <br />
-        <label>outdoor</label> : @Model.DeleteCourt.Outdoor <br />
-        <label>number</label> : @Model.DeleteCourt.CourtNumber <br />
-        <label>type</label> : @Model.DeleteCourt.CourtType <br />
-        <label>availability</label> : @Model.DeleteCourt.Availability <br />
+        <label>Er den udendørs?</label> : @Model.DeleteCourt.Outdoor <br />
+        <label>Bane nummer</label> : @Model.DeleteCourt.CourtNumber <br />
+        <label>Typen af bane</label> : @Model.DeleteCourt.CourtType <br />
+        <label>Er den tilgøngelig at gøre brug af?</label> : @Model.DeleteCourt.Availability <br />
 
         <input type="submit" asp-page-handler="Delete" asp-route-courtId="@Model.DeleteCourt.CourtId" value="Delete court" />
     </div>

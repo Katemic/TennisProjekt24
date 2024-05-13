@@ -3,4 +3,8 @@
     public class Enum
     {
     }
+    public enum SkillTypeEnum
+    {
+        None, LetØvet, Øvet, Rutineret, ForSjov
+    }
 }

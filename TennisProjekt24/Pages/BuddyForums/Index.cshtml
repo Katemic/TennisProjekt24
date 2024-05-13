@@ -1,0 +1,81 @@
+﻿@page
+@model TennisProjekt24.Pages.BuddyForums.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<head>
+    <style>
+        .heading {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 34px;
+            padding: 0 14px;
+        }
+
+        .post {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            margin: auto;
+            font-family: arial;
+        }
+
+        .textBlog {
+            margin: 3%;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<h4>Makker forum</h4>
+
+<a asp-page="/BuddyForums/CreateBuddyForum">Opret</a>
+
+<form method="get">
+            <div class="form-group">
+                <label class="custom-control-label">Sortering for erfarings niveau</label></br>
+
+                @foreach (var type in System.Enum.GetValues(typeof(Helpers.SkillTypeEnum)))
+                {
+                    if ((int)type == 0)
+                    {
+                        <input type="radio" asp-for="@Model.SkillLevel" value="None" onclick="this.form.submit()"/>
+                        <label class="control-label">Alle</label>
+                    } 
+                    else 
+                    {
+                    <input type="radio" asp-for="@Model.SkillLevel" value="@type" onclick="this.form.submit()" />
+                    <label class="control-label">@type</label>
+                    }
+                }
+            </div>
+            @if (Model.buddyForums.Count() != 0)
+            {
+                @foreach (var item in Model.buddyForums)
+                {
+                    <div class="post">
+                        <div class="heading">
+                            <p>@item.DateTime</p>
+                            <p>@item.Title</p>
+                            <p>@item.SkillType</p>
+                        </div>
+                        <h1>@item.Poster.Name</h1>
+                        <div class="textBlog">
+                            <p>@item.Text</p>
+                            <p><a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@item.PostId">se kommentare</a></p>
+                        </div>
+                    </div>
+                        @if (item.Poster.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
+                        {
+                            <td>
+                                <p>
+                                <a asp-page="/BuddyForums/DeleteBuddyForum" asp-route-postId="@item.PostId">Slet</a>
+                                <a asp-page="/BuddyForums/UpdateBuddyForum" asp-route-postId="@item.PostId">Opdater</a>
+                            </p>
+                        </td>
+                        }
+                }
+            }
+</form>

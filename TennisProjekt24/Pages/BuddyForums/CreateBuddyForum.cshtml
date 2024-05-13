@@ -1,0 +1,46 @@
+﻿@page
+@model TennisProjekt24.Pages.BuddyForums.CreateBuddyForumModel
+@using TennisProjekt24.Helpers
+@{
+    ViewData["Title"] = "CreateForumPost";
+}
+
+<h1>Opret post</h1>
+
+<form method="post">
+
+    <div class="form-group">
+        <label asp-for="@Model.NewBuddyForum.Title" class="control-label"></label>
+        <input asp-for="@Model.NewBuddyForum.Title" class="form-control" />
+        <span asp-validation-for="@Model.NewBuddyForum.Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.NewBuddyForum.Text" class="control-label"></label>
+        <input asp-for="@Model.NewBuddyForum.Text" class="form-control" />
+        <span asp-validation-for="@Model.NewBuddyForum.Text" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.NewBuddyForum.SkillType" class="control-label"></label>
+        <br />
+        @foreach (var type in System.Enum.GetValues(typeof(@SkillTypeEnum)))
+        {
+            @if ((int)type != 0)
+            {
+                <input type="radio" asp-for="@Model.NewBuddyForum.SkillType" value="@type" />
+                <label class="control-label">@type</label>
+                <br />
+            }
+        }
+        <span asp-validation-for="@Model.NewBuddyForum.SkillType" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Opret en post" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>

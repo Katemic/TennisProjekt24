@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -56,6 +59,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/FancyIndex">Booking fancy</a>
                         </li>
+                        @if (HttpContextAccessor.HttpContext.Session.GetInt32("MemberId") != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/BuddyForums/Index">Find Makker</a>
+                            </li>
+                        }
                     </ul>
                     @using Microsoft.AspNetCore.Http;
                     @inject IHttpContextAccessor HttpContextAccessor

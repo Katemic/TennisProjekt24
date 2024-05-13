@@ -10,18 +10,18 @@
 
     <input type="hidden" asp-for="@Model.CourtToUpdate.CourtId" />
     <div class="form-group">
-        <input asp-for="@Model.CourtToUpdate.Outdoor" />Outdoor<br />
+        <input asp-for="@Model.CourtToUpdate.Outdoor" />Er den udendørs?<br />
     </div>
     <div class="form-group">
-        <label asp-for="@Model.CourtToUpdate.CourtNumber" class="control-label"></label>
+        <label asp-for="@Model.CourtToUpdate.CourtNumber" class="control-label">Hvad er dens banenummer?</label>
         <input asp-for="@Model.CourtToUpdate.CourtNumber" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="@Model.CourtToUpdate.CourtType" class="control-label"></label>
+        <label asp-for="@Model.CourtToUpdate.CourtType" class="control-label">Havd er bane typen</label>
         <input asp-for="@Model.CourtToUpdate.CourtType" class="form-control" />
     </div>
     <div class="form-group">
-        <input asp-for="@Model.CourtToUpdate.Availability" />Tilgængelig<br />
+        <input asp-for="@Model.CourtToUpdate.Availability" />Er banen allerede tilgængelig for medlemmerne?<br />
     </div>
     <div class="form-group">
         <input type="submit" value="opdater en bane" asp-page-handler="Update" class="btn btn-primary" />
