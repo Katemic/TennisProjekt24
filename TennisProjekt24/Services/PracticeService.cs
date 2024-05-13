@@ -203,10 +203,10 @@ namespace TennisProjekt24.Services
 
         //MemberPractice
         private string _addMemberPractice = $"INSERT INTO PracticesMembers VALUES (@MID, @PID)";
-        private string _getMemberPractice = $"SELECT * FROM PracticesMembers Where PracticeId = @PID ANS MemberId = @MID";
-        private string _getAllMemberPractice = $"SELECT PracticeId, MemberId FROM PracticesMembers";
-        private string _getMemberPracticeByPractice = $"SELECT * FROM PracticesMembers Where PracticeId = @PID";
-        private string _getMemberPracticeByMember = $"SELECT * FROM PracticesMembers Where MemberId = @MID";
+        //private string _getMemberPractice = $"SELECT * FROM PracticesMembers Where PracticeId = @PID ANS MemberId = @MID";
+        //private string _getAllMemberPractice = $"SELECT PracticeId, MemberId FROM PracticesMembers";
+        //private string _getMemberPracticeByPractice = $"SELECT * FROM PracticesMembers Where PracticeId = @PID";
+        //private string _getMemberPracticeByMember = $"SELECT * FROM PracticesMembers Where MemberId = @MID";
 
         //IMemberService _memberService = new MemberService();
 
@@ -242,105 +242,105 @@ namespace TennisProjekt24.Services
         //    return (member, practice);
         //}
 
-        public List<(int, int)> GetAllMemberPractices()
-        {
-            List<(int, int)> memberPractices = new List<(int, int)>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    SqlCommand commmand = new SqlCommand(_getAllMemberPractice, connection);
-                    commmand.Connection.Open();
-                    SqlDataReader reader = commmand.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        int practiceId = reader.GetInt32("PracticeID");//.GetInt32(0);
-                        int memberId = reader.GetInt32("MemberId");
-                        memberPractices.Add((memberId, practiceId));
-                    }
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("Database error " + sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Generel fejl " + ex.Message);
-                }
-                finally
-                {
+        //public List<(int, int)> GetAllMemberPractices()
+        //{
+        //    List<(int, int)> memberPractices = new List<(int, int)>();
+        //    using (SqlConnection connection = new SqlConnection(connectionString))
+        //    {
+        //        try
+        //        {
+        //            SqlCommand commmand = new SqlCommand(_getAllMemberPractice, connection);
+        //            commmand.Connection.Open();
+        //            SqlDataReader reader = commmand.ExecuteReader();
+        //            while (reader.Read())
+        //            {
+        //                int practiceId = reader.GetInt32("PracticeID");//.GetInt32(0);
+        //                int memberId = reader.GetInt32("MemberId");
+        //                memberPractices.Add((memberId, practiceId));
+        //            }
+        //        }
+        //        catch (SqlException sqlEx)
+        //        {
+        //            Console.WriteLine("Database error " + sqlEx.Message);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Console.WriteLine("Generel fejl " + ex.Message);
+        //        }
+        //        finally
+        //        {
 
-                }
-            }
-            return memberPractices;
-        }
+        //        }
+        //    }
+        //    return memberPractices;
+        //}
 
-        public List<(int, int)> GetAllMemberPracticesByMember(int memberId)
-        {
-            List<(int, int)> memberPractices = new List<(int, int)>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    SqlCommand commmand = new SqlCommand(_getMemberPracticeByMember, connection);
-                    commmand.Parameters.AddWithValue("@MID", memberId);
-                    commmand.Connection.Open();
-                    SqlDataReader reader = commmand.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        int practiceId = reader.GetInt32("PracticeID");//.GetInt32(0);
-                        //int memberId = reader.GetInt32("MemberId");
-                        memberPractices.Add((memberId, practiceId));
-                    }
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("Database error " + sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Generel fejl " + ex.Message);
-                }
-                finally
-                {
+        //public List<(int, int)> GetAllMemberPracticesByMember(int memberId)
+        //{
+        //    List<(int, int)> memberPractices = new List<(int, int)>();
+        //    using (SqlConnection connection = new SqlConnection(connectionString))
+        //    {
+        //        try
+        //        {
+        //            SqlCommand commmand = new SqlCommand(_getMemberPracticeByMember, connection);
+        //            commmand.Parameters.AddWithValue("@MID", memberId);
+        //            commmand.Connection.Open();
+        //            SqlDataReader reader = commmand.ExecuteReader();
+        //            while (reader.Read())
+        //            {
+        //                int practiceId = reader.GetInt32("PracticeID");//.GetInt32(0);
+        //                //int memberId = reader.GetInt32("MemberId");
+        //                memberPractices.Add((memberId, practiceId));
+        //            }
+        //        }
+        //        catch (SqlException sqlEx)
+        //        {
+        //            Console.WriteLine("Database error " + sqlEx.Message);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Console.WriteLine("Generel fejl " + ex.Message);
+        //        }
+        //        finally
+        //        {
 
-                }
-            }
-            return memberPractices;
-        }
+        //        }
+        //    }
+        //    return memberPractices;
+        //}
 
-        public List<(int, int)> GetAllMemberPracticesByPractice(int practiceId)
-        {
-            List<(int, int)> memberPractices = new List<(int, int)>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    SqlCommand commmand = new SqlCommand(_getMemberPracticeByPractice, connection);
-                    commmand.Parameters.AddWithValue("@PID", practiceId);
-                    commmand.Connection.Open();
-                    SqlDataReader reader = commmand.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        //int practiceId = reader.GetInt32("PracticeID");//.GetInt32(0);
-                        int memberId = reader.GetInt32("MemberId");
-                        memberPractices.Add((memberId, practiceId));
-                    }
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("Database error " + sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Generel fejl " + ex.Message);
-                }
-                finally
-                {
+        //public List<(int, int)> GetAllMemberPracticesByPractice(int practiceId)
+        //{
+        //    List<(int, int)> memberPractices = new List<(int, int)>();
+        //    using (SqlConnection connection = new SqlConnection(connectionString))
+        //    {
+        //        try
+        //        {
+        //            SqlCommand commmand = new SqlCommand(_getMemberPracticeByPractice, connection);
+        //            commmand.Parameters.AddWithValue("@PID", practiceId);
+        //            commmand.Connection.Open();
+        //            SqlDataReader reader = commmand.ExecuteReader();
+        //            while (reader.Read())
+        //            {
+        //                //int practiceId = reader.GetInt32("PracticeID");//.GetInt32(0);
+        //                int memberId = reader.GetInt32("MemberId");
+        //                memberPractices.Add((memberId, practiceId));
+        //            }
+        //        }
+        //        catch (SqlException sqlEx)
+        //        {
+        //            Console.WriteLine("Database error " + sqlEx.Message);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Console.WriteLine("Generel fejl " + ex.Message);
+        //        }
+        //        finally
+        //        {
 
-                }
-            }
-            return memberPractices;
-        }
+        //        }
+        //    }
+        //    return memberPractices;
+        //}
     }
 }
