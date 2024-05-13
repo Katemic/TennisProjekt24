@@ -1,6 +1,7 @@
 ﻿@page
 @model TennisProjekt24.Pages.BuddyForums.GetBuddyForumModel
 @{
+    ViewData["Title"] = "GetBuddyForum";
 }
 
 
@@ -42,13 +43,13 @@
                 <p>@Model.GetBuddyForum.Text</p>
             </div>
         </div>
-        <div class="form-group">
+@*         <div class="form-group">
             <label class="custom-control-label">Sort Order</label> <br />
             <select asp-for="SortOrderAscDesc" onchange="this.form.submit()">
                 <option value="Ascending">Ascending</option>
                 <option value="Descending">Descending</option>
             </select>
-        </div>
+        </div> *@
         <table class="table">
                 <div class="comment">
                     @if (Model.ForumComments.Count() != 0)
