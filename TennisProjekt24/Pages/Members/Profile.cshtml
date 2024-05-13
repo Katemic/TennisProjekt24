@@ -4,16 +4,20 @@
     ViewData["Title"] = "Profile";
 }
 
+<head>
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+</head>
+
 <h1>Min side</h1>
-<p> Hej @Model.CurrentMember.Username</p>
+<p> Hej @Model.CurrentMember.Name!</p>
 
 
 <div class="form-group">
     <table class="table">
-        <tr>
+       @*  <tr>
             <th>Medlems id</th>
             <td>@Model.CurrentMember.MemberId</td>
-        </tr>
+        </tr> *@
         <tr>
             <th>Brugernavn</th>
             <td>@Model.CurrentMember.Username</td>
@@ -50,6 +54,10 @@
             <th>Admin</th>
             <td>@Model.CurrentMember.Admin</td>
         </tr>
+        <tr>
+            <th>Billede</th>
+            <td><img src="~/images/memberimages/@Model.CurrentMember.Image"  class="thumbnail avatar" ></td>
+        </tr>
     </table>
 
     <a asp-page="/Members/DeleteMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Slet</a>
@@ -63,3 +71,6 @@
     <a asp-page="/Members/LogIn" asp-page-handler="Logout" class="btn btn-warning">Log ud</a>
 
 </div>
+
+
+

@@ -9,10 +9,10 @@ namespace TennisProjekt24.Services
     public class MemberService : Connection, IMemberService
     {
 
-        private string _addMemberSQL = "INSERT INTO Members VALUES(@Username, @Password, @Name, @Email, @PhoneNo, @Address, @Postcode, @MemberType, @Admin)";
+        private string _addMemberSQL = "INSERT INTO Members VALUES(@Username, @Password, @Name, @Email, @PhoneNo, @Address, @Postcode, @MemberType, @Admin, @Image)";
         private string _deleteMemberSQL = "DELETE FROM Members WHERE MemberId = @Id";
-        private string _getAllMembersSQL = "SELECT MemberId, Username, Password, Name, Email, PhoneNo, Address, Postcode, MemberType, Admin FROM Members";
-        private string _getMemberSQL = "SELECT MemberId, Username, Password, Name, Email, PhoneNo, Address, Postcode, MemberType, Admin FROM Members WHERE MemberId = @Id";
+        private string _getAllMembersSQL = "SELECT MemberId, Username, Password, Name, Email, PhoneNo, Address, Postcode, MemberType, Admin, Image FROM Members";
+        private string _getMemberSQL = "SELECT MemberId, Username, Password, Name, Email, PhoneNo, Address, Postcode, MemberType, Admin, Image FROM Members WHERE MemberId = @Id";
         private string _updateMemberSQL = "UPDATE Members SET Username = @Username, Password = @Password, Name = @Name, Email = @Email, PhoneNo = @PhoneNo, " +
             "Address = @Address, Postcode = @Postcode, MemberType = @MemberType, Admin = @Admin  " +
             "WHERE MemberId = @Id";
@@ -36,6 +36,7 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@Postcode", member.PostCode);
                     command.Parameters.AddWithValue("@MemberType", member.MemberType);
                     command.Parameters.AddWithValue("@Admin", member.Admin);
+                    command.Parameters.AddWithValue("@Image",member.Image);
                     command.Connection.Open();
                     int noOfRows = command.ExecuteNonQuery();
                     return noOfRows == 1;
@@ -132,7 +133,8 @@ namespace TennisProjekt24.Services
                         //MemberTypeEnum memberTypeEnum = (MemberTypeEnum) Enum.Parse(typeof(MemberTypeEnum), memberType);
                         //MemberTypeEnum membertype = Enum.TryParse(typeof(MemberTypeEnum), reader.GetString("MemberType")); 
                         bool admin = reader.GetBoolean("Admin");
-                        Member member = new Member(memberId, username, password, name, email, phoneNo, address, postcode, memberType, admin);
+                        string image = reader.GetString("Image");
+                        Member member = new Member(memberId, username, password, name, email, phoneNo, address, postcode, memberType, admin, image);
                         members.Add(member);
                     }
                     reader.Close();
@@ -186,7 +188,8 @@ namespace TennisProjekt24.Services
                         //MemberTypeEnum memberTypeEnum = (MemberTypeEnum)Enum.Parse(typeof(MemberTypeEnum), memberType);
                         //MemberTypeEnum membertype = Enum.TryParse(typeof(MemberTypeEnum), reader.GetString("MemberType")); 
                         bool admin = reader.GetBoolean("Admin");
-                        member = new Member(memberID, username, password, name, email, phoneNo, address, postcode, memberType, admin);
+                        string image = reader.GetString("Image");
+                        member = new Member(memberID, username, password, name, email, phoneNo, address, postcode, memberType, admin, image);
 
                     }
 

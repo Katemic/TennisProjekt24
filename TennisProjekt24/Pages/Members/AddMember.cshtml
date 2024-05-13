@@ -9,7 +9,7 @@
 <h1>Opret medlem</h1>
 
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 
     <div class="form-group">
         <label asp-for="@Model.NewMember.Username" class="control-label">Brugernavn</label>
@@ -66,6 +66,15 @@
         <label asp-for="@Model.NewMember.Admin" class="control-label">Admin</label>
         <input type="checkbox" asp-for="@Model.NewMember.Admin" class="form-check-input">
         <span asp-validation-for="NewMember.Admin" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.Photo" class="control-label">Tilføj billede</label>
+        <div class="custom-file">
+            <input asp-for="@Model.Photo" class="custom-file-input form-control" />
+            <label class="custom-file-label"></label>
+            <span asp-validation-for="Photo" class="text-danger"></span>
+        </div>
     </div>
 
     <div class="form-group">
