@@ -21,13 +21,24 @@ namespace TennisProjekt24.Pages.Practices
         public List<SelectListItem> Instructors { get; set; }
         [BindProperty]
         public int InstructorId {  get; set; } 
-        public void OnGet()
+        public void OnGet(List<Instructor> instructors)
         {
-            Instructors = _instructorService.GetAllInstructors().Select(i => 
-                                            new SelectListItem { 
-                                                Value = i.InstructorId.ToString(),
-                                                Text = i.Name}
-                                            ).ToList();
+            if (instructors == null || instructors.Count == 0)
+                Instructors = _instructorService.GetAllInstructors().Select(i =>
+                                                new SelectListItem
+                                                {
+                                                    Value = i.InstructorId.ToString(),
+                                                    Text = i.Name
+                                                }
+                                                ).ToList();
+            else
+                Instructors = instructors.Select(i =>
+                                                new SelectListItem
+                                                {
+                                                    Value = i.InstructorId.ToString(),
+                                                    Text = i.Name
+                                                }
+                                                ).ToList(); ;
         }
 
         public AddPracticeModel(IPracticeService serv, IInstructorService instructorService)
