@@ -56,7 +56,7 @@
     <a asp-page="/Members/UpdateMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Opdater</a>
     <a asp-page="/Members/index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Se medlemmer</a>
     <br /> <br /> 
-    <a asp-page="/UKENDT" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">begivenheds tilmeldinger</a>
+    <a asp-page="/Events/MyEvents" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">begivenheds tilmeldinger</a>
     <a asp-page="/Bookings/BookingsMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Bane booking</a>
     <a asp-page="/MemberPractice/MemberView" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Trænings tilmeldinger</a>
     <br />
