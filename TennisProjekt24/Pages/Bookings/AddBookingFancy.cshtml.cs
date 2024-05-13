@@ -82,13 +82,13 @@ namespace TennisProjekt24.Pages.Bookings
         public IActionResult OnPost(int id, DateOnly date, TimeOnly time)
         {
 
-            DateOnly pastDate = date.AddDays(0);
+            DateOnly pastDate = date.AddDays(-1);
             DateOnly futureDate = date.AddDays(14);
             
             int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
             CurrentMember = _memberService.GetMember(sessionMemberId);
 
-            List<Booking> bookings = _bookingService.GetBookingsByMember(CurrentMember.MemberId).Where(c => c.Date > pastDate && c.Date < futureDate).ToList();
+            List<Booking> bookings = _bookingService.GetBookingsByMember(CurrentMember.MemberId).Where(c => c.Date >= pastDate && c.Date < futureDate).ToList();
             //bookings.Where(c => c.Date > DateOnly.FromDateTime(DateTime.Now.AddDays(-14)) && c.Date < DateOnly.FromDateTime(DateTime.Now)).ToList();
             //bookings.Where(c=> c.Date > date.AddDays(-14) && c.Date < date.AddDays(14)).ToList();
 

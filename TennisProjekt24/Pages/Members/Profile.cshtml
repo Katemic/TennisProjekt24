@@ -64,10 +64,11 @@
     <a asp-page="/Members/UpdateMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Opdater</a>
     <a asp-page="/Members/index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Se medlemmer</a>
     <br /> <br /> 
-    <a asp-page="/Events/MyEvents" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">begivenheds tilmeldinger</a>
-    <a asp-page="/Bookings/BookingsMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Bane booking</a>
-    <a asp-page="/MemberPractice/MemberView" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Trænings tilmeldinger</a>
-    <br />
+    <p>Dine tilmeldinger:</p>
+    <a asp-page="/Events/MyEvents" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">begivenheder</a>
+    <a asp-page="/Bookings/BookingsMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Baner</a>
+    <a asp-page="/MemberPractice/MemberView" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Træningshold</a>
+    <br /> <br />
     <a asp-page="/Members/LogIn" asp-page-handler="Logout" class="btn btn-warning">Log ud</a>
 
 </div>

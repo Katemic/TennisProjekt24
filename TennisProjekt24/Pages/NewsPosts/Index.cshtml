@@ -6,8 +6,17 @@
 
 <h1>Klubbens nyheder</h1>
 
-<a asp-page="AddPost" class="btn btn-primary">Opret nyt opslag</a>
-<br /><br />
+
+@if (Model.CurrentMember != null)
+{
+    if (Model.CurrentMember.Admin)
+    {
+        <a asp-page="AddPost" class="btn btn-primary">Opret nyt opslag</a>
+        <br />
+        <br />
+    }
+}
+
 
 
 @foreach (var item in Model.posts)
@@ -22,10 +31,17 @@
 
         <br />
 
-        <div>
-            <a asp-page="DeletePost" asp-route-id="@item.NewsPostId" class="btn btn-secondary">Slet opslag</a>
-            <a asp-page="UpdatePost" asp-route-id="@item.NewsPostId" class="btn btn-secondary">Rediger opslag</a>
-        </div>
+        @if (Model.CurrentMember != null)
+        {
+            if (Model.CurrentMember.Admin)
+            {
+                <div>
+                    <a asp-page="DeletePost" asp-route-id="@item.NewsPostId" class="btn btn-secondary">Slet opslag</a>
+                    <a asp-page="UpdatePost" asp-route-id="@item.NewsPostId" class="btn btn-secondary">Rediger opslag</a>
+                </div>
+            }
+        }
+        
         
     </div>
 

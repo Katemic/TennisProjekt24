@@ -9,9 +9,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                BookingID
-            </th>
+            
             <th>
                 Dato
             </th>
@@ -45,9 +43,7 @@
             @foreach (var item in Model.BookingsList.Where(c => c.Member.MemberId == Model.CurrentMember.MemberId))
             {
                 <tr>
-                    <td>
-                        @item.BookingId
-                    </td>
+                    
                     <td>
                         @item.Date
                     </td>
