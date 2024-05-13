@@ -15,7 +15,10 @@ namespace TennisProjekt24.Pages.Practices
         public Practice Practice { get; set; }
         [BindProperty]
         public PracticeTypeEnum Type { get; set; }
+        [BindProperty]
         public List<SelectListItem> Instructors { get; set; }
+        [BindProperty]
+        public int InstructorId { get; set; }
 
         public void OnGet(int id)
         {
@@ -37,11 +40,12 @@ namespace TennisProjekt24.Pages.Practices
 
         public IActionResult OnPostUpdate()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-            if(_service.UpdatePractice(Practice, Practice.PracticeId))
+            Practice.Instructor = _instructorService.GetInstructor(InstructorId);
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
+            if (_service.UpdatePractice(Practice, Practice.PracticeId))
                 return RedirectToPage("Index");
             else
                 return Page();

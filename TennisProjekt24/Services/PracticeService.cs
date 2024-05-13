@@ -14,7 +14,7 @@ namespace TennisProjekt24.Services
         private string _getPracticeString = $"SELECT * FROM Practices WHERE PracticeID = @ID";
         private string _addPracticeString = $"INSERT INTO Practices VALUES(@Date, @Title, @Desc,  @NoTrain, @MaxAtendees,  @Type , @Instructor)";
         private string _deletePracticeString = $"DELETE FROM Practices WHERE PracticeId = @ID";
-        private string _updatePracticeString = $"UPDATE Practices SET Date = @Date, Title = @Title, Description = @Desc NoOfTrainings = @NoTrain, " +
+        private string _updatePracticeString = $"UPDATE Practices SET Date = @Date, Title = @Title, Description = @Desc, NoOfTrainings = @NoTrain, " +
                                                 "MaxNoOfAteendees = @MaxAtendees, Type = @Type , InstructorId = @Instructor WHERE PracticeId = @ID";
 
         private IInstructorService _instructorService = new InstructorService();
