@@ -48,6 +48,9 @@ namespace TennisProjekt24.Pages.Events
             MemberToRemoveId = adminmemberId;
             MemberToRemove = _memberService.GetMember(MemberToRemoveId);
         }
+
+
+
         public IActionResult OnPost(int memberId, int eventId)
         {
             _participantService.DeleteEvBooking(memberId, eventId);

@@ -62,6 +62,9 @@ else
                             <a asp-page="/Events/RemoveEvBook" asp-page-handler="Admin" asp-route-eventId="@item.Event.EventId" asp-route-adminmemberId="@item.Member.MemberId" asp-route-adminMode="1">Afmeld</a>
                         }
                     </td>
+                    <td>
+                            <a asp-page="/Events/UpdateParticipant" asp-route-eventId="@item.Event.EventId" asp-route-memberId="@item.Member.MemberId" >Opdater</a>
+                    </td>
                 </tr>
             }
         }

@@ -23,6 +23,8 @@ namespace TennisProjekt24.Services
         private string deleteSql = "DELETE FROM Participants WHERE EventId=@EventId AND MemberId=@MemberId";
         private string getAllParticipants = "Select * FROM Participants WHERE EventId=@EventId";
         private string getAllEventsByParticipant = "Select * FROM Participants WHERE MemberId=@MemberId";
+        private string getParticipant = "SELECT EventId, MemberId, NoOfParticipants, note FROM Participants WHERE EventId=@EventId AND MemberId=@MemberId";
+        private string updateSql = "Update Participants SET NoOfParticipants = @NoOfParticipants, note = @note WHERE EventId=@EventId AND MemberId=@MemberId";
         public bool AddEvBooking(Participant participant)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -181,6 +183,83 @@ namespace TennisProjekt24.Services
             }
 
             return participants;
+        }
+
+        public Participant GetParticipant(int eventId, int memberId)
+        {
+            Participant p = new Participant();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(getParticipant, connection);
+                    command.Parameters.AddWithValue("@EventId", eventId);
+                    command.Parameters.AddWithValue("@MemberId", memberId);
+
+                    command.Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        int evId = reader.GetInt32("EventId");
+                        int mId = reader.GetInt32("MemberId");
+                        int noOfParticipants = reader.GetInt32("NoOfParticipants");
+                        string note = !reader.IsDBNull(reader.GetOrdinal("note")) ? reader.GetString(reader.GetOrdinal("note")) : null;
+
+                        Member member = _memberService.GetMember(memberId);
+                        Event ev = _eventService.GetEvent(eventId);
+                        p = new Participant(ev, member, noOfParticipants, note);
+                    }
+                    reader.Close();
+                }
+                catch (SqlException sqlExp)
+                {
+                    Console.WriteLine("Database error" + sqlExp.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+                }
+                finally
+                {
+
+                }
+            }
+            return p;
+        }
+
+
+        public bool UpdateParticipant(Participant p)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(updateSql, connection);
+                    command.Parameters.AddWithValue("@NoOfParticipants", p.NoOfParticipants);
+                    SqlParameter noteParameter = new SqlParameter("@note", SqlDbType.VarChar);
+                    noteParameter.Value = (object)p.Note ?? DBNull.Value;
+                    command.Parameters.Add(noteParameter);
+                    command.Parameters.AddWithValue("@EventId", p.Event.EventId);
+                    command.Parameters.AddWithValue("@MemberId", p.Member.MemberId);
+
+                    command.Connection.Open();
+                    int result = command.ExecuteNonQuery();
+                    return result == 1;
+                }
+                catch (SqlException sqlExp)
+                {
+                    Console.WriteLine("Database error" + sqlExp.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+                }
+                finally
+                {
+
+                }
+                return false;
+            }
         }
     }
 }
