@@ -26,6 +26,7 @@ namespace TennisProjekt24.Pages.Bookings
 
         public List<Court> Courts { get; set; }
 
+        [BindProperty(SupportsGet = true)]
         public List<Booking> Bookings { get; set; }
 
         //public List<TimeOnly> TimeOnly = new List<TimeOnly> { new TimeOnly(8,00), new TimeOnly(9,00), new TimeOnly(10,00) };
@@ -41,6 +42,9 @@ namespace TennisProjekt24.Pages.Bookings
         public List<string> TypeChoice = new List<string> { "Alle", "Tennis", "Paddel" };
 
         public List<string> OutdoorChoice = new List<string> { "Alle", "Udendørs", "Indendørs" };
+
+        [BindProperty(SupportsGet = true)]
+        public Booking BookingType { get; set; }
 
         public FancyIndexModel(IBookingService bookingService, ICourtService courtService, IMemberService memberService)
         {

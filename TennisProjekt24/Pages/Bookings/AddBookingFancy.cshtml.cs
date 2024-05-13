@@ -82,8 +82,8 @@ namespace TennisProjekt24.Pages.Bookings
         public IActionResult OnPost(int id, DateOnly date, TimeOnly time)
         {
 
-            DateOnly pastDate = date.AddDays(-7);
-            DateOnly futureDate = date.AddDays(7);
+            DateOnly pastDate = date.AddDays(0);
+            DateOnly futureDate = date.AddDays(14);
             
             int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
             CurrentMember = _memberService.GetMember(sessionMemberId);
