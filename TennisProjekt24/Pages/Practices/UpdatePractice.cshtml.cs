@@ -48,7 +48,9 @@ namespace TennisProjekt24.Pages.Practices
             if (_service.UpdatePractice(Practice, Practice.PracticeId))
                 return RedirectToPage("Index");
             else
+                //return (Page(), new { Instructors = _instructorService.GetAllInstructors()} );
                 return Page();
+
         }
     }
 }
