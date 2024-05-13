@@ -1,28 +1,29 @@
 ﻿@page
 @model TennisProjekt24.Pages.Practices.IndexModel
 @{
-    ViewData["Title"] = "Practice index";
+    ViewData["Title"] = "Trænigsindeks";
 }
 <p>
-    <a asp-page="AddPractice">Add Practice</a>
+    <a asp-page="AddPractice">Opret træningshold</a>
 </p>
-
+        @* TODO Flere koloner på card *@
         @if(Model.Practices.Count != 0)
-        {
+        { 
             @foreach(var item in Model.Practices)
             {
-                <div class="card" style="width: 30rem;">    
+                <div class="card" style="width: 35rem;">    
                 <div class="card-body">
                 <h3> @item.Title</h3>
                 <h4>@item.StartDate</h4>
                 <h5>@item.Type</h5>
                 <h6>Ved: @item.Instructor.Name</h6>
                 <p>@item.Description</p>
-                <a class="card-link" asp-page="DeletePractice" asp-route-id="@item.PracticeId">Delete</a>
-                <a class="card-link" asp-page="UpdatePractice" asp-route-id="@item.PracticeId">Update</a>
+                          
+                <a class="card-link" asp-page="DeletePractice" asp-route-id="@item.PracticeId">Slet</a>
+                <a class="card-link" asp-page="UpdatePractice" asp-route-id="@item.PracticeId">Opdater</a>
                 @if (item.MaxNoOfAttendees > item.Members.Count)
                 {
-                    <a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Attend</a>
+                    <a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Deltag</a>
                 }
                 else
                 {
