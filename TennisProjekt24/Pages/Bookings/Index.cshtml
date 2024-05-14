@@ -9,6 +9,41 @@
 
 @* <a asp-page="AddBooking" class="btn btn-primary">Opret booking</a> *@
 
+<form method="get">
+
+    <select id="TypeFilter" name="TypeFilter" asp-for="@Model.TypeFilter">
+        @foreach (string item in Model.TypeChoice)
+        {
+            <option class="dropdown-button" value="@item">@item</option>
+        }
+    </select>
+
+
+    <input type="submit" value="filter" />
+    
+    <div class="form-group">
+        <span>vælg sortering</span>
+        <br />
+        <input type="radio" asp-for="@Model.SortByTime" value="Nyeste først" onclick="this.form.submit()" checked /> Nyeste først
+        <input type="radio" asp-for="@Model.SortByTime" value="Ældste først" onclick="this.form.submit()" /> Ældste først
+
+    </div>
+    
+    <div class="form-group">
+        <span>vælg sortering</span>
+        <br />
+        <input type="radio" asp-for="@Model.SortByOld" value="skjul gamle" onclick="this.form.submit()" checked /> Skjul gamle bookinger
+        <input type="radio" asp-for="@Model.SortByOld" value="vis gamle" onclick="this.form.submit()" /> Vis gamle bookinger
+
+    </div>
+
+
+</form>
+
+
+
+
+
 <table class="table">
     <thead>
         <tr>
@@ -32,6 +67,9 @@
             </th>
             <th>
                 Bane nr
+            </th>
+            <th>
+                Bane type
             </th>
             <th>
                 Booking type
@@ -68,6 +106,9 @@
                     </td>
                     <td>
                         @item.Court.CourtNumber
+                    </td>
+                    <td>
+                        @item.Court.CourtType
                     </td>
                     <td>
                         @item.Type

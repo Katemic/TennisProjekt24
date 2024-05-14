@@ -18,7 +18,6 @@
         {
             <option class="dropdown-button" value="@item">@item</option>
         }
-        <option value="Tennis">Tennis</option>
     </select>
 
 
@@ -122,7 +121,11 @@
                         if(Model.CurrentMember==null)
                         { 
                             <td>
-                                <a asp-page="/Members/LogIn" class="btn btn-success"><img src="~/images/user.png" height="20" width="20"></a>
+                                @* <a asp-page="/Members/LogIn" class="btn btn-success"><img src="~/images/user.png" height="20" width="20"></a> *@
+                                <div class="popup" onclick="Login()">
+                                    <span class="btn btn-success">O</span>
+
+                                </div>
                             </td>
                         }
 
@@ -205,6 +208,11 @@
     function DateRule() {
         alert ('Du må ikke booke mere end 14 dage frem')
     }
+
+    function Login() {
+        alert('Du skal være logget ind hvis du vil booke en bane')
+    }
+
 </script>
 
 

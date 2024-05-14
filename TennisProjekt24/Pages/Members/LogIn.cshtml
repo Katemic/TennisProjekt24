@@ -20,8 +20,11 @@
             </tr>
             <tr>
                 <td>Password</td>
-                <td><Input type="password" asp-for="@Model.Password" /></td>
-
+                <td><Input type="password" asp-for="@Model.Password" id="showPassword" /></td>
+                
+            </tr>
+            <tr>
+                <td><input type="checkbox" onclick="passwordFunc()"> Vis password</td>
             </tr>
         </table>
     </div>
@@ -32,4 +35,19 @@
 
 </form>
 
+<br />
+<span>Ønsker du at melde dig ind i klubben?</span> 
+<br />
 <a asp-page="AddMember">Opret bruger</a>
+
+
+<script>
+    function passwordFunc() {
+        var x = document.getElementById("showPassword");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>

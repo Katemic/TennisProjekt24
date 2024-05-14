@@ -12,6 +12,17 @@ namespace TennisProjekt24.Pages.Bookings
 
         public List<Booking> BookingsList { get; set; }
 
+        public List<string> TypeChoice = new List<string> { "Alle", "Medlem", "Event", "Træning" };
+
+        [BindProperty(SupportsGet = true)]
+        public string TypeFilter { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string SortByTime { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string SortByOld { get; set; }
+
         public IndexModel(IBookingService bookingService)
         {
             _bookingService = bookingService;
@@ -20,7 +31,49 @@ namespace TennisProjekt24.Pages.Bookings
 
         public void OnGet()
         {
-            BookingsList = _bookingService.GetAllBookings();
+
+            string sql = "";
+            if (TypeFilter == "Medlem")
+            {
+                sql += "AND Type = 0 ";
+            }
+            if (TypeFilter == "Event")
+            {
+                sql += "AND Type = 1 ";
+            }
+            if (TypeFilter == "Træning")
+            {
+                sql += "AND Type = 2 ";
+            }
+
+            if (sql.Length == 0)
+            {
+                BookingsList = _bookingService.GetAllBookings();
+            }
+            else
+            {
+                BookingsList = _bookingService.GetAllBookings(sql);
+            }
+
+            if (SortByTime == "Nyeste først" || SortByTime == null)
+            {
+                BookingsList = BookingsList.OrderBy(c => c.Date).ThenBy(c => c.Time).ToList();
+            }
+            if (SortByTime == "Ældste først")
+            {
+                BookingsList = BookingsList.OrderByDescending(c => c.Date).ThenBy(c => c.Time).ToList();
+            }
+
+            if (SortByOld == "skjul gamle" || SortByOld == null)
+            {
+                BookingsList = BookingsList.Where(c => c.Date >= DateOnly.FromDateTime(DateTime.Now)).ToList();
+            }
+            if (SortByOld == "vis gamle")
+            {
+                BookingsList = BookingsList.Where(c => c.Date <= DateOnly.FromDateTime(DateTime.Now)).ToList();
+            }
+
+
         }
     }
 }

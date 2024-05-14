@@ -11,7 +11,7 @@ namespace TennisProjekt24.Interfaces
 
         bool updateBooking(Booking booking, int bookingId); //måske hvis man vil skifte makker 
 
-        List<Booking> GetAllBookings();
+        List<Booking> GetAllBookings(string? filter = null);
 
         Booking GetBooking(int bookingId);
 
@@ -23,7 +23,7 @@ namespace TennisProjekt24.Interfaces
 
         List<Booking> GetBookingsByDate(DateOnly date);
 
-        //noget med at checke om man har booket for mange timer
+        
 
 
     }

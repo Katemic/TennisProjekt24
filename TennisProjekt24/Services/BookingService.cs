@@ -142,7 +142,7 @@ namespace TennisProjekt24.Services
 
         }
 
-        public List<Booking> GetAllBookings()
+        public List<Booking> GetAllBookings(string? filter = null)
         {
             List<Booking> bookings = new List<Booking> ();
 
@@ -150,8 +150,12 @@ namespace TennisProjekt24.Services
             {
                 try
                 {
-
-                    SqlCommand command = new SqlCommand(_getAllBookingsSQL, connection);
+                    string sql = _getAllBookingsSQL;
+                    if (filter != null)
+                    {
+                        sql += " WHERE 1=1 " + filter;
+                    }
+                    SqlCommand command = new SqlCommand(sql, connection);
                     command.Connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
                     while(reader.Read()) 
