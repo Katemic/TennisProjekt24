@@ -54,19 +54,22 @@
         <br />
         @foreach (var c in System.Enum.GetValues(typeof(MemberTypeEnum)))
         {
-            <input type="radio" asp-for="@Model.NewMember.MemberType" value="@c" />
-            <label class="control-label">@c</label>
-            <br />
+            @if ((int) c != 0)
+            {
+                <input type="radio" asp-for="@Model.NewMember.MemberType" value="@c" />
+                <label class="control-label">@c</label>
+                <br />
+            }
 
         }
-        
         <span asp-validation-for="NewMember.MemberType" class="text-danger"></span>
     </div>
-    <div class="form-group">
+
+    @* <div class="form-group">
         <label asp-for="@Model.NewMember.Admin" class="control-label">Admin</label>
         <input type="checkbox" asp-for="@Model.NewMember.Admin" class="form-check-input">
         <span asp-validation-for="NewMember.Admin" class="text-danger"></span>
-    </div>
+    </div> *@
 
     <div class="form-group">
         <label asp-for="@Model.Photo" class="control-label">Tilføj billede</label>

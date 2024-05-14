@@ -42,6 +42,7 @@ namespace TennisProjekt24.Models
         public string PostCode { get; set; }
 
         [Required(ErrorMessage = "vælg medlemstype")]
+        [Range(1, 20, ErrorMessage = "vælg medlemstype")]
         public MemberTypeEnum MemberType { get; set; }
         
         public bool Admin { get; set; }

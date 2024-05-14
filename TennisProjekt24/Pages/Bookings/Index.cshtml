@@ -7,14 +7,14 @@
 
 <h1>Bane Bookinger</h1>
 
-<a asp-page="AddBooking" class="btn btn-primary">Opret booking</a>
+@* <a asp-page="AddBooking" class="btn btn-primary">Opret booking</a> *@
 
 <table class="table">
     <thead>
         <tr>
-            <th>
+            @* <th>
                 BookingID
-            </th>
+            </th> *@
             <th>
                 Dato
             </th>
@@ -48,9 +48,9 @@
             @foreach (var item in Model.BookingsList)
             {
                 <tr>
-                    <td>
+                    @* <td>
                         @item.BookingId
-                    </td>
+                    </td> *@
                     <td>
                         @item.Date
                     </td>

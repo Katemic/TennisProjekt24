@@ -35,18 +35,22 @@
             <th>
                 Telefon nummer
             </th>
-            <th>
-                Adresse
-            </th>
-            <th>
-                Postnummer
-            </th>
-            <th>
-                Type af medlemsskab
-            </th>
-            <th>
-                Admin
-            </th>
+            @if (Model.CurrentMember.Admin)
+            {
+                <th>
+                    Adresse
+                </th>
+                <th>
+                    Postnummer
+                </th>
+                <th>
+                    Type af medlemsskab
+                </th>
+                <th>
+                    Admin
+                </th>
+                <th></th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -76,37 +80,46 @@
                     <td>
                         @item.PhoneNumber
                     </td>
-                    <td>
-                        @item.Address
-                    </td>
-                    <td>
-                        @item.PostCode
-                    </td>
-                    <td>
-                        @item.MemberType
-                    </td>
-                    <td>
-                        @if(item.Admin)
-                        {
-                            <p>✓</p>
-                        }
-                        else
-                        {
-                            
-                        }
-                    </td>
-                    <td>
-
-                            @if (Model.CurrentMember.Admin)
+                    @if (Model.CurrentMember.Admin)
+                    {
+                        <td>
+                            @item.Address
+                        </td>
+                        <td>
+                            @item.PostCode
+                        </td>
+                        <td>
+                            @item.MemberType
+                        </td>
+                        <td>
+                            @if (item.Admin)
                             {
+                                <p>✓</p>
+                            }
+                            else
+                            {
+
+                            }
+                        </td>
+                        <td>
                             <p>
                                 <a asp-page="/Members/DeleteMember" asp-route-id="@item.MemberId">Slet</a> |
                                 <a asp-page="/Members/UpdateMember" asp-route-id="@item.MemberId">Opdater</a>
                             </p>
+                        </td>
+
+
+
+                    }
+                   @*  <td>
+
+                            @if (Model.CurrentMember.Admin)
+                            {
+                            
                             }
                             
                         
-                    </td>
+                    </td> *@
                 </tr>
             }
         }

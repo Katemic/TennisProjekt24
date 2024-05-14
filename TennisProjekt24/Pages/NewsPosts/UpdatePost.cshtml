@@ -31,14 +31,14 @@
 
     <div class="form-group">
         <label asp-for="@Model.UpdatedPost.Text" class="control-label">Tekst</label>
-        <input asp-for="@Model.UpdatedPost.Text" class="form-control" />
+        <textarea asp-for="@Model.UpdatedPost.Text" class="form-control" id="text" rows="10"></textarea>
         <span asp-validation-for="UpdatedPost.Text" class="text-danger"></span>
     </div>
 
 
     <div class="form-group">
         <br /> <br />
-        <input type="submit" asp-route-id="@Model.UpdatedPost.NewsPostId" value="rediger opslag" class="btn btn-primary" />
+        <input type="submit" asp-route-id="@Model.UpdatedPost.NewsPostId" value="Rediger opslag" class="btn btn-primary" />
         <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
     </div>
 
