@@ -1,5 +1,6 @@
 ﻿@page
 @model TennisProjekt24.Pages.BuddyForums.IndexModel
+@* @inject Interfaces.IForumCommentService _forumCommentService; *@
 @{
     ViewData["Title"] = "Index";
 }
@@ -26,6 +27,10 @@
             margin: 3%;
             text-align: center;
         }
+        .comment {
+            text-align: right
+        }
+        
     </style>
 </head>
 
@@ -64,18 +69,19 @@
                         <h1>@item.Poster.Name</h1>
                         <div class="textBlog">
                             <p>@item.Text</p>
-                            <p><a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@item.PostId">se kommentare</a></p>
+                            <div class="comment">
+                        <p><a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@item.PostId">se kommentare(@_forumCommentService.GetPostComments(item.PostId).Count())</a></p>
+
+                            </div>
                         </div>
+                @if (item.Poster.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
+                {
+                    <p>
+                        <a asp-page="/BuddyForums/DeleteBuddyForum" asp-route-postId="@item.PostId">Slet</a>
+                        <a asp-page="/BuddyForums/UpdateBuddyForum" asp-route-postId="@item.PostId">Opdater</a>
+                    </p>
+                }
                     </div>
-                        @if (item.Poster.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
-                        {
-                            <td>
-                                <p>
-                                <a asp-page="/BuddyForums/DeleteBuddyForum" asp-route-postId="@item.PostId">Slet</a>
-                                <a asp-page="/BuddyForums/UpdateBuddyForum" asp-route-postId="@item.PostId">Opdater</a>
-                            </p>
-                        </td>
-                        }
                 }
             }
 </form>

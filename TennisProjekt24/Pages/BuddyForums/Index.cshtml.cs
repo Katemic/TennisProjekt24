@@ -10,6 +10,7 @@ namespace TennisProjekt24.Pages.BuddyForums
     public class IndexModel : PageModel
     {
         private IBuddyForumService _buddyForumService;
+        private IForumCommentService _forumCommentService;
 
         public List<BuddyForum> buddyForums { get; set; }
         [BindProperty(SupportsGet = true)]

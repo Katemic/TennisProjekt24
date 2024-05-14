@@ -24,7 +24,7 @@
     <div class="form-group">
         <label asp-for="@Model.NewBuddyForum.SkillType" class="control-label"></label>
         <br />
-        @foreach (var type in System.Enum.GetValues(typeof(@SkillTypeEnum)))
+        @foreach (var type in System.Enum.GetValues(typeof(SkillTypeEnum)))
         {
             @if ((int)type != 0)
             {
