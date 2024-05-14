@@ -32,6 +32,7 @@
 </head>
 
 <form method="get">
+    <input type="hidden" asp-for="@Model.GetBuddyForum.PostId" />
     <body>
         <div class="post">
             <div class="heading">
@@ -67,8 +68,8 @@
                                     @if (item.Commenter.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
                                     {
                                         <p>
-                                            <a asp-page="/ForumComments/DeleteComment" asp-route-commentId="@item.CommentId">Slet</a>
-                                            <a asp-page="/ForumComments/UpdateComment" asp-route-commentId="@item.CommentId">Opdater</a>
+                                <a asp-page="/ForumComments/DeleteComment" asp-route-commentId="@item.CommentId" class="btn btn-primary">Slet</a>
+                                <a asp-page="/ForumComments/UpdateComment" asp-route-commentId="@item.CommentId" class="btn btn-primary">Opdater</a>
                                         </p>
                                     }
                                 </tr>

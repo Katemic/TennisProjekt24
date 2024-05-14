@@ -10,15 +10,18 @@ namespace TennisProjekt24.Pages.Members
 
         private IMemberService _memberService;
         private IBookingService _bookingService;
+        private IBuddyForumService _buddyForumService;
 
         List<Booking> bookings {  get; set; }
+        List<BuddyForum> buddyForums { get; set; }
 
         public Member MemberToDelete { get; set; }
 
-        public DeleteMemberModel(IMemberService memberService, IBookingService bookingService)
+        public DeleteMemberModel(IMemberService memberService, IBookingService bookingService, IBuddyForumService buddyForumService)
         {
             _memberService = memberService;
             _bookingService = bookingService;
+            _buddyForumService = buddyForumService;
         }
 
 
@@ -34,6 +37,10 @@ namespace TennisProjekt24.Pages.Members
                 HttpContext.Session.Remove("MemberId");
             }
             
+            buddyForums = _buddyForumService.GetAllPosts().Where(p => p.Poster.MemberId == id).ToList();
+            if (buddyForums.Count > 0)
+                foreach (var buddyForum in buddyForums)
+                    _buddyForumService.DeletePost(buddyForum.PostId);
             
             bookings = _bookingService.GetBookingsByMember(id).Where(c=>c.SecondMemberFull.MemberId == id).ToList();
 
@@ -44,18 +51,10 @@ namespace TennisProjekt24.Pages.Members
                     item.SecondMemberFull = _memberService.GetMember(1);
                     _bookingService.updateBooking(item, item.BookingId);
                 }
-
-                _memberService.DeleteMember(id);
-                return RedirectToPage("Index");
-
-            }
-            else
-            {
-                _memberService.DeleteMember(id);
-                return RedirectToPage("Index");
             }
 
-
+            _memberService.DeleteMember(id);
+            return RedirectToPage("Index");
         }
 
 

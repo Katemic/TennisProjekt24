@@ -36,11 +36,11 @@
 
 <h4>Makker forum</h4>
 
-<a asp-page="/BuddyForums/CreateBuddyForum">Opret</a>
+<a asp-page="/BuddyForums/CreateBuddyForum" class="btn btn-primary">Opret</a>
 
 <form method="get">
             <div class="form-group">
-                <label class="custom-control-label">Sortering for erfarings niveau</label></br>
+                <label class="custom-control-label">Erfaringsniveau</label></br>
 
                 @foreach (var type in System.Enum.GetValues(typeof(Helpers.SkillTypeEnum)))
                 {
@@ -70,15 +70,15 @@
                         <div class="textBlog">
                             <p>@item.Text</p>
                             <div class="comment">
-                        <p><a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@item.PostId">se kommentare(@_forumCommentService.GetPostComments(item.PostId).Count())</a></p>
+                        <p><a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">se kommentare(@_forumCommentService.GetPostComments(item.PostId).Count())</a></p>
 
                             </div>
                         </div>
                 @if (item.Poster.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
                 {
                     <p>
-                        <a asp-page="/BuddyForums/DeleteBuddyForum" asp-route-postId="@item.PostId">Slet</a>
-                        <a asp-page="/BuddyForums/UpdateBuddyForum" asp-route-postId="@item.PostId">Opdater</a>
+                        <a asp-page="/BuddyForums/DeleteBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">Slet</a>
+                        <a asp-page="/BuddyForums/UpdateBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">Opdater</a>
                     </p>
                 }
                     </div>
