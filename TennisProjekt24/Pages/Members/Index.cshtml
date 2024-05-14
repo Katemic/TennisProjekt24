@@ -4,25 +4,28 @@
     ViewData["Title"] = "Members Index";
 }
 
-<h1>Medlem Index</h1>
+<h1>Medlemsoversigt</h1>
+
+
+
 
 <a asp-page="AddMember" class="btn btn-primary">Opret medlem</a>
 
 <table class="table">
     <thead>
         <tr>
-            <th>
+            @* <th>
                 Medlem Id
-            </th>
+            </th> *@
             <th>
                 Billede
             </th>
             <th>
                 Brugernavn
             </th>
-            <th>
+            @* <th>
                 Password
-            </th>
+            </th> *@
             <th>
                 Navn
             </th>
@@ -52,18 +55,18 @@
             @foreach (var item in Model.members)
             {
                 <tr>
-                    <td>
+                    @* <td>
                         @item.MemberId
-                    </td>
+                    </td> *@
                     <td>
                         <img src="~/images/memberimages/@item.Image" class="avatar thumbnail">
                     </td>
                     <td>
                         @item.Username
                     </td>
-                    <td>
+                    @* <td>
                         @item.Password
-                    </td>
+                    </td> *@
                     <td>
                         @item.Name
                     </td>
@@ -83,11 +86,18 @@
                         @item.MemberType
                     </td>
                     <td>
-                        @item.Admin
+                        @if(item.Admin)
+                        {
+                            <p>✓</p>
+                        }
+                        else
+                        {
+                            
+                        }
                     </td>
                     <td>
 
-                            @if (Model.CurrentMember.MemberId == item.MemberId || Model.CurrentMember.Admin)
+                            @if (Model.CurrentMember.Admin)
                             {
                             <p>
                                 <a asp-page="/Members/DeleteMember" asp-route-id="@item.MemberId">Slet</a> |
