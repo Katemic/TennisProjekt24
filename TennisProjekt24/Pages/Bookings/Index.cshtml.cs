@@ -23,6 +23,9 @@ namespace TennisProjekt24.Pages.Bookings
         [BindProperty(SupportsGet = true)]
         public string SortByOld { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string FilterCriteria { get; set; }
+
         public IndexModel(IBookingService bookingService)
         {
             _bookingService = bookingService;
@@ -53,6 +56,11 @@ namespace TennisProjekt24.Pages.Bookings
             else
             {
                 BookingsList = _bookingService.GetAllBookings(sql);
+            }
+
+            if (!string.IsNullOrEmpty(FilterCriteria))
+            {
+                BookingsList = BookingsList.FindAll(c => c.Member.Name.ToLower().Contains(FilterCriteria) || c.SecondMemberFull.Name.ToLower().Contains(FilterCriteria)).ToList();
             }
 
             if (SortByTime == "Nyeste først" || SortByTime == null)

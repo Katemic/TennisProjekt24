@@ -111,7 +111,7 @@
                     if (Model.Date < DateOnly.FromDateTime(DateTime.Now) || Model.Date == DateOnly.FromDateTime(DateTime.Now) && item < TimeOnly.FromDateTime(DateTime.Now))
                     {
                         <td>
-                            <span class="btn btn-secondary">-</span>
+                            <span title="Utilgængelig" class="btn btn-secondary"><img src="~/images/bookingimages/x.png" height="20" width="20"></span>
                         </td>
 
                     }
@@ -123,7 +123,7 @@
                             <td>
                                 @* <a asp-page="/Members/LogIn" class="btn btn-success"><img src="~/images/user.png" height="20" width="20"></a> *@
                                 <div class="popup" onclick="Login()">
-                                    <span class="btn btn-success">O</span>
+                                    <span title="Ledig" class="btn btn-success"><img src="~/images/bookingimages/user.png" height="20" width="20"></span>
 
                                 </div>
                             </td>
@@ -134,15 +134,16 @@
                             <td>
                                 
                                 <div  class="popup" onclick="DateRule()">
-                                    <span class="btn btn-success">O</span> 
-                                   
+                                    <span title="Ledig" class="btn btn-success"><img src="~/images/bookingimages/user.png" height="20" width="20"></span>
+
                                 </div>
                             </td>
                         }
                         else
                         {
                             <td>
-                                <a asp-page="/Bookings/AddBookingFancy" asp-route-id="@ting.CourtId" asp-route-date="@Model.Date" asp-route-time="@item" class="btn btn-success">O</a>
+                                <a title="Ledig" asp-page="/Bookings/AddBookingFancy" asp-route-id="@ting.CourtId" asp-route-date="@Model.Date" asp-route-time="@item" class="btn btn-success">
+                                    <img src="~/images/bookingimages/user.png" height="20" width="20"></a>
                             </td>
                         }
 
@@ -161,13 +162,13 @@
                         @switch(Model.Bookings.First(c => c.Court.CourtId == ting.CourtId && c.Time == item).Type.ToString())
                         {
                                 case "Member":
-                                    <span title="Optaget" class="btn btn-danger"><img src="~/images/user.png" height="20" width="20" ></span>
+                                    <span title="Optaget" class="btn btn-danger"><img src="~/images/bookingimages/user.png" height="20" width="20" ></span>
                                     break;
                                 case "Event":
-                                    <span title="Begivenhed" class="btn btn-danger"><img src="~/images/event.png" height="20" width="20"></span>
+                                    <span title="Begivenhed" class="btn btn-danger"><img src="~/images/bookingimages/event.png" height="20" width="20"></span>
                                     break;
                                 default:
-                                    <span title="Træning" class="btn btn-danger"><img src="~/images/tennis-practice.png" height="20" width="20"></span>
+                                    <span title="Træning" class="btn btn-danger"><img src="~/images/bookingimages/tennis-practice.png" height="20" width="20"></span>
                                     break;
                             }
                         

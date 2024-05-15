@@ -11,6 +11,11 @@
 
 <form method="get">
 
+    <p>
+        søg: <input type="text" asp-for="@Model.FilterCriteria" />
+        <input type="submit" value="Filter" />
+    </p>
+    
     <select id="TypeFilter" name="TypeFilter" asp-for="@Model.TypeFilter">
         @foreach (string item in Model.TypeChoice)
         {
