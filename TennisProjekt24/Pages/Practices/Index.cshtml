@@ -4,7 +4,11 @@
     ViewData["Title"] = "Trænigsindeks";
 }
 <p>
-    <a asp-page="AddPractice">Opret træningshold</a>
+    @if (Model.User.Admin)
+    {
+        <a asp-page="AddPractice">Opret træningshold</a>
+    }
+    
 </p>
         @* TODO Flere koloner på card *@
         @if(Model.Practices.Count != 0)
@@ -16,11 +20,15 @@
                 <h3> @item.Title</h3>
                 <h4>@item.StartDate</h4>
                 <h5>@item.Type</h5>
+                <h6>Antal deltagere: @item.Members.Count / @item.MaxNoOfAttendees</h6>
                 <h6>Ved: @item.Instructor.Name</h6>
                 <p>@item.Description</p>
-                          
-                <a class="card-link" asp-page="DeletePractice" asp-route-id="@item.PracticeId">Slet</a>
-                <a class="card-link" asp-page="UpdatePractice" asp-route-id="@item.PracticeId">Opdater</a>
+                @if (Model.User.Admin)
+                {
+                    <a class="card-link" asp-page="DeletePractice" asp-route-id="@item.PracticeId">Slet</a>
+                    <a class="card-link" asp-page="UpdatePractice" asp-route-id="@item.PracticeId">Opdater</a>
+                }          
+
                 @if (item.MaxNoOfAttendees > item.Members.Count)
                 {
                     <a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Deltag</a>
