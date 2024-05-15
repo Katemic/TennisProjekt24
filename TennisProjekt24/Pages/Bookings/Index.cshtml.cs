@@ -38,15 +38,15 @@ namespace TennisProjekt24.Pages.Bookings
             string sql = "";
             if (TypeFilter == "Medlem")
             {
-                sql += "AND Type = 0 ";
+                sql += "AND Type = 1 ";
             }
             if (TypeFilter == "Event")
             {
-                sql += "AND Type = 1 ";
+                sql += "AND Type = 2 ";
             }
             if (TypeFilter == "Træning")
             {
-                sql += "AND Type = 2 ";
+                sql += "AND Type = 3 ";
             }
 
             if (sql.Length == 0)

@@ -61,19 +61,40 @@
 
     </div>
 
-    <div class="form-group">
+
+    
+        <div class="form-group">
         <label asp-for="@Model.BookingToUpdate.Type" class="control-label">Type af booking</label>
         <br />
-        @foreach (var c in System.Enum.GetValues(typeof(BookingTypeEnum)))
-        {
-            <input type="radio" asp-for="@Model.BookingToUpdate.Type" value="@c" />
-            <label class="control-label">@c</label>
-            <br />
 
+        @if (Model.BookingToUpdate.Member.Admin)
+        {
+            @foreach (var c in System.Enum.GetValues(typeof(BookingTypeEnum)))
+            {
+                @if ((int)c != 0)
+                {
+
+                    <input type="radio" asp-for="@Model.BookingToUpdate.Type" value="@c" />
+                    <label class="control-label">@c</label>
+                    <br />
+
+                }
+
+
+            }
         }
+        else
+        {
+            <input type="radio" asp-for="@Model.BookingToUpdate.Type" value="Member" />
+            <label class="control-label">Member</label>
+            <br />
+        }
+
 
         <span asp-validation-for="BookingToUpdate.Type" class="text-danger"></span>
     </div>
+
+
 
     <div class="form-group">
         <label asp-for="@Model.BookingToUpdate.Note" class="control-label">Note</label>

@@ -16,9 +16,9 @@
             <th>
                 Tidspunkt
             </th>
-            <th>
+            @* <th>
                 Længde
-            </th>
+            </th> *@
             <th>
                 Medlem
             </th>
@@ -47,9 +47,9 @@
                     <td>
                         @item.Date
                     </td>
-                    <td>
+                    @* <td>
                         @item.Time
-                    </td>
+                    </td> *@
                     <td>
                         @item.Duration
                     </td>
@@ -89,18 +89,18 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+           @*  <th>
                 BookingID
-            </th>
+            </th> *@
             <th>
                 Dato
             </th>
             <th>
                 Tidspunkt
             </th>
-            <th>
+            @* <th>
                 Længde
-            </th>
+            </th> *@
             <th>
                 Medlem
             </th>
@@ -125,18 +125,18 @@
             @foreach (var item in Model.BookingsList.Where(c => c.SecondMemberFull.MemberId == Model.CurrentMember.MemberId))
             {
                 <tr>
-                    <td>
+                    @* <td>
                         @item.BookingId
-                    </td>
+                    </td> *@
                     <td>
                         @item.Date
                     </td>
                     <td>
                         @item.Time
                     </td>
-                    <td>
+                   @*  <td>
                         @item.Duration
-                    </td>
+                    </td> *@
                     <td>
                         @item.Member.Name
                     </td>
@@ -153,13 +153,7 @@
                         @item.Note
                     </td>
 
-                    @* <td>
-                        <p>
-                            <a asp-page="/Bookings/DeleteBooking" asp-route-id="@item.BookingId">Slet</a> |
-                            <a asp-page="/Bookings/UpdateBooking" asp-route-id="@item.BookingId">Rediger</a>
-
-                        </p>
-                    </td> *@
+                    
                 </tr>
             }
         }

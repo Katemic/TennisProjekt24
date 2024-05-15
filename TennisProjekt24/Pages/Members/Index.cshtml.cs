@@ -34,6 +34,10 @@ namespace TennisProjekt24.Pages.Members
                     int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
                     CurrentMember = _memberService.GetMember(sessionMemberId);
                     members = _memberService.GetAllMembers();
+                    if (!CurrentMember.Admin)
+                    {
+                        members = members.Where(c=> c.MemberId>10).ToList();
+                    }
                     return Page();
                 }
             }

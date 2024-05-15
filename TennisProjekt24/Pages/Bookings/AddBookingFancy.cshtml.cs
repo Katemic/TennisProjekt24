@@ -104,12 +104,6 @@ namespace TennisProjekt24.Pages.Bookings
             CurrentMember = _memberService.GetMember(sessionMemberId);
 
             List<Booking> bookings = _bookingService.GetBookingsByMember(CurrentMember.MemberId).Where(c => c.Date >= pastDate && c.Date < futureDate).ToList();
-            //bookings.Where(c => c.Date > DateOnly.FromDateTime(DateTime.Now.AddDays(-14)) && c.Date < DateOnly.FromDateTime(DateTime.Now)).ToList();
-            //bookings.Where(c=> c.Date > date.AddDays(-14) && c.Date < date.AddDays(14)).ToList();
-
-            
-            //bookings.Where(c => c.Date > pastDate && c.Date < futureDate).ToList();
-            //bookings.Where(c => c.Date > pastDate).Where(c=> c.Date < futureDate).ToList();
 
             if (bookings.Count >=4 && CurrentMember.Admin==false)
             {
@@ -127,7 +121,6 @@ namespace TennisProjekt24.Pages.Bookings
             }
             NewBooking.SecondMemberFull = _memberService.GetMember(SecondMemberId);
             bookings = _bookingService.GetBookingsByMember(SecondMemberId).Where(c => c.Date > pastDate && c.Date < futureDate).ToList();
-            //bookings.Where(c => c.Date > DateOnly.FromDateTime(DateTime.Now.AddDays(-14)) && c.Date < DateOnly.FromDateTime(DateTime.Now)).ToList();
             if (bookings.Count >= 4 &&  NewBooking.SecondMemberFull.Admin == false)
             {
                 Message = "Din makker har for mange bookinger";
@@ -143,8 +136,11 @@ namespace TennisProjekt24.Pages.Bookings
                 return Page();
             }
 
-
-
+            if(CurrentMember.Admin==false) 
+            {
+                NewBooking.Type = (BookingTypeEnum)1;
+            }
+            
             NewBooking.Date = date;
             NewBooking.Time = time;
             NewBooking.Court = _courtService.GetCourt(id);
@@ -169,7 +165,7 @@ namespace TennisProjekt24.Pages.Bookings
             
 
             _bookingService.AddBooking(NewBooking);
-            return RedirectToPage("Index");
+            return RedirectToPage("FancyIndex");
 
         }
     }

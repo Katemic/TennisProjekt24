@@ -1,4 +1,5 @@
-﻿using TennisProjekt24.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
+using TennisProjekt24.Interfaces;
 using TennisProjekt24.Services;
 
 namespace TennisProjekt24.Models
@@ -6,7 +7,7 @@ namespace TennisProjekt24.Models
 
     public enum BookingTypeEnum
     {
-        Member, Event, Practice
+        None, Member, Event, Practice
     }
 
     public class Booking
@@ -18,12 +19,15 @@ namespace TennisProjekt24.Models
         //public int MemberId { get; set; }
         //public int SecondMember { get; set; }
         //public int Court { get; set; }
-        public BookingTypeEnum Type { get; set; }
-        public string Note { get; set; }
 
-        public Member Member { get; set; }
-        public Member SecondMemberFull { get; set; }
-        public Court Court { get; set; }
+        [Required(ErrorMessage = "Vælg bookingtype")]
+        [Range(1, 20, ErrorMessage = "Vælg bookingtype")]
+        public BookingTypeEnum Type { get; set; }
+        public string? Note { get; set; }
+
+        public Member? Member { get; set; }
+        public Member? SecondMemberFull { get; set; }
+        public Court? Court { get; set; }
 
 
         //public Booking(int bookingId, DateOnly date, TimeOnly time, int duration, int memberId,

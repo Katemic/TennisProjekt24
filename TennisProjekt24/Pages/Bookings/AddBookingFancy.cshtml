@@ -18,7 +18,7 @@
         @* <span asp-validation-for="NewBooking.Date" class="text-danger"></span> *@
 
     </div>
-    <div class="form-group">
+    <div class="form-group" hidden="hidden">
         <label asp-for="@Model.NewBooking.Time" class="control-label">Tidspunkt</label>
         <input asp-for="@Model.Time" class="form-control" type="time" disabled />
         <span asp-validation-for="NewBooking.Time" class="text-danger"></span>
@@ -59,19 +59,27 @@
 
     </div>
 
-    <div class="form-group">
-        <label asp-for="@Model.NewBooking.Type" class="control-label">Type af booking</label>
-        <br />
-        @foreach (var c in System.Enum.GetValues(typeof(BookingTypeEnum)))
-        {
-            <input type="radio" asp-for="@Model.NewBooking.Type" value="@c" />
-            <label class="control-label">@c</label>
+    @if (Model.CurrentMember.Admin)
+    {
+        <div class="form-group">
+            <label asp-for="@Model.NewBooking.Type" class="control-label">Type af booking</label>
             <br />
+            @foreach (var c in System.Enum.GetValues(typeof(BookingTypeEnum)))
+            {
+                @if ((int)c != 0)
+                {
+                    <input type="radio" asp-for="@Model.NewBooking.Type" value="@c" />
+                    <label class="control-label">@c</label>
+                    <br />
+                }
 
-        }
 
-        <span asp-validation-for="NewBooking.Type" class="text-danger"></span>
-    </div>
+            }
+
+            <span asp-validation-for="NewBooking.Type" class="text-danger"></span>
+        </div>
+    }
+    
 
     <div class="form-group">
         <label asp-for="@Model.NewBooking.Note" class="control-label">Note</label>
@@ -83,7 +91,7 @@
     <div class="form-group">
         <br /> <br />
         <input type="submit" value="Opret booking" class="btn btn-primary" asp-route-id=" @Model.CourtId" asp-route-date="@Model.Date" asp-route-time="@Model.Time" />
-        <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+        <a asp-page="Fancyindex" class="btn btn-secondary">Tilbage</a>
     </div>
 </form>
 
