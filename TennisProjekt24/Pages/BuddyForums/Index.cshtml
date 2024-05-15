@@ -56,6 +56,9 @@
                     }
                 }
             </div>
+    <div class="form-group">
+        <input asp-for="@Model.IsEnabled" onchange="this.form.submit()" /> vis mine post <br />
+    </div>
             @if (Model.buddyForums.Count() != 0)
             {
                 @foreach (var item in Model.buddyForums)

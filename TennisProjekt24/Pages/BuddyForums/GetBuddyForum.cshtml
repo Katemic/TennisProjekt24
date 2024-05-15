@@ -33,7 +33,7 @@
 
 <form method="get">
     <input type="hidden" asp-for="@Model.GetBuddyForum.PostId" />
-    <body>
+@*     <body> *@
         <div class="post">
             <div class="heading">
                 <p>@Model.GetBuddyForum.DateTime</p>
@@ -79,12 +79,12 @@
                 </div>
             </tbody>
         </table>
-    </body>
+    @* </body> *@
 </form>
 
 
 <form method="post">
-    <body>
+    @* <body> *@
         <div class="form-group">
             <label asp-for="@Model.CreateComment.Text" class="control-label"></label>
             <input asp-for="@Model.CreateComment.Text" class="form-control" />
@@ -92,5 +92,5 @@
         <div class="form-group">
             <input type="submit" value="Create a comment" class="btn btn-primary" />
         </div>
-    </body>
+    @* </body> *@
 </form>

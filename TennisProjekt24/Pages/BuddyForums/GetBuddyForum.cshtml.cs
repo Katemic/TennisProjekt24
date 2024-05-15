@@ -19,6 +19,8 @@ namespace TennisProjekt24.Pages.BuddyForums
         public bool Descending { get; set; }
         [BindProperty(SupportsGet = true)]
         public string SortOrderAscDesc { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int postId { get; set; }
 
         public GetBuddyForumModel(IBuddyForumService buddyForumService, IMemberService memberService, IForumCommentService forumCommentService)
         {
@@ -31,13 +33,13 @@ namespace TennisProjekt24.Pages.BuddyForums
         {
             try
             {
+                this.postId = postId;
                 GetBuddyForum = _buddyForumService.GetPostById(postId);
                 ForumComments = _forumCommentService.GetPostComments(postId);
-                ForumComments.Reverse();
-                //if (SortOrderAscDesc == "Ascending")
-                //{
-                //    ForumComments.Reverse();
-                //}
+                if (SortOrderAscDesc == "Ascending")
+                {
+                    ForumComments.Reverse();
+                }
             }
             catch (SqlException sql)
             {
