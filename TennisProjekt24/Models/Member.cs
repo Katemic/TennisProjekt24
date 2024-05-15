@@ -5,7 +5,7 @@ namespace TennisProjekt24.Models
 {
     public enum MemberTypeEnum
         {
-            Senior, YoungSenior, Junior, Family, Passive
+            none, Senior, YoungSenior, Junior, Family, Passive
         }
 
     public class Member

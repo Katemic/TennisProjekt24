@@ -28,20 +28,15 @@ namespace TennisProjekt24.Pages.Members
 
         public IActionResult OnPost() 
         {
- 
-            //if (_memberService.CheckUsername(UpdatedMember.Username) == false)
-            //{
-            //    UsernameMessage = "Brugernavnet er allerede taget, vælg venligst et andet";
-            //    return Page();
-            //}
+
 
             if (!ModelState.IsValid) 
             {
                 return Page();
             }
 
-            _memberService.UpdateMember(UpdatedMember,UpdatedMember.MemberId); //måske overføre id med onpost eller er det fint?
-            return RedirectToPage("Index");
+            _memberService.UpdateMember(UpdatedMember,UpdatedMember.MemberId); 
+            return RedirectToPage("Profile");
         }
 
 

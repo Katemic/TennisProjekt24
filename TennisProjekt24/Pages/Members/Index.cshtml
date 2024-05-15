@@ -54,7 +54,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model.members.Count() != 0)
+        @if (Model.members != null && Model.members.Count() != 0)
         {
             @foreach (var item in Model.members)
             {

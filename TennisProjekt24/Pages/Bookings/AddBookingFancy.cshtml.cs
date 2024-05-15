@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
 using TennisProjekt24.Services;
@@ -52,28 +53,42 @@ namespace TennisProjekt24.Pages.Bookings
 
         public IActionResult OnGet(int id, DateOnly date, TimeOnly time)
         {
-            
 
-            if (HttpContext.Session.GetInt32("MemberId") == null)
+            try
             {
-                return RedirectToPage("/Members/LogIn");
+                if (HttpContext.Session.GetInt32("MemberId") == null)
+                {
+                    return RedirectToPage("/Members/LogIn");
+                }
+                else
+                {
+                    int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                    CurrentMember = _memberService.GetMember(sessionMemberId);
+                    CourtId = id;
+                    Date = date;
+                    Time = time;
+                    List<Member> members = _memberService.GetAllMembers().Where(c => c.MemberId > 3).ToList();
+
+                    MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
+
+
+
+
+                    return Page();
+                }
             }
-            else
+            catch (SqlException sql)
             {
-                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
-                CurrentMember = _memberService.GetMember(sessionMemberId);
-                CourtId = id;
-                Date = date;
-                Time = time;
-                List<Member> members = _memberService.GetAllMembers().Where(c => c.MemberId > 3).ToList();
+                ViewData["ErrorMessage"] = sql.Message;
 
-                MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
-
-
-
-
-                return Page();
             }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+
+            }
+            return Page();
+
 
 
         }
