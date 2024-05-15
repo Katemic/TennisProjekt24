@@ -21,24 +21,32 @@ namespace TennisProjekt24.Pages.Practices
         public List<SelectListItem> Instructors { get; set; }
         [BindProperty]
         public int InstructorId {  get; set; } 
-        public void OnGet(List<Instructor> instructors)
+        public IActionResult OnGet(List<Instructor> instructors)
         {
-            if (instructors == null || instructors.Count == 0)
-                Instructors = _instructorService.GetAllInstructors().Select(i =>
-                                                new SelectListItem
-                                                {
-                                                    Value = i.InstructorId.ToString(),
-                                                    Text = i.Name
-                                                }
-                                                ).ToList();
+            if (HttpContext.Session.GetInt32("MemberId") == null)
+            {
+                return RedirectToPage("/Members/LogIn");
+            }
             else
-                Instructors = instructors.Select(i =>
-                                                new SelectListItem
-                                                {
-                                                    Value = i.InstructorId.ToString(),
-                                                    Text = i.Name
-                                                }
-                                                ).ToList(); ;
+            {
+                if (instructors == null || instructors.Count == 0)
+                    Instructors = _instructorService.GetAllInstructors().Select(i =>
+                                                    new SelectListItem
+                                                    {
+                                                        Value = i.InstructorId.ToString(),
+                                                        Text = i.Name
+                                                    }
+                                                    ).ToList();
+                else
+                    Instructors = instructors.Select(i =>
+                                                    new SelectListItem
+                                                    {
+                                                        Value = i.InstructorId.ToString(),
+                                                        Text = i.Name
+                                                    }
+                                                    ).ToList(); ;
+                return Page();
+            }
         }
 
         public AddPracticeModel(IPracticeService serv, IInstructorService instructorService)

@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
 using Microsoft.AspNetCore.Http;
+using TennisProjekt24.Services;
 
 namespace TennisProjekt24.Pages.Practices
 {
@@ -14,13 +15,22 @@ namespace TennisProjekt24.Pages.Practices
         IPracticeService practiceService { get; set; }
         IMemberService memberService { get; set; }
         public Member User {  get; set; }
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            User = memberService.GetMember((int)HttpContextAccessor.HttpContext.Session.GetInt32("MemberId"));
-            Practices = practiceService.GetAllPractices(null);
-            foreach (var practice in Practices)
+            if (HttpContext.Session.GetInt32("MemberId") == null)
             {
-                practice.Members.AddRange(memberService.GetAllMembers(practice.PracticeId));
+                return RedirectToPage("/Members/LogIn");
+            }
+            else
+            {
+                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                User = memberService.GetMember(sessionMemberId);
+                Practices = practiceService.GetAllPractices(null);
+                foreach (var practice in Practices)
+                {
+                    practice.Members.AddRange(memberService.GetAllMembers(practice.PracticeId));
+                }
+                return Page();
             }
         }
         public IndexModel(IPracticeService prac, IMemberService memberService)

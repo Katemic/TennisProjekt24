@@ -11,8 +11,15 @@ namespace TennisProjekt24.Pages.Practices
         public Practice DeletePractice { get; set; }
         public IActionResult OnGet(int id)
         {
-            DeletePractice = _service.GetPractice(id);
-            return Page();
+            if (HttpContext.Session.GetInt32("MemberId") == null)
+            {
+                return RedirectToPage("/Members/LogIn");
+            }
+            else
+            {
+                DeletePractice = _service.GetPractice(id);
+                return Page();
+            }
         }
 
         public DeletePracticeModel(IPracticeService prac)
