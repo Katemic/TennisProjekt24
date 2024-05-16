@@ -161,16 +161,16 @@ namespace TennisProjekt24.Pages.Bookings
 
         public List<SelectListItem> MakeSelectList()
         {
-
+            List<Member> members = new List<Member>();
 
             if (CurrentMember.Admin)
             {
-                List<Member> members = _memberService.GetAllMembers().Where(c => c.MemberId >= 10 && c.MemberId != CurrentMember.MemberId).ToList();
+                members = _memberService.GetAllMembers().Where(c => c.MemberId >= 2 && c.MemberId != CurrentMember.MemberId).ToList();
             }
             else
             {
 
-                List<Member> members = _memberService.GetAllMembers().Where(c => c.MemberId >= 10 && c.MemberId != CurrentMember.MemberId).ToList();
+                members = _memberService.GetAllMembers().Where(c => c.MemberId >= 10 && c.MemberId != CurrentMember.MemberId).ToList();
             }
             return MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
 
