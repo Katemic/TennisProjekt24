@@ -7,7 +7,8 @@ namespace TennisProjekt24.Pages.Calender
     {
         public int CurrentYear { get; set; } = DateTime.Now.Year;
         public int CurrentMonth { get; set; } = DateTime.Now.Month;
-        public DateTime CurrentDay { get; set; }
+        [BindProperty]
+        public DateOnly CurrentDay { get; set; } = DateOnly.MinValue;
         public void OnGet()
         {
         }

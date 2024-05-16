@@ -11,25 +11,26 @@
             @foreach (var weekDay in System.Enum.GetValues(typeof(weekDays)))
             {
                 <th>
-                    @weekDay.ToString();
+                    @weekDay.ToString()
                 </th>
             }
         </tr>
     </thead>
-    @for (int i = 1; i > DateTime.DaysInMonth(Model.CurrentYear, Model.CurrentMonth); i++)
+    @for (int i = 1; i <= DateTime.DaysInMonth(Model.CurrentYear, Model.CurrentMonth); i++)
     {
         <tbody>
             <tr>
             @foreach (var weekDay in System.Enum.GetValues(typeof(weekDays)))
             {
-                @if (Model.CurrentDay.DayOfWeek == (int)weekDay)
+                @if ((int)Model.CurrentDay.DayOfWeek == (int)weekDay)
                 {
                     <th>
-                        test
+                        @Model.CurrentDay
                     </th>
                 }
             }
             </tr>
         </tbody>
+        Model.CurrentDay = Model.CurrentDay.AddDays(1);
     }
 </table>
