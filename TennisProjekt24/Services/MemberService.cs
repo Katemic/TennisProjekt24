@@ -43,7 +43,7 @@ namespace TennisProjekt24.Services
                 }
                 catch (SqlException sqlEx)
                 {
-                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+                    Console.WriteLine("der var en database fejl: " + sqlEx.Message);
 
                     throw sqlEx;
                 }
@@ -79,7 +79,7 @@ namespace TennisProjekt24.Services
                 }
                 catch (SqlException sqlEx)
                 {
-                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+                    Console.WriteLine("der var en database fejl: " + sqlEx.Message);
 
                     throw sqlEx;
                 }
@@ -142,7 +142,7 @@ namespace TennisProjekt24.Services
                 }
                 catch (SqlException sqlEx)
                 {
-                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+                    Console.WriteLine("der var en database fejl: " + sqlEx.Message);
 
                     throw sqlEx;
                 }
@@ -174,7 +174,7 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@Id", memberId);
                     command.Connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+                    if (reader.Read())
                     {
                         int memberID = reader.GetInt32("MemberId");
                         string username = reader.GetString("Username");
@@ -196,7 +196,7 @@ namespace TennisProjekt24.Services
                 }
                 catch (SqlException sqlEx)
                 {
-                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+                    Console.WriteLine("der var en database fejl: " + sqlEx.Message);
 
                     throw sqlEx;
                 }
@@ -240,7 +240,7 @@ namespace TennisProjekt24.Services
                 }
                 catch (SqlException sqlEx)
                 {
-                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+                    Console.WriteLine("der var en database fejl: " + sqlEx.Message);
 
                     throw sqlEx;
                 }
@@ -275,7 +275,7 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@Password", password);
                     command.Connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+                    if (reader.Read())
                     {
                         int memberID = reader.GetInt32("MemberId");
 
@@ -287,7 +287,7 @@ namespace TennisProjekt24.Services
                 }
                 catch (SqlException sqlEx)
                 {
-                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+                    Console.WriteLine("der var en database fejl: " + sqlEx.Message);
 
                     throw sqlEx;
                 }
@@ -331,7 +331,7 @@ namespace TennisProjekt24.Services
                 }
                 catch (SqlException sqlEx)
                 {
-                    Console.WriteLine("der var en database error: " + sqlEx.Message);
+                    Console.WriteLine("der var en database fejl: " + sqlEx.Message);
 
                     throw sqlEx;
                 }

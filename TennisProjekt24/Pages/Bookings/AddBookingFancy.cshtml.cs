@@ -5,6 +5,7 @@ using Microsoft.Data.SqlClient;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
 using TennisProjekt24.Services;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TennisProjekt24.Pages.Bookings
 {
@@ -71,9 +72,7 @@ namespace TennisProjekt24.Pages.Bookings
                     Date = date;
                     Time = time;
                     Court = _courtService.GetCourt(id);
-                    //List<Member> members = _memberService.GetAllMembers().Where(c => c.MemberId >=10 && c.MemberId != CurrentMember.MemberId).ToList();
-
-                    //MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
+                    
 
                     MakeSelectList();
 
@@ -100,9 +99,6 @@ namespace TennisProjekt24.Pages.Bookings
 
         public IActionResult OnPost(int id, DateOnly date, TimeOnly time)
         {
-
-            DateOnly pastDate = date.AddDays(-1);
-            DateOnly futureDate = date.AddDays(14);
             
             int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
             CurrentMember = _memberService.GetMember(sessionMemberId);
@@ -116,53 +112,37 @@ namespace TennisProjekt24.Pages.Bookings
                 return Page();
             }
 
-
-            List<Booking> bookings = _bookingService.GetBookingsByMember(CurrentMember.MemberId).Where(c => c.Date >= pastDate && c.Date < futureDate).ToList();
-            if (bookings.Count >=4 && CurrentMember.Admin==false)
+            if(CheckBookings(CurrentMember.MemberId)==false)
             {
                 Message = "Du har for mange bookinger, du må kun booke 4 timer inden for 14 dages periode";
 
-                //CourtId= id;
-                //Time = time;
-                //Date = date;
-
                 MakeSelectList();
 
                 return Page();
             }
-            NewBooking.SecondMemberFull = _memberService.GetMember(SecondMemberId);
-            bookings = _bookingService.GetBookingsByMember(SecondMemberId).Where(c => c.Date > pastDate && c.Date < futureDate).ToList();
-            if (bookings.Count >= 4 &&  NewBooking.SecondMemberFull.Admin == false)
+            if (CheckBookings(SecondMemberId)==false) 
             {
                 Message = "Din makker har for mange bookinger";
 
-                //CourtId= id;
-                //Time = time;
-                //Date = date;
-
                 MakeSelectList();
 
                 return Page();
+
             }
 
-            if(CurrentMember.Admin==false) 
+
+            if (CurrentMember.Admin==false) 
             {
                 NewBooking.Type = (BookingTypeEnum)1;
             }
-            
+
+           
             NewBooking.Date = date;
             NewBooking.Time = time;
             NewBooking.Court = _courtService.GetCourt(id);
-            //NewBooking.SecondMemberFull = _memberService.GetMember(SecondMemberId);
+            NewBooking.SecondMemberFull = _memberService.GetMember(SecondMemberId);
             NewBooking.Member = CurrentMember;
             NewBooking.Duration = 1;
-
-            
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
-
 
 
             if (_bookingService.CheckAvailability(NewBooking.Court.CourtId, NewBooking.Date, NewBooking.Time) == false)
@@ -171,8 +151,7 @@ namespace TennisProjekt24.Pages.Bookings
                 return Page();
 
             }
-
-            
+ 
 
             _bookingService.AddBooking(NewBooking);
             return RedirectToPage("FancyIndex");
@@ -182,9 +161,15 @@ namespace TennisProjekt24.Pages.Bookings
 
         public List<SelectListItem> MakeSelectList()
         {
+            if (CurrentMember.Admin)
+            {
+                List<Member> members = _memberService.GetAllMembers().Where(c => c.MemberId >= 10 && c.MemberId != CurrentMember.MemberId).ToList();
+            }
+            else
+            {
 
-            List<Member> members = _memberService.GetAllMembers().Where(c => c.MemberId >= 10 && c.MemberId != CurrentMember.MemberId).ToList(); ;
-
+                List<Member> members = _memberService.GetAllMembers().Where(c => c.MemberId >= 10 && c.MemberId != CurrentMember.MemberId).ToList();
+            }
             return MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
 
         }
@@ -192,8 +177,17 @@ namespace TennisProjekt24.Pages.Bookings
         public bool CheckBookings(int id)
         {
 
+            DateOnly pastDate = DateOnly.FromDateTime(DateTime.Now);
+            DateOnly futureDate = pastDate.AddDays(14);
 
-            return false;
+            List<Booking> bookings = _bookingService.GetBookingsByMember(id).Where(c => c.Date >= pastDate && c.Date <= futureDate).ToList();
+            if (bookings.Count >= 4 && !_memberService.GetMember(id).Admin)
+            {
+                return false;
+            }
+
+
+            return true;
             
         }
 
