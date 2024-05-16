@@ -15,8 +15,11 @@
 
 </form>
 
+@if(Model.CurrentMember.Admin)
+{
+    <a asp-page="AddMember" class="btn btn-primary">Opret medlem</a>
+}
 
-<a asp-page="AddMember" class="btn btn-primary">Opret medlem</a>
 
 <table class="table">
     <thead>
@@ -27,9 +30,9 @@
             <th>
                 Billede
             </th>
-            <th>
+            @* <th>
                 Brugernavn
-            </th>
+            </th> *@
             @* <th>
                 Password
             </th> *@
@@ -72,9 +75,9 @@
                     <td>
                         <img src="~/images/memberimages/@item.Image" class="avatar thumbnail">
                     </td>
-                    <td>
+                    @* <td>
                         @item.Username
-                    </td>
+                    </td> *@
                     @* <td>
                         @item.Password
                     </td> *@
