@@ -161,6 +161,8 @@ namespace TennisProjekt24.Pages.Bookings
 
         public List<SelectListItem> MakeSelectList()
         {
+
+
             if (CurrentMember.Admin)
             {
                 List<Member> members = _memberService.GetAllMembers().Where(c => c.MemberId >= 10 && c.MemberId != CurrentMember.MemberId).ToList();
