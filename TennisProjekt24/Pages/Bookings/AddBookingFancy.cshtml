@@ -54,7 +54,8 @@
 
     <div class="form-group">
         <label asp-for="@Model.NewBooking.Court" class="control-label">Bane</label>
-        <input asp-for="@Model.CourtId" class="form-control" readonly="readonly" />
+        <input asp-for="@Model.Court.CourtNumber" class="form-control" readonly="readonly" />
+        <input asp-for="@Model.CourtId" class="form-control" hidden="hidden" />
         @* <span asp-validation-for="NewBooking.Court" class="text-danger"></span> *@
 
     </div>

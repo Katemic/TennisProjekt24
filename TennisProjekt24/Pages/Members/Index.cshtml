@@ -6,7 +6,14 @@
 
 <h1>Medlemsoversigt</h1>
 
+<form method="get">
 
+    <p>
+        søg: <input type="text" asp-for="@Model.FilterCriteria" />
+        <input type="submit" value="Filter" />
+    </p>
+
+</form>
 
 
 <a asp-page="AddMember" class="btn btn-primary">Opret medlem</a>

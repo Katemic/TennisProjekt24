@@ -15,6 +15,9 @@ namespace TennisProjekt24.Pages.Members
 
         public Member CurrentMember { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string FilterCriteria { get; set; }
+
         public IndexModel(IMemberService memberService)
         {
              _memberService = memberService;
@@ -29,17 +32,23 @@ namespace TennisProjekt24.Pages.Members
                 {
                     return RedirectToPage("LogIn");
                 }
-                else
+
+
+                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                CurrentMember = _memberService.GetMember(sessionMemberId);
+                members = _memberService.GetAllMembers();
+                if (!CurrentMember.Admin)
                 {
-                    int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
-                    CurrentMember = _memberService.GetMember(sessionMemberId);
-                    members = _memberService.GetAllMembers();
-                    if (!CurrentMember.Admin)
-                    {
-                        members = members.Where(c=> c.MemberId>10).ToList();
-                    }
-                    return Page();
+                    members = members.Where(c => c.MemberId >= 10).ToList();
                 }
+
+                if(FilterCriteria != null)
+                {
+                    members = members.Where(c => c.Name.ToLower().Contains(FilterCriteria.ToLower())).ToList();
+                }
+
+                return Page();
+
             }
             catch (SqlException sql)
             {

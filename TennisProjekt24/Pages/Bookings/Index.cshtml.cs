@@ -60,7 +60,7 @@ namespace TennisProjekt24.Pages.Bookings
 
             if (!string.IsNullOrEmpty(FilterCriteria))
             {
-                BookingsList = BookingsList.FindAll(c => c.Member.Name.ToLower().Contains(FilterCriteria) || c.SecondMemberFull.Name.ToLower().Contains(FilterCriteria)).ToList();
+                BookingsList = BookingsList.FindAll(c => c.Member.Name.ToLower().Contains(FilterCriteria.ToLower()) || c.SecondMemberFull.Name.ToLower().Contains(FilterCriteria.ToLower())).ToList();
             }
 
             if (SortByTime == "Nyeste først" || SortByTime == null)

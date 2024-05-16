@@ -31,6 +31,9 @@ namespace TennisProjekt24.Pages.Bookings
         public int CourtId { get; set; }
 
         [BindProperty]
+        public Court Court { get; set; }
+
+        [BindProperty]
         public Member CurrentMember {  get; set; }
 
         //bruges til selectlist
@@ -67,11 +70,12 @@ namespace TennisProjekt24.Pages.Bookings
                     CourtId = id;
                     Date = date;
                     Time = time;
-                    List<Member> members = _memberService.GetAllMembers().Where(c => c.MemberId > 3).ToList();
+                    Court = _courtService.GetCourt(id);
+                    //List<Member> members = _memberService.GetAllMembers().Where(c => c.MemberId >=10 && c.MemberId != CurrentMember.MemberId).ToList();
 
-                    MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
+                    //MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
 
-
+                    MakeSelectList();
 
 
                     return Page();
@@ -103,8 +107,17 @@ namespace TennisProjekt24.Pages.Bookings
             int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
             CurrentMember = _memberService.GetMember(sessionMemberId);
 
-            List<Booking> bookings = _bookingService.GetBookingsByMember(CurrentMember.MemberId).Where(c => c.Date >= pastDate && c.Date < futureDate).ToList();
+            if (SecondMemberId == 0)
+            {
+                Message = "Du skal vælge en at spille med";
 
+                MakeSelectList();
+
+                return Page();
+            }
+
+
+            List<Booking> bookings = _bookingService.GetBookingsByMember(CurrentMember.MemberId).Where(c => c.Date >= pastDate && c.Date < futureDate).ToList();
             if (bookings.Count >=4 && CurrentMember.Admin==false)
             {
                 Message = "Du har for mange bookinger, du må kun booke 4 timer inden for 14 dages periode";
@@ -113,9 +126,7 @@ namespace TennisProjekt24.Pages.Bookings
                 //Time = time;
                 //Date = date;
 
-                //List<Member> members = _memberService.GetAllMembers();
-
-                //MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
+                MakeSelectList();
 
                 return Page();
             }
@@ -129,9 +140,7 @@ namespace TennisProjekt24.Pages.Bookings
                 //Time = time;
                 //Date = date;
 
-                List<Member> members = _memberService.GetAllMembers();
-
-                MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
+                MakeSelectList();
 
                 return Page();
             }
@@ -148,6 +157,7 @@ namespace TennisProjekt24.Pages.Bookings
             NewBooking.Member = CurrentMember;
             NewBooking.Duration = 1;
 
+            
             //if (!ModelState.IsValid)
             //{
             //    return Page();
@@ -168,5 +178,26 @@ namespace TennisProjekt24.Pages.Bookings
             return RedirectToPage("FancyIndex");
 
         }
+
+
+        public List<SelectListItem> MakeSelectList()
+        {
+
+            List<Member> members = _memberService.GetAllMembers().Where(c => c.MemberId >= 10 && c.MemberId != CurrentMember.MemberId).ToList(); ;
+
+            return MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
+
+        }
+
+        public bool CheckBookings(int id)
+        {
+
+
+            return false;
+            
+        }
+
+
+
     }
 }

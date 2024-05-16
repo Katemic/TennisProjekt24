@@ -27,7 +27,7 @@ namespace TennisProjekt24.Pages.Bookings
         public IActionResult OnPost(int id) 
         {
             _bookingService.DeleteBooking(id);
-            return RedirectToPage("Index");
+            return RedirectToPage("BookingsMember");
         }
 
 

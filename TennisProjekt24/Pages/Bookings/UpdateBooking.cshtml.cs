@@ -42,11 +42,10 @@ namespace TennisProjekt24.Pages.Bookings
             {
                 int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
                 CurrentMember = _memberService.GetMember(sessionMemberId);
-                
-                List<Member> members = _memberService.GetAllMembers();
-
-                MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
                 BookingToUpdate = _bookingService.GetBooking(id);
+
+                MakeSelectList();
+                
                 
                 return Page();
             }
@@ -56,6 +55,8 @@ namespace TennisProjekt24.Pages.Bookings
         public IActionResult OnPost()
         {
 
+            
+            
             //if (!ModelState.IsValid)
             //{
             //    return Page();
@@ -64,6 +65,15 @@ namespace TennisProjekt24.Pages.Bookings
             _bookingService.updateBooking(BookingToUpdate,BookingToUpdate.BookingId);
             return RedirectToPage("FancyIndex");
 
+        }
+
+
+        public List<SelectListItem> MakeSelectList()
+        {
+            List<Member> members = _memberService.GetAllMembers().Where(c => c.MemberId >= 10
+                && c.MemberId != BookingToUpdate.Member.MemberId && c.MemberId != BookingToUpdate.SecondMemberFull.MemberId).ToList(); ;
+
+            return MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
         }
 
 

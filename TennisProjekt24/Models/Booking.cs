@@ -22,7 +22,7 @@ namespace TennisProjekt24.Models
 
         [Required(ErrorMessage = "Vælg bookingtype")]
         [Range(1, 20, ErrorMessage = "Vælg bookingtype")]
-        public BookingTypeEnum Type { get; set; }
+        public BookingTypeEnum? Type { get; set; }
         public string? Note { get; set; }
 
         public Member? Member { get; set; }
