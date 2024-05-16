@@ -16,20 +16,18 @@
             }
         </tr>
     </thead>
-    @* @foreach (DateOnly day in DateTime.DaysInMonth(Model.CurrentYear, Model.CurrentMonth)) *@
-    @* @for (int i = 1; i > DateTime.DaysInMonth(Model.CurrentYear, Model.CurrentMonth); i++) *@
-    @for (int i = 1; i < DateTime.DaysInMonth(2024, 05); i++)
+    @for (int i = 1; i > DateTime.DaysInMonth(Model.CurrentYear, Model.CurrentMonth); i++)
     {
         <tbody>
             <tr>
             @foreach (var weekDay in System.Enum.GetValues(typeof(weekDays)))
             {
-               @*      @if (new DateTime(2024, 05, i).DayOfWeek == weekDay)
+                @if (Model.CurrentDay.DayOfWeek == (int)weekDay)
                 {
                     <th>
                         test
                     </th>
-                } *@
+                }
             }
             </tr>
         </tbody>
