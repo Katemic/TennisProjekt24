@@ -1,0 +1,37 @@
+﻿@page
+@model TennisProjekt24.Pages.Calender.IndexModel
+@using Helpers;
+@{
+    ViewData["Title"] = "Calender";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            @foreach (var weekDay in System.Enum.GetValues(typeof(weekDays)))
+            {
+                <th>
+                    @weekDay.ToString();
+                </th>
+            }
+        </tr>
+    </thead>
+    @* @foreach (DateOnly day in DateTime.DaysInMonth(Model.CurrentYear, Model.CurrentMonth)) *@
+    @* @for (int i = 1; i > DateTime.DaysInMonth(Model.CurrentYear, Model.CurrentMonth); i++) *@
+    @for (int i = 1; i < DateTime.DaysInMonth(2024, 05); i++)
+    {
+        <tbody>
+            <tr>
+            @foreach (var weekDay in System.Enum.GetValues(typeof(weekDays)))
+            {
+               @*      @if (new DateTime(2024, 05, i).DayOfWeek == weekDay)
+                {
+                    <th>
+                        test
+                    </th>
+                } *@
+            }
+            </tr>
+        </tbody>
+    }
+</table>

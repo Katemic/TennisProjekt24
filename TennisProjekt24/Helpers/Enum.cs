@@ -7,4 +7,8 @@
     {
         None, LetØvet, Øvet, Rutineret, ForSjov
     }
+    public enum weekDays
+    {
+        Mandag, Tirsdag, Onsdag, Torsdag, Fredag, Lørdag, Søndag
+    }
 }
