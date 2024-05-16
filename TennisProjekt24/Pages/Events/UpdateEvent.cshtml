@@ -8,7 +8,7 @@
 <h1>Opdater dine oplysninger</h1>
 
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 
     <div class="form-group">
         <label asp-for="@Model.EventUpdate.EventId" class="control-label">Event Id</label>
@@ -41,13 +41,22 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="@Model.EventUpdate.Member.MemberId" class="control-label">Medlem Id</label>
-        <input asp-for="@Model.EventUpdate.Member.MemberId" class="form-control" />
+        <label asp-for="@Model.Picture" class="control-label">Tilføj billede</label>
+        <div class="custom-file">
+            <input asp-for="@Model.Picture" class="custom-file-input form-control" />
+            <label class="custom-file-label"></label>
+            <span asp-validation-for="Picture" class="text-danger"></span>
+        </div>
     </div>
+@*     <div class="form-group">
+        <label asp-for="@Model.EventUpdate.Member.Name" class="control-label">Arrangør</label>
+        <input asp-for="@Model.EventUpdate.Member.Name" class="form-control" />
+    </div> *@
 
     <div class="form-group">
         <br /> <br />
         <input type="submit" asp-route-eventId="@Model.EventUpdate.EventId" value="Opdater Event" class="btn btn-primary" />
         <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
     </div>
+    <input type="hidden" asp-for="@Model.EventUpdate.Member.MemberId" />
 </form>

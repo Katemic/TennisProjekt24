@@ -4,7 +4,7 @@
     ViewData["Title"] = "Book Event";
 }
 
-<h1>Tildmeld event</h1>
+<h1>Tilmeld event</h1>
 
 <form method="post">
 
@@ -50,7 +50,7 @@
         </select>
         </div> *@
   
-        <input type="submit" value="Tildmeld" asp-route-eventId="@Model.EventBook.EventId" class="btn btn-success" />
+        <input type="submit" value="Tilmeld" asp-route-eventId="@Model.EventBook.EventId" class="btn btn-success" />
         <a asp-page="/Events/RemoveEvBook" asp-route-eventId="@Model.EventBook.EventId" asp-route-memberId="@Model.CurrentMember.MemberId" class="btn btn-warning">Afmeld</a>
         <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
 

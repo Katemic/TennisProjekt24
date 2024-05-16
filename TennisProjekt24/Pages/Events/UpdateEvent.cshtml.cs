@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
 
@@ -8,11 +10,16 @@ namespace TennisProjekt24.Pages.Events
     public class UpdateEventModel : PageModel
     {
         private IEventService _eventService;
+        private IWebHostEnvironment _webHostEnvironment;
         [BindProperty]
         public Event EventUpdate { get; set; }
-        public UpdateEventModel(IEventService eventService)
+        [BindProperty]
+        [Required(ErrorMessage = "Tilføj billede")]
+        public IFormFile Picture { get; set; }
+        public UpdateEventModel(IEventService eventService, IWebHostEnvironment webHostEnvironment)
         {
             _eventService = eventService;
+            _webHostEnvironment = webHostEnvironment;
         }
         public void OnGet(int eventId)
         {
@@ -24,8 +31,33 @@ namespace TennisProjekt24.Pages.Events
             //{
             //    return Page();
             //}
+            if (Picture != null)
+            {
+                if (EventUpdate.Image != null)
+                {
+                    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "/images/eventImages", EventUpdate.Image);
+                    System.IO.File.Delete(filePath);
+                }
+
+                EventUpdate.Image = ProcessUploadedFile();
+            }
             _eventService.UpdateEvent(EventUpdate);
             return RedirectToPage("Index");
+        }
+        private string ProcessUploadedFile()
+        {
+            string uniqueFileName = null;
+            if (Picture != null)
+            {
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images/eventImages");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + Picture.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    Picture.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
         }
     }
 }

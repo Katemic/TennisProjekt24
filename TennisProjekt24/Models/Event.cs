@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace TennisProjekt24.Models
 {
@@ -17,6 +18,7 @@ namespace TennisProjekt24.Models
         public string Place { get; set; }
         public Member Member { get; set; }
         public int EventId { get; set; }
+        public string? Image { get; set; }
         public class FutureDateAttribute : ValidationAttribute
         {
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -37,7 +39,7 @@ namespace TennisProjekt24.Models
             
         }
 
-        public Event(int eventId, DateTime date, string title, string description, string place, Member member)
+        public Event(int eventId, DateTime date, string title, string description, string place, Member member, string? image)
         {
             EventId = eventId;
             Date = date;
@@ -45,6 +47,7 @@ namespace TennisProjekt24.Models
             Description = description;
             Place = place;
             Member = member;
+            Image = image;
         }
     }
 }
