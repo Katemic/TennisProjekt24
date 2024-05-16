@@ -20,7 +20,7 @@ namespace TennisProjekt24.Pages.BuddyForums
         [BindProperty(SupportsGet = true)]
         public string SortOrderAscDesc { get; set; }
         [BindProperty(SupportsGet = true)]
-        public int postId { get; set; }
+        public int PostId { get; set; }
 
         public GetBuddyForumModel(IBuddyForumService buddyForumService, IMemberService memberService, IForumCommentService forumCommentService)
         {
@@ -33,10 +33,10 @@ namespace TennisProjekt24.Pages.BuddyForums
         {
             try
             {
-                this.postId = postId;
+                PostId = postId;
                 GetBuddyForum = _buddyForumService.GetPostById(postId);
                 ForumComments = _forumCommentService.GetPostComments(postId);
-                if (SortOrderAscDesc == "Ascending")
+                if (SortOrderAscDesc == "Oldest")
                 {
                     ForumComments.Reverse();
                 }

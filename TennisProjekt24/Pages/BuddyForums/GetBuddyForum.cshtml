@@ -4,6 +4,16 @@
     ViewData["Title"] = "GetBuddyForum";
 }
 
+<head>
+    <style>
+.avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 40%;
+}
+    </style>
+</head>
 
 <head>
     <style>
@@ -31,26 +41,36 @@
     </style>
 </head>
 
+<div class="post">
+    <div class="heading">
+        <p>@Model.GetBuddyForum.DateTime</p>
+        <p>@Model.GetBuddyForum.Title</p>
+        <p>@Model.GetBuddyForum.SkillType</p>
+    </div>
+    <div class="textBlog">
+        <p>@Model.GetBuddyForum.Text</p>
+    </div>
+</div>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="@Model.CreateComment.Text" class="control-label"></label>
+        <input asp-for="@Model.CreateComment.Text" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create a comment" class="btn btn-primary" />
+    </div>
+</form>
+
 <form method="get">
-    <input type="hidden" asp-for="@Model.GetBuddyForum.PostId" />
-@*     <body> *@
-        <div class="post">
-            <div class="heading">
-                <p>@Model.GetBuddyForum.DateTime</p>
-                <p>@Model.GetBuddyForum.Title</p>
-                <p>@Model.GetBuddyForum.SkillType</p>
-            </div>
-            <div class="textBlog">
-                <p>@Model.GetBuddyForum.Text</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="custom-control-label">Sort Order</label> <br />
-            <select asp-for="SortOrderAscDesc" onchange="this.form.submit()">
-                <option value="Ascending">Ascending</option>
-                <option value="Descending">Descending</option>
-            </select>
-        </div>
+    <input type="hidden" asp-for="@Model.PostId" />
+    <div class="form-group">
+        <label class="custom-control-label">Sort Order</label> <br />
+        <select asp-for="SortOrderAscDesc" onchange="this.form.submit()">
+            <option value="Newest">Nyeste</option>
+            <option value="Oldest">Ældste</option>
+        </select>
+    </div>
         <table class="table">
                 <div class="comment">
                     @if (Model.ForumComments.Count() != 0)
@@ -61,36 +81,22 @@
                                 <div class="card" style="width: 50rem;" >
                                     <div class="card-body">
                                         <h5 class="card-title">@item.Commenter.Name -------- @item.DateTime</h5>
+                                <img src="~/images/memberimages/@item.Commenter.Image" class="avatar">
+
                                         <p class="card-text">@item.Text</p>
                                     </div>
+                            @if (item.Commenter.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
+                            {
+                                <p>
+                                    <a asp-page="/ForumComments/DeleteComment" asp-route-commentId="@item.CommentId" class="btn btn-primary">Slet</a>
+                                    <a asp-page="/ForumComments/UpdateComment" asp-route-commentId="@item.CommentId" class="btn btn-primary">Opdater</a>
+                                </p>
+                            }
                                 </div>
-                                <tr>
-                                    @if (item.Commenter.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
-                                    {
-                                        <p>
-                                <a asp-page="/ForumComments/DeleteComment" asp-route-commentId="@item.CommentId" class="btn btn-primary">Slet</a>
-                                <a asp-page="/ForumComments/UpdateComment" asp-route-commentId="@item.CommentId" class="btn btn-primary">Opdater</a>
-                                        </p>
-                                    }
-                                </tr>
                             </div>
                         }
                     }
                 </div>
             </tbody>
         </table>
-    @* </body> *@
-</form>
-
-
-<form method="post">
-    @* <body> *@
-        <div class="form-group">
-            <label asp-for="@Model.CreateComment.Text" class="control-label"></label>
-            <input asp-for="@Model.CreateComment.Text" class="form-control" />
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Create a comment" class="btn btn-primary" />
-        </div>
-    @* </body> *@
 </form>

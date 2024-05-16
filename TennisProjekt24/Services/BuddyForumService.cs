@@ -110,10 +110,6 @@ namespace TennisProjekt24.Services
                 {
                     Console.WriteLine("General fejl: " + ex.Message);
                 }
-                finally
-                {
-
-                }
             }
             return posts;
         }
@@ -145,14 +141,12 @@ namespace TennisProjekt24.Services
                 catch (SqlException sqlEx)
                 {
                     Console.WriteLine("Database error: " + sqlEx.Message);
+                    throw sqlEx;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("General fejl: " + ex.Message);
-                }
-                finally
-                {
-
+                    throw ex;
                 }
             }
             return posts;
@@ -182,14 +176,12 @@ namespace TennisProjekt24.Services
                 catch (SqlException sqlEx)
                 {
                     Console.WriteLine("Database error: " + sqlEx.Message);
+                    throw sqlEx;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("General fejl: " + ex.Message);
-                }
-                finally
-                {
-
+                    throw ex;
                 }
             }
             return null;
@@ -212,13 +204,13 @@ namespace TennisProjekt24.Services
                 catch (SqlException sqlEx)
                 {
                     Console.WriteLine("Database error: " + sqlEx.Message);
+                    throw sqlEx;
+
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("General fejl: " + ex.Message);
-                }
-                finally
-                {
+                    throw ex;
 
                 }
             }

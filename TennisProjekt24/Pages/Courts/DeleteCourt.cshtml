@@ -7,11 +7,24 @@
 <h1>Slet bane</h1>
 <form method="post">
     <div class="form-group">
-        <label>id</label> : @Model.DeleteCourt.CourtId <br />
-        <label>Er den udendørs?</label> : @Model.DeleteCourt.Outdoor <br />
+        <label>Udendørs</label> : @if (Model.DeleteCourt.Outdoor)
+        {
+            <div> Udendørs </div>
+        }
+        else
+        {
+            <div> Indendørs </div>
+        }
         <label>Bane nummer</label> : @Model.DeleteCourt.CourtNumber <br />
-        <label>Typen af bane</label> : @Model.DeleteCourt.CourtType <br />
-        <label>Er den tilgøngelig at gøre brug af?</label> : @Model.DeleteCourt.Availability <br />
+        <label>Bane typen</label> : @Model.DeleteCourt.CourtType <br />
+        <label>Tilgængelighed</label> : @if (Model.DeleteCourt.Availability)
+        {
+            <div> Tilgængelig </div>
+        }
+        else
+        {
+            <div> Utilgængelig </div>
+        }
 
         <input type="submit" asp-page-handler="Delete" asp-route-courtId="@Model.DeleteCourt.CourtId" value="Delete court" />
     </div>

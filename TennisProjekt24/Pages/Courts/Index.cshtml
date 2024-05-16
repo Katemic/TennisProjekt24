@@ -11,9 +11,6 @@
     <thead>
         <tr>
             <th>
-                Id
-            </th>
-            <th>
                 Udendørs
             </th>
             <th>
@@ -34,10 +31,14 @@
             {
                 <tr>
                     <td>
-                        @item.CourtId
-                    </td>
-                    <td>
-                        @item.Outdoor
+                        @if(item.Outdoor)
+                        {
+                            <div> Udendørs </div>
+                        }
+                        else
+                        {
+                            <div> Indendørs </div>
+                        }
                     </td>
                     <td>
                         @item.CourtNumber
@@ -46,7 +47,13 @@
                         @item.CourtType
                     </td>
                     <td>
-                        @item.Availability
+                        @if(item.Availability)
+                        {
+                            <div> Tilgængelig </div>
+                        } else
+                        {
+                            <div> Utilgængelig </div>
+                        }
                     </td>
                     <td>
                         <p>

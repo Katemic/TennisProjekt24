@@ -1,5 +1,6 @@
 ﻿@page
 @model TennisProjekt24.Pages.Courts.UpdateCourtModel
+@using TennisProjekt24.Models;
 @{
     ViewData["Title"] = "Update court";
 }
@@ -10,21 +11,30 @@
 
     <input type="hidden" asp-for="@Model.CourtToUpdate.CourtId" />
     <div class="form-group">
-        <input asp-for="@Model.CourtToUpdate.Outdoor" />Er den udendørs?<br />
+        <input asp-for="@Model.CourtToUpdate.Outdoor" />Udendørs<br />
     </div>
     <div class="form-group">
-        <label asp-for="@Model.CourtToUpdate.CourtNumber" class="control-label">Hvad er dens banenummer?</label>
+        <label asp-for="@Model.CourtToUpdate.CourtNumber" class="control-label">Banenummer</label>
         <input asp-for="@Model.CourtToUpdate.CourtNumber" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="@Model.CourtToUpdate.CourtType" class="control-label">Havd er bane typen</label>
-        <input asp-for="@Model.CourtToUpdate.CourtType" class="form-control" />
+        <label asp-for="@Model.CourtToUpdate.CourtType" class="control-label">Banetypen</label>
+        <br />
+        @foreach (var type in System.Enum.GetValues(typeof(CourtTypeEnum)))
+        {
+            @if ((int)type != 0)
+            {
+                <input type="radio" asp-for="@Model.CourtToUpdate.CourtType" value="@type" />
+                <label class="control-label">@type</label>
+                <br />
+            }
+        }
     </div>
     <div class="form-group">
-        <input asp-for="@Model.CourtToUpdate.Availability" />Er banen allerede tilgængelig for medlemmerne?<br />
+        <input asp-for="@Model.CourtToUpdate.Availability" />Tilgængelighed<br />
     </div>
     <div class="form-group">
-        <input type="submit" value="opdater en bane" asp-page-handler="Update" class="btn btn-primary" />
-        <input type="submit" value="slet en bane" asp-page-handler="Delete" class="btn btn-primary" />
+        <input type="submit" value="Opdater" asp-page-handler="Update" class="btn btn-primary" />
+        <input type="submit" value="Slet" asp-page-handler="Delete" class="btn btn-primary" />
     </div>
 </form>
