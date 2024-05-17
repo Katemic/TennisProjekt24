@@ -4,6 +4,16 @@
 @{
     ViewData["Title"] = "Calender";
 }
+<style>
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+.container {
+  padding: 2px 16px;
+}
+</style>
 
 <table class="table">
     <thead>
@@ -16,20 +26,21 @@
             }
         </tr>
     </thead>
+
     @for (int i = 1; i <= DateTime.DaysInMonth(Model.CurrentYear, Model.CurrentMonth); i++)
     {
         <tbody>
-            <tr>
             @foreach (var weekDay in System.Enum.GetValues(typeof(weekDays)))
             {
-                @if ((int)Model.CurrentDay.DayOfWeek == (int)weekDay)
-                {
-                    <th>
-                        @Model.CurrentDay
-                    </th>
-                }
+                <tr>
+                    @if ((int)Model.CurrentDay.DayOfWeek == (int)weekDay - 1)
+                    {
+                        <td>
+                            @i
+                        </td>
+                    }
+                </tr>
             }
-            </tr>
         </tbody>
         Model.CurrentDay = Model.CurrentDay.AddDays(1);
     }
