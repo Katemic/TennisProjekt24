@@ -19,6 +19,7 @@ namespace TennisProjekt24.Services
         private string _verifyLoginSQL = "SELECT MemberId FROM Members WHERE Username = @Username AND Password = @Password";
         private string _checkUsernameSQL = "SELECT * FROM Members WHERE Username = @Username";
         private string _updatePasswordSQL = "UPDATE Members SET Password = @Password WHERE MemberId = @Id";
+        private string _updatePhotoSQL = "UPDATE Members SET Image = @Image WHERE MemberId = @Id";
 
 
         public bool AddMember(Member member)
@@ -364,6 +365,41 @@ namespace TennisProjekt24.Services
                     SqlCommand command = new SqlCommand(_updatePasswordSQL, connection);
                     command.Parameters.AddWithValue("@Id", memberId);
                     command.Parameters.AddWithValue("@Password", newPassword);
+                    command.Connection.Open();
+                    int noOfRows = command.ExecuteNonQuery();
+                    return noOfRows == 1;
+
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("der var en database fejl: " + sqlEx.Message);
+
+                    throw sqlEx;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+
+
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+            }
+
+        }
+
+        public bool UpdatePhoto(int memberId, string photoUrl)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(_updatePhotoSQL, connection);
+                    command.Parameters.AddWithValue("@Id", memberId);
+                    command.Parameters.AddWithValue("@Image", photoUrl);
                     command.Connection.Open();
                     int noOfRows = command.ExecuteNonQuery();
                     return noOfRows == 1;

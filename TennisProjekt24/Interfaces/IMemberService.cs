@@ -21,5 +21,7 @@ namespace TennisProjekt24.Interfaces
 
         public bool UpdatePassword(int id, string newPassword);
 
+        public bool UpdatePhoto(int memberId, string photoUrl);
+
     }
 }
