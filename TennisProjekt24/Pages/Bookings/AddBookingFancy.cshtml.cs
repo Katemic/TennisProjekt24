@@ -103,6 +103,8 @@ namespace TennisProjekt24.Pages.Bookings
             int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
             CurrentMember = _memberService.GetMember(sessionMemberId);
 
+            
+            
             if (SecondMemberId == 0)
             {
                 Message = "Du skal vælge en at spille med";
@@ -111,6 +113,16 @@ namespace TennisProjekt24.Pages.Bookings
 
                 return Page();
             }
+
+            if ((NewBooking.Type == 0 || NewBooking.Type == null) && CurrentMember.Admin == false)
+            {
+                Message = "Du skal vælge en at spille med";
+
+                MakeSelectList();
+
+                return Page();
+            }
+
 
             if(CheckBookings(CurrentMember.MemberId)==false)
             {

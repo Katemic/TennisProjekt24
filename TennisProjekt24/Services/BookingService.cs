@@ -40,7 +40,14 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@SecondMember", booking.SecondMemberFull.MemberId);
                     command.Parameters.AddWithValue("@CourtId", booking.Court.CourtId);
                     command.Parameters.AddWithValue("@Type", booking.Type);
-                    command.Parameters.AddWithValue("@Note", booking.Note);
+                    if(booking.Note != null)
+                    {
+                        command.Parameters.AddWithValue("@Note", booking.Note);
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@Note", DBNull.Value);
+                    }
                     command.Parameters.AddWithValue("@Time", booking.Time);
                     command.Connection.Open();
                     int noOfRows = command.ExecuteNonQuery();
@@ -169,7 +176,11 @@ namespace TennisProjekt24.Services
                         int secondMemberId = reader.GetInt32("SecondMember");
                         int courtId = reader.GetInt32("CourtId");
                         BookingTypeEnum bookingType = (BookingTypeEnum)reader.GetInt32("Type");
-                        string note = reader.GetString("Note");
+                        string note = null;
+                        if (!reader.IsDBNull(7))
+                        {
+                            note = reader.GetString("Note");
+                        }
                         //string timeParse = reader.GetDateTime("Time").Hour.ToString();
                         TimeSpan datetimeTime = (TimeSpan) reader["Time"];
                         TimeOnly time = TimeOnly.FromTimeSpan (datetimeTime);
@@ -228,7 +239,12 @@ namespace TennisProjekt24.Services
                         int secondMemberId = reader.GetInt32("SecondMember");
                         int courtId = reader.GetInt32("CourtId");
                         BookingTypeEnum bookingType = (BookingTypeEnum)reader.GetInt32("Type");
-                        string note = reader.GetString("Note");
+                        string note = null;
+                        if (!reader.IsDBNull(7))
+                        {
+                            note = reader.GetString("Note");
+                        }
+                        //string note = reader.GetString("Note");
                         //string timeParse = reader.GetDateTime("Time").Hour.ToString();
                         TimeSpan datetimeTime = (TimeSpan)reader["Time"];
                         TimeOnly time = TimeOnly.FromTimeSpan(datetimeTime);
@@ -288,7 +304,12 @@ namespace TennisProjekt24.Services
                         int secondMemberId = reader.GetInt32("SecondMember");
                         int courtId = reader.GetInt32("CourtId");
                         BookingTypeEnum bookingType = (BookingTypeEnum)reader.GetInt32("Type");
-                        string note = reader.GetString("Note");
+                        string note = null;
+                        if (!reader.IsDBNull(7))
+                        {
+                            note = reader.GetString("Note");
+                        }
+                        //string note = reader.GetString("Note");
                         //string timeParse = reader.GetDateTime("Time").Hour.ToString();
                         TimeSpan datetimeTime = (TimeSpan)reader["Time"];
                         TimeOnly time = TimeOnly.FromTimeSpan(datetimeTime);
@@ -354,7 +375,12 @@ namespace TennisProjekt24.Services
                         int secondMemberId = reader.GetInt32("SecondMember");
                         int courtId = reader.GetInt32("CourtId");
                         BookingTypeEnum bookingType = (BookingTypeEnum)reader.GetInt32("Type");
-                        string note = reader.GetString("Note");
+                        string note = null;
+                        if (!reader.IsDBNull(7))
+                        {
+                            note = reader.GetString("Note");
+                        }
+                        //string note = reader.GetString("Note");
                         //string timeParse = reader.GetDateTime("Time").Hour.ToString();
                         TimeSpan datetimeTime = (TimeSpan)reader["Time"];
                         TimeOnly time = TimeOnly.FromTimeSpan(datetimeTime);
@@ -401,7 +427,14 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@Id", bookingId);
                     command.Parameters.AddWithValue("@SecondMemberId", booking.SecondMemberFull.MemberId);
                     command.Parameters.AddWithValue("@Type", booking.Type);
-                    command.Parameters.AddWithValue("@Note", booking.Note);
+                    if (booking.Note != null) 
+                    {
+                        command.Parameters.AddWithValue("@Note", booking.Note);
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@Note", DBNull.Value);
+                    }
                     command.Connection.Open();
                     int NoOfRows = command.ExecuteNonQuery();
                     return NoOfRows == 1;
