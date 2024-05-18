@@ -19,6 +19,7 @@ namespace TennisProjekt24.Interfaces
 
         bool CheckUsername(string username);
 
+        public bool UpdatePassword(int id, string newPassword);
 
     }
 }

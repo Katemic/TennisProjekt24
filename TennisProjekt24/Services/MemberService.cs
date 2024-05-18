@@ -13,11 +13,12 @@ namespace TennisProjekt24.Services
         private string _deleteMemberSQL = "DELETE FROM Members WHERE MemberId = @Id";
         private string _getAllMembersSQL = "SELECT MemberId, Username, Password, Name, Email, PhoneNo, Address, Postcode, MemberType, Admin, Image FROM Members";
         private string _getMemberSQL = "SELECT MemberId, Username, Password, Name, Email, PhoneNo, Address, Postcode, MemberType, Admin, Image FROM Members WHERE MemberId = @Id";
-        private string _updateMemberSQL = "UPDATE Members SET Username = @Username, Password = @Password, Name = @Name, Email = @Email, PhoneNo = @PhoneNo, " +
+        private string _updateMemberSQL = "UPDATE Members SET Username = @Username, Name = @Name, Email = @Email, PhoneNo = @PhoneNo, " +
             "Address = @Address, Postcode = @Postcode, MemberType = @MemberType, Admin = @Admin  " +
             "WHERE MemberId = @Id";
         private string _verifyLoginSQL = "SELECT MemberId FROM Members WHERE Username = @Username AND Password = @Password";
         private string _checkUsernameSQL = "SELECT * FROM Members WHERE Username = @Username";
+        private string _updatePasswordSQL = "UPDATE Members SET Password = @Password WHERE MemberId = @Id";
 
 
         public bool AddMember(Member member)
@@ -225,7 +226,7 @@ namespace TennisProjekt24.Services
                     SqlCommand command = new SqlCommand(_updateMemberSQL, connection);
                     command.Parameters.AddWithValue("@Id", memberId);
                     command.Parameters.AddWithValue("@Username", member.Username);
-                    command.Parameters.AddWithValue("@Password", member.Password);
+                    //command.Parameters.AddWithValue("@Password", member.Password);
                     command.Parameters.AddWithValue("@Name", member.Name);
                     command.Parameters.AddWithValue("@Email", member.Email);
                     command.Parameters.AddWithValue("@PhoneNo", member.PhoneNumber);
@@ -352,6 +353,44 @@ namespace TennisProjekt24.Services
             
 
         }
+
+
+        public bool UpdatePassword(int memberId, string newPassword)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(_updatePasswordSQL, connection);
+                    command.Parameters.AddWithValue("@Id", memberId);
+                    command.Parameters.AddWithValue("@Password", newPassword);
+                    command.Connection.Open();
+                    int noOfRows = command.ExecuteNonQuery();
+                    return noOfRows == 1;
+
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("der var en database fejl: " + sqlEx.Message);
+
+                    throw sqlEx;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+
+
+                    throw ex;
+                }
+                finally
+                {
+
+                }
+            }
+
+        }
+
+
 
     }
 
