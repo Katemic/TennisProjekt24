@@ -22,6 +22,10 @@ namespace TennisProjekt24.Pages.Members
         [Required (ErrorMessage = "Tilføj billede")]
         public IFormFile Photo { get; set; }
 
+        
+        public bool DefaultPhoto = true;
+
+
         public AddMemberModel(IMemberService memberService, IWebHostEnvironment webHostEnvironment)
         {
             _memberService = memberService;
@@ -37,6 +41,7 @@ namespace TennisProjekt24.Pages.Members
         public IActionResult OnPost() 
         {
 
+            
 
             if (!ModelState.IsValid)
             {
@@ -47,6 +52,11 @@ namespace TennisProjekt24.Pages.Members
             {
                 UsernameMessage = "Brugernavnet er allerede taget, vælg venligst et andet";
                 return Page();
+            }
+
+            if (DefaultPhoto == true)
+            {
+
             }
 
             if (Photo != null)
