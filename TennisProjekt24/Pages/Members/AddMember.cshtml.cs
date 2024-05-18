@@ -19,11 +19,11 @@ namespace TennisProjekt24.Pages.Members
         public string UsernameMessage { get; set; }
 
         [BindProperty]
-        [Required (ErrorMessage = "Tilføj billede")]
-        public IFormFile Photo { get; set; }
+        //[Required (ErrorMessage = "Tilføj billede")]
+        public IFormFile? Photo { get; set; }
 
         
-        public bool DefaultPhoto = true;
+        
 
 
         public AddMemberModel(IMemberService memberService, IWebHostEnvironment webHostEnvironment)
@@ -54,9 +54,9 @@ namespace TennisProjekt24.Pages.Members
                 return Page();
             }
 
-            if (DefaultPhoto == true)
+            if (Photo == null)
             {
-
+                NewMember.Image = "default.jpg";
             }
 
             if (Photo != null)
