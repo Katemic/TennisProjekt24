@@ -57,7 +57,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/FancyIndex">Booking fancy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Calender/Index">Kalender</a>
+                            <a class="nav-link text-dark" asp-area="" asp-route-currentMonth="@DateTime.Now.Month" asp-page="/Calender/Index">Kalender</a>
                         </li>
                         @if (HttpContextAccessor.HttpContext.Session.GetInt32("MemberId") != null)
                         {

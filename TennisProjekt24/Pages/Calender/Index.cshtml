@@ -5,11 +5,13 @@
     ViewData["Title"] = "Calender";
 }
 
-<form method="post">
-@* <input type="submit" value="Næste måned" asp-route-currentMonth="@Model.CurrentMonth" class="btn btn-primary" /> *@
+@* <form method="post">
 <input type="submit" value="Næste måned" asp-page-handler="Next" class="btn btn-primary" />
-</form>
+</form> *@
 
+<form method="get">
+    <input type="submit" value="Næste måned" asp-route-currentMonth="@Model.CurrentMonth" onchange="this.form.submit()" class="btn btn-primary" />
+</form>
 <table class="table">
     <thead>
         <tr>
