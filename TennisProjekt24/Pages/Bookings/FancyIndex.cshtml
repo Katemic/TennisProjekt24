@@ -14,8 +14,17 @@
 
 
 
+@if (Model.CurrentMember != null && Model.CurrentMember.Admin)
+{
+
+    <a asp-page="/Bookings/Index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-primary" style="float: right;">Se alle bookinger</a>
+
+}
+    
+
 
 <h1 align="center">Bane Booking</h1>
+
 
 
 <div class="row">
@@ -62,16 +71,7 @@
 
    @*  <h2>valgt dato: @Model.Date</h2> *@
 
-    <div class="form-group">
 
-        @if (Model.CurrentMember != null && Model.CurrentMember.Admin)
-        {
-
-            <a asp-page="/Bookings/Index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-primary" style="float: right;">Se alle bookinger</a>
-
-        }
-
-    </div>
 
 <div class="card">
 
