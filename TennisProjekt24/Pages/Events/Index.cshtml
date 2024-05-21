@@ -5,7 +5,11 @@
 }
 
 <h1>Events</h1>
-<a asp-page="AddEvent" class="btn btn-primary">Opret event</a>
+@if (Model.CurrentMember.Admin == true)
+{
+    <a asp-page="AddEvent" class="btn btn-primary">Opret event</a>
+}
+
 <a asp-page="MyEvents" class="btn btn-primary">Mine event tilmeldinger</a>
 
 <table class="table">
@@ -27,7 +31,13 @@
                 Lokation
             </th>
             <th>
-                Medlem Id
+                Arrangør
+            </th>
+            <th>
+
+            </th>
+            <th>
+
             </th>
         </tr>
     </thead>
@@ -53,12 +63,19 @@
                         @item.Place
                     </td>
                     <td>
-                        @item.Member.MemberId
+                        @item.Member.Name
+                    </td>
+                    <td>
+                        <img src="~/images/eventImages/@item.Image" class="avatar thumbnail" style="width: 150px; height: 150px;">
                     </td>
                     <td>
                         <p>
-                            <a asp-page="/Events/DeleteEvent" asp-route-eventId="@item.EventId">Slet</a>
-                            <a asp-page="/Events/UpdateEvent" asp-route-eventId="@item.EventId">Rediger</a> 
+                            @if (Model.CurrentMember.Admin == true)
+                            {
+                                <a asp-page="/Events/DeleteEvent" asp-route-eventId="@item.EventId">Slet</a>
+                                <a asp-page="/Events/UpdateEvent" asp-route-eventId="@item.EventId">Rediger</a>
+                                <a asp-page="/Events/Participants" asp-route-eventId="@item.EventId">Deltagere</a>
+                            }
                             @if (Model.CurrentMember != null)
                             {
                                 var isAttending = Model.Participants.Any(e => e.Event.EventId == item.EventId);
@@ -76,7 +93,7 @@
                             {
                                 <a asp-page="/Members/LogIn">Log ind for at tilmelde</a>
                             }
-                            <a asp-page="/Events/Participants" asp-route-eventId="@item.EventId">Deltagere</a>
+
                         </p>
                     </td>
                 </tr>

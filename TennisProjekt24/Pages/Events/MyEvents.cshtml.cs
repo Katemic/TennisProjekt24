@@ -21,7 +21,7 @@ namespace TennisProjekt24.Pages.Events
             _memberService = memberService;
             ParticipantsFuture = new List<Participant>();
         }
-        public IActionResult OnGet(int memberId)
+        public IActionResult OnGet()
         {
             if (HttpContext.Session.GetInt32("MemberId") == null)
             {
@@ -31,8 +31,8 @@ namespace TennisProjekt24.Pages.Events
             {
                 int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
                 CurrentMember = _memberService.GetMember(sessionMemberId);
-                memberId = sessionMemberId;
-                Participants = _participantService.GetAllEventsByParticipant(memberId);
+                //memberId = sessionMemberId;
+                Participants = _participantService.GetAllEventsByParticipant(sessionMemberId);
                 foreach (var participant in Participants)
                 {
                     if (participant.Event.Date > DateTime.Now)

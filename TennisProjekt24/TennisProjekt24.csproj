@@ -10,4 +10,9 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\memberimages\" />
+    <Folder Include="wwwroot\images\eventImages\" />
+  </ItemGroup>
+
 </Project>

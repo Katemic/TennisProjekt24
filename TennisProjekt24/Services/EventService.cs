@@ -13,9 +13,9 @@ namespace TennisProjekt24.Services
         {
             _memberService = memberService;
         }
-        private string insertSql = "INSERT INTO Events VALUES(@DATE, @TITLE, @DESCRIPTION, @PLACE, @MEMBERID)";
-        private string getSql = "SELECT EventId, Date, Title, Description, Place, MemberId FROM Events WHERE EventId=@ID";
-        private string updateSql = "UPDATE Events SET Date = @Date, Title = @Title, Description = @Description, Place = @Place, MemberId = @MemberId WHERE EventId=@ID";
+        private string insertSql = "INSERT INTO Events VALUES(@DATE, @TITLE, @DESCRIPTION, @PLACE, @MEMBERID, @Image)";
+        private string getSql = "SELECT EventId, Date, Title, Description, Place, MemberId, Image FROM Events WHERE EventId=@ID";
+        private string updateSql = "UPDATE Events SET Date = @Date, Title = @Title, Description = @Description, Place = @Place, MemberId = @MemberId, Image = @Image WHERE EventId=@ID";
         private string getallSql = "SELECT * FROM Events";
         private string deleteSql = "DELETE FROM Events WHERE EventId=@ID";
         public bool AddEvent(Event ev)
@@ -31,6 +31,7 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@DESCRIPTION", ev.Description);
                     command.Parameters.AddWithValue("@PLACE", ev.Place);
                     command.Parameters.AddWithValue("@MEMBERID", ev.Member.MemberId);
+                    command.Parameters.AddWithValue("@Image", ev.Image);
                     command.Connection.Open();
                     int noOfRows = command.ExecuteNonQuery();
                     return noOfRows == 1;
@@ -102,8 +103,9 @@ namespace TennisProjekt24.Services
                         string description = reader.GetString("Description");
                         string place = reader.GetString("Place");
                         int memberId = reader.GetInt32("MemberId");
+                        string image = reader.GetString("Image");
                         Member member = _memberService.GetMember(memberId);
-                        Event ev = new Event(eventId, date, title, description, place, member);
+                        Event ev = new Event(eventId, date, title, description, place, member, image);
                         events.Add(ev);
                     }
                     reader.Close();
@@ -144,8 +146,9 @@ namespace TennisProjekt24.Services
                         string description = reader.GetString("Description");
                         string place = reader.GetString("Place");
                         int memberId = reader.GetInt32("MemberId");
+                        string image = reader.GetString("Image");
                         Member member = _memberService.GetMember(memberId);
-                        ev = new Event(evId, dateTime, title, description, place, member);
+                        ev = new Event(evId, dateTime, title, description, place, member, image);
                     }
                     reader.Close();
                 }
@@ -175,10 +178,10 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@ID", ev.EventId);
                     command.Parameters.AddWithValue("@Date", ev.Date);
                     command.Parameters.AddWithValue("@Title", ev.Title);
-                    command.Parameters.AddWithValue("@DESCRIPTION", ev.Description);
-                    command.Parameters.AddWithValue("@PLACE", ev.Place);
-                    command.Parameters.AddWithValue("@MEMBERID", ev.Member.MemberId);
-
+                    command.Parameters.AddWithValue("@Description", ev.Description);
+                    command.Parameters.AddWithValue("@Place", ev.Place);
+                    command.Parameters.AddWithValue("@MemberId", ev.Member.MemberId);
+                    command.Parameters.AddWithValue("@Image", ev.Image);
                     command.Connection.Open();
                     int result = command.ExecuteNonQuery();
                     return result == 1;

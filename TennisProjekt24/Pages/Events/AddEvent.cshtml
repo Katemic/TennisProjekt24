@@ -7,11 +7,7 @@
 
 <h1>Opret event</h1>
 
-<form method="post">
-@*     <div class="form-group">
-        <label asp-for="@Model.NewEvent.EventId" class="control-label">ID</label>
-        <input asp-for="@Model.NewEvent.EventId" class="form-control" />
-    </div> *@
+<form method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="@Model.NewEvent.Date" class="control-label">Dato</label>
         <input asp-for="@Model.NewEvent.Date" class="form-control" />
@@ -32,9 +28,14 @@
         <input asp-for="@Model.NewEvent.Place" class="form-control" />
         <span asp-validation-for="NewEvent.Place" class="text-danger"></span>
     </div>
+
     <div class="form-group">
-        <label asp-for="@Model.NewEvent.Member.MemberId" class="control-label">Medlems Id</label>
-        <input asp-for="@Model.NewEvent.Member.MemberId" class="form-control" />
+        <label asp-for="@Model.Picture" class="control-label">Tilføj billede</label>
+        <div class="custom-file">
+            <input asp-for="@Model.Picture" class="custom-file-input form-control" />
+            <label class="custom-file-label"></label>
+            <span asp-validation-for="Picture" class="text-danger"></span>
+        </div>
     </div>
 
     <div class="form-group">

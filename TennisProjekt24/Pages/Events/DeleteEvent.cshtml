@@ -27,8 +27,8 @@
                 <td>@Model.EventDelete.Description</td>
             </tr>
             <tr>
-                <th>Medlem Id</th>
-                <td>@Model.EventDelete.Member.MemberId</td>
+                <th>Arrangør</th>
+                <td>@Model.EventDelete.Member.Name</td>
             </tr>
         </table>
         <input type="submit" value="Slet" asp-route-eventId="@Model.EventDelete.EventId" class="btn btn-danger" />
