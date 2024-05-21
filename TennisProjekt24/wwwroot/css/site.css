@@ -18,5 +18,40 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background: #f1f1f1;
 }
+
+.card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.header {
+    padding: 30px;
+    font-size: 40px;
+    text-align: center;
+    background: white;
+}
+
+
+
+.card-login {
+    background-color: white;
+    padding: 30px;
+    margin-top: 20px;
+    width: 35%;
+    border-radius: 5px;
+}
+
+/*.btn-secondary {
+    background-color: #6a994e !important;
+    border-color: #6a994e !important;
+}*/
+
+.btn-primary {
+    background-color: #6a994e !important;
+    border-color: #6a994e !important;
+}
+

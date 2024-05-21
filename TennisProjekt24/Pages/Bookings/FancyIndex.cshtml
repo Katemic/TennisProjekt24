@@ -5,203 +5,193 @@
     ViewData["Title"] = "Index - Fancy";
 }
 
+<head>
+    <link rel="stylesheet" href="~/css/booking.css" asp-append-version="true" />
 
-<form method="get">
-
-    <label asp-for="@Model.Date">Dato:</label>
-    <input type="date" asp-for="@Model.Date" min="2024-04-01" />
-
-    
-
-    <select id="TypeFilter" name="TypeFilter" asp-for="@Model.TypeFilter">
-        @foreach (string item in Model.TypeChoice)
-        {
-            <option class="dropdown-button" value="@item">@item</option>
-        }
-    </select>
+</head>
 
 
-    <select asp-for="@Model.OutdoorFilter">
-        @foreach (var item in Model.OutdoorChoice)
-        {
-            <option value="@item">@item</option>
-        }
-    </select>
+<h1 align="center">Bane Booking</h1>
 
 
-    <input type="submit" value="filter" />
-</form>
+<div class="row">
+    <div class="leftcolumn">
+        <div class="card">
+            <div class="form-group">
+                <form method="get">
 
+                    <label asp-for="@Model.Date">Dato:</label>
+                    <input type="date" asp-for="@Model.Date" min="2024-04-01" />
 
-
-
-
-@* <div align="center">
-    <form method="get">
-        <div>
-           
-            <select id="TypeFilter" name="TypeFilter" asp-for="@Model.TypeFilter">
-                @foreach ( string item in Model.TypeChoice)
-                {
-                    <option class="dropdown-button" value="@item">@item</option>
-                }
-                <option value="Tennis">Tennis</option>
-            </select>
-
-
-            <select asp-for="@Model.OutdoorFilter">
-                @foreach (var item in Model.OutdoorChoice)
-                {
-                    <option value="@item">@item</option>
-                }
-            </select>
-            <input type="submit" value="filter" />
-        </div>
-
-
-    </form>
-</div> *@
-
-
-<h2>valgt dato: @Model.Date</h2>
-
-@if (Model.CurrentMember != null && Model.CurrentMember.Admin)
-{
-
-    <a asp-page="/Bookings/Index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-primary" style="float: right;">Se alle bookinger</a>
-
-}
-
-
-
-<table class="table">
-    <tbody>
-        <tr>
-            <td>tid</td>
-            @foreach(var item in Model.Courts)
-            {
-
-                <td>
-                    bane @item.CourtNumber
-                    <br /> @item.CourtType
-                    <br /> @if(item.Outdoor==true)
-                    {
-                        <p>udendørs</p>
-                    }
-                    else
-                    {
-                        <p>indendørs</p>
-                    }
-                </td>
-                
-            }
-            
-        </tr>
-
-        @foreach (var item in Model.TimeOnly)
-        {
-            <tr>
-
-
-
-                <td>@item</td>
-
-                @foreach (var ting in Model.Courts)
-                {
-                    if (Model.Date < DateOnly.FromDateTime(DateTime.Now) || Model.Date == DateOnly.FromDateTime(DateTime.Now) && item < TimeOnly.FromDateTime(DateTime.Now))
-                    {
-                        <td>
-                            <span title="Utilgængelig" class="btn btn-secondary"><img src="~/images/bookingimages/x.png" height="20" width="20"></span>
-                        </td>
-
-                    }
-                    else if (Model._bookingService.CheckAvailability(ting.CourtId, Model.Date, item))
-                    {
-
-                        if(Model.CurrentMember==null)
-                        { 
-                            <td>
-                                @* <a asp-page="/Members/LogIn" class="btn btn-success"><img src="~/images/user.png" height="20" width="20"></a> *@
-                                <div class="popup" onclick="Login()">
-                                    <span title="Ledig" class="btn btn-success"><img src="~/images/bookingimages/user.png" height="20" width="20"></span>
-
-                                </div>
-                            </td>
-                        }
-
-                        else if (Model.Date>DateOnly.FromDateTime(DateTime.Now.AddDays(14)) && !Model.CurrentMember.Admin)
+                    <br /> <br />
+                    Type:
+                    <select id="TypeFilter" name="TypeFilter" asp-for="@Model.TypeFilter" style="width: 145px;">
+                        @foreach (string item in Model.TypeChoice)
                         {
-                            <td>
-                                
-                                <div  class="popup" onclick="DateRule()">
-                                    <span title="Ledig" class="btn btn-success"><img src="~/images/bookingimages/user.png" height="20" width="20"></span>
+                            <option class="dropdown-button" value="@item">@item</option>
+                        }
+                    </select>
 
-                                </div>
-                            </td>
+                    <br /> <br />
+                    Lokation:
+                    <select asp-for="@Model.OutdoorFilter" style="width: 117px;">
+                        @foreach (var item in Model.OutdoorChoice)
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    </select>
+
+                    <br /> <br />
+
+                    <input type="submit" value="filter" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="rightcolumn">
+        <div class="card">
+            <span>tekst omkring regler</span>
+        </div>
+    </div>
+</div>
+
+   @*  <h2>valgt dato: @Model.Date</h2> *@
+
+    <div class="form-group">
+
+        @if (Model.CurrentMember != null && Model.CurrentMember.Admin)
+        {
+
+            <a asp-page="/Bookings/Index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-primary" style="float: right;">Se alle bookinger</a>
+
+        }
+
+    </div>
+
+<div class="card">
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <td><br /><br /><br />Tid</td>
+                @foreach (var item in Model.Courts)
+                {
+
+                    <td>
+                        bane @item.CourtNumber
+                        <br /> @item.CourtType
+                        <br /> @if (item.Outdoor == true)
+                        {
+                            <span>Udendørs</span>
                         }
                         else
                         {
-                            <td>
-                                <a title="Ledig" asp-page="/Bookings/AddBookingFancy" asp-route-id="@ting.CourtId" asp-route-date="@Model.Date" asp-route-time="@item" class="btn btn-success">
-                                    <img src="~/images/bookingimages/user.png" height="20" width="20"></a>
-                            </td>
+                            <span>Indendørs</span>
                         }
-
-                    }
-                    else
-                    {
-
-                       
-                        <td>
-                            @* <a asp-page="" class="btn btn-danger">X</a> *@
-                            @* <span class ="btn btn-danger">X</span>  *@
-
-                        
-
-                       
-                        @switch(Model.Bookings.First(c => c.Court.CourtId == ting.CourtId && c.Time == item).Type.ToString())
-                        {
-                                case "Member":
-                                    <span title="Optaget" class="btn btn-danger"><img src="~/images/bookingimages/user.png" height="20" width="20" ></span>
-                                    break;
-                                case "Event":
-                                    <span title="Begivenhed" class="btn btn-danger"><img src="~/images/bookingimages/event.png" height="20" width="20"></span>
-                                    break;
-                                default:
-                                    <span title="Træning" class="btn btn-danger"><img src="~/images/bookingimages/tennis-practice.png" height="20" width="20"></span>
-                                    break;
-                            }
-                        
-                        </td>
-
-                    }
-
-                   
-
+                    </td>
 
                 }
+
             </tr>
 
-
-        }
-
-       
-        
-    </tbody>
-</table>
-
-
-
-
-
-
-@* <td>8.00</td>
-            @foreach(var item in Model.Courts)
+            @foreach (var item in Model.TimeOnly)
             {
-                <td>
-                    <a asp-page="/Bookings/AddBookingFancy" asp-route-id="@item.CourtId" asp-route-date="@Model.Date" asp-route-time="8:00" class="btn btn-outline-info"></a>
-                </td>
-            } *@
+                <tr>
+
+
+
+                    <td>@item</td>
+
+                    @foreach (var ting in Model.Courts)
+                    {
+                        if (Model.Date < DateOnly.FromDateTime(DateTime.Now) || Model.Date == DateOnly.FromDateTime(DateTime.Now) && item < TimeOnly.FromDateTime(DateTime.Now))
+                        {
+                            <td>
+                                <span title="Utilgængelig" class="btn btn-secondary"><img src="~/images/bookingimages/x.png" height="20" width="20"></span>
+                            </td>
+
+                        }
+                        else if (Model._bookingService.CheckAvailability(ting.CourtId, Model.Date, item))
+                        {
+
+                            if (Model.CurrentMember == null)
+                            {
+                                <td>
+                                    @* <a asp-page="/Members/LogIn" class="btn btn-success"><img src="~/images/user.png" height="20" width="20"></a> *@
+                                    <div class="popup" onclick="Login()">
+                                        <span title="Ledig" class="btn btn-success"><img src="~/images/bookingimages/user.png" height="20" width="20"></span>
+
+                                    </div>
+                                </td>
+                            }
+
+                            else if (Model.Date > DateOnly.FromDateTime(DateTime.Now.AddDays(14)) && !Model.CurrentMember.Admin)
+                            {
+                                <td>
+
+                                    <div class="popup" onclick="DateRule()">
+                                        <span title="Ledig" class="btn btn-success"><img src="~/images/bookingimages/user.png" height="20" width="20"></span>
+
+                                    </div>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <a title="Ledig" asp-page="/Bookings/AddBookingFancy" asp-route-id="@ting.CourtId" asp-route-date="@Model.Date" asp-route-time="@item" class="btn btn-success">
+                                        <img src="~/images/bookingimages/user.png" height="20" width="20">
+                                    </a>
+                                </td>
+                            }
+
+                        }
+                        else
+                        {
+
+
+                            <td>
+                                @* <a asp-page="" class="btn btn-danger">X</a> *@
+                                @* <span class ="btn btn-danger">X</span>  *@
+
+
+
+
+                                @switch (Model.Bookings.First(c => c.Court.CourtId == ting.CourtId && c.Time == item).Type.ToString())
+                                {
+                                    case "Member":
+                                        <span title="Optaget" class="btn btn-danger"><img src="~/images/bookingimages/user.png" height="20" width="20"></span>
+                                        break;
+                                    case "Event":
+                                        <span title="Begivenhed" class="btn btn-danger"><img src="~/images/bookingimages/event.png" height="20" width="20"></span>
+                                        break;
+                                    default:
+                                        <span title="Træning" class="btn btn-danger"><img src="~/images/bookingimages/tennis-practice.png" height="20" width="20"></span>
+                                        break;
+                                }
+
+                            </td>
+
+                        }
+
+
+
+
+                    }
+                </tr>
+
+
+            }
+
+
+
+        </tbody>
+    </table>
+
+
+</div>
+
+
 
  
 <script>

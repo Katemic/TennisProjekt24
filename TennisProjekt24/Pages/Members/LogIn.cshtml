@@ -5,40 +5,47 @@
 }
 
 
-<h1>Log ind</h1>
+<div align="center">
+    <div class="card-login"> 
 
-<span class="text-danger">@Model.Message</span>
+        <h1>Log ind</h1>
 
-<form method="post">
-    <div class="form-group">
-        <table>
-            <tr>
-                <td>Brugernavn</td>
-                <td><Input type="text" asp-for="@Model.Username" /></td>
+        <span class="text-danger">@Model.Message</span>
+
+        <form method="post">
+            <div class="form-group" >
+                <table>
+                    <tr>
+                        <td>Brugernavn</td>
+                        <td><Input type="text" asp-for="@Model.Username" /></td>
 
 
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td><Input type="password" asp-for="@Model.Password" id="showPassword" autocomplete="off" /></td>
-                
-            </tr>
-            <tr>
-                <td><input type="checkbox" onclick="passwordFunc()"> Vis password</td>
-            </tr>
-        </table>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><Input type="password" asp-for="@Model.Password" id="showPassword" autocomplete="off" /></td>
+
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" onclick="passwordFunc()"> Vis password</td>
+                    </tr>
+                </table>
+            </div>
+            <br />
+            <div class="form-group">
+                <Input type="submit" value="Log ind" class="btn btn-secondary" />
+            </div>
+
+        </form>
+
+        <br />
+        <span>Ønsker du at melde dig ind i klubben?</span>
+        <br />
+        <a asp-page="AddMember">Opret bruger</a>
+
+
     </div>
-    <br />
-    <div class="form-group">
-        <Input type="submit" value="Log ind" class="btn btn-secondary" />
-    </div>
-
-</form>
-
-<br />
-<span>Ønsker du at melde dig ind i klubben?</span> 
-<br />
-<a asp-page="AddMember">Opret bruger</a>
+</div>
 
 
 <script>
