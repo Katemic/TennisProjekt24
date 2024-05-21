@@ -93,7 +93,7 @@
                         </a>
 
                         <div class="dropdown">
-                            <button onclick="myFunction()" class="dropbtn rounded-pill">Dropdown &#9660;</button>
+                            <button onclick="dropDown()" class="dropbtn rounded-pill">Dropdown &#9660;</button>
                             <div id="myDropdown" class="dropdown-content">
                                 <a asp-page="/Members/LogIn" asp-page-handler="Logout">Log ud</a>
                                 <a href="#about">About</a>
@@ -127,7 +127,7 @@
 
     <script>
         
-        function myFunction() {
+        function dropDown() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
 
