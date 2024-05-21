@@ -7,105 +7,109 @@
 
 <h1>Rediger booking</h1>
 
-<form method="post">
+<div class="card">
 
-    <div class="form-group">
-        <label asp-for="@Model.BookingToUpdate.BookingId" class="control-label">Booking id</label>
-        <input asp-for="@Model.BookingToUpdate.BookingId" class="form-control" readonly="readonly" />
-    </div>
-    
-    <div class="form-group">
-        <label asp-for="@Model.BookingToUpdate.Date" class="control-label">Dato</label>
-        <input asp-for="@Model.BookingToUpdate.Date" class="form-control" readonly="readonly" />
-        <span asp-validation-for="BookingToUpdate.Date" class="text-danger"></span>
+    <form method="post">
 
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.BookingToUpdate.Time" class="control-label">Tidspunkt</label>
-        <input asp-for="@Model.BookingToUpdate.Time" class="form-control" type="time" readonly="readonly" />
-        <span asp-validation-for="BookingToUpdate.Time" class="text-danger"></span>
+        <div class="form-group" hidden>
+            <label asp-for="@Model.BookingToUpdate.BookingId" class="control-label">Booking id</label>
+            <input asp-for="@Model.BookingToUpdate.BookingId" class="form-control" readonly="readonly" />
+        </div>
 
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.BookingToUpdate.Duration" class="control-label">længde</label>
-        <input asp-for="@Model.BookingToUpdate.Duration" class="form-control" value="1" readonly="readonly" />
-        <span asp-validation-for="BookingToUpdate.Duration" class="text-danger"></span>
-
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.BookingToUpdate.Member" class="control-label">Medlem</label>
-        <input asp-for="@Model.BookingToUpdate.Member.Name" class="form-control" readonly="readonly" />
-        @*  <span asp-validation-for="NewBooking.Member" class="text-danger"></span> *@
-
-    </div>
-    @* <div class="form-group">
-    <label asp-for="@Model.NewBooking.SecondMember" class="control-label">Anden spiller</label>
-    <input asp-for="@Model.NewBooking.SecondMember" class="form-control" />
-    <span asp-validation-for="NewBooking.SecondMember" class="text-danger"></span>
-
-    </div> *@
-
-    <div class="form-group">
-        <label asp-for="@Model.BookingToUpdate.SecondMemberFull" class="control-label">Anden spiller</label>
-        <select asp-for="@Model.SecondMemberId" asp-items="@Model.MemberList2" class="form-control">
-            <option value="@Model.BookingToUpdate.SecondMemberFull.MemberId">@Model.BookingToUpdate.SecondMemberFull.Name</option>
-        </select>
-
-
-    </div>
-
-    <div class="form-group">
-        <label asp-for="@Model.BookingToUpdate.Court" class="control-label">Bane</label>
-        <input asp-for="@Model.BookingToUpdate.Court.CourtId" class="form-control" type="number" disabled />
-        <span asp-validation-for="BookingToUpdate.Court" class="text-danger"></span>
-
-    </div>
-
-
-    
         <div class="form-group">
-        <label asp-for="@Model.BookingToUpdate.Type" class="control-label">Type af booking</label>
-        <br />
+            <label asp-for="@Model.BookingToUpdate.Date" class="control-label">Dato</label>
+            <input asp-for="@Model.BookingToUpdate.Date" class="form-control" readonly="readonly" />
+            <span asp-validation-for="BookingToUpdate.Date" class="text-danger"></span>
 
-        @if (Model.BookingToUpdate.Member.Admin)
-        {
-            @foreach (var c in System.Enum.GetValues(typeof(BookingTypeEnum)))
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.BookingToUpdate.Time" class="control-label">Tidspunkt</label>
+            <input asp-for="@Model.BookingToUpdate.Time" class="form-control" type="time" readonly="readonly" />
+            <span asp-validation-for="BookingToUpdate.Time" class="text-danger"></span>
+
+        </div>
+        <div class="form-group" hidden>
+            <label asp-for="@Model.BookingToUpdate.Duration" class="control-label">længde</label>
+            <input asp-for="@Model.BookingToUpdate.Duration" class="form-control" value="1" readonly="readonly" />
+            <span asp-validation-for="BookingToUpdate.Duration" class="text-danger"></span>
+
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.BookingToUpdate.Member" class="control-label">Medlem</label>
+            <input asp-for="@Model.BookingToUpdate.Member.Name" class="form-control" readonly="readonly" />
+            @*  <span asp-validation-for="NewBooking.Member" class="text-danger"></span> *@
+
+        </div>
+        @* <div class="form-group">
+        <label asp-for="@Model.NewBooking.SecondMember" class="control-label">Anden spiller</label>
+        <input asp-for="@Model.NewBooking.SecondMember" class="form-control" />
+        <span asp-validation-for="NewBooking.SecondMember" class="text-danger"></span>
+
+        </div> *@
+
+        <div class="form-group">
+            <label asp-for="@Model.BookingToUpdate.SecondMemberFull" class="control-label">Anden spiller</label>
+            <select asp-for="@Model.SecondMemberId" asp-items="@Model.MemberList2" class="form-control">
+                <option value="@Model.BookingToUpdate.SecondMemberFull.MemberId">@Model.BookingToUpdate.SecondMemberFull.Name</option>
+            </select>
+
+
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.BookingToUpdate.Court" class="control-label">Bane</label>
+            <input asp-for="@Model.BookingToUpdate.Court.CourtId" class="form-control" type="number" disabled />
+            <span asp-validation-for="BookingToUpdate.Court" class="text-danger"></span>
+
+        </div>
+
+
+
+        <div class="form-group">
+            <label asp-for="@Model.BookingToUpdate.Type" class="control-label">Type af booking</label>
+            <br />
+
+            @if (Model.BookingToUpdate.Member.Admin)
             {
-                @if ((int)c != 0)
+                @foreach (var c in System.Enum.GetValues(typeof(BookingTypeEnum)))
                 {
+                    @if ((int)c != 0)
+                    {
 
-                    <input type="radio" asp-for="@Model.BookingToUpdate.Type" value="@c" />
-                    <label class="control-label">@c</label>
-                    <br />
+                        <input type="radio" asp-for="@Model.BookingToUpdate.Type" value="@c" />
+                        <label class="control-label">@c</label>
+                        <br />
+
+                    }
+
 
                 }
-
-
             }
-        }
-        else
-        {
-            <input type="radio" asp-for="@Model.BookingToUpdate.Type" value="Member" />
-            <label class="control-label">Member</label>
-            <br />
-        }
+            else
+            {
+                <input type="radio" asp-for="@Model.BookingToUpdate.Type" value="Member" />
+                <label class="control-label">Member</label>
+                <br />
+            }
 
 
-        <span asp-validation-for="BookingToUpdate.Type" class="text-danger"></span>
-    </div>
+            <span asp-validation-for="BookingToUpdate.Type" class="text-danger"></span>
+        </div>
 
 
 
-    <div class="form-group">
-        <label asp-for="@Model.BookingToUpdate.Note" class="control-label">Note</label>
-        <input asp-for="@Model.BookingToUpdate.Note" class="form-control" />
-        <span asp-validation-for="BookingToUpdate.Note" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="@Model.BookingToUpdate.Note" class="control-label">Note</label>
+            <input asp-for="@Model.BookingToUpdate.Note" class="form-control" />
+            <span asp-validation-for="BookingToUpdate.Note" class="text-danger"></span>
 
-    </div>
+        </div>
 
-    <div class="form-group">
-        <br /> <br />
-        <input type="submit" value="Opdater booking" class="btn btn-primary" />
-        <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
-    </div>
-</form>
+        <div class="form-group">
+            <br /> <br />
+            <input type="submit" value="Opdater booking" class="btn btn-primary" />
+            <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+        </div>
+    </form>
+
+</div>

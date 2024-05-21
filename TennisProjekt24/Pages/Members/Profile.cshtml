@@ -13,81 +13,103 @@
 <p> Hej @Model.CurrentMember.Name!</p>
 
 
-<div class="form-group">
-    <table class="table">
-       @*  <tr>
-            <th>Medlems id</th>
-            <td>@Model.CurrentMember.MemberId</td>
-        </tr> *@
-        <tr>
-            <th>Brugernavn</th>
-            <td>@Model.CurrentMember.Username</td>
-        </tr>
-        @* <tr>
-            <th>Password</th>
-            <td>@Model.CurrentMember.Password</td>
-        </tr> *@
-        <tr>
-            <th>Navn</th>
-            <td>@Model.CurrentMember.Name</td>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <td>@Model.CurrentMember.Email</td>
-        </tr>
-        <tr>
-            <th>Telefon Nummer</th>
-            <td>@Model.CurrentMember.PhoneNumber</td>
-        </tr>
-        <tr>
-            <th>Adresse</th>
-            <td>@Model.CurrentMember.Address</td>
-        </tr>
-        <tr>
-            <th>Postnummer</th>
-            <td>@Model.CurrentMember.PostCode</td>
-        </tr>
-        <tr>
-            <th>Type af medlemsskab</th>
-            <td>@Model.CurrentMember.MemberType</td>
-        </tr>
-        <tr>
-            <th>Admin</th>
-            <td>@Model.CurrentMember.Admin</td>
-        </tr>
-        <tr>
-            <th>Billede</th>
-            <td><img src="~/images/memberimages/@Model.CurrentMember.Image"  class="thumbnail avatar" ></td>
-        </tr>
-    </table>
 
-    <a asp-page="/Members/DeleteMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Slet</a>
-    <a asp-page="/Members/UpdateMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Opdater</a>
-    <a asp-page="/Members/UpdatePassword" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Skift adgangskode</a>
-    <a asp-page="/Members/UpdatePhoto" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Skift profilbillede</a>
-    <a asp-page="/Members/index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Se medlemmer</a>
-    <br /> <br /> 
-    <p>Tilmeldinger:</p>
-    <a asp-page="/Events/MyEvents" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Begivenheder</a>
-    <a asp-page="/Bookings/BookingsMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Baner</a>
-    <a asp-page="/MemberPractice/MemberView" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Træningshold</a>
-    <br /> <br />
-    <a asp-page="/Members/LogIn" asp-page-handler="Logout" class="btn btn-warning">Log ud</a>
+<div class="row">
+    <div class="leftcolumn">
+        <div class="card" align="center">
+            <p> Hej @Model.CurrentMember.Name!</p>
+            <img src="~/images/memberimages/@Model.CurrentMember.Image" class="thumbnail avatar">
 
 
 
-    <div class="dropdown">
-        <button class="dropbtn">Dropdown</button>
-        <div class="dropdown-content">
-            <a asp-page="/Members/DeleteMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Slet</a>
-            <a asp-page="/Members/UpdateMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Opdater</a>
-            <a asp-page="/Members/UpdatePassword" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Skift adgangskode</a>
-            <a asp-page="/Members/UpdatePhoto" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Skift profilbillede</a>
         </div>
     </div>
 
 
+    <div class="rightcolumn">
+        <div class="card">
+
+            <div class="form-group">
+                <table class="table">
+                    @*  <tr>
+                    <th>Medlems id</th>
+                    <td>@Model.CurrentMember.MemberId</td>
+                    </tr> *@
+                    <tr>
+                        <th>Brugernavn</th>
+                        <td>@Model.CurrentMember.Username</td>
+                    </tr>
+                    @* <tr>
+                    <th>Password</th>
+                    <td>@Model.CurrentMember.Password</td>
+                    </tr> *@
+                    <tr>
+                        <th>Navn</th>
+                        <td>@Model.CurrentMember.Name</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>@Model.CurrentMember.Email</td>
+                    </tr>
+                    <tr>
+                        <th>Telefon Nummer</th>
+                        <td>@Model.CurrentMember.PhoneNumber</td>
+                    </tr>
+                    <tr>
+                        <th>Adresse</th>
+                        <td>@Model.CurrentMember.Address</td>
+                    </tr>
+                    <tr>
+                        <th>Postnummer</th>
+                        <td>@Model.CurrentMember.PostCode</td>
+                    </tr>
+                    <tr>
+                        <th>Type af medlemsskab</th>
+                        <td>@Model.CurrentMember.MemberType</td>
+                    </tr>
+                    <tr>
+                        <th>Admin</th>
+                        <td>@Model.CurrentMember.Admin</td>
+                    </tr>
+                  @*   <tr>
+                        <th>Billede</th>
+                        <td><img src="~/images/memberimages/@Model.CurrentMember.Image" class="thumbnail avatar"></td>
+                    </tr> *@
+                </table>
+
+                <a asp-page="/Members/DeleteMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Slet</a>
+                <a asp-page="/Members/UpdateMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Opdater</a>
+                <a asp-page="/Members/UpdatePassword" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Skift adgangskode</a>
+                <a asp-page="/Members/UpdatePhoto" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Skift profilbillede</a>
+                <a asp-page="/Members/index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Se medlemmer</a>
+                <br /> <br />
+                <p>Tilmeldinger:</p>
+                <a asp-page="/Events/MyEvents" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Begivenheder</a>
+                <a asp-page="/Bookings/BookingsMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Baner</a>
+                <a asp-page="/MemberPractice/MemberView" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Træningshold</a>
+                <br /> <br />
+                <a asp-page="/Members/LogIn" asp-page-handler="Logout" class="btn btn-warning">Log ud</a>
+
+
+
+                <div class="dropdown">
+                    <button class="dropbtn">Dropdown</button>
+                    <div class="dropdown-content">
+                        <a asp-page="/Members/DeleteMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Slet</a>
+                        <a asp-page="/Members/UpdateMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Opdater</a>
+                        <a asp-page="/Members/UpdatePassword" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Skift adgangskode</a>
+                        <a asp-page="/Members/UpdatePhoto" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Skift profilbillede</a>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
 </div>
+
+
 
 
 <style>
@@ -132,5 +154,7 @@
     .dropdown:hover .dropbtn {
         background-color: #3e8e41;
     }
+
+
 </style>
 
