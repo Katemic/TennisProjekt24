@@ -4,35 +4,43 @@
     ViewData["Title"] = "Delete NewsPost";
 }
 
+<head>
+    <link rel="stylesheet" href="~/css/delete.css" asp-append-version="true" />
+</head>
+
 <h1>Slet opslag</h1>
 
-<form method="post">
-    <div class="form-group">
-        <table class="table">
-            <tr>
-                <th>OpslagsID</th>
-                <td>@Model.PostToDelete.NewsPostId</td>
-            </tr>
-            <tr>
-                <th>Overskift</th>
-                <td>@Model.PostToDelete.Title</td>
-            </tr>
-            <tr>
-                <th>Dato<th>
-                <td>@Model.PostToDelete.Date</td>
-            </tr>
-            <tr>
-                <th>Tekst</th>
-                <td>@Model.PostToDelete.Text</td>
-            </tr>
-            <tr>
-                <th>Medlems id</th>
-                <td>@Model.PostToDelete.Member.Name</td>
-            </tr>
-        </table>
+<div class="card">
 
-        <br />
-        <input type="submit" value="Slet" asp-route-id="@Model.PostToDelete.NewsPostId" class="btn btn-danger" />
-        <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
-    </div>
-</form>
+    <form method="post">
+        <div class="form-group">
+            <table>
+                <tr>
+                    <th>OpslagsID</th>
+                    <td>@Model.PostToDelete.NewsPostId</td>
+                </tr>
+                <tr>
+                    <th>Overskift</th>
+                    <td>@Model.PostToDelete.Title</td>
+                </tr>
+                <tr>
+                    <th>Dato</th>
+                    <td>@Model.PostToDelete.Date.ToString("dddd, dd MMMM yyyy")</td>
+                </tr>
+                <tr>
+                    <th>Tekst</th>
+                    <td>@Model.PostToDelete.Text</td>
+                </tr>
+                <tr>
+                    <th>Medlems id</th>
+                    <td>@Model.PostToDelete.Member.Name</td>
+                </tr>
+            </table>
+
+            <br />
+            <input type="submit" value="Slet" asp-route-id="@Model.PostToDelete.NewsPostId" class="btn btn-danger" />
+            <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+        </div>
+    </form>
+
+</div>

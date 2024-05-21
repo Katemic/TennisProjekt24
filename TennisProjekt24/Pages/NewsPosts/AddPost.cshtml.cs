@@ -19,6 +19,8 @@ namespace TennisProjekt24.Pages.NewsPosts
 
         public Member CurrentMember { get; set; }
 
+        public string Message { get; set; }
+
         public AddPostModel(INewsPostService newsPostService, IMemberService memberService)
         {
             _newsPostService = newsPostService;
@@ -48,6 +50,18 @@ namespace TennisProjekt24.Pages.NewsPosts
             CurrentMember = _memberService.GetMember(sessionMemberId);
             NewPost.Date = DateTime.Now;
             NewPost.Member = CurrentMember;
+
+            if (NewPost.Title == null)
+            {
+                Message = "Du skal tilføje en titel";
+                return Page();
+            }
+            if (NewPost.Text == null)
+            {
+                Message = "Du skal tilføje tekst";
+                return Page();
+            }
+
 
             //if(!ModelState.IsValid) 
             //{

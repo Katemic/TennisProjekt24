@@ -7,40 +7,44 @@
 
 <h1>Opret event</h1>
 
-<form method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label asp-for="@Model.NewEvent.Date" class="control-label">Dato</label>
-        <input asp-for="@Model.NewEvent.Date" class="form-control" />
-        <span asp-validation-for="NewEvent.Title" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.NewEvent.Title" class="control-label">Titel</label>
-        <input asp-for="@Model.NewEvent.Title" class="form-control" />
-        <span asp-validation-for="NewEvent.Title" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.NewEvent.Description" class="control-label">Beskrivelse</label>
-        <input asp-for="@Model.NewEvent.Description" class="form-control" />
-        <span asp-validation-for="NewEvent.Description" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.NewEvent.Place" class="control-label">Lokation</label>
-        <input asp-for="@Model.NewEvent.Place" class="form-control" />
-        <span asp-validation-for="NewEvent.Place" class="text-danger"></span>
-    </div>
+<div class="card">
 
-    <div class="form-group">
-        <label asp-for="@Model.Picture" class="control-label">Tilføj billede</label>
-        <div class="custom-file">
-            <input asp-for="@Model.Picture" class="custom-file-input form-control" />
-            <label class="custom-file-label"></label>
-            <span asp-validation-for="Picture" class="text-danger"></span>
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="@Model.NewEvent.Date" class="control-label">Dato</label>
+            <input asp-for="@Model.NewEvent.Date" class="form-control" />
+            <span asp-validation-for="NewEvent.Title" class="text-danger"></span>
         </div>
-    </div>
+        <div class="form-group">
+            <label asp-for="@Model.NewEvent.Title" class="control-label">Titel</label>
+            <input asp-for="@Model.NewEvent.Title" class="form-control" />
+            <span asp-validation-for="NewEvent.Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.NewEvent.Description" class="control-label">Beskrivelse</label>
+            <input asp-for="@Model.NewEvent.Description" class="form-control" />
+            <span asp-validation-for="NewEvent.Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.NewEvent.Place" class="control-label">Lokation</label>
+            <input asp-for="@Model.NewEvent.Place" class="form-control" />
+            <span asp-validation-for="NewEvent.Place" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <input type="submit" value="Opret Event" class="btn btn-primary" />
-        <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
-    </div>
+        <div class="form-group">
+            <label asp-for="@Model.Picture" class="control-label">Tilføj billede</label>
+            <div class="custom-file">
+                <input asp-for="@Model.Picture" class="custom-file-input form-control" />
+                <label class="custom-file-label"></label>
+                <span asp-validation-for="Picture" class="text-danger"></span>
+            </div>
+        </div>
 
-</form>
+        <div class="form-group">
+            <input type="submit" value="Opret Event" class="btn btn-primary" />
+            <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+        </div>
+
+    </form>
+
+</div>

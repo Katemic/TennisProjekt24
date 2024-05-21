@@ -5,99 +5,107 @@
 }
 
 <h1>Events</h1>
-@if (Model.CurrentMember.Admin == true)
-{
-    <a asp-page="AddEvent" class="btn btn-primary">Opret event</a>
-}
 
-<a asp-page="MyEvents" class="btn btn-primary">Mine event tilmeldinger</a>
+<div class="card">
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Event Id
-            </th>
-            <th>
-                Dato
-            </th>
-            <th>
-                Titel
-            </th>
-            <th>
-                Beskrivelse
-            </th>
-            <th>
-                Lokation
-            </th>
-            <th>
-                Arrangør
-            </th>
-            <th>
 
-            </th>
-            <th>
-
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.Events.Count() != 0)
+    <div>
+        @if (Model.CurrentMember.Admin == true)
         {
-            @foreach (var item in Model.EventsFuture)
-            {
-                <tr>
-                    <td>
-                        @item.EventId
-                    </td>
-                    <td>
-                        @item.Date
-                    </td>
-                    <td>
-                        @item.Title
-                    </td>
-                    <td>
-                        @item.Description
-                    </td>
-                    <td>
-                        @item.Place
-                    </td>
-                    <td>
-                        @item.Member.Name
-                    </td>
-                    <td>
-                        <img src="~/images/eventImages/@item.Image" class="avatar thumbnail" style="width: 150px; height: 150px;">
-                    </td>
-                    <td>
-                        <p>
-                            @if (Model.CurrentMember.Admin == true)
-                            {
-                                <a asp-page="/Events/DeleteEvent" asp-route-eventId="@item.EventId">Slet</a>
-                                <a asp-page="/Events/UpdateEvent" asp-route-eventId="@item.EventId">Rediger</a>
-                                <a asp-page="/Events/Participants" asp-route-eventId="@item.EventId">Deltagere</a>
-                            }
-                            @if (Model.CurrentMember != null)
-                            {
-                                var isAttending = Model.Participants.Any(e => e.Event.EventId == item.EventId);
+            <a asp-page="AddEvent" class="btn btn-primary">Opret event</a>
+        }
 
-                                if (isAttending)
+        <a asp-page="MyEvents" class="btn btn-primary">Mine event tilmeldinger</a>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Event Id
+                </th>
+                <th>
+                    Dato
+                </th>
+                <th>
+                    Titel
+                </th>
+                <th>
+                    Beskrivelse
+                </th>
+                <th>
+                    Lokation
+                </th>
+                <th>
+                    Arrangør
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Events.Count() != 0)
+            {
+                @foreach (var item in Model.EventsFuture)
+                {
+                    <tr>
+                        <td>
+                            @item.EventId
+                        </td>
+                        <td>
+                            @item.Date
+                        </td>
+                        <td>
+                            @item.Title
+                        </td>
+                        <td>
+                            @item.Description
+                        </td>
+                        <td>
+                            @item.Place
+                        </td>
+                        <td>
+                            @item.Member.Name
+                        </td>
+                        <td>
+                            <img src="~/images/eventImages/@item.Image" class="avatar thumbnail" style="width: 150px; height: 150px;">
+                        </td>
+                        <td>
+                            <p>
+                                @if (Model.CurrentMember.Admin == true)
                                 {
-                                    <a asp-page="/Events/RemoveEvBook" asp-route-eventId="@item.EventId" asp-route-id="@item.Member.MemberId">Afmeld</a>
+                                    <a asp-page="/Events/DeleteEvent" asp-route-eventId="@item.EventId">Slet</a>
+                                    <a asp-page="/Events/UpdateEvent" asp-route-eventId="@item.EventId">Rediger</a>
+                                    <a asp-page="/Events/Participants" asp-route-eventId="@item.EventId">Deltagere</a>
+                                }
+                                @if (Model.CurrentMember != null)
+                                {
+                                    var isAttending = Model.Participants.Any(e => e.Event.EventId == item.EventId);
+
+                                    if (isAttending)
+                                    {
+                                        <a asp-page="/Events/RemoveEvBook" asp-route-eventId="@item.EventId" asp-route-id="@item.Member.MemberId">Afmeld</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-page="/Events/BookEvent" asp-route-eventId="@item.EventId">Tilmeld</a>
+                                    }
                                 }
                                 else
                                 {
-                                    <a asp-page="/Events/BookEvent" asp-route-eventId="@item.EventId">Tilmeld</a>
+                                    <a asp-page="/Members/LogIn">Log ind for at tilmelde</a>
                                 }
-                            }
-                            else
-                            {
-                                <a asp-page="/Members/LogIn">Log ind for at tilmelde</a>
-                            }
 
-                        </p>
-                    </td>
-                </tr>
+                            </p>
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+
+</div>

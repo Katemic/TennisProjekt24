@@ -88,16 +88,15 @@
                     }
                     else
                     {
-                        <a class="btn btn-success rounded-pill" asp-area="" asp-page="/Members/Profile">
+                        @* <a class="btn btn-success rounded-pill" asp-area="" asp-page="/Members/Profile">
                             <span>Min profil</span>
-                        </a>
+                        </a> *@
 
                         <div class="dropdown">
                             <button onclick="dropDown()" class="dropbtn rounded-pill">Dropdown &#9660;</button>
                             <div id="myDropdown" class="dropdown-content">
+                                <a asp-page="/Members/Profile">Min profil</a>
                                 <a asp-page="/Members/LogIn" asp-page-handler="Logout">Log ud</a>
-                                <a href="#about">About</a>
-                                <a href="#contact">Contact</a>
                             </div>
                         </div>
 

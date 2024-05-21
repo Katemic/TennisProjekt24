@@ -6,7 +6,9 @@
 
 <h1>Tilmeld event</h1>
 
-<form method="post">
+<div class="card">
+
+    <form method="post">
 
         <table class="table">
             <tr>
@@ -32,26 +34,28 @@
         </table>
         <div class="form-group">
             <label asp-for="@Model.Attendee.NoOfParticipants">Antal deltagere (inklusiv dig selv):</label>
-        <input asp-for="@Model.Attendee.NoOfParticipants" type="number" class="form-control" />
-        <span asp-validation-for="Attendee.NoOfParticipants" class="text-danger"></span>
+            <input asp-for="@Model.Attendee.NoOfParticipants" type="number" class="form-control" />
+            <span asp-validation-for="Attendee.NoOfParticipants" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="@Model.Attendee.Note">Kommentar:</label>
             <input asp-for="@Model.Attendee.Note" type="text" class="form-control" />
         </div>
         <div class="form-group">
-        @* <label for="memberId">Vælg medlem:</label>
-        <select name="memberId" id="memberId">
-        <option value="">-- Vælg medlem --</option>
-        @foreach (var member in Model.members)
-        {
-        <option value="@member.MemberId">@member.Name</option>
-        }
-        </select>
-        </div> *@
-  
-        <input type="submit" value="Tilmeld" asp-route-eventId="@Model.EventBook.EventId" class="btn btn-success" />
-        <a asp-page="/Events/RemoveEvBook" asp-route-eventId="@Model.EventBook.EventId" asp-route-memberId="@Model.CurrentMember.MemberId" class="btn btn-warning">Afmeld</a>
-        <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+            @* <label for="memberId">Vælg medlem:</label>
+            <select name="memberId" id="memberId">
+            <option value="">-- Vælg medlem --</option>
+            @foreach (var member in Model.members)
+            {
+            <option value="@member.MemberId">@member.Name</option>
+            }
+            </select>
+            </div> *@
 
-</form>
+            <input type="submit" value="Tilmeld" asp-route-eventId="@Model.EventBook.EventId" class="btn btn-success" />
+            <a asp-page="/Events/RemoveEvBook" asp-route-eventId="@Model.EventBook.EventId" asp-route-memberId="@Model.CurrentMember.MemberId" class="btn btn-warning">Afmeld</a>
+            <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+
+    </form>
+
+</div>
