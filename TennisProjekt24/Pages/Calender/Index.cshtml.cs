@@ -11,7 +11,20 @@ namespace TennisProjekt24.Pages.Calender
         public int CurrentYear { get; set; } = DateTime.Now.Year;
         [BindProperty]
         //[BindProperty(SupportsGet = true)]
-        public int CurrentMonth { get; set; }
+        public int CurrentMonth { get; set; } = DateTime.Now.Month;
+        //public int CurrentMonth 
+        //{ 
+        //    get 
+        //    {
+        //        if (Session["CurrentMonth"] == null)
+        //            return DateTime.Now.Month;
+        //        return (int)Session["CurrentMonth"];
+        //    }
+        //    set
+        //    {
+        //        Session[]
+        //    }
+        //}
         [BindProperty]
         public DateTime CurrentDay { get; set; }
         public DateTime FirstDayOfMonth { get; set; }
@@ -24,23 +37,24 @@ namespace TennisProjekt24.Pages.Calender
             _eventService = eventService;
         }
 
-        public void OnGet(int currentMonth)
+        //public void OnGet(int currentMonth)
+        public void OnGet()
         {
-            CurrentMonth = currentMonth;
+            //CurrentMonth = currentMonth;
             //CurrentYear = DateTime.Now.Year;
             //CurrentMonth = DateTime.Now.Month;
             FirstDayOfMonth = new DateTime(CurrentYear, CurrentMonth, 1);
             FirstDay = FirstDayOfMonth.AddDays(-(int)FirstDayOfMonth.DayOfWeek);
             Events = _eventService.GetAllEvents();
         }
-        public void OnPostNext()
-        {
-            CurrentMonth = CurrentMonth + 1;
-            if (CurrentMonth == 13) 
-            {
-                CurrentMonth = 1;
-                CurrentYear++;
-            }
-        }
+        //public void OnPostNext()
+        //{
+        //    CurrentMonth = CurrentMonth + 1;
+        //    if (CurrentMonth == 13) 
+        //    {
+        //        CurrentMonth = 1;
+        //        CurrentYear++;
+        //    }
+        //}
     }
 }

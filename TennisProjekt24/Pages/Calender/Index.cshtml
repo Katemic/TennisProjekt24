@@ -10,8 +10,16 @@
 </form> *@
 
 <form method="get">
-    <input type="submit" value="Næste måned" asp-route-currentMonth="@Model.CurrentMonth" onchange="this.form.submit()" class="btn btn-primary" />
+    @* <input type="submit" value="Næste måned" asp-route-currentMonth="@Model.CurrentMonth" onclick="this.form.submit()" class="btn btn-primary" /> *@
+    <div class="form-group">
+        <label class="custom-control-label">Sort Order</label> <br />
+        <select asp-for="CurrentMonth" onchange="this.form.submit()">
+            <option value="Januar"></option>
+            <option value="Febuar"></option>
+        </select>
+    </div>
 </form>
+
 <table class="table">
     <thead>
         <tr>

@@ -11,4 +11,8 @@
     {
         Mandag, Tirsdag, Onsdag, Torsdag, Fredag, Lørdag, Søndag
     }
+    public enum Months
+    {
+        Januar, Febuar, Marts, April, May, Juni, Juli, August, September, October, November, December
+    }
 }
