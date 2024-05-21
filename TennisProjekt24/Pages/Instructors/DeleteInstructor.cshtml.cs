@@ -11,8 +11,15 @@ namespace TennisProjekt24.Pages.Instructors
         public Instructor DeleteInstructor { get; set; }
         public IActionResult OnGet(int id)
         {
-            DeleteInstructor = _service.GetInstructor(id);
-            return Page();
+            if (HttpContext.Session.GetInt32("MemberId") == null)
+            {
+                return RedirectToPage("/Members/LogIn");
+            }
+            else
+            {
+                DeleteInstructor = _service.GetInstructor(id);
+                return Page();
+            }
         }
 
         public DeleteInstructorModel(IInstructorService serv)

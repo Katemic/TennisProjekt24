@@ -1,7 +1,7 @@
 ﻿@page
 @model TennisProjekt24.Pages.Practices.DeletePracticeModel
 @{
-    ViewData["Title"] = "Delete Practice";
+    ViewData["Title"] = "Slet træningshold";
 }
 <h1>Delete Practice</h1>
 <form method="post">
@@ -14,8 +14,9 @@
         <label>Max Number of Attendees</label> : @Model.DeletePractice.MaxNoOfAttendees <br />
         <label>Instructor</label> : @Model.DeletePractice.Instructor.Name
         <label>Type</label> : @Model.DeletePractice.Type <br />
-        <input type="submit" asp-page-handler="Delete" asp-route-id="@Model.DeletePractice.PracticeId" class="btn btn-danger" value="Delete Practice" />
-
-        <input type="submit" value="Cancel" class="btn btn-warning" asp-page-route="/Practices/Index" />
+        <input type="submit" asp-page-handler="Delete" asp-route-id="@Model.DeletePractice.PracticeId" class="btn btn-danger" value="Slet" />
+        <input type="submit" asp-page-handler="Cancel" class="btn btn-warning" value="Afbryd" />
+        
     </div>
+    
 </form>

@@ -10,9 +10,17 @@ namespace TennisProjekt24.Pages.Instructors
         private IInstructorService _service;
         [BindProperty]
         public Instructor Instructor { get; set; }
-        public void OnGet(int id)
+        public IActionResult OnGet(int id)
         {
-            Instructor = _service.GetInstructor(id);
+            if (HttpContext.Session.GetInt32("MemberId") == null)
+            {
+                return RedirectToPage("/Members/LogIn");
+            }
+            else
+            {
+                Instructor = _service.GetInstructor(id);
+                return Page();
+            }
         }
 
         public UpdateInstructorModel(IInstructorService serv)

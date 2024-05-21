@@ -7,11 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\images\memberimages\" />
+    <Folder Include="wwwroot\images\instructorimages\" />
     <Folder Include="wwwroot\images\eventImages\" />
   </ItemGroup>
 

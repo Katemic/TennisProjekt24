@@ -1,35 +1,74 @@
 ﻿@page
 @model TennisProjekt24.Pages.Practices.IndexModel
 @{
-    ViewData["Title"] = "Practice index";
+    ViewData["Title"] = "Trænigsindeks";
 }
 <p>
-    <a asp-page="AddPractice">Add Practice</a>
+    @if (Model.User.Admin)
+    {
+        <a asp-page="AddPractice">Opret træningshold</a>
+    }
+    
 </p>
-
+        @* TODO Flere koloner på card *@
         @if(Model.Practices.Count != 0)
-        {
+        { 
             @foreach(var item in Model.Practices)
             {
-                <div class="card" style="width: 30rem;">    
+                <div class="card" style="width: 35rem;">    
                 <div class="card-body">
-                <h3> @item.Title</h3>
+                <h3 > @item.Title</h3>
                 <h4>@item.StartDate</h4>
                 <h5>@item.Type</h5>
-                <h6>Ved: @item.Instructor.Name</h6>
+                <h6>Antal deltagere: @item.Members.Count / @item.MaxNoOfAttendees</h6>
+                <h6>Træner: @item.Instructor.Name <img src="~/images/instructorimages/@item.Instructor.Image" class="avatar thumbnail" /></h6>
                 <p>@item.Description</p>
-                <a class="card-link" asp-page="DeletePractice" asp-route-id="@item.PracticeId">Delete</a>
-                <a class="card-link" asp-page="UpdatePractice" asp-route-id="@item.PracticeId">Update</a>
+                @if (Model.User.Admin)
+                {
+                    <a class="card-link" asp-page="DeletePractice" asp-route-id="@item.PracticeId">Slet</a>
+                    <a class="card-link" asp-page="UpdatePractice" asp-route-id="@item.PracticeId">Opdater</a>
+                }          
+
                 @if (item.MaxNoOfAttendees > item.Members.Count)
                 {
-                    <a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Attend</a>
+                    <a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Deltag</a>
                 }
                 else
                 {
-                    <p>Holdet er fyldt</p>
+                    <p>Holdet er fyldt | @if (Model.User.Admin)
+                        {
+                            <a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Se deltagere</a>
+                        }</p>
                 }
                 </div>
     
             </div>
+            <br />
             }
         }
+<style>
+
+    .avatar {
+        vertical-align: middle;
+        width: 40px;
+        height: 40px;
+        border-radius: 40%;
+    }
+
+
+    .thumbnail {
+        top: -50px;
+        left: -35px;
+        display: block;
+        z-index: 999;
+        cursor: pointer;
+        -webkit-transition-property: all;
+        -webkit-transition-duration: 0.3s;
+        -webkit-transition-timing-function: ease;
+    }
+
+        /*change the number below to scale to the appropriate size*/
+        .thumbnail:hover {
+            transform: scale(3);
+        }
+</style>

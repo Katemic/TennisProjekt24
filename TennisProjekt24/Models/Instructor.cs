@@ -13,7 +13,7 @@ namespace TennisProjekt24.Models
         [Required(ErrorMessage = "Description cannot be empty")]
         public string Description { get; set; }
         [Required(ErrorMessage = "For the sake of the participants, a picture is required of the instructor")]
-        public string Image { get; set; }
+        public string? Image { get; set; }
 
         public Instructor()
         {

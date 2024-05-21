@@ -2,7 +2,7 @@
 @using TennisProjekt24.Models
 @model TennisProjekt24.Pages.Practices.AddPracticeModel
 @{
-    ViewData["Title"] = "Add Practice";
+    ViewData["Title"] = "Tilføj træningshold";
 }
 <form method="post">
     <div class="form-group datepickers" >
@@ -50,10 +50,7 @@
                 <span asp-validation-for="Practice.Type" class="text-danger"></span>
     </div>
     <div>
-        <input type="submit" value="Add Practice" class="btn btn-primary" />
+        <input type="submit" value="Opret" class="btn btn-primary" />
+        <input type="submit" asp-page-handler="Cancel" class="btn btn-warning" value="Afbryd" />
     </div>
 </form>
-
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>

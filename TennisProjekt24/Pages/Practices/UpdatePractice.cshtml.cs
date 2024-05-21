@@ -20,15 +20,23 @@ namespace TennisProjekt24.Pages.Practices
         [BindProperty]
         public int InstructorId { get; set; }
 
-        public void OnGet(int id)
+        public IActionResult OnGet(int id)
         {
-            Practice = _service.GetPractice(id);
-            Instructors = _instructorService.GetAllInstructors().Select(i =>
-                                           new SelectListItem
-                                           {
-                                               Value = i.InstructorId.ToString(),
-                                               Text = i.Name
-                                           }).ToList();
+            if (HttpContext.Session.GetInt32("MemberId") == null)
+            {
+                return RedirectToPage("/Members/LogIn");
+            }
+            else
+            {
+                Practice = _service.GetPractice(id);
+                Instructors = _instructorService.GetAllInstructors().Select(i =>
+                                               new SelectListItem
+                                               {
+                                                   Value = i.InstructorId.ToString(),
+                                                   Text = i.Name
+                                               }).ToList();
+                return Page();
+            }
         }
 
         public UpdatePracticeModel(IPracticeService serv, IInstructorService instructorService)
