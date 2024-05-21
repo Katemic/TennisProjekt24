@@ -4,6 +4,13 @@
     ViewData["Title"] = "Members Index";
 }
 
+<head>
+    <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+</head>
+
+
+<div class="card">
+
 <h1>Medlemsoversigt</h1>
 
 <form method="get">
@@ -15,11 +22,15 @@
 
 </form>
 
+
+<div>
+
 @if(Model.CurrentMember.Admin)
 {
     <a asp-page="AddMember" class="btn btn-primary">Opret medlem</a>
+    <br /><br />
 }
-
+    </div>
 
 <table class="table">
     <thead>
@@ -136,6 +147,7 @@
     </tbody>
 </table>
 
+</div>
 
 
 <style>
