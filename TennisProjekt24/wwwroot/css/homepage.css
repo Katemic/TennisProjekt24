@@ -93,3 +93,12 @@
     .topnav a {
         float: none;
         width: 100%;
+    }
+}
+
+    .responsive {
+        width: 100%;
+        max-width: 1295px;
+        height: 100%;
+    }
+
