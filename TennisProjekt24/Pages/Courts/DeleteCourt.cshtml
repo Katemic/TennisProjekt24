@@ -5,27 +5,34 @@
 }
 
 <h1>Slet bane</h1>
-<form method="post">
-    <div class="form-group">
-        <label>Udendørs</label> : @if (Model.DeleteCourt.Outdoor)
-        {
-            <div> Udendørs </div>
-        }
-        else
-        {
-            <div> Indendørs </div>
-        }
-        <label>Bane nummer</label> : @Model.DeleteCourt.CourtNumber <br />
-        <label>Bane typen</label> : @Model.DeleteCourt.CourtType <br />
-        <label>Tilgængelighed</label> : @if (Model.DeleteCourt.Availability)
-        {
-            <div> Tilgængelig </div>
-        }
-        else
-        {
-            <div> Utilgængelig </div>
-        }
 
-        <input type="submit" asp-page-handler="Delete" asp-route-courtId="@Model.DeleteCourt.CourtId" value="Delete court" />
-    </div>
-</form>
+
+<div class="card">
+
+    <form method="post">
+        <div class="form-group">
+            <label>Udendørs</label> : @if (Model.DeleteCourt.Outdoor)
+            {
+                <div> Udendørs </div>
+            }
+            else
+            {
+                <div> Indendørs </div>
+            }
+            <label>Bane nummer</label> : @Model.DeleteCourt.CourtNumber <br />
+            <label>Bane typen</label> : @Model.DeleteCourt.CourtType <br />
+            <label>Tilgængelighed</label> : @if (Model.DeleteCourt.Availability)
+            {
+                <div> Tilgængelig </div>
+            }
+            else
+            {
+                <div> Utilgængelig </div>
+            }
+
+            <input type="submit" asp-page-handler="Delete" asp-route-courtId="@Model.DeleteCourt.CourtId" value="Slet bane" class="btn btn-danger" />
+            <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+        </div>
+    </form>
+
+</div>

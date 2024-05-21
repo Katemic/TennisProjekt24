@@ -7,34 +7,38 @@
 
 <h1>Opdater bane</h1>
 
-<form method="post">
+<div class="card">
 
-    <input type="hidden" asp-for="@Model.CourtToUpdate.CourtId" />
-    <div class="form-group">
-        <input asp-for="@Model.CourtToUpdate.Outdoor" />Udendørs<br />
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.CourtToUpdate.CourtNumber" class="control-label">Banenummer</label>
-        <input asp-for="@Model.CourtToUpdate.CourtNumber" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.CourtToUpdate.CourtType" class="control-label">Banetypen</label>
-        <br />
-        @foreach (var type in System.Enum.GetValues(typeof(CourtTypeEnum)))
-        {
-            @if ((int)type != 0)
+    <form method="post">
+
+        <input type="hidden" asp-for="@Model.CourtToUpdate.CourtId" />
+        <div class="form-group">
+            <input asp-for="@Model.CourtToUpdate.Outdoor" />Udendørs<br />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.CourtToUpdate.CourtNumber" class="control-label">Banenummer</label>
+            <input asp-for="@Model.CourtToUpdate.CourtNumber" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.CourtToUpdate.CourtType" class="control-label">Banetypen</label>
+            <br />
+            @foreach (var type in System.Enum.GetValues(typeof(CourtTypeEnum)))
             {
-                <input type="radio" asp-for="@Model.CourtToUpdate.CourtType" value="@type" />
-                <label class="control-label">@type</label>
-                <br />
+                @if ((int)type != 0)
+                {
+                    <input type="radio" asp-for="@Model.CourtToUpdate.CourtType" value="@type" />
+                    <label class="control-label">@type</label>
+                    <br />
+                }
             }
-        }
-    </div>
-    <div class="form-group">
-        <input asp-for="@Model.CourtToUpdate.Availability" />Tilgængelighed<br />
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Opdater" asp-page-handler="Update" class="btn btn-primary" />
-        <input type="submit" value="Slet" asp-page-handler="Delete" class="btn btn-primary" />
-    </div>
-</form>
+        </div>
+        <div class="form-group">
+            <input asp-for="@Model.CourtToUpdate.Availability" />Tilgængelighed<br />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Opdater" asp-page-handler="Update" class="btn btn-primary" />
+            <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+        </div>
+    </form>
+
+</div>
