@@ -19,6 +19,8 @@ namespace TennisProjekt24.Pages.BuddyForums
         public bool Descending { get; set; }
         [BindProperty(SupportsGet = true)]
         public string SortOrderAscDesc { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int PostId { get; set; }
 
         public GetBuddyForumModel(IBuddyForumService buddyForumService, IMemberService memberService, IForumCommentService forumCommentService)
         {
@@ -31,14 +33,12 @@ namespace TennisProjekt24.Pages.BuddyForums
         {
             try
             {
+                PostId = postId;
                 GetBuddyForum = _buddyForumService.GetPostById(postId);
-                if (SortOrderAscDesc == "Descending")
+                ForumComments = _forumCommentService.GetPostComments(postId);
+                if (SortOrderAscDesc == "Oldest")
                 {
-                    ForumComments = _forumCommentService.GetPostCommentsDesc(postId);
-                }
-                else
-                {
-                    ForumComments = _forumCommentService.GetPostComments(postId);
+                    ForumComments.Reverse();
                 }
             }
             catch (SqlException sql)
@@ -69,7 +69,7 @@ namespace TennisProjekt24.Pages.BuddyForums
             {
                 ViewData["ErrorMessage"] = ex.Message;
             }
-            return RedirectToPage("/BuddyForums/GetBuddyForum", new { postId = CreateComment.PostId });
+            return RedirectToPage("/BuddyForums/GetBuddyForum", new { postId = postId });
         }
     }
 }

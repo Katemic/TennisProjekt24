@@ -10,10 +10,13 @@ namespace TennisProjekt24.Pages.BuddyForums
     public class IndexModel : PageModel
     {
         private IBuddyForumService _buddyForumService;
+        //public IForumCommentService _forumCommentService;
 
         public List<BuddyForum> buddyForums { get; set; }
         [BindProperty(SupportsGet = true)]
         public SkillTypeEnum SkillLevel { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public bool IsEnabled { get; set; }
 
         public IndexModel(IBuddyForumService buddyForumService)
         {
@@ -32,7 +35,10 @@ namespace TennisProjekt24.Pages.BuddyForums
                 {
                     buddyForums = _buddyForumService.GetAllPosts();
                 }
-
+                if (IsEnabled)
+                {
+                    buddyForums = buddyForums.Where(b => b.Poster.MemberId == (int)HttpContext.Session.GetInt32("MemberId")).ToList();
+                }
             }
             catch (SqlException sql)
             {

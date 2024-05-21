@@ -8,7 +8,6 @@ namespace TennisProjekt24.Interfaces
         public bool DeleteComment(int commentId);
         public bool UpdateComment(ForumComment forumComment, int commentId);
         public List<ForumComment> GetPostComments(int postId);
-        public List<ForumComment> GetPostCommentsDesc(int postId);
         public ForumComment GetComment(int commentId);
     }
 }

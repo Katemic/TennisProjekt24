@@ -5,14 +5,11 @@
 }
 <h4>Baner</h4>
 
-<a asp-page="/Courts/CreateCourt">Create</a>
+<a asp-page="/Courts/CreateCourt" class="btn btn-primary">Create</a>
 
 <table class="table">
     <thead>
         <tr>
-            <th>
-                Id
-            </th>
             <th>
                 Udendørs
             </th>
@@ -34,10 +31,14 @@
             {
                 <tr>
                     <td>
-                        @item.CourtId
-                    </td>
-                    <td>
-                        @item.Outdoor
+                        @if(item.Outdoor)
+                        {
+                            <div> Udendørs </div>
+                        }
+                        else
+                        {
+                            <div> Indendørs </div>
+                        }
                     </td>
                     <td>
                         @item.CourtNumber
@@ -46,12 +47,18 @@
                         @item.CourtType
                     </td>
                     <td>
-                        @item.Availability
+                        @if(item.Availability)
+                        {
+                            <div> Tilgængelig </div>
+                        } else
+                        {
+                            <div> Utilgængelig </div>
+                        }
                     </td>
                     <td>
                         <p>
-                            <a asp-page="/Courts/DeleteCourt" asp-route-courtId="@item.CourtId">Slet</a>|
-                            <a asp-page="/Courts/UpdateCourt" asp-route-courtId="@item.CourtId">Opdater</a>|
+                            <a asp-page="/Courts/DeleteCourt" asp-route-courtId="@item.CourtId" class="btn btn-primary">Slet</a>
+                            <a asp-page="/Courts/UpdateCourt" asp-route-courtId="@item.CourtId" class="btn btn-primary">Opdater</a>
                         </p>
                     </td>
                 </tr>

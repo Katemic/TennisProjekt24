@@ -10,8 +10,7 @@ namespace TennisProjekt24.Services
     public class ForumCommentService : Connection, IForumCommentService
     {
         private string _insertSql = "INSERT INTO ForumComments VALUES(@PostId, @MemberId, @Text, @DateTime)";
-        private string _getByIdSql = "SELECT * FROM ForumComments WHERE PostId=@PostId";
-        private string _getByIdSqlDesc = "SELECT * FROM ForumComments WHERE PostId=@PostId ORDER BY DateTime DESC";
+        private string _getByIdSql = "SELECT * FROM ForumComments WHERE PostId=@PostId ORDER BY DateTime DESC";
         private string _getCommentSql = "SELECT * FROM ForumComments WHERE CommentId=@CommentId";
         private string _deleteSql = "DELETE FROM ForumComments WHERE CommentId=@CommentId";
         private string _updateSql = "UPDATE ForumComments SET Text=@Text WHERE CommentId=@CommentId";
@@ -38,13 +37,13 @@ namespace TennisProjekt24.Services
                 catch (SqlException sqlEx)
                 {
                     Console.WriteLine("Database error: " + sqlEx.Message);
+                    throw sqlEx;
+
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("General fejl: " + ex.Message);
-                }
-                finally
-                {
+                    throw ex;
 
                 }
             }
@@ -68,13 +67,13 @@ namespace TennisProjekt24.Services
                 catch (SqlException sqlEx)
                 {
                     Console.WriteLine("Database error: " + sqlEx.Message);
+                    throw sqlEx;
+
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("General fejl: " + ex.Message);
-                }
-                finally
-                {
+                    throw ex;
 
                 }
             }
@@ -104,13 +103,13 @@ namespace TennisProjekt24.Services
                 catch (SqlException sqlEx)
                 {
                     Console.WriteLine("Database error: " + sqlEx.Message);
+                    throw sqlEx;
+
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("General fejl: " + ex.Message);
-                }
-                finally
-                {
+                    throw ex;
 
                 }
             }
@@ -142,50 +141,13 @@ namespace TennisProjekt24.Services
                 catch (SqlException sqlEx)
                 {
                     Console.WriteLine("Database error: " + sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("General fejl: " + ex.Message);
-                }
-                finally
-                {
+                    throw sqlEx;
 
                 }
-            }
-            return comments;
-        }
-        public List<ForumComment> GetPostCommentsDesc(int postId)
-        {
-            List<ForumComment> comments = new List<ForumComment>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    SqlCommand command = new SqlCommand(_getByIdSqlDesc, connection);
-                    command.Parameters.AddWithValue("@PostId", postId);
-                    command.Connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        int commentId = reader.GetInt32("CommentId");
-                        Member commenter = _memberService.GetMember(reader.GetInt32("MemberId"));
-                        string text = reader.GetString("Text");
-                        DateTime dateTime = reader.GetDateTime("DateTime");
-                        ForumComment comment = new ForumComment(commentId, postId, commenter, text, dateTime);
-                        comments.Add(comment);
-                    }
-                    reader.Close();
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("Database error: " + sqlEx.Message);
-                }
                 catch (Exception ex)
                 {
                     Console.WriteLine("General fejl: " + ex.Message);
-                }
-                finally
-                {
+                    throw ex;
 
                 }
             }
@@ -208,14 +170,12 @@ namespace TennisProjekt24.Services
                 catch (SqlException sqlEx)
                 {
                     Console.WriteLine("Database error: " + sqlEx.Message);
+                    throw sqlEx;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("General fejl: " + ex.Message);
-                }
-                finally
-                {
-
+                    throw ex;
                 }
             }
             return false;

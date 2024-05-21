@@ -12,7 +12,6 @@ namespace TennisProjekt24.Services
         private string _insertSql = "INSERT INTO Courts VALUES(@CourtNumber, @Outdoor, @CourtType, @Availability)";
         private string _deleteSql = "DELETE FROM Courts WHERE CourtId=@CourtId";
         private string _updateSql = "UPDATE Courts SET Outdoor=@Outdoor, CourtNo=@CourtNumber, Type=@CourtType, Availability=@Availability WHERE CourtId=@CourtId";
-        private string _availabilitySql = "UPDATE Courts SET Availability=@Availability WHERE CourtId=@CourtId";
 
         public bool AddCourt(Court court)
         {

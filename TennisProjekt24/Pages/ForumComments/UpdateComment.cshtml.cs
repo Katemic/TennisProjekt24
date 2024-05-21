@@ -38,22 +38,5 @@ namespace TennisProjekt24.Pages.ForumComments
             }
             return RedirectToPage("/BuddyForums/GetBuddyForum", new { postId = postId });
         }
-
-        public IActionResult OnPostDelete(int postId)
-        {
-            try
-            {
-                _commentService.DeleteComment(CommentToUpdate.CommentId);
-            }
-            catch (SqlException sql)
-            {
-                ViewData["ErrorMessage"] = sql.Message;
-            }
-            catch (Exception ex)
-            {
-                ViewData["ErrorMessage"] = ex.Message;
-            }
-            return RedirectToPage("/BuddyForums/GetBuddyForum", new { postId = postId });
-        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿@page
 @model TennisProjekt24.Pages.BuddyForums.IndexModel
+@inject Interfaces.IForumCommentService _forumCommentService;
 @{
     ViewData["Title"] = "Index";
 }
@@ -26,16 +27,20 @@
             margin: 3%;
             text-align: center;
         }
+        .comment {
+            text-align: right
+        }
+        
     </style>
 </head>
 
 <h4>Makker forum</h4>
 
-<a asp-page="/BuddyForums/CreateBuddyForum">Opret</a>
+<a asp-page="/BuddyForums/CreateBuddyForum" class="btn btn-primary">Opret</a>
 
 <form method="get">
             <div class="form-group">
-                <label class="custom-control-label">Sortering for erfarings niveau</label></br>
+                <label class="custom-control-label">Erfaringsniveau</label></br>
 
                 @foreach (var type in System.Enum.GetValues(typeof(Helpers.SkillTypeEnum)))
                 {
@@ -51,6 +56,9 @@
                     }
                 }
             </div>
+    <div class="form-group">
+        <input asp-for="@Model.IsEnabled" onchange="this.form.submit()" /> vis mine post <br />
+    </div>
             @if (Model.buddyForums.Count() != 0)
             {
                 @foreach (var item in Model.buddyForums)
@@ -64,18 +72,19 @@
                         <h1>@item.Poster.Name</h1>
                         <div class="textBlog">
                             <p>@item.Text</p>
-                            <p><a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@item.PostId">se kommentare</a></p>
+                            <div class="comment">
+                        <p><a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">se kommentare(@_forumCommentService.GetPostComments(item.PostId).Count())</a></p>
+
+                            </div>
                         </div>
+                @if (item.Poster.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
+                {
+                    <p>
+                        <a asp-page="/BuddyForums/DeleteBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">Slet</a>
+                        <a asp-page="/BuddyForums/UpdateBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">Opdater</a>
+                    </p>
+                }
                     </div>
-                        @if (item.Poster.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
-                        {
-                            <td>
-                                <p>
-                                <a asp-page="/BuddyForums/DeleteBuddyForum" asp-route-postId="@item.PostId">Slet</a>
-                                <a asp-page="/BuddyForums/UpdateBuddyForum" asp-route-postId="@item.PostId">Opdater</a>
-                            </p>
-                        </td>
-                        }
                 }
             }
 </form>
