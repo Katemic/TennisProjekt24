@@ -14,7 +14,7 @@ namespace TennisProjekt24.Pages.Instructors
         [BindProperty]
         public Instructor Instructor { get; set; }
         [BindProperty]
-        public IFormFile Photo { get; set; }
+        public IFormFile? Photo { get; set; }
         public IActionResult OnGet()
         {
             if (HttpContext.Session.GetInt32("MemberId") == null)
@@ -37,10 +37,10 @@ namespace TennisProjekt24.Pages.Instructors
         public IActionResult OnPost()
         {
             
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
             if (Photo != null)
             {
                 if (Instructor.Image != null)
@@ -50,6 +50,10 @@ namespace TennisProjekt24.Pages.Instructors
                 }
 
                 Instructor.Image = ProcessUploadedFile();
+            }
+            else
+            {
+                Instructor.Image = "default.jpg";
             }
             _service.AddInstructor(Instructor);
             return RedirectToPage("Index");
