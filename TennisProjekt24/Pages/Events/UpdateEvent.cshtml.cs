@@ -31,16 +31,16 @@ namespace TennisProjekt24.Pages.Events
             //{
             //    return Page();
             //}
-            if (Picture != null)
-            {
-                if (EventUpdate.Image != null)
-                {
-                    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "/images/eventImages", EventUpdate.Image);
-                    System.IO.File.Delete(filePath);
-                }
+            //if (Picture != null)
+            //{
+            //    if (EventUpdate.Image != null)
+            //    {
+            //        string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "/images/eventImages", EventUpdate.Image);
+            //        System.IO.File.Delete(filePath);
+            //    }
 
-                EventUpdate.Image = ProcessUploadedFile();
-            }
+            //    EventUpdate.Image = ProcessUploadedFile();
+            //}
             _eventService.UpdateEvent(EventUpdate);
             return RedirectToPage("Index");
         }

@@ -15,7 +15,7 @@ namespace TennisProjekt24.Services
         }
         private string insertSql = "INSERT INTO Events VALUES(@DATE, @TITLE, @DESCRIPTION, @PLACE, @MEMBERID, @Image)";
         private string getSql = "SELECT EventId, Date, Title, Description, Place, MemberId, Image FROM Events WHERE EventId=@ID";
-        private string updateSql = "UPDATE Events SET Date = @Date, Title = @Title, Description = @Description, Place = @Place, MemberId = @MemberId, Image = @Image WHERE EventId=@ID";
+        private string updateSql = "UPDATE Events SET Date = @Date, Title = @Title, Description = @Description, Place = @Place, MemberId = @MemberId WHERE EventId=@ID";
         private string getallSql = "SELECT * FROM Events";
         private string deleteSql = "DELETE FROM Events WHERE EventId=@ID";
         public bool AddEvent(Event ev)
@@ -181,7 +181,7 @@ namespace TennisProjekt24.Services
                     command.Parameters.AddWithValue("@Description", ev.Description);
                     command.Parameters.AddWithValue("@Place", ev.Place);
                     command.Parameters.AddWithValue("@MemberId", ev.Member.MemberId);
-                    command.Parameters.AddWithValue("@Image", ev.Image);
+                    //command.Parameters.AddWithValue("@Image", ev.Image);
                     command.Connection.Open();
                     int result = command.ExecuteNonQuery();
                     return result == 1;
