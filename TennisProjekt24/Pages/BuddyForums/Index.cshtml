@@ -31,6 +31,33 @@
             text-align: right
         }
         
+        .avatar {
+            vertical-align: middle;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+        }
+
+        .row {
+            display: flex;
+            margin-left: -5px;
+            margin-right: -5px;
+        }
+
+        .column {
+            flex: 33.3%;
+            padding: 5px;
+        }
+
+        .height {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        p.letters {
+            word-wrap: break-word;
+        }
+
     </style>
 </head>
 
@@ -59,6 +86,193 @@
     <div class="form-group">
         <input asp-for="@Model.IsEnabled" onchange="this.form.submit()" /> vis mine post <br />
     </div>
+
+
+    @if (Model.buddyForums.Count() != 0)
+    {
+        @foreach (var item in Model.buddyForums)
+        {
+
+            <div class="card">
+
+
+
+                <div class="row">
+                    <div class="column" style="flex:10%">
+
+                        <table style="height:350px">
+                            <tr>
+                                <td>@item.Poster.Name</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @item.DateTime.ToString("dd MMMM yyyy")
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>@item.SkillType</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="~/images/memberimages/@item.Poster.Image" class="thumbnail avatar">
+                                </td>
+                                <td height="100%"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @if (item.Poster.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
+                                    {
+                                        <span style="float: left">
+                                            <a asp-page="/BuddyForums/DeleteBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">Slet</a>
+                                            <a asp-page="/BuddyForums/UpdateBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">Rediger</a>
+                                        </span>
+                                    }
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="column" style="flex:50%">
+
+
+
+
+                        <table @* width="130%" *@ class="height">
+                            <tr>
+                                <td><h3>@item.Title</h3></td>
+                            </tr>
+                            <tr>
+                                <td><br /></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <div class="height">
+
+                                        <p>@item.Text</p>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+         
+
+                    <div class="column" style="flex:10%">
+
+                        <table style="height:350px; float:right">
+                            <tr>
+                                @* <td style="float:right">@item.SkillType</td> *@
+                            </tr>
+                            <tr>
+                                <td height="100%"></td>
+                            </tr>
+                            <tr></tr>
+                            <tr>
+                                <td><a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">se kommentare(@_forumCommentService.GetPostComments(item.PostId).Count())</a></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+                
+            </div>
+
+
+        }
+    }
+
+</form>
+
+@* 
+
+    @if (Model.buddyForums.Count() != 0)
+    {
+        @foreach (var item in Model.buddyForums)
+        {
+            
+            <div class="card">
+
+                <table>
+
+                    <tr>
+                        <td style="font-size:20px">
+                            @item.Poster.Name
+                            
+                        </td>
+                        <td width="40%">
+                            <h3>@item.Title</h3>
+                        </td>
+                        <td style="float:right; font-size:20px">@item.SkillType</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @item.DateTime.ToString("dd MMMM yyyy")
+                        </td>
+                        <td>
+                          <br /> <br />
+                            @item.Text
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br />
+                            <img src="~/images/memberimages/@item.Poster.Image" class="thumbnail avatar">
+                        </td>
+                        
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br />
+                            @if (item.Poster.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
+                            {
+                                <span style="float: left">
+                                    <a asp-page="/BuddyForums/DeleteBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">Slet</a>
+                                    <a asp-page="/BuddyForums/UpdateBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">Rediger</a>
+                                </span>
+                            }
+                        </td>
+                   
+                        <td>
+                            <br />
+                            <span style="float:right"><a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">se kommentare(@_forumCommentService.GetPostComments(item.PostId).Count())</a></span>
+                        </td>
+                    </tr>
+
+
+                </table>
+
+
+            </div>
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @if (Model.buddyForums.Count() != 0)
     {
         @foreach (var item in Model.buddyForums)
@@ -72,19 +286,24 @@
                 <h1>@item.Poster.Name</h1>
                 <div class="textBlog">
                     <p>@item.Text</p>
-                    <div class="comment">
-                        <p><a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">se kommentare(@_forumCommentService.GetPostComments(item.PostId).Count())</a></p>
 
+                    <div style="display:inline">
+
+                        <div class="comment">
+                            <span><a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">se kommentare(@_forumCommentService.GetPostComments(item.PostId).Count())</a></span>
+
+                        </div>
+
+                        @if (item.Poster.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
+                        {
+                            <span style="float: left">
+                                <a asp-page="/BuddyForums/DeleteBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">Slet</a>
+                                <a asp-page="/BuddyForums/UpdateBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">Opdater</a>
+                            </span>
+                        }
                     </div>
                 </div>
-                @if (item.Poster.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
-                {
-                    <p>
-                        <a asp-page="/BuddyForums/DeleteBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">Slet</a>
-                        <a asp-page="/BuddyForums/UpdateBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">Opdater</a>
-                    </p>
-                }
             </div>
         }
     }
-</form>
+</form> *@

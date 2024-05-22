@@ -14,7 +14,7 @@
 
     <form method="post">
         <div class="form-group">
-            <table class="table">
+            <table >
                 @* <tr>
                 <th>Medlems id</th>
                 <td>@Model.MemberToDelete.MemberId</td>
@@ -59,7 +59,7 @@
 
             <br />
             <input type="submit" value="Slet" asp-route-id="@Model.MemberToDelete.MemberId" class="btn btn-danger" />
-            <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+            <a asp-page="Profile" class="btn btn-secondary">Tilbage</a>
         </div>
     </form>
 
