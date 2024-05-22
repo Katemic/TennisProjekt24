@@ -12,6 +12,8 @@ namespace TennisProjekt24.Pages.Events
         private IParticipantService _participantService;
         [BindProperty]
         public Participant ParticipantToUpdate { get; set; }
+        public string Message { get; set; }
+
         public UpdateParticipantModel(IParticipantService participantService)
         {
             _participantService = participantService;
@@ -26,6 +28,12 @@ namespace TennisProjekt24.Pages.Events
             //{
             //    return Page();
             //}
+            if (ParticipantToUpdate.NoOfParticipants > 5 || ParticipantToUpdate.NoOfParticipants < 1)
+            {
+                Message = "Vælg antal mellem 1 og 5";
+                //EventBook = _eventService.GetEvent(eventId);
+                return Page();
+            }
             _participantService.UpdateParticipant(ParticipantToUpdate);
             return RedirectToPage("Index");
         }
