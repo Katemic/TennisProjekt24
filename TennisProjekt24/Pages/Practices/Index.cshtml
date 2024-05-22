@@ -35,14 +35,15 @@
                 }
                 else
                 {
-                    <p>Holdet er fyldt | @if (Model.User.Admin)
-                        {
-                            <a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Se deltagere</a>
-                        }</p>
+                    <p>Holdet er fyldt | </p>
                 }
-                </div>
+                @if (Model.User.Admin)
+                {
+                    <a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Se deltagere</a>
+                }
     
-            </div>
+                </div>
+                </div>
             <br />
             }
         }
