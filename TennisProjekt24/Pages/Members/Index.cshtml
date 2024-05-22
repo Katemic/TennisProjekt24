@@ -8,146 +8,149 @@
     <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
 </head>
 
+<h1>Medlemsoversigt</h1>
 
 <div class="card">
 
-<h1>Medlemsoversigt</h1>
-
-<form method="get">
-
-    <p>
-        <input type="text" asp-for="@Model.FilterCriteria" />
-        <input type="submit" value="Søg"  />
-    </p>
-
-</form>
 
 
-<div>
+    <form method="get">
 
-@if(Model.CurrentMember.Admin)
-{
-    <a asp-page="AddMember" class="btn btn-primary">Opret medlem</a>
-    <br /><br />
-}
+        <p>
+            <input type="text" asp-for="@Model.FilterCriteria" />
+            <input type="submit" value="Søg" />
+        </p>
+
+    </form>
+
+
+    <div>
+
+        @if (Model.CurrentMember.Admin)
+        {
+            <a asp-page="AddMember" class="btn btn-primary">Opret medlem</a>
+            <br />
+
+            <br />
+        }
     </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            @* <th>
+    <table class="table">
+        <thead>
+            <tr>
+                @* <th>
                 Medlem Id
-            </th> *@
-            <th>
-                Billede
-            </th>
-            @* <th>
+                </th> *@
+                <th>
+                    Billede
+                </th>
+                @* <th>
                 Brugernavn
-            </th> *@
-            @* <th>
+                </th> *@
+                @* <th>
                 Password
-            </th> *@
-            <th>
-                Navn
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Telefon nummer
-            </th>
-            @if (Model.CurrentMember.Admin)
+                </th> *@
+                <th>
+                    Navn
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Telefon nummer
+                </th>
+                @if (Model.CurrentMember.Admin)
+                {
+                    <th>
+                        Adresse
+                    </th>
+                    <th>
+                        Postnummer
+                    </th>
+                    <th>
+                        Type af medlemsskab
+                    </th>
+                    <th>
+                        Admin
+                    </th>
+                    <th></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.members != null && Model.members.Count() != 0)
             {
-                <th>
-                    Adresse
-                </th>
-                <th>
-                    Postnummer
-                </th>
-                <th>
-                    Type af medlemsskab
-                </th>
-                <th>
-                    Admin
-                </th>
-                <th></th>
-            }
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.members != null && Model.members.Count() != 0)
-        {
-            @foreach (var item in Model.members)
-            {
-                <tr>
-                    @* <td>
-                        @item.MemberId
-                    </td> *@
-                    <td>
-                        <img src="~/images/memberimages/@item.Image" class="avatar thumbnail">
-                    </td>
-                    @* <td>
-                        @item.Username
-                    </td> *@
-                    @* <td>
-                        @item.Password
-                    </td> *@
-                    <td>
-                        @item.Name
-                    </td>
-                    <td>
-                        @item.Email
-                    </td>
-                    <td>
-                        @item.PhoneNumber
-                    </td>
-                    @if (Model.CurrentMember.Admin)
-                    {
+                @foreach (var item in Model.members)
+                {
+                    <tr>
+                        @* <td>
+                @item.MemberId
+                </td> *@
                         <td>
-                            @item.Address
+                            <img src="~/images/memberimages/@item.Image" class="avatar thumbnail">
+                        </td>
+                        @* <td>
+                @item.Username
+                </td> *@
+                        @* <td>
+                @item.Password
+                </td> *@
+                        <td>
+                            @item.Name
                         </td>
                         <td>
-                            @item.PostCode
+                            @item.Email
                         </td>
                         <td>
-                            @item.MemberType
+                            @item.PhoneNumber
                         </td>
-                        <td>
-                            @if (item.Admin)
-                            {
-                                <p>✓</p>
-                            }
-                            else
-                            {
+                        @if (Model.CurrentMember.Admin)
+                        {
+                            <td>
+                                @item.Address
+                            </td>
+                            <td>
+                                @item.PostCode
+                            </td>
+                            <td>
+                                @item.MemberType
+                            </td>
+                            <td>
+                                @if (item.Admin)
+                                {
+                                    <p>✓</p>
+                                }
+                                else
+                                {
 
-                            }
-                        </td>
-                        <td>
-                            <p>
+                                }
+                            </td>
+                            <td>
+                                <p>
                                     <a asp-page="/Members/UpdateMember" asp-route-id="@item.MemberId" class="btn btn-primary">Rediger</a>
                                     &nbsp;
                                     <a asp-page="/Members/DeleteMember" asp-route-id="@item.MemberId" class="btn btn-primary">Slet</a>
 
                                 </p>
-                        </td>
+                            </td>
 
 
 
-                    }
-                   @*  <td>
+                        }
+                        @*  <td>
 
-                            @if (Model.CurrentMember.Admin)
-                            {
-                            
-                            }
-                            
-                        
-                    </td> *@
-                </tr>
+                @if (Model.CurrentMember.Admin)
+                {
+
+                }
+
+
+                </td> *@
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
 </div>
 

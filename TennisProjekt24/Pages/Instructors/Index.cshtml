@@ -4,22 +4,100 @@
     ViewData["Title"] = "Practice index";
 }
 
-<head>
+@* <head>
     <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
-</head>
+</head> *@
+
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        width: 300px;
+       
+        
+        
+    }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+
+    /* .container {
+        padding: 2px 16px;
+    } */
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        
+    }
+</style>
+
 
 
 <h1>Klubbens Trænere</h1>
 
-<div class="card">
+
 <p>
-    @if (Model.User.Admin)
+    @if (Model.User != null)
     {
-        <a asp-page="AddInstructor" class="btn btn-primary">Opret træner</a>
+
+
+        @if (Model.User.Admin)
+        {
+            <a asp-page="AddInstructor" class="btn btn-primary">Opret træner</a>
+        }
     }
-    
 </p>
-<table class="table">
+
+@if (Model.Instructors.Count != 0)
+{
+    <div class="container">
+        @foreach (var item in Model.Instructors)
+        {
+
+            <div class="card">
+                <img src="~/images/instructorimages/@item.Image" class="avatar" style="width:100%" />
+                <div style="padding: 2px 16px;">
+                    <h4 style="text-align:center"><b>@item.Name</b></h4>
+
+                    <p style="text-align:center">Tlf: @item.PhoneNumber</p>
+                    @* <pre>@item.Description</pre> *@
+                    <div>
+                        @if (Model.User != null)
+                        {
+
+
+                            @if (Model.User.Admin)
+                            {
+                                <a asp-page="DeleteInstructor" asp-route-id="@item.InstructorId" class="btn btn-primary">Slet</a>
+                                <a asp-page="UpdateInstructor" asp-route-id="@item.InstructorId" class="btn btn-primary">Opdater</a>
+
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+
+        }
+    </div>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <table class="table">
     <thead>
         <tr>
             <th>Navn</th>
@@ -63,15 +141,16 @@
 </table>
 
 
-</div>
+</div> *@
 
 <style>
 
     .avatar {
         vertical-align: middle;
-        width: 80px;
-        height: 80px;
-        border-radius: 40%;
+        width: 150px;
+        height: 150px;
+        border-radius: 20%;
+
     }
 
 

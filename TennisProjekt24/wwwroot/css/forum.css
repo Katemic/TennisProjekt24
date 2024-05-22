@@ -1,0 +1,30 @@
+﻿body {
+}
+
+
+.avatar {
+    vertical-align: middle;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.row {
+    display: flex;
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+.column {
+    flex: 33.3%;
+    padding: 5px;
+}
+
+.height {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+p.letters {
+    word-wrap: break-word;
+}

@@ -19,17 +19,41 @@ namespace TennisProjekt24.Pages.Instructors
         }
         public IActionResult OnGet()
         {
-            if (HttpContext.Session.GetInt32("MemberId") == null)
+
+            Instructors = _instructorService.GetAllInstructors().Where(c => c.InstructorId > 1).ToList();
+
+            if (HttpContext.Session.GetInt32("MemberId") != null)
             {
-                return RedirectToPage("/Members/LogIn");
-            }
-            else
-            {
-                Instructors = _instructorService.GetAllInstructors();
                 int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
                 User = _memberService.GetMember(sessionMemberId);
-                return Page();
+                if (User.Admin)
+                {
+                    Instructors = _instructorService.GetAllInstructors();
+                }
+
             }
+            return Page();
+
+
+
+
+
+            //else
+            //{
+                
+            //    int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+            //    User = _memberService.GetMember(sessionMemberId);
+            //    if(!User.Admin || User == null)
+            //    {
+            //        Instructors = _instructorService.GetAllInstructors().Where(c=> c.InstructorId>1).ToList();
+            //    }
+            //    else
+            //    {
+            //        Instructors = _instructorService.GetAllInstructors();
+            //    }
+                
+            //    return Page();
+            
         }
     }
 }
