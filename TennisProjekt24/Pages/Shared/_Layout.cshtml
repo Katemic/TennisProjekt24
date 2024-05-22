@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TennisProjekt24.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -29,12 +30,12 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">TennisProjekt24</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index">Gadevang Tennisklub</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between navbar">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
@@ -87,9 +88,19 @@
                     }
                     else
                     {
-                        <a class="btn btn-success rounded-pill" asp-area="" asp-page="/Members/Profile">
+                        @* <a class="btn btn-success rounded-pill" asp-area="" asp-page="/Members/Profile">
                             <span>Min profil</span>
-                        </a>
+                        </a> *@
+
+                        <div class="dropdown">
+                            <button onclick="dropDown()" class="dropbtn rounded-pill">Dropdown &#9660;</button>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a asp-page="/Members/Profile">Min profil</a>
+                                <a asp-page="/Members/LogIn" asp-page-handler="Logout">Log ud</a>
+                            </div>
+                        </div>
+
+
                     }
                 </div>
             </div>
@@ -112,5 +123,27 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        
+        function dropDown() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+
+
 </body>
 </html>

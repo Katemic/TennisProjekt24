@@ -4,51 +4,59 @@
 @model TennisProjekt24.Pages.MemberPractice.IndexModel
 @{
 }
-<form method="post">
-    <div class="form-group">
-        @if (Model.Practice.Members.Find(x =>x.MemberId == (int)HttpContextAccessor.HttpContext.Session.GetInt32("MemberId")) != null)
-        {
-        <p>Du er allerede tilmeldt holdet</p>
-        }
-        else if (Model.Practice.MaxNoOfAttendees > Model.Practice.Members.Count) {
-            <input asp-route-practiceId="@Model.Practice.PracticeId" type="submit" value="Attend" class="btn btn-primary" />
-        }
-        else{
-            <p>Holdet tager ikke imod flere deltagere</p>
-        }
 
-    </div>
-</form>
-<p>
-    @Model.Practice.Description
-</p>
 
-<table class="table" value="Deltagere">
-    <thead>
-        <tr>
-            <th>
-                Brugernavn
-            </th>
-            <th>
-                Navn
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.Practice.Members.Count() != 0)
-        {
-            @foreach (var item in Model.Practice.Members)
+<div class="card">
+
+    <form method="post">
+        <div class="form-group">
+            @if (Model.Practice.Members.Find(x => x.MemberId == (int)HttpContextAccessor.HttpContext.Session.GetInt32("MemberId")) != null)
             {
-                <tr>
-                    <td>
-                        @item.Username
-                    </td>
-                    <td>
-                        @item.Name
-                    </td>
-                </tr>
+                <p>Du er allerede tilmeldt holdet</p>
             }
-        }
-    </tbody>
-    <td><a asp-page="/Practices/Index">Back</a></td>
-</table>
+            else if (Model.Practice.MaxNoOfAttendees > Model.Practice.Members.Count)
+            {
+                <input asp-route-practiceId="@Model.Practice.PracticeId" type="submit" value="Attend" class="btn btn-primary" />
+            }
+            else
+            {
+                <p>Holdet tager ikke imod flere deltagere</p>
+            }
+
+        </div>
+    </form>
+    <p>
+        @Model.Practice.Description
+    </p>
+
+    <table class="table" value="Deltagere">
+        <thead>
+            <tr>
+                <th>
+                    Brugernavn
+                </th>
+                <th>
+                    Navn
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Practice.Members.Count() != 0)
+            {
+                @foreach (var item in Model.Practice.Members)
+                {
+                    <tr>
+                        <td>
+                            @item.Username
+                        </td>
+                        <td>
+                            @item.Name
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <td><a asp-page="/Practices/Index">Back</a></td>
+    </table>
+
+</div>

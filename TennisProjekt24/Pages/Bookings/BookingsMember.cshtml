@@ -4,158 +4,172 @@
     ViewData["Title"] = "Booking Index";
 }
 
-<h1>Dine bookinger </h1>
+<a asp-page="/Members/Profile" class="btn btn-secondary">Tilbage</a>
 
-<table class="table">
-    <thead>
-        <tr>
-            
-            <th>
-                Dato
-            </th>
-            <th>
-                Tidspunkt
-            </th>
-            @* <th>
+<div class="card">
+
+    <h1>Dine bookinger </h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>
+                    Dato
+                </th>
+                <th>
+                    Tidspunkt
+                </th>
+                @* <th>
                 Længde
-            </th> *@
-            <th>
-                Medlem
-            </th>
-            <th>
-                Anden spiller
-            </th>
-            <th>
-                Bane nr
-            </th>
-            <th>
-                Booking type
-            </th>
-            <th>
-                Note
-            </th>
+                </th> *@
+                <th>
+                    Medlem
+                </th>
+                <th>
+                    Anden spiller
+                </th>
+                <th>
+                    Bane nr
+                </th>
+                <th>
+                    Booking type
+                </th>
+                <th>
+                    Note
+                </th>
+                <th></th>
 
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.BookingsList.Count() != 0)
-        {
-            @foreach (var item in Model.BookingsList.Where(c => c.Member.MemberId == Model.CurrentMember.MemberId))
+                
+                
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.BookingsList.Count() != 0)
             {
-                <tr>
-                    
-                    <td>
-                        @item.Date
-                    </td>
-                    @* <td>
-                        @item.Time
-                    </td> *@
-                    <td>
-                        @item.Duration
-                    </td>
-                    <td>
-                        @item.Member.Name
-                    </td>
-                    <td>
-                        @item.SecondMemberFull.Name
-                    </td>
-                    <td>
-                        @item.Court.CourtNumber
-                    </td>
-                    <td>
-                        @item.Type
-                    </td>
-                    <td>
-                        @item.Note
-                    </td>
+                @foreach (var item in Model.BookingsList.Where(c => c.Member.MemberId == Model.CurrentMember.MemberId))
+                {
+                    <tr>
 
-                    <td>
-                        <p>
-                            <a asp-page="/Bookings/DeleteBooking" asp-route-id="@item.BookingId">Slet</a> |
-                            <a asp-page="/Bookings/UpdateBooking" asp-route-id="@item.BookingId">Rediger</a>
+                        <td>
+                            @item.Date
+                        </td>
+                        <td>
+                            @item.Time
+                        </td>
+                        @*  <td>
+                @item.Duration
+                </td> *@
+                        <td>
+                            @item.Member.Name
+                        </td>
+                        <td>
+                            @item.SecondMemberFull.Name
+                        </td>
+                        <td>
+                            @item.Court.CourtNumber
+                        </td>
+                        <td>
+                            @item.Type
+                        </td>
+                        <td>
+                            @item.Note
+                        </td>
 
-                        </p>
-                    </td>
-                </tr>
+                        <td>
+                            <a asp-page="/Bookings/UpdateBooking" asp-route-id="@item.BookingId" class="btn btn-primary">Rediger</a>
+                            &nbsp;
+                            <a asp-page="/Bookings/DeleteBooking" asp-route-id="@item.BookingId" class="btn btn-primary">Slet</a>
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-<br /><br />
+    <br /><br />
 
-<h1>Bookinger du skal deltage i </h1>
+    </div>
 
-<table class="table">
-    <thead>
-        <tr>
-           @*  <th>
+<div class="card">
+
+    <h1>Bookinger du skal deltage i </h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                @*  <th>
                 BookingID
-            </th> *@
-            <th>
-                Dato
-            </th>
-            <th>
-                Tidspunkt
-            </th>
-            @* <th>
+                </th> *@
+                <th>
+                    Dato
+                </th>
+                <th>
+                    Tidspunkt
+                </th>
+                @* <th>
                 Længde
-            </th> *@
-            <th>
-                Medlem
-            </th>
-            <th>
-                Anden spiller
-            </th>
-            <th>
-                Bane nr
-            </th>
-            <th>
-                Booking type
-            </th>
-            <th>
-                Note
-            </th>
+                </th> *@
+                <th>
+                    Medlem
+                </th>
+                <th>
+                    Anden spiller
+                </th>
+                <th>
+                    Bane nr
+                </th>
+                <th>
+                    Booking type
+                </th>
+                <th>
+                    Note
+                </th>
 
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.BookingsList.Count() != 0)
-        {
-            @foreach (var item in Model.BookingsList.Where(c => c.SecondMemberFull.MemberId == Model.CurrentMember.MemberId))
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.BookingsList.Count() != 0)
             {
-                <tr>
-                    @* <td>
-                        @item.BookingId
-                    </td> *@
-                    <td>
-                        @item.Date
-                    </td>
-                    <td>
-                        @item.Time
-                    </td>
-                   @*  <td>
-                        @item.Duration
-                    </td> *@
-                    <td>
-                        @item.Member.Name
-                    </td>
-                    <td>
-                        @item.SecondMemberFull.Name
-                    </td>
-                    <td>
-                        @item.Court.CourtNumber
-                    </td>
-                    <td>
-                        @item.Type
-                    </td>
-                    <td>
-                        @item.Note
-                    </td>
+                @foreach (var item in Model.BookingsList.Where(c => c.SecondMemberFull.MemberId == Model.CurrentMember.MemberId))
+                {
+                    <tr>
+                        @* <td>
+                @item.BookingId
+                </td> *@
+                        <td>
+                            @item.Date
+                        </td>
+                        <td>
+                            @item.Time
+                        </td>
+                        @*  <td>
+                @item.Duration
+                </td> *@
+                        <td>
+                            @item.Member.Name
+                        </td>
+                        <td>
+                            @item.SecondMemberFull.Name
+                        </td>
+                        <td>
+                            @item.Court.CourtNumber
+                        </td>
+                        <td>
+                            @item.Type
+                        </td>
+                        <td>
+                            @item.Note
+                        </td>
 
-                    
-                </tr>
+
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+
+    <br /><br />
+
+</div>

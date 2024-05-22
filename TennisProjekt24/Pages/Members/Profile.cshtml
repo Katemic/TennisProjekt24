@@ -13,124 +13,144 @@
 <p> Hej @Model.CurrentMember.Name!</p>
 
 
-<div class="form-group">
-    <table class="table">
-       @*  <tr>
-            <th>Medlems id</th>
-            <td>@Model.CurrentMember.MemberId</td>
-        </tr> *@
-        <tr>
-            <th>Brugernavn</th>
-            <td>@Model.CurrentMember.Username</td>
-        </tr>
-        @* <tr>
-            <th>Password</th>
-            <td>@Model.CurrentMember.Password</td>
-        </tr> *@
-        <tr>
-            <th>Navn</th>
-            <td>@Model.CurrentMember.Name</td>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <td>@Model.CurrentMember.Email</td>
-        </tr>
-        <tr>
-            <th>Telefon Nummer</th>
-            <td>@Model.CurrentMember.PhoneNumber</td>
-        </tr>
-        <tr>
-            <th>Adresse</th>
-            <td>@Model.CurrentMember.Address</td>
-        </tr>
-        <tr>
-            <th>Postnummer</th>
-            <td>@Model.CurrentMember.PostCode</td>
-        </tr>
-        <tr>
-            <th>Type af medlemsskab</th>
-            <td>@Model.CurrentMember.MemberType</td>
-        </tr>
-        <tr>
-            <th>Admin</th>
-            <td>@Model.CurrentMember.Admin</td>
-        </tr>
-        <tr>
-            <th>Billede</th>
-            <td><img src="~/images/memberimages/@Model.CurrentMember.Image"  class="thumbnail avatar" ></td>
-        </tr>
-    </table>
 
-    <a asp-page="/Members/DeleteMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Slet</a>
-    <a asp-page="/Members/UpdateMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Opdater</a>
-    <a asp-page="/Members/UpdatePassword" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Skift adgangskode</a>
-    <a asp-page="/Members/UpdatePhoto" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Skift profilbillede</a>
-    <a asp-page="/Members/index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Se medlemmer</a>
-    <br /> <br /> 
-    <p>Tilmeldinger:</p>
-    <a asp-page="/Events/MyEvents" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Begivenheder</a>
-    <a asp-page="/Bookings/BookingsMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Baner</a>
-    <a asp-page="/MemberPractice/MemberView" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Træningshold</a>
-    <br /> <br />
-    <a asp-page="/Members/LogIn" asp-page-handler="Logout" class="btn btn-warning">Log ud</a>
+<div class="row">
+    <div class="leftcolumn">
+        <div class="card" >
+            <div align="center">
+            <img src="~/images/memberimages/@Model.CurrentMember.Image" class="thumbnail avatar" >
+            </div>
+            <br />
+
+            <a asp-page="/Members/index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-primary">Se alle medlemmer</a> 
+
+            <br />
+
+            <p>Tilmeldinger:</p>
+            <a asp-page="/Events/MyEvents" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-primary">Begivenheder</a> <br />
+            <a asp-page="/Bookings/BookingsMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-primary">Baner</a> <br />
+            <a asp-page="/MemberPractice/MemberView" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-primary">Træningshold</a> <br />
+
+
+            @* <div class="dropdown">
+                <button onclick="myFunction()" class="dropbtn">Indstillinger</button>
+                <div id="myDropdown2" class="dropdown-content">
+                    <a asp-page="/Members/DeleteMember" asp-route-id="@Model.CurrentMember.MemberId">Slet</a> 
+                    <a asp-page="/Members/UpdateMember" asp-route-id="@Model.CurrentMember.MemberId">Opdater</a>
+                    <a asp-page="/Members/UpdatePassword" asp-route-id="@Model.CurrentMember.MemberId">Skift adgangskode</a>
+                    <a asp-page="/Members/UpdatePhoto" asp-route-id="@Model.CurrentMember.MemberId">Skift profilbillede</a>
+                </div>
+            </div> *@
 
 
 
-    <div class="dropdown">
-        <button class="dropbtn">Dropdown</button>
-        <div class="dropdown-content">
-            <a asp-page="/Members/DeleteMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Slet</a>
-            <a asp-page="/Members/UpdateMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Opdater</a>
-            <a asp-page="/Members/UpdatePassword" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Skift adgangskode</a>
-            <a asp-page="/Members/UpdatePhoto" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Skift profilbillede</a>
         </div>
     </div>
 
 
+    <div class="rightcolumn">
+        <div class="card">
+
+            <div class="form-group">
+                <table class="table">
+                    @*  <tr>
+                    <th>Medlems id</th>
+                    <td>@Model.CurrentMember.MemberId</td>
+                    </tr> *@
+                    <tr>
+                        <th>Brugernavn</th>
+                        <td>@Model.CurrentMember.Username</td>
+                    </tr>
+                    @* <tr>
+                    <th>Password</th>
+                    <td>@Model.CurrentMember.Password</td>
+                    </tr> *@
+                    <tr>
+                        <th>Navn</th>
+                        <td>@Model.CurrentMember.Name</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>@Model.CurrentMember.Email</td>
+                    </tr>
+                    <tr>
+                        <th>Telefon Nummer</th>
+                        <td>@Model.CurrentMember.PhoneNumber</td>
+                    </tr>
+                    <tr>
+                        <th>Adresse</th>
+                        <td>@Model.CurrentMember.Address</td>
+                    </tr>
+                    <tr>
+                        <th>Postnummer</th>
+                        <td>@Model.CurrentMember.PostCode</td>
+                    </tr>
+                    <tr>
+                        <th>Type af medlemsskab</th>
+                        <td>@Model.CurrentMember.MemberType</td>
+                    </tr>
+                    @* <tr>
+                        <th>Admin</th>
+                        <td>@Model.CurrentMember.Admin</td>
+                    </tr> *@
+                  @*   <tr>
+                        <th>Billede</th>
+                        <td><img src="~/images/memberimages/@Model.CurrentMember.Image" class="thumbnail avatar"></td>
+                    </tr> *@
+                </table>
+
+                @* <a asp-page="/Members/DeleteMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Slet</a>
+                <a asp-page="/Members/UpdateMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Opdater</a>
+                <a asp-page="/Members/UpdatePassword" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Skift adgangskode</a>
+                <a asp-page="/Members/UpdatePhoto" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Skift profilbillede</a>
+                <a asp-page="/Members/index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Se medlemmer</a> *@
+                <br /> <br />
+                @* <p>Tilmeldinger:</p>
+                <a asp-page="/Events/MyEvents" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Begivenheder</a>
+                <a asp-page="/Bookings/BookingsMember" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Baner</a>
+                <a asp-page="/MemberPractice/MemberView" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-secondary">Træningshold</a>
+                <br /> <br /> *@
+
+
+                <div class="dropdown">
+                    <button onclick="myFunction()" class="btn btn-primary dropbtn">Indstillinger &#9660;</button>
+                    <div id="myDropdown2" class="dropdown-content">
+                        <a asp-page="/Members/UpdateMember" asp-route-id="@Model.CurrentMember.MemberId">Rediger oplysninger</a>
+                        <a asp-page="/Members/UpdatePassword" asp-route-id="@Model.CurrentMember.MemberId">Skift adgangskode</a>
+                        <a asp-page="/Members/UpdatePhoto" asp-route-id="@Model.CurrentMember.MemberId">Skift profilbillede</a>
+                        <a asp-page="/Members/DeleteMember" asp-route-id="@Model.CurrentMember.MemberId">Slet</a>
+                    </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;
+                <a asp-page="/Members/LogIn" asp-page-handler="Logout" class="btn btn-warning">Log ud</a>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 
-<style>
-    .dropbtn {
-        background-color: #4CAF50;
-        color: white;
-        padding: 16px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
+<script>
+    /* When the user clicks on the button,
+    toggle between hiding and showing the dropdown content */
+    function myFunction() {
+        document.getElementById("myDropdown2").classList.toggle("show");
     }
 
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-    }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-            .dropdown-content a:hover {
-                background-color: #f1f1f1
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
             }
-
-    .dropdown:hover .dropdown-content {
-        display: block;
+        }
     }
+</script>
 
-    .dropdown:hover .dropbtn {
-        background-color: #3e8e41;
-    }
-</style>
+
 

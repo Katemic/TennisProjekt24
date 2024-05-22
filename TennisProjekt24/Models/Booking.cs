@@ -5,9 +5,14 @@ using TennisProjekt24.Services;
 namespace TennisProjekt24.Models
 {
 
+    //public enum BookingTypeEnum
+    //{
+    //    None, Member, Event, Practice
+    //}
+
     public enum BookingTypeEnum
     {
-        None, Member, Event, Practice
+        None, Medlem, Event, Træning
     }
 
     public class Booking

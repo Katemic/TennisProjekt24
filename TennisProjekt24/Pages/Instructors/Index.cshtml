@@ -3,10 +3,16 @@
 @{
     ViewData["Title"] = "Practice index";
 }
+
+<head>
+    <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+</head>
+
+<div class="card">
 <p>
     @if (Model.User.Admin)
     {
-        <a asp-page="AddInstructor">Opret træner</a>
+        <a asp-page="AddInstructor" class="btn btn-primary">Opret træner</a>
     }
     
 </p>
@@ -17,6 +23,7 @@
             <th>Telefonnummer</th>
             <th>Beskrivelse</th>
             <th>Billede</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -39,14 +46,21 @@
                     </td>
                     @if (Model.User.Admin)
                     {
-                        <td><a asp-page="DeleteInstructor" asp-route-id="@item.InstructorId">Slet</a></td>
-                        <td><a asp-page="UpdateInstructor" asp-route-id="@item.InstructorId">Opdater</a></td>
-                    }
+                            <td>
+                                <a asp-page="DeleteInstructor" asp-route-id="@item.InstructorId" class="btn btn-primary">Slet</a>
+                                &nbsp;
+                                <a asp-page="UpdateInstructor" asp-route-id="@item.InstructorId" class="btn btn-primary">Opdater</a>
+                            </td>
+
+                        }
                 </tr>
             }
         }
     </tbody>
 </table>
+
+
+</div>
 
 <style>
 
@@ -71,6 +85,6 @@
 
         /*change the number below to scale to the appropriate size*/
         .thumbnail:hover {
-            transform: scale(3);
+            transform: scale(2);
         }
 </style>

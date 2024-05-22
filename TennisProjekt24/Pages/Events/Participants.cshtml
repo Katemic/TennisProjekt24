@@ -5,6 +5,7 @@
 }
 
 <h1>Deltagere</h1>
+
 @if(Model.CurrentAttendees != 0)
 {
     <h2>Antal deltagere på dette event: @Model.CurrentAttendees</h2>
@@ -15,59 +16,62 @@ else
 }
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Navn
-            </th>
-            <th>
-                Telefon
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Medlemstype
-            </th>
-            <th>
-                Antal deltagere
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.Participants.Count() != 0)
-        {
-            @foreach (var item in Model.Participants)
-            {
-                <tr>
-                    <td>
-                        @item.Member.Name
-                    </td>
-                    <td>
-                        @item.Member.PhoneNumber
-                    </td>
-                    <td>
-                        @item.Member.Email
-                    </td>
-                    <td>
-                        @item.Member.MemberType
-                    </td>
-                    <td>
-                        @item.NoOfParticipants
-                    </td>
-                    <td>
-                        @if (Model.CurrentMember.Admin == true)
-                        {
-                            <a asp-page="/Events/RemoveEvBook" asp-page-handler="Admin" asp-route-eventId="@item.Event.EventId" asp-route-adminmemberId="@item.Member.MemberId" asp-route-adminMode="1">Afmeld</a>
-                        }
-                    </td>
-                    <td>
-                            <a asp-page="/Events/UpdateParticipant" asp-route-eventId="@item.Event.EventId" asp-route-memberId="@item.Member.MemberId" >Opdater</a>
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
+<div class="card">
 
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Navn
+                </th>
+                <th>
+                    Telefon
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Medlemstype
+                </th>
+                <th>
+                    Antal deltagere
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Participants.Count() != 0)
+            {
+                @foreach (var item in Model.Participants)
+                {
+                    <tr>
+                        <td>
+                            @item.Member.Name
+                        </td>
+                        <td>
+                            @item.Member.PhoneNumber
+                        </td>
+                        <td>
+                            @item.Member.Email
+                        </td>
+                        <td>
+                            @item.Member.MemberType
+                        </td>
+                        <td>
+                            @item.NoOfParticipants
+                        </td>
+                        <td>
+                            @if (Model.CurrentMember.Admin == true)
+                            {
+                                <a asp-page="/Events/RemoveEvBook" asp-page-handler="Admin" asp-route-eventId="@item.Event.EventId" asp-route-adminmemberId="@item.Member.MemberId" asp-route-adminMode="1">Afmeld</a>
+                            }
+                        </td>
+                        <td>
+                            <a asp-page="/Events/UpdateParticipant" asp-route-eventId="@item.Event.EventId" asp-route-memberId="@item.Member.MemberId">Opdater</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+</div>

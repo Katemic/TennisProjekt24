@@ -6,23 +6,26 @@
 
 <h1>Opdater profilbillede</h1>
 
+<div class="card">
 
-<form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
 
-    <div class="form-group">
-        <label asp-for="@Model.Photo" class="control-label">Tilføj billede</label>
-        <div class="custom-file">
-            <input asp-for="@Model.Photo" class="custom-file-input form-control" />
-            <label class="custom-file-label"></label>
-            <span asp-validation-for="Photo" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="@Model.Photo" class="control-label">Tilføj billede</label>
+            <div class="custom-file">
+                <input asp-for="@Model.Photo" class="custom-file-input form-control" />
+                <label class="custom-file-label"></label>
+                <span asp-validation-for="Photo" class="text-danger"></span>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <br /> <br />
-        <input type="submit" value="Skift billede" class="btn btn-primary" />
-        <a asp-page="Profile" class="btn btn-secondary">Tilbage</a>
-    </div>
+        <div class="form-group">
+            <br /> <br />
+            <input type="submit" value="Skift billede" class="btn btn-primary" />
+            <a asp-page="Profile" class="btn btn-secondary">Tilbage</a>
+        </div>
 
 
-</form>
+    </form>
+
+</div>

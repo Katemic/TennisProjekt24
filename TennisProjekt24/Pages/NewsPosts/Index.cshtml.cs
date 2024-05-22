@@ -24,7 +24,7 @@ namespace TennisProjekt24.Pages.NewsPosts
 
         public void OnGet()
         {
-            posts = _newsPostService.GetAllPosts();
+            posts = _newsPostService.GetAllPosts().OrderByDescending(c=> c.NewsPostId).ToList();
 
             if (HttpContext.Session.GetInt32("MemberId") != null)
             {

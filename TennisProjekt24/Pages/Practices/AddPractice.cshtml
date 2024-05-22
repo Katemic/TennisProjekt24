@@ -42,15 +42,18 @@
         <label asp-for="@Model.Practice.Type" class="control-label">Type af trænning</label>
         <br />
             @foreach (var c in System.Enum.GetValues(typeof(PracticeTypeEnum)))
-                {
-                    <input type="radio" asp-for="@Model.Practice.Type" value="@c" />
-                    <label class="control-label">@c</label>
+            {
+                <input type="radio" asp-for="@Model.Practice.Type" value="@c" />
+                <label class="control-label">@c</label>
                 <br />
-                }
-                <span asp-validation-for="Practice.Type" class="text-danger"></span>
-    </div>
-    <div>
-        <input type="submit" value="Opret" class="btn btn-primary" />
-        <input type="submit" asp-page-handler="Cancel" class="btn btn-warning" value="Afbryd" />
-    </div>
-</form>
+            }
+            <span asp-validation-for="Practice.Type" class="text-danger"></span>
+        </div>
+        <div>
+            <input type="submit" value="Opret" class="btn btn-primary" />
+            <a asp-page="Index" class="btn btn-primary">Gå tilbage</a>
+            @* <input type="submit" asp-page-handler="Cancel" class="btn btn-warning" value="Afbryd" /> *@
+        </div>
+    </form>
+
+</div>

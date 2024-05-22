@@ -114,9 +114,9 @@ namespace TennisProjekt24.Pages.Bookings
                 return Page();
             }
 
-            if ((NewBooking.Type == 0 || NewBooking.Type == null) && CurrentMember.Admin == false)
+            if ((NewBooking.Type == 0 || NewBooking.Type == null) && CurrentMember.Admin == true)
             {
-                Message = "Du skal vælge en at spille med";
+                Message = "Vælg booking type";
 
                 MakeSelectList();
 

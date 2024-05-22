@@ -14,6 +14,8 @@ namespace TennisProjekt24.Pages.NewsPosts
         [BindProperty]
         public NewsPost UpdatedPost { get; set; }
 
+        public string Message { get; set; }
+
         public UpdatePostModel(INewsPostService newsPostService)
         {
              _newsPostService = newsPostService;
@@ -26,11 +28,22 @@ namespace TennisProjekt24.Pages.NewsPosts
 
         public IActionResult OnPost() 
         {
-            
+
             //if (!ModelState.IsValid) 
             //{
             //    return Page();
             //}
+
+            if (UpdatedPost.Title == null)
+            {
+                Message = "Du skal tilføje en titel";
+                return Page();
+            }
+            if (UpdatedPost.Text == null)
+            {
+                Message = "Du skal tilføje tekst";
+                return Page();
+            }
 
             _newsPostService.UpdatePost(UpdatedPost, UpdatedPost.NewsPostId);
             return RedirectToPage("Index");

@@ -7,62 +7,65 @@
 
 <h1>Opdater deltager oplysninger</h1>
 
+<div class="card">
 
-<form method="post">
+    <form method="post">
 
-    <div class="form-group">
-        <label asp-for="@Model.ParticipantToUpdate.Event.Title" class="control-label">Event</label>
-        <input asp-for="@Model.ParticipantToUpdate.Event.Title" class="form-control" readonly="readonly" />
-    </div>
+        <div class="form-group">
+            <label asp-for="@Model.ParticipantToUpdate.Event.Title" class="control-label">Event</label>
+            <input asp-for="@Model.ParticipantToUpdate.Event.Title" class="form-control" readonly="readonly" />
+        </div>
 
-    <div class="form-group">
-        <label asp-for="@Model.ParticipantToUpdate.Member.Name" class="control-label">Navn</label>
-        <input asp-for="@Model.ParticipantToUpdate.Member.Name" class="form-control" readonly="readonly" />
-    </div>
+        <div class="form-group">
+            <label asp-for="@Model.ParticipantToUpdate.Member.Name" class="control-label">Navn</label>
+            <input asp-for="@Model.ParticipantToUpdate.Member.Name" class="form-control" readonly="readonly" />
+        </div>
 
-    <div class="form-group">
-        <label asp-for="@Model.ParticipantToUpdate.NoOfParticipants" class="control-label">Antal deltagere (inklusiv dig selv)</label>
-        <input asp-for="@Model.ParticipantToUpdate.NoOfParticipants" class="form-control" />
-        <span asp-validation-for="ParticipantToUpdate.NoOfParticipants" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="@Model.ParticipantToUpdate.NoOfParticipants" class="control-label">Antal deltagere (inklusiv dig selv)</label>
+            <input asp-for="@Model.ParticipantToUpdate.NoOfParticipants" class="form-control" />
+            <span asp-validation-for="ParticipantToUpdate.NoOfParticipants" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="@Model.ParticipantToUpdate.Note" class="control-label">Eksta kommentar</label>
-        <input asp-for="@Model.ParticipantToUpdate.Note" class="form-control" />
-    </div>
+        <div class="form-group">
+            <label asp-for="@Model.ParticipantToUpdate.Note" class="control-label">Eksta kommentar</label>
+            <input asp-for="@Model.ParticipantToUpdate.Note" class="form-control" />
+        </div>
 
-    <div class="form-group">
-        <br /> <br />
-        <input type="submit" asp-route-eventId="@Model.ParticipantToUpdate.Event.EventId" asp-route-memberId="@Model.ParticipantToUpdate.Member.MemberId" value="Opdater Deltager" class="btn btn-primary" />
-        <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
-    </div>
-    <div class="form-group">
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.EventId" />
-@*         <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Date" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Description" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Place" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Title" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.MemberId" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.Name" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.Address" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.MemberType" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.Email" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.PostCode" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.PhoneNumber" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.Username" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.Password" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.Admin" /> *@
+        <div class="form-group">
+            <br /> <br />
+            <input type="submit" asp-route-eventId="@Model.ParticipantToUpdate.Event.EventId" asp-route-memberId="@Model.ParticipantToUpdate.Member.MemberId" value="Opdater Deltager" class="btn btn-primary" />
+            <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+        </div>
+        <div class="form-group">
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.EventId" />
+            @*         <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Date" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Description" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Place" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Title" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.MemberId" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.Name" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.Address" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.MemberType" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.Email" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.PostCode" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.PhoneNumber" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.Username" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.Password" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Event.Member.Admin" /> *@
 
 
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.MemberId" />
-@*         <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.Name" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.Address" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.MemberType" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.Email" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.PostCode" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.PhoneNumber" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.Username" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.Password" />
-        <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.Admin" /> *@
-    </div>
-</form>
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.MemberId" />
+            @*         <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.Name" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.Address" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.MemberType" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.Email" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.PostCode" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.PhoneNumber" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.Username" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.Password" />
+            <input type="hidden" asp-for="@Model.ParticipantToUpdate.Member.Admin" /> *@
+        </div>
+    </form>
+
+</div>

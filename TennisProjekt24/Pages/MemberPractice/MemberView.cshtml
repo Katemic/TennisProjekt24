@@ -3,6 +3,9 @@
 @{
     ViewData["Title"] = "Practice index for members";
 }
+
+
+
 @if (Model.Practices.Count != 0)
 {
     @foreach (var item in Model.Practices)
@@ -19,3 +22,4 @@
         </div>
     }
 }
+
