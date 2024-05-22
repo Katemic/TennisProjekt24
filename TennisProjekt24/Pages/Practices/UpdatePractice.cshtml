@@ -6,34 +6,34 @@
 <form method="post">
     <input type="hidden" asp-for="@Model.Practice.PracticeId"/>
     <div class="form-group datepickers" >
-        <label asp-for="@Model.Practice.StartDate" class="control-label"></label>
+        <label asp-for="@Model.Practice.StartDate" class="control-label">Startdato</label>
         <input asp-for="@Model.Practice.StartDate" class="form-control" />
         <span asp-validation-for="Practice.StartDate" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Practice.Title" class="control-label"></label>
+        <label asp-for="@Model.Practice.Title" class="control-label">Titel</label>
         <input asp-for="@Model.Practice.Title" class="form-control" />
         <span asp-validation-for="Practice.Title" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Practice.Description" class="control-label"></label>
+        <label asp-for="@Model.Practice.Description" class="control-label">Beskrivelse</label>
         <input asp-for="@Model.Practice.Description" class="form-control" />
         <span asp-validation-for="Practice.Description" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Practice.NoOfTrainings" class="control-label"></label>
+        <label asp-for="@Model.Practice.NoOfTrainings" class="control-label">Antal Træninger</label>
         <input asp-for="@Model.Practice.NoOfTrainings" class="form-control" />
         <span asp-validation-for="Practice.NoOfTrainings" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Practice.MaxNoOfAttendees" class="control-label"></label>
+        <label asp-for="@Model.Practice.MaxNoOfAttendees" class="control-label">Max antal deltagere</label>
         <input asp-for="@Model.Practice.MaxNoOfAttendees" class="form-control" />
         <span asp-validation-for="Practice.MaxNoOfAttendees" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.InstructorId" class="control-label"></label>
+        <label asp-for="@Model.InstructorId" class="control-label">Træner</label>
         <select asp-for="@Model.InstructorId" asp-items="Model.Instructors" class="form-control">
-        <option value="">Vælg en træner</option>
+        <option value="">@Model.Practice.Instructor</option>
         </select>
         <span asp-validation-for="Practice.Instructor" class="text-danger"></span>
     </div>
@@ -52,6 +52,6 @@
     </div>
     <div>
         <input type="submit" value="Opdater" asp-page-handler="Update" class="btn btn-primary" />
-        <input type="submit" asp-page-handler="Cancel" class="btn btn-warning" value="Afbryd" />
+        <input type="submit" asp-page-handler="Afbryd" class="btn btn-warning" value="Afbryd" />
     </div>
 </form>

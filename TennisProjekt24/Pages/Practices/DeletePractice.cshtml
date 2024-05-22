@@ -6,13 +6,13 @@
 <h1>Delete Practice</h1>
 <form method="post">
     <div class="form-group">
-        <label>Practice ID</label> : @Model.DeletePractice.PracticeId <br />
-        <label>Start Date</label> : @Model.DeletePractice.StartDate <br />
-        <label>Title</label> : @Model.DeletePractice.Title <br />
-        <label>Description</label> : @Model.DeletePractice.Description <br/>
-        <label>Number of Trainings</label> : @Model.DeletePractice.NoOfTrainings <br />
-        <label>Max Number of Attendees</label> : @Model.DeletePractice.MaxNoOfAttendees <br />
-        <label>Instructor</label> : @Model.DeletePractice.Instructor.Name
+        <label>ID</label> : @Model.DeletePractice.PracticeId <br />
+        <label>Startato</label> : @Model.DeletePractice.StartDate <br />
+        <label>Titel</label> : @Model.DeletePractice.Title <br />
+        <label>Beskrivelse</label> : @Model.DeletePractice.Description <br/>
+        <label>Antal træninger</label> : @Model.DeletePractice.NoOfTrainings <br />
+        <label>Max antal deltagere</label> : @Model.DeletePractice.MaxNoOfAttendees <br />
+        <label>Træner</label> : @Model.DeletePractice.Instructor.Name
         <label>Type</label> : @Model.DeletePractice.Type <br />
         <input type="submit" asp-page-handler="Delete" asp-route-id="@Model.DeletePractice.PracticeId" class="btn btn-danger" value="Slet" />
         <input type="submit" asp-page-handler="Cancel" class="btn btn-warning" value="Afbryd" />

@@ -6,13 +6,13 @@ namespace TennisProjekt24.Models
     {
 
         public int InstructorId { get; set; }
-        [Required(ErrorMessage ="Name must be assigned")]
+        [Required(ErrorMessage ="Du skal anvive et navn")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "Phone number must be assigned"), MaxLength(11)]
+        [Required(ErrorMessage = "Der skal være et telefonnummer"), MaxLength(11)]
         public string PhoneNumber { get; set; }
-        [Required(ErrorMessage = "Description cannot be empty")]
+        [Required(ErrorMessage = "Der skal være en beskrivelse")]
         public string Description { get; set; }
-        [Required(ErrorMessage = "For the sake of the participants, a picture is required of the instructor")]
+        [Required(ErrorMessage = "For medlemmernes skyld skal der være billede på trænerne")]
         public string? Image { get; set; }
 
         public Instructor()

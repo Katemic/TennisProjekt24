@@ -60,5 +60,10 @@ namespace TennisProjekt24.Pages.Practices
                 return Page();
 
         }
+
+        public IActionResult OnPostCancel()
+        {
+            return RedirectToPage("Index");
+        }
     }
 }
