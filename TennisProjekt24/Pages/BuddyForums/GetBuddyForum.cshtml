@@ -154,11 +154,13 @@
 
 <form method="post">
     <div class="form-group">
-        <label asp-for="@Model.CreateComment.Text" class="control-label"></label>
-        <input asp-for="@Model.CreateComment.Text" class="form-control" />
+        <label asp-for="@Model.CreateComment.Text" class="control-label">Skriv kommentar</label>
+       @*  <input asp-for="@Model.CreateComment.Text" class="form-control" /> *@
+        <textarea asp-for="@Model.CreateComment.Text" class="form-control" id="text" rows="2"></textarea>
+        <br />
     </div>
     <div class="form-group">
-        <input type="submit" value="Create a comment" class="btn btn-primary" />
+        <input type="submit" value="Kommenter" class="btn btn-primary" />
     </div>
 </form>
 
@@ -183,7 +185,7 @@
                                         <h5 class="card-title">@item.Commenter.Name -------- @item.DateTime</h5>
                                 <img src="~/images/memberimages/@item.Commenter.Image" class="avatar">
 
-                                        <p class="card-text">@item.Text</p>
+                                        <pre class="card-text">@item.Text</pre>
                                     </div>
                             @if (item.Commenter.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
                             {
