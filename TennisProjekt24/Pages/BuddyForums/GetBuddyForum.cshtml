@@ -5,6 +5,12 @@
 }
 
 <head>
+
+    <link rel="stylesheet" href="~/css/forum.css" asp-append-version="true" />
+</head>
+
+
+<head>
     <style>
 .avatar {
     vertical-align: middle;
@@ -41,7 +47,7 @@
     </style>
 </head>
 
-<div class="post">
+@* <div class="post">
     <div class="heading">
         <p>@Model.GetBuddyForum.DateTime</p>
         <p>@Model.GetBuddyForum.Title</p>
@@ -50,7 +56,101 @@
     <div class="textBlog">
         <p>@Model.GetBuddyForum.Text</p>
     </div>
+</div> *@
+
+
+<div class="card">
+
+
+
+    <div class="row">
+        <div class="column" style="flex:10%">
+
+            <table style="height:350px">
+                <tr>
+                    <td>
+                        @Model.GetBuddyForum.Poster.Name
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Model.GetBuddyForum.DateTime.ToString("dd MMMM yyyy")
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>@Model.GetBuddyForum.SkillType</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="~/images/memberimages/@Model.GetBuddyForum.Poster.Image" class="thumbnail avatar" style="width: 150px; height: 150px;">
+                    </td>
+                    <td height="100%"></td>
+                </tr>
+                <tr>
+                    <td>
+                        @* @if (item.Poster.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
+                        {
+                            <span style="float: left">
+                                <a asp-page="/BuddyForums/DeleteBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">Slet</a>
+                                <a asp-page="/BuddyForums/UpdateBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">Rediger</a>
+                            </span>
+                        } *@
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="column" style="flex:50%">
+
+
+
+
+            <table @* width="130%" *@ class="height">
+                <tr>
+                    <td><h3>@Model.GetBuddyForum.Title</h3></td>
+                </tr>
+                <tr>
+                    <td><br /></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="height">
+
+                            <pre>@Model.GetBuddyForum.Text</pre>
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+
+        <div class="column" style="flex:10%">
+
+            <table style="height:350px; float:right">
+                <tr>
+                    @* <td style="float:right">@item.SkillType</td> *@
+                </tr>
+                <tr>
+                    <td height="100%"></td>
+                </tr>
+                <tr></tr>
+                @* <tr>
+                    <td><a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@item.PostId" class="btn btn-primary">se kommentare(@_forumCommentService.GetPostComments(item.PostId).Count())</a></td>
+                </tr> *@
+            </table>
+        </div>
+
+    </div>
+
 </div>
+
+
+
+
+
 
 <form method="post">
     <div class="form-group">

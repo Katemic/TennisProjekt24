@@ -1,12 +1,8 @@
-﻿body {
-}
-
-
-.avatar {
+﻿.avatar {
     vertical-align: middle;
     width: 150px;
     height: 150px;
-    border-radius: 50%;
+    border-radius: 20%;
 }
 
 .row {
@@ -20,12 +16,13 @@
     padding: 5px;
 }
 
-.height {
-    max-height: 250px;
-    overflow-y: auto;
-}
+
 
 p.letters {
+    word-wrap: break-word;
+}
+
+pre.letters {
     word-wrap: break-word;
 }
 

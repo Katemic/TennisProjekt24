@@ -4,83 +4,122 @@
     ViewData["Title"] = "Index";
 }
 
+<head>
+
+    <link rel="stylesheet" href="~/css/eventIndex.css" asp-append-version="true" />
+</head>
+
+
+
 <h1>Events</h1>
 
-<div class="card">
+
+<div>
+    @if (Model.CurrentMember.Admin == true)
+    {
+        <a asp-page="AddEvent" class="btn btn-primary">Opret event</a>
+    }
+
+    <a asp-page="MyEvents" class="btn btn-primary">Mine event tilmeldinger</a>
+</div>
 
 
-    <div>
-        @if (Model.CurrentMember.Admin == true)
-        {
-            <a asp-page="AddEvent" class="btn btn-primary">Opret event</a>
-        }
 
-        <a asp-page="MyEvents" class="btn btn-primary">Mine event tilmeldinger</a>
-    </div>
+@if (Model.Events.Count() != 0)
+{
+    @foreach (var item in Model.EventsFuture)
+    {
+        <div class="card">
+            <div class="row">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Event Id
-                </th>
-                <th>
-                    Dato
-                </th>
-                <th>
-                    Titel
-                </th>
-                <th>
-                    Beskrivelse
-                </th>
-                <th>
-                    Lokation
-                </th>
-                <th>
-                    Arrangør
-                </th>
-                <th>
 
-                </th>
-                <th>
+                <div class="column" style="flex:12%">
+                    <table>
+                        <tr>
+                            <td>
+                                <img src="~/images/eventImages/@item.Image" class="avatar thumbnail" style="width: 250px; height: 250px;">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Events.Count() != 0)
-            {
-                @foreach (var item in Model.EventsFuture)
-                {
-                    <tr>
-                        <td>
-                            @item.EventId
-                        </td>
-                        <td>
-                            @item.Date
-                        </td>
-                        <td>
-                            @item.Title
-                        </td>
-                        <td>
-                            @item.Description
-                        </td>
-                        <td>
-                            @item.Place
-                        </td>
-                        <td>
-                            @item.Member.Name
-                        </td>
-                        <td>
-                            <img src="~/images/eventImages/@item.Image" class="avatar thumbnail" style="width: 150px; height: 150px;">
-                        </td>
-                        <td>
-                            <p>
+
+
+                <div class="column; fw-bold" style="flex:10%">
+                    <table>
+                        <tr>
+                            <td >@item.Title</td>
+                        </tr>
+                        <tr>
+                            <td>@item.Date</td>
+                        </tr>
+                        <tr>
+                            <td>Lokation: @item.Place</td>
+                        </tr>
+                        <tr>
+                            <td>Arrangør: @item.Member.Name</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+
+
+                <div class="column" style="flex:55%">
+
+                    <table style="height:210px">
+
+                        <tr>
+
+                            <td>
+                                <span>Beskrivelse</span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td><br /></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="height">
+                                    <pre>@item.Description</pre>
+                                </div>
+
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td height="100%"></td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+
+                        </tr>
+
+                    </table>
+
+                </div>
+    
+
+            </div>
+
+            <div class="row">
+                <div class="column" style="flex:10%">
+
+                    <table style="float:right">
+                        <tr></tr>
+                        <tr>
+                            <td>
                                 @if (Model.CurrentMember.Admin == true)
                                 {
-                                    <a asp-page="/Events/DeleteEvent" asp-route-eventId="@item.EventId">Slet</a>
-                                    <a asp-page="/Events/UpdateEvent" asp-route-eventId="@item.EventId">Rediger</a>
-                                    <a asp-page="/Events/Participants" asp-route-eventId="@item.EventId">Deltagere</a>
+
+                                    <a asp-page="/Events/DeleteEvent" asp-route-eventId="@item.EventId" class="btn btn-primary">Slet</a>
+                                    <a asp-page="/Events/UpdateEvent" asp-route-eventId="@item.EventId" class="btn btn-primary">Rediger</a>
+                                    <a asp-page="/Events/Participants" asp-route-eventId="@item.EventId" class="btn btn-primary">Deltagere</a>
                                 }
                                 @if (Model.CurrentMember != null)
                                 {
@@ -88,24 +127,26 @@
 
                                     if (isAttending)
                                     {
-                                        <a asp-page="/Events/RemoveEvBook" asp-route-eventId="@item.EventId" asp-route-id="@item.Member.MemberId">Afmeld</a>
+                                        <a asp-page="/Events/RemoveEvBook" asp-route-eventId="@item.EventId" asp-route-id="@item.Member.MemberId" class="btn btn-primary">Afmeld</a>
                                     }
                                     else
                                     {
-                                        <a asp-page="/Events/BookEvent" asp-route-eventId="@item.EventId">Tilmeld</a>
+                                        <a asp-page="/Events/BookEvent" asp-route-eventId="@item.EventId" class="btn btn-primary">Tilmeld</a>
                                     }
                                 }
                                 else
                                 {
-                                    <a asp-page="/Members/LogIn">Log ind for at tilmelde</a>
+                                    <a asp-page="/Members/LogIn" class="btn btn-primary">Log ind for at tilmelde</a>
                                 }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                </div>
 
-                            </p>
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
+        </div>
 
-</div>
+    }
+}
+
+
