@@ -8,17 +8,17 @@
 
     <form method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <label asp-for="@Model.Instructor.Name" class="control-label"></label>
+            <label asp-for="@Model.Instructor.Name" class="control-label">Navn</label>
             <input asp-for="@Model.Instructor.Name" class="form-control" />
             <span asp-validation-for="Instructor.Name" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="@Model.Instructor.PhoneNumber" class="control-label"></label>
+            <label asp-for="@Model.Instructor.PhoneNumber" class="control-label">Telefonnummer</label>
             <input asp-for="@Model.Instructor.PhoneNumber" class="form-control" />
             <span asp-validation-for="Instructor.PhoneNumber" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="@Model.Instructor.Description" class="control-label"></label>
+            <label asp-for="@Model.Instructor.Description" class="control-label">Beskrivelse</label>
             <input asp-for="@Model.Instructor.Description" class="form-control" />
             <span asp-validation-for="Instructor.Description" class="text-danger"></span>
         </div>
