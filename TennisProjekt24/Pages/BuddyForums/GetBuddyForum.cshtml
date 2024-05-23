@@ -146,7 +146,7 @@
     </div>
 
 </div>
-
+<br />
 
 
 
@@ -155,9 +155,11 @@
 <form method="post">
     <div class="form-group">
         <label asp-for="@Model.CreateComment.Text" class="control-label">Skriv kommentar</label>
-       @*  <input asp-for="@Model.CreateComment.Text" class="form-control" /> *@
+        @*  <input asp-for="@Model.CreateComment.Text" class="form-control" /> *@
+
         <textarea asp-for="@Model.CreateComment.Text" class="form-control" id="text" rows="2"></textarea>
         <br />
+
     </div>
     <div class="form-group">
         <input type="submit" value="Kommenter" class="btn btn-primary" />
@@ -173,20 +175,20 @@
             <option value="Oldest">Ældste</option>
         </select>
     </div>
-        <table class="table">
-                <div class="comment">
-                    @if (Model.ForumComments.Count() != 0)
-                    {
-                        @foreach (var item in Model.ForumComments)
-                        {
-                            <div class="card-group">
-                                <div class="card" style="width: 50rem;" >
-                                    <div class="card-body">
-                                        <h5 class="card-title">@item.Commenter.Name -------- @item.DateTime</h5>
+    <table class="table">
+        <div class="comment">
+            @if (Model.ForumComments.Count() != 0)
+            {
+                @foreach (var item in Model.ForumComments)
+                {
+                    <div class="card-group">
+                        <div class="card" style="width: 50rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Commenter.Name -------- @item.DateTime.ToString("dddd, dd MMMM yyyy HH:mm")</h5>
                                 <img src="~/images/memberimages/@item.Commenter.Image" class="avatar">
 
-                                        <pre class="card-text">@item.Text</pre>
-                                    </div>
+                                <pre class="card-text">@item.Text</pre>
+                            </div>
                             @if (item.Commenter.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
                             {
                                 <p>
@@ -194,11 +196,11 @@
                                     <a asp-page="/ForumComments/UpdateComment" asp-route-commentId="@item.CommentId" class="btn btn-primary">Opdater</a>
                                 </p>
                             }
-                                </div>
-                            </div>
-                        }
-                    }
-                </div>
-            </tbody>
-        </table>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        </tbody>
+    </table>
 </form>

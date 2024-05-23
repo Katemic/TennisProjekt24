@@ -7,41 +7,46 @@
 
 <h1>Opret post</h1>
 
-<form method="post">
+<div class="card">
 
-    <div class="form-group">
-        <label asp-for="@Model.NewBuddyForum.Title" class="control-label">Titel</label>
-        <input asp-for="@Model.NewBuddyForum.Title" class="form-control" />
-        <span asp-validation-for="@Model.NewBuddyForum.Title" class="text-danger"></span>
-    </div>
+    <form method="post">
 
-    <div class="form-group">
-        <label asp-for="@Model.NewBuddyForum.Text" class="control-label">Tekst</label>
-        @* <input asp-for="@Model.NewBuddyForum.Text" class="form-control" /> *@
-        <textarea asp-for="@Model.NewBuddyForum.Text" class="form-control" id="text" rows="10"></textarea>
-        <span asp-validation-for="@Model.NewBuddyForum.Text" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="@Model.NewBuddyForum.Title" class="control-label">Titel</label>
+            <input asp-for="@Model.NewBuddyForum.Title" class="form-control" />
+            <span asp-validation-for="@Model.NewBuddyForum.Title" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="@Model.NewBuddyForum.SkillType" class="control-label">Erfaringsniveau</label>
-        <br />
-        @foreach (var type in System.Enum.GetValues(typeof(SkillTypeEnum)))
-        {
-            @if ((int)type != 0)
+        <div class="form-group">
+            <label asp-for="@Model.NewBuddyForum.Text" class="control-label">Tekst</label>
+            @* <input asp-for="@Model.NewBuddyForum.Text" class="form-control" /> *@
+            <textarea asp-for="@Model.NewBuddyForum.Text" class="form-control" id="text" rows="10"></textarea>
+            <span asp-validation-for="@Model.NewBuddyForum.Text" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.NewBuddyForum.SkillType" class="control-label">Erfaringsniveau</label>
+            <br />
+            @foreach (var type in System.Enum.GetValues(typeof(SkillTypeEnum)))
             {
-                <input type="radio" asp-for="@Model.NewBuddyForum.SkillType" value="@type" />
-                <label class="control-label">@type</label>
-                <br />
+                @if ((int)type != 0)
+                {
+                    <input type="radio" asp-for="@Model.NewBuddyForum.SkillType" value="@type" />
+                    <label class="control-label">@type</label>
+                    <br />
+                }
             }
-        }
-        <span asp-validation-for="@Model.NewBuddyForum.SkillType" class="text-danger"></span>
-    </div>
+            <span asp-validation-for="@Model.NewBuddyForum.SkillType" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <input type="submit" value="Opret" class="btn btn-primary" />
-    </div>
-</form>
+        <br />
 
-<div>
-    <a asp-page="Index" class="btn btn-primary">Tilbage</a>
+        <div class="form-group">
+            <input type="submit" value="Opret" class="btn btn-primary" />
+            <a asp-page="Index" class="btn btn-primary">Tilbage</a>
+        </div>
+    </form>
+
+
+
 </div>

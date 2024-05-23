@@ -4,6 +4,9 @@
 }
 
 <h1>Slet kommentar</h1>
+
+<div class="card">
+
 <form method="post">
     <div class="form-group">
         @* <label>CommentId</label> : @Model.DeleteComment.CommentId <br /> *@
@@ -11,9 +14,10 @@
         <label>Medlem</label> : @Model.DeleteComment.Commenter.Name <br />
         <label>Text</label> : @Model.DeleteComment.Text <br />
         <label>Dato</label> : @Model.DeleteComment.DateTime <br />
-        <input type="submit" asp-page-handler="Delete" asp-route-commentId="@Model.DeleteComment.CommentId" asp-route-postId="@Model.DeleteComment.PostId" value="Slet" />
+        <br />
+        <input class="btn btn-danger" type="submit" asp-page-handler="Delete" asp-route-commentId="@Model.DeleteComment.CommentId" asp-route-postId="@Model.DeleteComment.PostId" value="Slet" />
+            <a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@Model.DeleteComment.PostId" class="btn btn-primary">Tilbage</a>
     </div>
-    <div>
-        <a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@Model.DeleteComment.PostId" class="btn btn-primary">Tilbage</a>
-    </div>
+    
 </form>
+</div>

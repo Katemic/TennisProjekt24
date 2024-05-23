@@ -4,19 +4,23 @@
     ViewData["Title"] = "DeleteBuddyForum";
 }
 
-<h1>Slet post</h1>
-<form method="post">
-    <div class="form-group">
-        <label>PostId</label> : @Model.DeleteBuddy.PostId <br />
-        <label>Dato</label> : @Model.DeleteBuddy.DateTime <br />
-        <label>Medlem</label> : @Model.DeleteBuddy.Poster.Name <br />
-        <label>Title</label> : @Model.DeleteBuddy.Title <br />
-        <label>Beskrivelse</label> : @Model.DeleteBuddy.Text <br />
-        <label>Erfarings niveau</label> : @Model.DeleteBuddy.SkillType <br />
+<div class="card">
 
-        <input type="submit" asp-page-handler="Delete" asp-route-postId="@Model.DeleteBuddy.PostId" value="Slet" />
-    </div>
-</form>
-<div>
-    <a asp-page="Index" class="btn btn-primary">Tilbage</a>
+    <h1>Slet post</h1>
+    <form method="post">
+        <div class="form-group">
+            <label>PostId</label> : @Model.DeleteBuddy.PostId <br />
+            <label>Dato</label> : @Model.DeleteBuddy.DateTime <br />
+            <label>Medlem</label> : @Model.DeleteBuddy.Poster.Name <br />
+            <label>Title</label> : @Model.DeleteBuddy.Title <br />
+            <label>Beskrivelse</label> : @Model.DeleteBuddy.Text <br />
+            <label>Erfarings niveau</label> : @Model.DeleteBuddy.SkillType <br />
+
+            <br />
+            <input class="btn btn-danger" type="submit" asp-page-handler="Delete" asp-route-postId="@Model.DeleteBuddy.PostId" value="Slet" />
+            <a asp-page="Index" class="btn btn-primary">Tilbage</a>
+        </div>
+    </form>
+
+
 </div>

@@ -10,15 +10,16 @@
     <input type="hidden" asp-for="@Model.CommentToUpdate.CommentId" />
 
     <div class="form-group">
-        <label asp-for="@Model.CommentToUpdate.Text" class="control-label"></label>
-        <input asp-for="@Model.CommentToUpdate.Text" class="form-control" />
+        <label asp-for="@Model.CommentToUpdate.Text" class="control-label">Kommentar</label>
+        @* <input asp-for="@Model.CommentToUpdate.Text" class="form-control" /> *@
+        <textarea asp-for="@Model.CommentToUpdate.Text" class="form-control" id="text" rows="2"></textarea>
         <span asp-validation-for="@Model.CommentToUpdate.Text" class="text-danger"></span>
     </div>
+    <br />
     <div class="form-group">
         <input type="submit" value="opdater" asp-page-handler="Update" asp-route-postId="@Model.CommentToUpdate.PostId" class="btn btn-primary" />
-    </div>
-
-    <div>
         <a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@Model.CommentToUpdate.PostId" class="btn btn-primary">Tilbage</a>
     </div>
+
+ 
 </form>
