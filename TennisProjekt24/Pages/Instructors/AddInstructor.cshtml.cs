@@ -48,10 +48,8 @@ namespace TennisProjekt24.Pages.Instructors
                     string filePath = Path.Combine(_environment.WebRootPath, "/images/instructorimages", Instructor.Image);
                     System.IO.File.Delete(filePath);
                 }
-
                 Instructor.Image = ProcessUploadedFile();
-            }
-            else
+            }else
             {
                 Instructor.Image = "default.jpg";
             }

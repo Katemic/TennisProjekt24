@@ -20,7 +20,7 @@ namespace TennisProjekt24.Models
         public int NoOfTrainings { get; set; }
         [Required(), Range(1,int.MaxValue, ErrorMessage ="Højeste antal deltagere skal være mere end 0")]
         public int MaxNoOfAttendees { get; set; }
-        public Instructor Instructor { get; set; }
+        public Instructor? Instructor { get; set; }
         [Required(ErrorMessage ="Vælg type")]
         public PracticeTypeEnum Type { get; set; }
         public List<Member> Members { get; set; }

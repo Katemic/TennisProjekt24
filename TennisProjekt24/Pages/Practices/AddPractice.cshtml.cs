@@ -61,10 +61,10 @@ namespace TennisProjekt24.Pages.Practices
         {
             Practice.Instructor = _instructorService.GetInstructor(InstructorId);
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             _service.AddPractice(Practice);
             return RedirectToPage("Index");
         }

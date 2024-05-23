@@ -12,7 +12,6 @@ namespace TennisProjekt24.Models
         public string PhoneNumber { get; set; }
         [Required(ErrorMessage = "Der skal være en beskrivelse")]
         public string Description { get; set; }
-        [Required(ErrorMessage = "For medlemmernes skyld skal der være billede på trænerne")]
         public string? Image { get; set; }
 
         public Instructor()
