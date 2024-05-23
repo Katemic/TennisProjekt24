@@ -24,11 +24,11 @@
         <p class="text-danger">@Model.UsernameMessage</p>
     </div>
 
-   @*  <div class="form-group">
+    <div class="form-group" hidden>
     <label asp-for="@Model.UpdatedMember.Password" class="control-label">Password</label>
     <input asp-for="@Model.UpdatedMember.Password" class="form-control" />
     <span asp-validation-for="UpdatedMember.Password" class="text-danger"></span>
-    </div> *@
+    </div>
 
     <div class="form-group">
     <label asp-for="@Model.UpdatedMember.Name" class="control-label">Navn</label>
