@@ -33,6 +33,10 @@ namespace TennisProjekt24.Pages.Calender
             }
             FirstDayOfMonth = new DateTime(CurrentYear, CurrentMonth, 1);
             FirstDay = FirstDayOfMonth.AddDays(-(int)FirstDayOfMonth.DayOfWeek);
+            if (FirstDayOfMonth.DayOfWeek == DayOfWeek.Sunday)
+            {
+                FirstDay = FirstDayOfMonth.AddDays(FirstDayOfMonth.Day -2);
+            }
             Events = _eventService.GetAllEvents();
         }
     }
