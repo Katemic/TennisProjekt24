@@ -63,11 +63,13 @@
 
                     <p style="text-align:center">Tlf: @item.PhoneNumber</p>
                     @* <pre>@item.Description</pre> *@
-                    <div>
+                    <br />
+                    <br />
+                    <div style="text-align:center">
                         @if (Model.User != null)
                         {
 
-
+                            
                             @if (Model.User.Admin)
                             {
                                 <a asp-page="DeleteInstructor" asp-route-id="@item.InstructorId" class="btn btn-primary">Slet</a>
