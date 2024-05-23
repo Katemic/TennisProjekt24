@@ -6,6 +6,8 @@
 
 <h1>Tilmeld event</h1>
 
+@* <p class="text-danger">@Model.Message</p> *@
+
 <div class="card">
 
     <form method="post">
@@ -53,7 +55,7 @@
             </div> *@
 
             <input type="submit" value="Tilmeld" asp-route-eventId="@Model.EventBook.EventId" class="btn btn-success" />
-            <a asp-page="/Events/RemoveEvBook" asp-route-eventId="@Model.EventBook.EventId" asp-route-memberId="@Model.CurrentMember.MemberId" class="btn btn-warning">Afmeld</a>
+            @* <a asp-page="/Events/RemoveEvBook" asp-route-eventId="@Model.EventBook.EventId" asp-route-memberId="@Model.CurrentMember.MemberId" class="btn btn-warning">Afmeld</a> *@
             <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
 
     </form>

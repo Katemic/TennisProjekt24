@@ -16,6 +16,8 @@ namespace TennisProjekt24.Pages.Events
         [BindProperty]
         [Required(ErrorMessage = "Tilføj billede")]
         public IFormFile Picture { get; set; }
+        public string Message { get; set; }
+
         public UpdateEventModel(IEventService eventService, IWebHostEnvironment webHostEnvironment)
         {
             _eventService = eventService;
@@ -31,15 +33,39 @@ namespace TennisProjekt24.Pages.Events
             //{
             //    return Page();
             //}
-            if (Picture != null)
-            {
-                if (EventUpdate.Image != null)
-                {
-                    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "/images/eventImages", EventUpdate.Image);
-                    System.IO.File.Delete(filePath);
-                }
+            //if (Picture != null)
+            //{
+            //    if (EventUpdate.Image != null)
+            //    {
+            //        string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "/images/eventImages", EventUpdate.Image);
+            //        System.IO.File.Delete(filePath);
+            //    }
 
-                EventUpdate.Image = ProcessUploadedFile();
+            //    EventUpdate.Image = ProcessUploadedFile();
+            //}
+            if (EventUpdate.Date < DateTime.Now)
+            {
+                Message = "Vælg dato";
+
+                return Page();
+            }
+            if (EventUpdate.Title == null)
+            {
+                Message = "Tilføj titel";
+
+                return Page();
+            }
+            if (EventUpdate.Description == null)
+            {
+                Message = "Tilføj beskrivelse";
+
+                return Page();
+            }
+            if (EventUpdate.Place == null)
+            {
+                Message = "Tilføj Afholdelsessted";
+
+                return Page();
             }
             _eventService.UpdateEvent(EventUpdate);
             return RedirectToPage("Index");

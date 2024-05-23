@@ -17,6 +17,8 @@ namespace TennisProjekt24.Pages.Events
         //public List<Member> members = new List<Member>();
         [BindProperty]
         public Participant Attendee { get; set; }
+        public string Message { get; set; }
+
         //[BindProperty]
         //public int NoOfParticipants { get; set; }
         //[BindProperty]
@@ -50,6 +52,12 @@ namespace TennisProjekt24.Pages.Events
             CurrentMember = _memberService.GetMember(sessionMemberId);
             Attendee.Event = _eventService.GetEvent(eventId);
             Attendee.Member = CurrentMember;
+            if (Attendee.NoOfParticipants > 5 || Attendee.NoOfParticipants < 1)
+            {
+                Message = "Vælg antal mellem 1 og 5";
+                EventBook = _eventService.GetEvent(eventId);
+                return Page();
+            }
             //if (!ModelState.IsValid)
             //{
             //    EventBook = _eventService.GetEvent(eventId);

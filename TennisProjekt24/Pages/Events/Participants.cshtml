@@ -36,6 +36,9 @@ else
                 <th>
                     Antal deltagere
                 </th>
+                <th>
+                    Note
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -58,6 +61,9 @@ else
                         </td>
                         <td>
                             @item.NoOfParticipants
+                        </td>
+                        <td>
+                            @item.Note
                         </td>
                         <td>
                             @if (Model.CurrentMember.Admin == true)
