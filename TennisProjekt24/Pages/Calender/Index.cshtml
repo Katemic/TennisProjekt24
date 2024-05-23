@@ -5,19 +5,10 @@
     ViewData["Title"] = "Calender";
 }
 
-@* <form method="post">
-<input type="submit" value="Næste måned" asp-page-handler="Next" class="btn btn-primary" />
-</form> *@
-
 <form method="get">
-    @* <input type="submit" value="Næste måned" asp-route-currentMonth="@Model.CurrentMonth" onclick="this.form.submit()" class="btn btn-primary" /> *@
-    <div class="form-group">
-        <label class="custom-control-label">Sort Order</label> <br />
-        <select asp-for="CurrentMonth" onchange="this.form.submit()">
-            <option value="Januar"></option>
-            <option value="Febuar"></option>
-        </select>
-    </div>
+        <select asp-for="Months" onchange="this.form.submit()" asp-items="Html.GetEnumSelectList<Months>()">
+        <option value="">vælg en måned</option>
+    </select>
 </form>
 
 <table class="table">

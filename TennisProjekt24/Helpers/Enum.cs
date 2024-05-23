@@ -13,6 +13,6 @@
     }
     public enum Months
     {
-        Januar, Febuar, Marts, April, May, Juni, Juli, August, September, October, November, December
+        None, Januar, Febuar, Marts, April, May, Juni, Juli, August, September, October, November, December
     }
 }

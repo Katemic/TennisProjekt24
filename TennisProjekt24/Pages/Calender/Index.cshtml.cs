@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using TennisProjekt24.Helpers;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
 
@@ -9,24 +10,9 @@ namespace TennisProjekt24.Pages.Calender
     {
         private IEventService _eventService;
         public int CurrentYear { get; set; } = DateTime.Now.Year;
-        [BindProperty]
-        //[BindProperty(SupportsGet = true)]
-        public int CurrentMonth { get; set; } = DateTime.Now.Month;
-        //public int CurrentMonth 
-        //{ 
-        //    get 
-        //    {
-        //        if (Session["CurrentMonth"] == null)
-        //            return DateTime.Now.Month;
-        //        return (int)Session["CurrentMonth"];
-        //    }
-        //    set
-        //    {
-        //        Session[]
-        //    }
-        //}
-        [BindProperty]
-        public DateTime CurrentDay { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public Months Months { get; set; }
+        public int CurrentMonth { get; set; }
         public DateTime FirstDayOfMonth { get; set; }
         public DateTime FirstDay { get; set; }
         [BindProperty]
@@ -36,25 +22,18 @@ namespace TennisProjekt24.Pages.Calender
         {
             _eventService = eventService;
         }
-
-        //public void OnGet(int currentMonth)
         public void OnGet()
         {
-            //CurrentMonth = currentMonth;
-            //CurrentYear = DateTime.Now.Year;
-            //CurrentMonth = DateTime.Now.Month;
+            if (Months == 0)
+            {
+                CurrentMonth = DateTime.Now.Month;
+            } else
+            {
+                CurrentMonth = (int)Months;
+            }
             FirstDayOfMonth = new DateTime(CurrentYear, CurrentMonth, 1);
             FirstDay = FirstDayOfMonth.AddDays(-(int)FirstDayOfMonth.DayOfWeek);
             Events = _eventService.GetAllEvents();
         }
-        //public void OnPostNext()
-        //{
-        //    CurrentMonth = CurrentMonth + 1;
-        //    if (CurrentMonth == 13) 
-        //    {
-        //        CurrentMonth = 1;
-        //        CurrentYear++;
-        //    }
-        //}
     }
 }
