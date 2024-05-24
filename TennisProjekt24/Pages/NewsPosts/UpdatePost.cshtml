@@ -10,42 +10,47 @@
 
     <p class="text-danger">@Model.Message</p>
 
-    <form method="post">
+    @if (Model.UpdatedPost != null)
+    {
 
-        <div class="form-group">
-            <label asp-for="@Model.UpdatedPost.NewsPostId" class="control-label">OpslagID</label>
-            <input asp-for="@Model.UpdatedPost.NewsPostId" class="form-control" readonly="readonly" />
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.UpdatedPost.Date" class="control-label">Dato</label>
-            <input asp-for="@Model.UpdatedPost.Date" class="form-control" readonly="readonly" />
-        </div>
+        <form method="post">
 
-        <div class="form-group">
-            <label asp-for="@Model.UpdatedPost.Member" class="control-label">Skrevet af</label>
-            <input asp-for="@Model.UpdatedPost.Member.Name" class="form-control" readonly="readonly" />
-            <input asp-for="@Model.UpdatedPost.Member.MemberId" class="form-control" hidden />
-        </div>
+            <div class="form-group">
+                <label asp-for="@Model.UpdatedPost.NewsPostId" class="control-label">OpslagID</label>
+                <input asp-for="@Model.UpdatedPost.NewsPostId" class="form-control" readonly="readonly" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.UpdatedPost.Date" class="control-label">Dato</label>
+                <input asp-for="@Model.UpdatedPost.Date" class="form-control" readonly="readonly" />
+            </div>
 
-        <div class="form-group">
-            <label asp-for="@Model.UpdatedPost.Title" class="control-label">Overskrift</label>
-            <input asp-for="@Model.UpdatedPost.Title" class="form-control" />
-            @* <span asp-validation-for="UpdatedPost.Title" class="text-danger"></span> *@
-        </div>
+            <div class="form-group">
+                <label asp-for="@Model.UpdatedPost.Member" class="control-label">Skrevet af</label>
+                <input asp-for="@Model.UpdatedPost.Member.Name" class="form-control" readonly="readonly" />
+                <input asp-for="@Model.UpdatedPost.Member.MemberId" class="form-control" hidden />
+            </div>
 
-        <div class="form-group">
-            <label asp-for="@Model.UpdatedPost.Text" class="control-label">Tekst</label>
-            <textarea asp-for="@Model.UpdatedPost.Text" class="form-control" id="text" rows="10"></textarea>
-            @* <span asp-validation-for="UpdatedPost.Text" class="text-danger"></span> *@
-        </div>
+            <div class="form-group">
+                <label asp-for="@Model.UpdatedPost.Title" class="control-label">Overskrift</label>
+                <input asp-for="@Model.UpdatedPost.Title" class="form-control" />
+                @* <span asp-validation-for="UpdatedPost.Title" class="text-danger"></span> *@
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.UpdatedPost.Text" class="control-label">Tekst</label>
+                <textarea asp-for="@Model.UpdatedPost.Text" class="form-control" id="text" rows="10"></textarea>
+                @* <span asp-validation-for="UpdatedPost.Text" class="text-danger"></span> *@
+            </div>
 
 
-        <div class="form-group">
-            <br /> <br />
-            <input type="submit" asp-route-id="@Model.UpdatedPost.NewsPostId" value="Rediger opslag" class="btn btn-primary" />
-            <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
-        </div>
+            <div class="form-group">
+                <br /> <br />
+                <input type="submit" asp-route-id="@Model.UpdatedPost.NewsPostId" value="Rediger opslag" class="btn btn-primary" />
+                <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+            </div>
 
-    </form>
+        </form>
+
+    }
 
 </div>

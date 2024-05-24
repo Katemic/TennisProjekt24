@@ -95,7 +95,7 @@
             </tr>
         </thead>
         <tbody>
-            @if (Model.BookingsList.Count() != 0)
+            @if (Model.BookingsList != null && Model.BookingsList.Count() != 0)
             {
                 @foreach (var item in Model.BookingsList)
                 {

@@ -18,36 +18,38 @@
 }
 
 
-
-@foreach (var item in Model.posts)
+@if (Model.posts != null && Model.posts.Count() != 0)
 {
+    @foreach (var item in Model.posts)
+    {
 
-    <div class="card">
+        <div class="card">
 
-        <h2 align="center">@item.Title</h2>
-        <h7 align="center">@item.Date.ToString("dddd, dd MMMM yyyy")</h7>
-        <h7 align="center">skrevet af @item.Member.Name </h7>
-        <br />
-        <pre align="center" style="font-family:Verdana">@item.Text</pre>
+            <h2 align="center">@item.Title</h2>
+            <h7 align="center">@item.Date.ToString("dddd, dd MMMM yyyy")</h7>
+            <h7 align="center">skrevet af @item.Member.Name </h7>
+            <br />
+            <pre align="center" style="font-family:Verdana">@item.Text</pre>
 
-        <br />
+            <br />
 
-        @if (Model.CurrentMember != null)
-        {
-            if (Model.CurrentMember.Admin)
+            @if (Model.CurrentMember != null)
             {
-                <div>
-                    <a asp-page="DeletePost" asp-route-id="@item.NewsPostId" class="btn btn-secondary">Slet opslag</a>
-                    <a asp-page="UpdatePost" asp-route-id="@item.NewsPostId" class="btn btn-secondary">Rediger opslag</a>
-                </div>
+                if (Model.CurrentMember.Admin)
+                {
+                    <div>
+                        <a asp-page="DeletePost" asp-route-id="@item.NewsPostId" class="btn btn-secondary">Slet opslag</a>
+                        <a asp-page="UpdatePost" asp-route-id="@item.NewsPostId" class="btn btn-secondary">Rediger opslag</a>
+                    </div>
+                }
             }
-        }
-        
-        
-    </div>
 
-    <br />
-    
+
+        </div>
+
+        <br />
+
+    }
 }
 
 

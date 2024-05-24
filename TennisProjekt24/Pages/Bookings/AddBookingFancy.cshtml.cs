@@ -82,12 +82,12 @@ namespace TennisProjekt24.Pages.Bookings
             }
             catch (SqlException sql)
             {
-                ViewData["ErrorMessage"] = sql.Message;
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + sql.Message;
 
             }
             catch (Exception ex)
             {
-                ViewData["ErrorMessage"] = ex.Message;
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + ex.Message;
 
             }
             return Page();
@@ -99,74 +99,91 @@ namespace TennisProjekt24.Pages.Bookings
 
         public IActionResult OnPost(int id, DateOnly date, TimeOnly time)
         {
-            
-            int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
-            CurrentMember = _memberService.GetMember(sessionMemberId);
 
-            
-            
-            if (SecondMemberId == 0)
+            try
             {
-                Message = "Du skal vælge en at spille med";
 
-                MakeSelectList();
 
-                return Page();
+                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                CurrentMember = _memberService.GetMember(sessionMemberId);
+
+
+
+                if (SecondMemberId == 0)
+                {
+                    Message = "Du skal vælge en at spille med";
+
+                    MakeSelectList();
+
+                    return Page();
+                }
+
+                if ((NewBooking.Type == 0 || NewBooking.Type == null) && CurrentMember.Admin == true)
+                {
+                    Message = "Vælg booking type";
+
+                    MakeSelectList();
+
+                    return Page();
+                }
+
+
+                if (CheckBookings(CurrentMember.MemberId) == false)
+                {
+                    Message = "Du har for mange bookinger, du må kun booke 4 timer inden for 14 dages periode";
+
+                    MakeSelectList();
+
+                    return Page();
+                }
+                if (CheckBookings(SecondMemberId) == false)
+                {
+                    Message = "Din makker har for mange bookinger";
+
+                    MakeSelectList();
+
+                    return Page();
+
+                }
+
+
+                if (CurrentMember.Admin == false)
+                {
+                    NewBooking.Type = (BookingTypeEnum)1;
+                }
+
+
+                NewBooking.Date = date;
+                NewBooking.Time = time;
+                NewBooking.Court = _courtService.GetCourt(id);
+                NewBooking.SecondMemberFull = _memberService.GetMember(SecondMemberId);
+                NewBooking.Member = CurrentMember;
+                NewBooking.Duration = 1;
+
+
+                if (_bookingService.CheckAvailability(NewBooking.Court.CourtId, NewBooking.Date, NewBooking.Time) == false)
+                {
+                    Message = "Banen er allerede booket på valgte tidspunkt, vælg et andet tidspunkt og prøv igen";
+                    return Page();
+
+                }
+
+
+                _bookingService.AddBooking(NewBooking);
+                return RedirectToPage("FancyIndex");
+            }
+            catch (SqlException sql)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + sql.Message;
+
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + ex.Message;
+
             }
 
-            if ((NewBooking.Type == 0 || NewBooking.Type == null) && CurrentMember.Admin == true)
-            {
-                Message = "Vælg booking type";
-
-                MakeSelectList();
-
-                return Page();
-            }
-
-
-            if(CheckBookings(CurrentMember.MemberId)==false)
-            {
-                Message = "Du har for mange bookinger, du må kun booke 4 timer inden for 14 dages periode";
-
-                MakeSelectList();
-
-                return Page();
-            }
-            if (CheckBookings(SecondMemberId)==false) 
-            {
-                Message = "Din makker har for mange bookinger";
-
-                MakeSelectList();
-
-                return Page();
-
-            }
-
-
-            if (CurrentMember.Admin==false) 
-            {
-                NewBooking.Type = (BookingTypeEnum)1;
-            }
-
-           
-            NewBooking.Date = date;
-            NewBooking.Time = time;
-            NewBooking.Court = _courtService.GetCourt(id);
-            NewBooking.SecondMemberFull = _memberService.GetMember(SecondMemberId);
-            NewBooking.Member = CurrentMember;
-            NewBooking.Duration = 1;
-
-
-            if (_bookingService.CheckAvailability(NewBooking.Court.CourtId, NewBooking.Date, NewBooking.Time) == false)
-            {
-                Message = "Banen er allerede booket på valgte tidspunkt, vælg et andet tidspunkt og prøv igen";
-                return Page();
-
-            }
- 
-
-            _bookingService.AddBooking(NewBooking);
-            return RedirectToPage("FancyIndex");
+            return Page();
 
         }
 

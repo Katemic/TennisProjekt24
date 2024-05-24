@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Reflection.Metadata;
 using TennisProjekt24.Helpers;
@@ -58,52 +59,67 @@ namespace TennisProjekt24.Pages.Bookings
         public void OnGet()
         {
 
-
-            string sql = "";
-            if (TypeFilter == "Tennis")
+            try
             {
-                sql += "AND Type = 2 ";
-            }
-            if (TypeFilter == "Paddel")
-            {
-                sql += "AND Type = 1 ";
-            }
-            if (OutdoorFilter == "Udendørs")
-            {
-                sql += "AND Outdoor = 1 ";
-            }
-            if (OutdoorFilter == "Indendørs")
-            {
-                sql += "AND Outdoor = 0 ";
-            }
-
-            if (sql.Length == 0)
-            {
-                Courts = _courtService.GetAllCourts();
-            }
-            else
-            {
-                Courts = _courtService.GetAllCourts(sql);
-            }
 
 
-            if (Date.Equals(new DateOnly(1,1,1)))
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now);
-                Bookings = _bookingService.GetBookingsByDate(Date);
-            }
-            else 
-            {
-                Bookings = _bookingService.GetBookingsByDate(Date);
-            }
-
-            if (HttpContext.Session.GetInt32("MemberId") != null)
-            {
-                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
-                CurrentMember = _memberService.GetMember(sessionMemberId);
-            }
 
 
+                string sql = "";
+                if (TypeFilter == "Tennis")
+                {
+                    sql += "AND Type = 2 ";
+                }
+                if (TypeFilter == "Paddel")
+                {
+                    sql += "AND Type = 1 ";
+                }
+                if (OutdoorFilter == "Udendørs")
+                {
+                    sql += "AND Outdoor = 1 ";
+                }
+                if (OutdoorFilter == "Indendørs")
+                {
+                    sql += "AND Outdoor = 0 ";
+                }
+
+                if (sql.Length == 0)
+                {
+                    Courts = _courtService.GetAllCourts();
+                }
+                else
+                {
+                    Courts = _courtService.GetAllCourts(sql);
+                }
+
+
+                if (Date.Equals(new DateOnly(1, 1, 1)))
+                {
+                    Date = DateOnly.FromDateTime(DateTime.Now);
+                    Bookings = _bookingService.GetBookingsByDate(Date);
+                }
+                else
+                {
+                    Bookings = _bookingService.GetBookingsByDate(Date);
+                }
+
+                if (HttpContext.Session.GetInt32("MemberId") != null)
+                {
+                    int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                    CurrentMember = _memberService.GetMember(sessionMemberId);
+                }
+
+            }
+            catch (SqlException sql)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + sql.Message;
+
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + ex.Message;
+
+            }
 
             //Courts = _courtService.GetAllCourts();
             //Bookings = _bookingService.GetAllBookings();

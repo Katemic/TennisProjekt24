@@ -73,6 +73,24 @@ namespace TennisProjekt24.Models
 
         }
 
+        public Member(string username, string password, string name, string email, string phoneNumber,
+            string address, string postcode, MemberTypeEnum memberType, bool admin, string image)
+        {
+            
+            Username = username;
+            Password = password;
+            Name = name;
+            Email = email;
+            PhoneNumber = phoneNumber;
+            Address = address;
+            PostCode = postcode;
+            MemberType = memberType;
+            Admin = admin;
+            Image = image;
+
+
+        }
+
 
         public override bool Equals(object? obj)
         {

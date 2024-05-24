@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 using System.ComponentModel.DataAnnotations;
 using TennisProjekt24.Interfaces;
 
@@ -30,31 +31,62 @@ namespace TennisProjekt24.Pages.Members
 
         public void OnGet(int id)
         {
-            MemberId = id;
+            try
+            {
+                MemberId = id;
+            }
+            catch (SqlException sql)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + sql.Message;
+
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + ex.Message;
+
+            }
+
         }
 
         public IActionResult OnPost(int id) 
         {
 
-            if (!ModelState.IsValid)
+            try
             {
-                return Page();
-            }
 
-            if (Photo != null)
-            {
-                if (Image != null)
+                if (!ModelState.IsValid)
                 {
-                    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "/images/memberimages", Image);
-                    System.IO.File.Delete(filePath);
+                    return Page();
                 }
 
-                Image = ProcessUploadedFile();
-            }
+                if (Photo != null)
+                {
+                    if (Image != null)
+                    {
+                        string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "/images/memberimages", Image);
+                        System.IO.File.Delete(filePath);
+                    }
 
-            _memberService.UpdatePhoto(id, Image);
-            return RedirectToPage("Profile");
+                    Image = ProcessUploadedFile();
+                }
+
+                _memberService.UpdatePhoto(id, Image);
+                return RedirectToPage("Profile");
+            }
+            catch (SqlException sql)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + sql.Message;
+
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + ex.Message;
+
+            }
+            return Page();
         }
+
+
 
         private string ProcessUploadedFile()
         {

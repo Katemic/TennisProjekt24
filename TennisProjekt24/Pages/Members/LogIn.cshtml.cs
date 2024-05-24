@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
 
@@ -26,62 +27,108 @@ namespace TennisProjekt24.Pages.Members
 
         public IActionResult OnGet()
         {
-            if (HttpContext.Session.GetInt32("MemberId") != null)
+            try
             {
-                return RedirectToPage("Profile");
-            }
 
+                if (HttpContext.Session.GetInt32("MemberId") != null)
+                {
+                    return RedirectToPage("Profile");
+                }
+
+                return Page();
+
+            }
+            catch (SqlException sql)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + sql.Message;
+
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + ex.Message;
+
+            }
             return Page();
 
         }
 
         public void OnGetLogout()
         {
-            HttpContext.Session.Remove("MemberId");
+            try
+            {
+                HttpContext.Session.Remove("MemberId");
+            }
+            catch (SqlException sql)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + sql.Message;
+
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + ex.Message;
+
+            }
+
         }
 
 
         public IActionResult OnPost() 
         {
-            bool validInput = true;
-            if (Username == null)
+
+            try
             {
-                validInput = false;
-                Message = "Udfyld brugernavn";
-            }
-            if (Password == null) 
-            {
-                if (validInput == false) 
-                {
-                    Message = "Udfyld brugernavn og password";
-                }
-                else 
+                bool validInput = true;
+                if (Username == null)
                 {
                     validInput = false;
-                    Message = "Udfyld password";
+                    Message = "Udfyld brugernavn";
                 }
-            }
-
-            if (validInput) 
-            {
-                Member memberLogin = _memberService.VerifyLogin(Username, Password);
-                if (memberLogin != null) 
+                if (Password == null)
                 {
-                    HttpContext.Session.SetInt32("MemberId", memberLogin.MemberId);
-                    return RedirectToPage("Profile");
+                    if (validInput == false)
+                    {
+                        Message = "Udfyld brugernavn og password";
+                    }
+                    else
+                    {
+                        validInput = false;
+                        Message = "Udfyld password";
+                    }
+                }
+
+                if (validInput)
+                {
+                    Member memberLogin = _memberService.VerifyLogin(Username, Password);
+                    if (memberLogin != null)
+                    {
+                        HttpContext.Session.SetInt32("MemberId", memberLogin.MemberId);
+                        return RedirectToPage("Profile");
+                    }
+                    else
+                    {
+                        Message = "Forkert brugernavn eller password";
+                        Username = "";
+                        Password = "";
+                        return Page();
+                    }
                 }
                 else
                 {
-                    Message = "Forkert brugernavn eller password";
-                    Username = "";
-                    Password = "";
                     return Page();
                 }
             }
-            else
+            catch (SqlException sql)
             {
-                return Page();
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + sql.Message;
+
             }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + ex.Message;
+
+            }
+
+            return Page();
 
         }
 

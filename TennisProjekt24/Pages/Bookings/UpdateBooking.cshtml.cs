@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.Identity.Client.Extensibility;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
@@ -34,37 +35,69 @@ namespace TennisProjekt24.Pages.Bookings
 
         public IActionResult OnGet(int id)
         {
-            if (HttpContext.Session.GetInt32("MemberId") == null)
-            {
-                return RedirectToPage("LogIn");
-            }
-            else
-            {
-                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
-                CurrentMember = _memberService.GetMember(sessionMemberId);
-                BookingToUpdate = _bookingService.GetBooking(id);
 
-                MakeSelectList();
-                
-                
-                return Page();
+            try
+            {
+
+
+                if (HttpContext.Session.GetInt32("MemberId") == null)
+                {
+                    return RedirectToPage("LogIn");
+                }
+                else
+                {
+                    int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                    CurrentMember = _memberService.GetMember(sessionMemberId);
+                    BookingToUpdate = _bookingService.GetBooking(id);
+
+                    MakeSelectList();
+
+
+                    return Page();
+                }
             }
+            catch (SqlException sql)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + sql.Message;
+
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + ex.Message;
+
+            }
+            return Page();
+
         }
 
 
         public IActionResult OnPost()
         {
 
-            
-            
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
-            BookingToUpdate.SecondMemberFull = _memberService.GetMember(SecondMemberId);
-            _bookingService.updateBooking(BookingToUpdate,BookingToUpdate.BookingId);
-            return RedirectToPage("FancyIndex");
+            try
+            {
 
+
+
+                //if (!ModelState.IsValid)
+                //{
+                //    return Page();
+                //}
+                BookingToUpdate.SecondMemberFull = _memberService.GetMember(SecondMemberId);
+                _bookingService.updateBooking(BookingToUpdate, BookingToUpdate.BookingId);
+                return RedirectToPage("FancyIndex");
+            }
+            catch (SqlException sql)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + sql.Message;
+
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + ex.Message;
+
+            }
+            return Page();
         }
 
 

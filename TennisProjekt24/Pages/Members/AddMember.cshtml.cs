@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 using System.ComponentModel.DataAnnotations;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
@@ -41,38 +42,53 @@ namespace TennisProjekt24.Pages.Members
         public IActionResult OnPost() 
         {
 
-            
-
-            if (!ModelState.IsValid)
+            try
             {
-                return Page();
-            }
 
-            if (_memberService.CheckUsername(NewMember.Username) == false)
-            {
-                UsernameMessage = "Brugernavnet er allerede taget, vælg venligst et andet";
-                return Page();
-            }
-
-            if (Photo == null)
-            {
-                NewMember.Image = "default.jpg";
-            }
-
-            if (Photo != null)
-            {
-                if (NewMember.Image != null)
+                if (!ModelState.IsValid)
                 {
-                    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "/images/memberimages", NewMember.Image);
-                    System.IO.File.Delete(filePath);
+                    return Page();
                 }
 
-                NewMember.Image = ProcessUploadedFile();
+                if (_memberService.CheckUsername(NewMember.Username) == false)
+                {
+                    UsernameMessage = "Brugernavnet er allerede taget, vælg venligst et andet";
+                    return Page();
+                }
+
+                if (Photo == null)
+                {
+                    NewMember.Image = "default.jpg";
+                }
+
+                if (Photo != null)
+                {
+                    if (NewMember.Image != null)
+                    {
+                        string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "/images/memberimages", NewMember.Image);
+                        System.IO.File.Delete(filePath);
+                    }
+
+                    NewMember.Image = ProcessUploadedFile();
+                }
+
+                _memberService.AddMember(NewMember);
+
+                return RedirectToPage("Login");
+
             }
+            catch (SqlException sql)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + sql.Message;
 
-            _memberService.AddMember(NewMember);
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + ex.Message;
 
-            return RedirectToPage("Login");
+            }
+            return Page();
+
 
         }
 

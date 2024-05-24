@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
@@ -30,47 +31,76 @@ namespace TennisProjekt24.Pages.NewsPosts
 
         public IActionResult OnGet()
         {
-            if (HttpContext.Session.GetInt32("MemberId") == null)
+            try
             {
-                return RedirectToPage("/Members/LogIn");
+                if (HttpContext.Session.GetInt32("MemberId") == null)
+                {
+                    return RedirectToPage("/Members/LogIn");
+                }
+                else
+                {
+                    int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                    CurrentMember = _memberService.GetMember(sessionMemberId);
+
+                    return Page();
+                }
             }
-            else
+            catch (SqlException sql)
             {
-                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
-                CurrentMember = _memberService.GetMember(sessionMemberId);
-               
-                return Page();
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + sql.Message;
+
             }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + ex.Message;
+
+            }
+            return Page();
+
         }
 
 
         public IActionResult OnPost() 
         {
-            int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
-            CurrentMember = _memberService.GetMember(sessionMemberId);
-            NewPost.Date = DateTime.Now;
-            NewPost.Member = CurrentMember;
-
-            if (NewPost.Title == null)
+            try
             {
-                Message = "Du skal tilføje en titel";
-                return Page();
+                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                CurrentMember = _memberService.GetMember(sessionMemberId);
+                NewPost.Date = DateTime.Now;
+                NewPost.Member = CurrentMember;
+
+                if (NewPost.Title == null)
+                {
+                    Message = "Du skal tilføje en titel";
+                    return Page();
+                }
+                if (NewPost.Text == null)
+                {
+                    Message = "Du skal tilføje tekst";
+                    return Page();
+                }
+
+
+                //if(!ModelState.IsValid) 
+                //{
+                //    return Page();
+                //}
+
+                _newsPostService.AddPost(NewPost);
+                return RedirectToPage("Index");
             }
-            if (NewPost.Text == null)
+            catch (SqlException sql)
             {
-                Message = "Du skal tilføje tekst";
-                return Page();
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + sql.Message;
+
             }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + ex.Message;
 
+            }
+            return Page();
 
-            //if(!ModelState.IsValid) 
-            //{
-            //    return Page();
-            //}
-
-            _newsPostService.AddPost(NewPost);
-            return RedirectToPage("Index");
-        
         }
     }
 }

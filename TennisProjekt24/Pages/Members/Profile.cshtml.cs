@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
 
@@ -20,16 +21,31 @@ namespace TennisProjekt24.Pages.Members
 
         public IActionResult OnGet()
         {
-            if (HttpContext.Session.GetInt32("MemberId") == null)
+
+            try
             {
-                return RedirectToPage("LogIn");
+                if (HttpContext.Session.GetInt32("MemberId") == null)
+                {
+                    return RedirectToPage("LogIn");
+                }
+                else
+                {
+                    int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                    CurrentMember = _memberService.GetMember(sessionMemberId);
+                    return Page();
+                }
             }
-            else
+            catch (SqlException sql)
             {
-                int sessionMemberId = (int) HttpContext.Session.GetInt32("MemberId");
-                CurrentMember = _memberService.GetMember(sessionMemberId);
-                return Page();
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + sql.Message;
+
             }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + ex.Message;
+
+            }
+            return Page();
         }
     }
 }

@@ -52,13 +52,13 @@ namespace TennisProjekt24.Pages.Members
             }
             catch (SqlException sql)
             {
-                ViewData["ErrorMessage"] = sql.Message;
-                
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + sql.Message;
+
             }
             catch (Exception ex)
             {
-                ViewData["ErrorMessage"] = ex.Message;
-                
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + ex.Message;
+
             }
             return Page();
 
