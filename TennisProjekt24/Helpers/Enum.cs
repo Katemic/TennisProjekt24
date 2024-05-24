@@ -7,4 +7,11 @@
     {
         None, LetØvet, Øvet, Rutineret, ForSjov
     }
+
+
+    public enum MemberTypeEnum
+    {
+        none, Senior, YoungSenior, Junior, Family, Passive
+    }
+
 }

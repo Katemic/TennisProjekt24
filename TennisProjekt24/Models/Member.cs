@@ -1,12 +1,13 @@
 ﻿using Azure.Identity;
 using System.ComponentModel.DataAnnotations;
+using TennisProjekt24.Helpers;
 
 namespace TennisProjekt24.Models
 {
-    public enum MemberTypeEnum
-        {
-            none, Senior, YoungSenior, Junior, Family, Passive
-        }
+    //public enum MemberTypeEnum
+    //    {
+    //        none, Senior, YoungSenior, Junior, Family, Passive
+    //    }
 
     public class Member
     {
