@@ -35,7 +35,7 @@ namespace TennisProjekt24.Pages.Calender
             FirstDay = FirstDayOfMonth.AddDays(-(int)FirstDayOfMonth.DayOfWeek);
             if (FirstDayOfMonth.DayOfWeek == DayOfWeek.Sunday)
             {
-                FirstDay = FirstDayOfMonth.AddDays(FirstDayOfMonth.Day -2);
+                FirstDay = FirstDayOfMonth.AddDays(-(int)FirstDayOfMonth.DayOfWeek - 7);
             }
             Events = _eventService.GetAllEvents();
         }
