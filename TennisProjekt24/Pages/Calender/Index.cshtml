@@ -40,14 +40,14 @@
                     {
                         @date.Day
                     }
-                        @* @date.Day *@
 
                     @foreach(var ev in Model.Events)
                     {
-                        @* if(ev.Date.Month == Model.CurrentMonth && (ev.Date.Date == new DateTime(Model.CurrentYear, Model.CurrentMonth, date.Day)))
+                        if(ev.Date.Day == date.Day && ev.Date.Month == date.Month && ev.Date.Month == Model.CurrentMonth)
                         {
                             <p>@ev.Title</p>
-                        } *@
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Events/Index"></a>
+                        }
                     }
                 </td>
             }
