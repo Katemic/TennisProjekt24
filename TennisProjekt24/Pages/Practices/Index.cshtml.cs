@@ -17,21 +17,24 @@ namespace TennisProjekt24.Pages.Practices
         public Member User {  get; set; }
         public IActionResult OnGet()
         {
-            if (HttpContext.Session.GetInt32("MemberId") == null)
-            {
-                return RedirectToPage("/Members/LogIn");
-            }
-            else
+            //if (HttpContext.Session.GetInt32("MemberId") == null)
+            //{
+            //    return RedirectToPage("/Members/LogIn");
+            //}
+
+            if (HttpContext.Session.GetInt32("MemberId") != null)
             {
                 int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
                 User = memberService.GetMember(sessionMemberId);
-                Practices = practiceService.GetAllPractices(null);
-                foreach (var practice in Practices)
-                {
-                    practice.Members.AddRange(memberService.GetAllMembers(practice.PracticeId));
-                }
-                return Page();
             }
+
+            Practices = practiceService.GetAllPractices(null);
+            foreach (var practice in Practices)
+            {
+                practice.Members.AddRange(memberService.GetAllMembers(practice.PracticeId));
+            }
+            return Page();
+
         }
         public IndexModel(IPracticeService prac, IMemberService memberService)
         {

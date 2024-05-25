@@ -4,11 +4,15 @@
     ViewData["Title"] = "Trænigsindeks";
 }
 <p>
-    @if (Model.User.Admin)
+    @if (Model.User != null)
     {
-        <a asp-page="AddPractice">Opret træningshold</a>
+        @if (Model.User.Admin)
+        {
+            <a asp-page="AddPractice" class="btn btn-primary">Opret træningshold</a>
+        }
     }
-    
+
+
 </p>
         @* TODO Flere koloner på card *@
         @if(Model.Practices.Count != 0)
@@ -23,26 +27,33 @@
                 <h6>Antal deltagere: @item.Members.Count / @item.MaxNoOfAttendees</h6>
                 <h6>Træner: @item.Instructor.Name <img src="~/images/instructorimages/@item.Instructor.Image" class="avatar thumbnail" /></h6>
                 <p>@item.Description</p>
-                @if (Model.User.Admin)
+                @if (Model.User != null)
                 {
-                    <a class="card-link" asp-page="DeletePractice" asp-route-id="@item.PracticeId">Slet</a>
-                    <a class="card-link" asp-page="UpdatePractice" asp-route-id="@item.PracticeId">Opdater</a>
-                }          
 
-                @if (item.MaxNoOfAttendees > item.Members.Count)
-                {
-                    <a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Deltag</a>
+
+                    @if (Model.User.Admin)
+                    {
+                        <a class="card-link" asp-page="DeletePractice" asp-route-id="@item.PracticeId">Slet</a>
+                        <a class="card-link" asp-page="UpdatePractice" asp-route-id="@item.PracticeId">Opdater</a>
+                    }
+
+                    @if (item.MaxNoOfAttendees > item.Members.Count)
+                    {
+                        <a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Deltag</a>
+                    }
+                    else
+                    {
+                        <p>
+                            Holdet er fyldt | @if (Model.User.Admin)
+                            {
+                                <a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Se deltagere</a>
+                            }
+                        </p>
+                    }
                 }
-                else
-                {
-                    <p>Holdet er fyldt | @if (Model.User.Admin)
-                        {
-                            <a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Se deltagere</a>
-                        }</p>
-                }
-                </div>
-    
             </div>
+
+        </div>
             <br />
             }
         }
