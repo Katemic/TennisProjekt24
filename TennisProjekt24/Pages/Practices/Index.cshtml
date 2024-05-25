@@ -26,7 +26,7 @@
                 <h5>@item.Type</h5>
                 <h6>Antal deltagere: @item.Members.Count / @item.MaxNoOfAttendees</h6>
                 <h6>Træner: @item.Instructor.Name <img src="~/images/instructorimages/@item.Instructor.Image" class="avatar thumbnail" /></h6>
-                <p>@item.Description</p>
+                <pre style="font-family:Verdana; white-space:pre-wrap ">@item.Description</pre>
                 @if (Model.User != null)
                 {
 

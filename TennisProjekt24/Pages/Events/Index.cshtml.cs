@@ -27,15 +27,7 @@ namespace TennisProjekt24.Pages.Events
         }
         public IActionResult OnGet()
         {
-            if (HttpContext.Session.GetInt32("MemberId") == null)
-            {
-                return RedirectToPage("/Members/LogIn");
-            }
-            else
-            {
-                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
-                CurrentMember = _memberService.GetMember(sessionMemberId);
-                Events = _eventService.GetAllEvents();
+             Events = _eventService.GetAllEvents();
                 foreach (Event e in Events)
                 {
                     if (e.Date >  DateTime.Now)
@@ -43,9 +35,18 @@ namespace TennisProjekt24.Pages.Events
                         EventsFuture.Add(e);
                     }
                 }
+            
+            
+            if (HttpContext.Session.GetInt32("MemberId") != null)
+            {
+                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                CurrentMember = _memberService.GetMember(sessionMemberId);
                 Participants = _participantService.GetAllEventsByParticipant(sessionMemberId);
-                return Page();
             }
+            
+
+                return Page();
+            
 
         }
     }

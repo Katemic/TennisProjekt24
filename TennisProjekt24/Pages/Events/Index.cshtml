@@ -15,12 +15,16 @@
 
 
 <div>
-    @if (Model.CurrentMember.Admin == true)
+    @if (Model.CurrentMember != null)
     {
-        <a asp-page="AddEvent" class="btn btn-primary">Opret event</a>
+        @if (Model.CurrentMember.Admin == true)
+        {
+            <a asp-page="AddEvent" class="btn btn-primary">Opret event</a>
+        }
+
+        <a asp-page="MyEvents" class="btn btn-primary">Mine event tilmeldinger</a>
     }
 
-    <a asp-page="MyEvents" class="btn btn-primary">Mine event tilmeldinger</a>
 </div>
 
 
@@ -114,12 +118,15 @@
                         <tr></tr>
                         <tr>
                             <td>
-                                @if (Model.CurrentMember.Admin == true)
+                                @if (Model.CurrentMember != null)
                                 {
+                                    @if (Model.CurrentMember.Admin == true)
+                                    {
 
-                                    <a asp-page="/Events/DeleteEvent" asp-route-eventId="@item.EventId" class="btn btn-primary">Slet</a>
-                                    <a asp-page="/Events/UpdateEvent" asp-route-eventId="@item.EventId" class="btn btn-primary">Rediger</a>
-                                    <a asp-page="/Events/Participants" asp-route-eventId="@item.EventId" class="btn btn-primary">Deltagere</a>
+                                        <a asp-page="/Events/DeleteEvent" asp-route-eventId="@item.EventId" class="btn btn-primary">Slet</a>
+                                        <a asp-page="/Events/UpdateEvent" asp-route-eventId="@item.EventId" class="btn btn-primary">Rediger</a>
+                                        <a asp-page="/Events/Participants" asp-route-eventId="@item.EventId" class="btn btn-primary">Deltagere</a>
+                                    }
                                 }
                                 @if (Model.CurrentMember != null)
                                 {
