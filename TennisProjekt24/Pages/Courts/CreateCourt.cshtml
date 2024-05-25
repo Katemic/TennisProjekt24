@@ -40,14 +40,13 @@
         <div class="form-group">
             <input asp-for="@Model.NewCourt.Availability" />Tilgængelig<br />
         </div>
-
+        <br />
         <div class="form-group">
             <input type="submit" value="Opret" class="btn btn-primary" />
+            &nbsp;
+            <a asp-page="Index" class="btn btn-primary">Gå tilbage</a>
         </div>
     </form>
 
-    <div>
-        <a asp-page="Index" class="btn btn-primary">Gå tilbage</a>
-    </div>
 
 </div>

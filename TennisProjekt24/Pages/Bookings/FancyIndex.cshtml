@@ -16,8 +16,12 @@
 
 @if (Model.CurrentMember != null && Model.CurrentMember.Admin)
 {
-
-    <a asp-page="/Bookings/Index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-primary" style="float: right;">Se alle bookinger</a>
+    <div style="float: right">
+        <a asp-page="/Courts/Index" class="btn btn-primary" >Se Baner</a>
+        <span>    </span>
+        <a asp-page="/Bookings/Index" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-primary" >Se alle bookinger</a>
+    </div>
+    
 
 }
     

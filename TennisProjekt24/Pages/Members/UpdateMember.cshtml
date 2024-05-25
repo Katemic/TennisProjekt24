@@ -82,11 +82,16 @@
                 <span asp-validation-for="UpdatedMember.MemberType" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="@Model.UpdatedMember.Admin" class="control-label">Admin</label>
-                <input type="checkbox" asp-for="@Model.UpdatedMember.Admin" class="form-check-input">
-                <span asp-validation-for="UpdatedMember.Admin" class="text-danger"></span>
-            </div>
+            @if (Model.CurrentMember.Admin)
+            {
+                <div class="form-group">
+                    <label asp-for="@Model.UpdatedMember.Admin" class="control-label">Admin</label>
+                    <input type="checkbox" asp-for="@Model.UpdatedMember.Admin" class="form-check-input">
+                    <span asp-validation-for="UpdatedMember.Admin" class="text-danger"></span>
+                </div>
+            }
+
+            
 
             <div class="form-group">
                 <br /> <br />

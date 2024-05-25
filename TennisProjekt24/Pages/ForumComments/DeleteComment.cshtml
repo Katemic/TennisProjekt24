@@ -16,7 +16,7 @@
         <label>Dato</label> : @Model.DeleteComment.DateTime <br />
         <br />
         <input class="btn btn-danger" type="submit" asp-page-handler="Delete" asp-route-commentId="@Model.DeleteComment.CommentId" asp-route-postId="@Model.DeleteComment.PostId" value="Slet" />
-            <a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@Model.DeleteComment.PostId" class="btn btn-primary">Tilbage</a>
+            <a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@Model.DeleteComment.PostId" class="btn btn-secondary">Tilbage</a>
     </div>
     
 </form>

@@ -16,6 +16,8 @@ namespace TennisProjekt24.Pages.Members
 
         public string UsernameMessage { get; set; }
 
+        public Member CurrentMember { get; set; }
+
         public UpdateMemberModel(IMemberService memberService)
         {
             _memberService = memberService;
@@ -27,6 +29,8 @@ namespace TennisProjekt24.Pages.Members
             try
             {
                 UpdatedMember = _memberService.GetMember(id);
+                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                CurrentMember = _memberService.GetMember(sessionMemberId);
             }
             catch (SqlException sql)
             {

@@ -37,13 +37,13 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between navbar">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
+                       @*  <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
+                        </li> *@
                         
-                        <li class="nav-item">
+                        @* <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Courts/Index">Baner</a>
-                        </li>
+                        </li> *@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Practices/Index">Træningshold</a>
                         </li>
@@ -82,7 +82,7 @@
                     @inject IHttpContextAccessor HttpContextAccessor
                     @if (HttpContextAccessor.HttpContext.Session.GetInt32("MemberId") == null)
                     {
-                        <a class="btn btn-success rounded-pill" asp-area="" asp-page="/Members/LogIn">
+                        <a class="btn btn-primary rounded-pill" asp-area="" asp-page="/Members/LogIn">
                             <span class="text-light">Log ind</span>
                         </a>
                     }
@@ -93,7 +93,7 @@
                         </a> *@
 
                         <div class="dropdown">
-                            <button onclick="dropDown()" class="dropbtn rounded-pill">Dropdown &#9660;</button>
+                            <button onclick="dropDown()" class="dropbtn rounded-pill btn btn-primary">Profil &#9660;</button>
                             <div id="myDropdown" class="dropdown-content">
                                 <a asp-page="/Members/Profile">Min profil</a>
                                 <a asp-page="/Members/LogIn" asp-page-handler="Logout">Log ud</a>

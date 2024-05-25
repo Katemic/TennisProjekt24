@@ -121,7 +121,11 @@
                             <a asp-page="/Members/UpdateMember" asp-route-id="@Model.CurrentMember.MemberId">Rediger oplysninger</a>
                             <a asp-page="/Members/UpdatePassword" asp-route-id="@Model.CurrentMember.MemberId">Skift adgangskode</a>
                             <a asp-page="/Members/UpdatePhoto" asp-route-id="@Model.CurrentMember.MemberId">Skift profilbillede</a>
-                            <a asp-page="/Members/DeleteMember" asp-route-id="@Model.CurrentMember.MemberId">Slet</a>
+                            @if(Model.CurrentMember.MemberId!=1)
+                            {
+                              <a asp-page="/Members/DeleteMember" asp-route-id="@Model.CurrentMember.MemberId">Slet</a>  
+                            }
+                            
                         </div>
                     </div>
                     &nbsp;&nbsp;&nbsp;

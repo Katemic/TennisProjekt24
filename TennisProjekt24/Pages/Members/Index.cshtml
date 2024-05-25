@@ -127,9 +127,13 @@
                             </td>
                             <td>
                                 <p>
-                                    <a asp-page="/Members/UpdateMember" asp-route-id="@item.MemberId" class="btn btn-primary">Rediger</a>
-                                    &nbsp;
-                                    <a asp-page="/Members/DeleteMember" asp-route-id="@item.MemberId" class="btn btn-primary">Slet</a>
+                                    @if (item.MemberId !=1)
+                                    {
+                                        <a asp-page="/Members/UpdateMember" asp-route-id="@item.MemberId" class="btn btn-primary">Rediger</a>
+                                        <span> </span>
+                                        <a asp-page="/Members/DeleteMember" asp-route-id="@item.MemberId" class="btn btn-primary">Slet</a>
+                                    }
+
 
                                 </p>
                             </td>
