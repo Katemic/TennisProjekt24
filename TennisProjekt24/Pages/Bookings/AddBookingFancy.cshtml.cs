@@ -199,7 +199,7 @@ namespace TennisProjekt24.Pages.Bookings
             else
             {
 
-                members = _memberService.GetAllMembers().Where(c => c.MemberId >= 10 && c.MemberId != CurrentMember.MemberId).ToList();
+                members = _memberService.GetAllMembers().Where(c => c.MemberId >= 9 && c.MemberId != CurrentMember.MemberId).ToList();
             }
             return MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
 

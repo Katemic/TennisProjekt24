@@ -39,7 +39,7 @@ namespace TennisProjekt24.Pages.Members
                 members = _memberService.GetAllMembers();
                 if (!CurrentMember.Admin)
                 {
-                    members = members.Where(c => c.MemberId >= 10).ToList();
+                    members = members.Where(c => c.MemberId > 10).ToList();
                 }
 
                 if(FilterCriteria != null)

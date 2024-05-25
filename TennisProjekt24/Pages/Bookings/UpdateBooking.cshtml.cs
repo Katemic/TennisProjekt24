@@ -103,10 +103,24 @@ namespace TennisProjekt24.Pages.Bookings
 
         public List<SelectListItem> MakeSelectList()
         {
-            List<Member> members = _memberService.GetAllMembers().Where(c => c.MemberId >= 10
-                && c.MemberId != BookingToUpdate.Member.MemberId && c.MemberId != BookingToUpdate.SecondMemberFull.MemberId).ToList(); ;
+            //List<Member> members = _memberService.GetAllMembers().Where(c => c.MemberId >= 10
+            //    && c.MemberId != BookingToUpdate.Member.MemberId && c.MemberId != BookingToUpdate.SecondMemberFull.MemberId).ToList(); ;
 
+            //return MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
+
+            List<Member> members = new List<Member>();
+
+            if (CurrentMember.Admin)
+            {
+                members = _memberService.GetAllMembers().Where(c => c.MemberId >= 2 && c.MemberId != CurrentMember.MemberId).ToList();
+            }
+            else
+            {
+
+                members = _memberService.GetAllMembers().Where(c => c.MemberId >= 9 && c.MemberId != CurrentMember.MemberId).ToList();
+            }
             return MemberList2 = members.Select(x => new SelectListItem { Text = x.Name, Value = x.MemberId.ToString() }).ToList();
+
         }
 
 

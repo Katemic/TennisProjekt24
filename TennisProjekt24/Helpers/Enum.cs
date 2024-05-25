@@ -11,7 +11,7 @@
 
     public enum MemberTypeEnum
     {
-        none, Senior, YoungSenior, Junior, Family, Passive
+        none, Senior, UngSenior, Junior, Familie, Passiv
     }
 
 }

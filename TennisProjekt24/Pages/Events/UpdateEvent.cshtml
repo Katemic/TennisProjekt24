@@ -31,7 +31,8 @@
 
         <div class="form-group">
             <label asp-for="@Model.EventUpdate.Description" class="control-label">Beskrivelse</label>
-            <input asp-for="@Model.EventUpdate.Description" class="form-control" />
+            @* <input asp-for="@Model.EventUpdate.Description" class="form-control" /> *@
+            <textarea asp-for="@Model.EventUpdate.Description" class="form-control" id="text" rows="8"></textarea>
             <span asp-validation-for="EventUpdate.Description" class="text-danger"></span>
         </div>
 
