@@ -13,7 +13,7 @@ namespace TennisProjekt24.Services
         private string _deletePostSQL = "DELETE FROM NewsPosts WHERE NewsPostId = @Id";
         private string _getAllPostsSQL = "SELECT NewsPostId, Title, Text, Date, MemberId FROM NewsPosts";
         private string _getPostSQL = "SELECT NewsPostId, Title, Text, Date, MemberId FROM NewsPosts WHERE NewsPostId = @Id";
-        private string _updatePostSQL = "uUPDATE NewsPosts SET Title = @Title, Text = @Text, Date = @Date, MemberId = @MemberId WHERE NewsPostId = @Id";
+        private string _updatePostSQL = "UPDATE NewsPosts SET Title = @Title, Text = @Text, Date = @Date, MemberId = @MemberId WHERE NewsPostId = @Id";
 
 
         private IMemberService _memberService;
