@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
 
@@ -58,19 +59,18 @@ namespace TennisProjekt24.Pages.Events
                 EventBook = _eventService.GetEvent(eventId);
                 return Page();
             }
-            //if (!ModelState.IsValid)
-            //{
-            //    EventBook = _eventService.GetEvent(eventId);
-            //    members = _memberService.GetAllMembers();
-            //    return Page();
-            //}
-            
-            //Attendee.NoOfParticipants = NoOfParticipants;
-            //Attendee.Note = note;
-
-
-
-            _participantService.AddEvBooking(Attendee);
+            try
+            {
+                _participantService.AddEvBooking(Attendee);
+            }
+            catch (SqlException sql)
+            {
+                ViewData["ErrorMessage"] = sql.Message;
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+            }
             return RedirectToPage("Index");
         }
     }

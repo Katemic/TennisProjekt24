@@ -36,5 +36,25 @@ namespace TennisProjekt24Test.Services
 
             Assert.AreEqual(numberBefore + 1, numberAfter);
         }
+        [TestMethod]
+        public void TestUpdateEvent()
+        {
+
+            Setup();
+            Member m = new Member(10, "jonas", "jonas", "jonas", "jonas@jonas", "12345678", "TestAdress", "1234", MemberTypeEnum.Junior, true, "6a581b0d-92d5-45a7-8f18-a72dd97c28db_Tesla.jpg");
+            int numberBefore = _eventService.GetAllEvents().Count();
+
+            Event ev = new Event(1, new DateTime(2024, 7, 25, 18, 30, 0), "Grill", "Hygge", "Roskilde", m, "6a581b0d-92d5-45a7-8f18-a72dd97c28db_Tesla.jpg");
+            _eventService.AddEvent(ev);
+
+            Event ev2 = new Event(1, new DateTime(2024, 7, 25, 18, 30, 0), "GrillUpdate", "Hygge", "Roskilde", m, "6a581b0d-92d5-45a7-8f18-a72dd97c28db_Tesla.jpg");
+
+            _eventService.UpdateEvent(_eventService.GetAllEvents().Last().EventId ,ev2);
+            Event evTest = _eventService.GetEvent(_eventService.GetAllEvents().Last().EventId);
+            _eventService.DeleteEvent(_eventService.GetAllEvents().Last().EventId);
+
+            // evTest endte med at have et andet ID
+            Assert.AreEqual(evTest.Title, ev2.Title);
+        }
     }
 }

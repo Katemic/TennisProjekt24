@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
 using TennisProjekt24.Services;
@@ -54,12 +55,34 @@ namespace TennisProjekt24.Pages.Events
 
         public IActionResult OnPost(int memberId, int eventId)
         {
-            _participantService.DeleteEvBooking(memberId, eventId);
+            try
+            {
+                _participantService.DeleteEvBooking(memberId, eventId);
+            }
+            catch (SqlException sql)
+            {
+                ViewData["ErrorMessage"] = sql.Message;
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+            }
             return RedirectToPage("Index");
         }
         public IActionResult OnPostAdmin(int memberToRemoveId, int eventId)
         {
-            _participantService.DeleteEvBooking(memberToRemoveId, eventId);
+            try
+            {
+                _participantService.DeleteEvBooking(memberToRemoveId, eventId);
+            }
+            catch (SqlException sql)
+            {
+                ViewData["ErrorMessage"] = sql.Message;
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+            }
             return RedirectToPage("Index");
         }
     }

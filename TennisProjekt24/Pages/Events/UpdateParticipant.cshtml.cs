@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
@@ -24,17 +25,23 @@ namespace TennisProjekt24.Pages.Events
         }
         public IActionResult OnPost()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
             if (ParticipantToUpdate.NoOfParticipants > 5 || ParticipantToUpdate.NoOfParticipants < 1)
             {
                 Message = "Vælg antal mellem 1 og 5";
-                //EventBook = _eventService.GetEvent(eventId);
                 return Page();
             }
-            _participantService.UpdateParticipant(ParticipantToUpdate);
+            try
+            {
+                _participantService.UpdateParticipant(ParticipantToUpdate);
+            }
+            catch (SqlException sql)
+            {
+                ViewData["ErrorMessage"] = sql.Message;
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+            }
             return RedirectToPage("Index");
         }
     }
