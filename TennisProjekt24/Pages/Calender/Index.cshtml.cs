@@ -9,7 +9,8 @@ namespace TennisProjekt24.Pages.Calender
     public class IndexModel : PageModel
     {
         private IEventService _eventService;
-        public int CurrentYear { get; set; } = DateTime.Now.Year;
+        [BindProperty(SupportsGet = true)]
+        public int CurrentYear { get; set; }
         [BindProperty(SupportsGet = true)]
         public Months Months { get; set; }
         public int CurrentMonth { get; set; }
@@ -30,6 +31,10 @@ namespace TennisProjekt24.Pages.Calender
             } else
             {
                 CurrentMonth = (int)Months;
+            }
+            if (CurrentYear == 0)
+            {
+                CurrentYear = DateTime.Now.Year;
             }
             FirstDayOfMonth = new DateTime(CurrentYear, CurrentMonth, 1);
             FirstDay = FirstDayOfMonth.AddDays(-(int)FirstDayOfMonth.DayOfWeek);
