@@ -22,19 +22,33 @@ namespace TennisProjekt24.Pages.Practices
             //{
             //    return RedirectToPage("/Members/LogIn");
             //}
-
-            if (HttpContext.Session.GetInt32("MemberId") != null)
+            try
             {
-                int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
-                User = memberService.GetMember(sessionMemberId);
+                if (HttpContext.Session.GetInt32("MemberId") != null)
+                {
+                    int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
+                    User = memberService.GetMember(sessionMemberId);
+                }
+
+                Practices = practiceService.GetAllPractices(null);
+                foreach (var practice in Practices)
+                {
+                    practice.Members.AddRange(memberService.GetAllMembers(practice.PracticeId));
+                }
+                return Page();
             }
-
-            Practices = practiceService.GetAllPractices(null);
-            foreach (var practice in Practices)
+            catch (SqlException sql)
             {
-                practice.Members.AddRange(memberService.GetAllMembers(practice.PracticeId));
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + sql.Message;
+
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Der er sket en fejl:   " + ex.Message;
+
             }
             return Page();
+
 
         }
         public IndexModel(IPracticeService prac, IMemberService memberService)

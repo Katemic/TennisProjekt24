@@ -36,11 +36,11 @@ namespace TennisProjekt24.Pages.Instructors
 
         public IActionResult OnPost()
         {
-            
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             if (Photo != null)
             {
                 if (Instructor.Image != null)
