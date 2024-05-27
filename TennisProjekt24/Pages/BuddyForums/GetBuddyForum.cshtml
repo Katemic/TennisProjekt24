@@ -185,9 +185,12 @@
                         <div class="card" style="width: 50rem;">
                             <div class="card-body">
                                 <h5 class="card-title">@item.Commenter.Name -------- @item.DateTime.ToString("dddd, dd MMMM yyyy HH:mm")</h5>
-                                <img src="~/images/memberimages/@item.Commenter.Image" class="avatar">
+                                <div style="display:inline">
+                                    <img src="~/images/memberimages/@item.Commenter.Image" class="avatar">
 
-                                <pre class="card-text">@item.Text</pre>
+                                    <p class="card-text">@item.Text</p>
+                                    </div>
+                                
                             </div>
                             @if (item.Commenter.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
                             {
