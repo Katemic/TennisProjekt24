@@ -15,9 +15,12 @@
 
 <a asp-page="/BuddyForums/CreateBuddyForum" class="btn btn-primary">Opret</a>
 
+
+
 <form method="get">
+    <div class="card">
     <div class="form-group">
-        <label class="custom-control-label">Erfaringsniveau</label></br>
+        <label class="custom-control-label">Erfaringsniveau:</label></br>
 
         @foreach (var type in System.Enum.GetValues(typeof(Helpers.SkillTypeEnum)))
         {
@@ -34,9 +37,9 @@
         }
     </div>
     <div class="form-group">
-        <input asp-for="@Model.IsEnabled" onchange="this.form.submit()" /> vis mine post <br />
+        <input asp-for="@Model.IsEnabled" onchange="this.form.submit()" /> vis kun mine opslag <br />
     </div>
-
+    </div>
 
     @if (Model.buddyForums.Count() != 0)
     {
