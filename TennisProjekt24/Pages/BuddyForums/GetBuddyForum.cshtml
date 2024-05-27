@@ -58,6 +58,7 @@
     </div>
 </div> *@
 
+<a asp-page="Index" class="btn btn-secondary">Tilbage</a>
 
 <div class="card">
 
@@ -184,19 +185,19 @@
                     <div class="card-group">
                         <div class="card" style="width: 50rem;">
                             <div class="card-body">
-                                <h5 class="card-title">@item.Commenter.Name -------- @item.DateTime.ToString("dddd, dd MMMM yyyy HH:mm")</h5>
-                                <div style="display:inline">
-                                    <img src="~/images/memberimages/@item.Commenter.Image" class="avatar">
-
-                                    <p class="card-text">@item.Text</p>
-                                    </div>
+                                <span style="display:inline">
+                                    <img style="display:inline" src="~/images/memberimages/@item.Commenter.Image" class="avatar">
+                                    <h5 class="card-title;" sstyle="display:inline">@item.Commenter.Name -------- @item.DateTime.ToString("dddd, dd MMMM yyyy HH:mm")</h5>
+                                </span>
                                 
+                                <pre class="">@item.Text</pre>
                             </div>
                             @if (item.Commenter.MemberId == (int)HttpContext.Session.GetInt32("MemberId"))
                             {
                                 <p>
+                                    <a asp-page="/ForumComments/UpdateComment" asp-route-commentId="@item.CommentId" class="btn btn-primary">Rediger</a>
                                     <a asp-page="/ForumComments/DeleteComment" asp-route-commentId="@item.CommentId" class="btn btn-primary">Slet</a>
-                                    <a asp-page="/ForumComments/UpdateComment" asp-route-commentId="@item.CommentId" class="btn btn-primary">Opdater</a>
+                                    
                                 </p>
                             }
                         </div>
