@@ -8,21 +8,25 @@
     <link rel="stylesheet" href="~/css/delete.css" asp-append-version="true" />
 </head>
 
-
+<h1>Slet begivenhed</h1>
 <div class="card">
 
-    <h1>Slet begivenhed</h1>
+    
 
     <form method="post">
         <div class="form-group">
             <table >
-                <tr>
+                <tr hidden>
                     <th>Event Id</th>
                     <td>@Model.EventDelete.EventId</td>
                 </tr>
                 <tr>
                     <th>Dato</th>
-                    <td>@Model.EventDelete.Date</td>
+                    <td>@Model.EventDelete.Date.Value.ToString("dddd, dd MMMM yyyy HH:mm")</td>
+                </tr>
+                <tr>
+                    <th>Lokation</th>
+                    <td>@Model.EventDelete.Place</td>
                 </tr>
                 <tr>
                     <th>Titel</th>
@@ -30,7 +34,7 @@
                 </tr>
                 <tr>
                     <th>Beskrivelse</th>
-                    <td>@Model.EventDelete.Description</td>
+                    <td><pre>@Model.EventDelete.Description</pre></td>
                 </tr>
                 <tr>
                     <th>Arrangør</th>

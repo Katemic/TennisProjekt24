@@ -4,6 +4,10 @@
     ViewData["Title"] = "Book Event";
 }
 
+<head>
+    <link rel="stylesheet" href="~/css/delete.css" asp-append-version="true" />
+</head>
+
 <h1>Tilmeld event</h1>
 
 @* <p class="text-danger">@Model.Message</p> *@
@@ -12,14 +16,14 @@
 
     <form method="post">
 
-        <table class="table">
-            <tr>
+        <table >
+            <tr hidden>
                 <th>Event Id</th>
                 <td>@Model.EventBook.EventId</td>
             </tr>
             <tr>
                 <th>Dato</th>
-                <td>@Model.EventBook.Date</td>
+                <td>@Model.EventBook.Date.Value.ToString("dddd, dd MMMM yyyy HH:mm")</td>
             </tr>
             <tr>
                 <th>Titel</th>
@@ -27,13 +31,14 @@
             </tr>
             <tr>
                 <th>Beskrivelse</th>
-                <td>@Model.EventBook.Description</td>
+                <td><pre>@Model.EventBook.Description</pre></td>
             </tr>
             <tr>
                 <th>Arrangør</th>
                 <td>@Model.EventBook.Member.Name</td>
             </tr>
         </table>
+        <br />
         <div class="form-group">
             <label asp-for="@Model.Attendee.NoOfParticipants">Antal deltagere (inklusiv dig selv):</label>
             <input asp-for="@Model.Attendee.NoOfParticipants" type="number" class="form-control" />

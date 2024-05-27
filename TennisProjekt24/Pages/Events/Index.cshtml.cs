@@ -35,7 +35,7 @@ namespace TennisProjekt24.Pages.Events
                         EventsFuture.Add(e);
                     }
                 }
-            
+            EventsFuture = EventsFuture.OrderBy(e => e.Date).ToList();
             
             if (HttpContext.Session.GetInt32("MemberId") != null)
             {

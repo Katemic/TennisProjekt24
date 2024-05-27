@@ -11,14 +11,14 @@
 
     <form method="post" enctype="multipart/form-data">
 
-        <div class="form-group">
+        <div class="form-group" hidden>
             <label asp-for="@Model.EventUpdate.EventId" class="control-label">Event Id</label>
             <input asp-for="@Model.EventUpdate.EventId" class="form-control" readonly="readonly" />
         </div>
 
 
         <div class="form-group">
-            <label asp-for="@Model.EventUpdate.Date" class="control-label">Dato</label>
+            <label asp-for="@Model.EventUpdate.Date" class="control-label">Dato og tidspunkt</label>
             <input asp-for="@Model.EventUpdate.Date" class="form-control" />
             <span asp-validation-for="EventUpdate.Date" class="text-danger"></span>
         </div>
@@ -57,7 +57,7 @@
 
         <div class="form-group">
             <br /> <br />
-            <input type="submit" asp-route-eventId="@Model.EventUpdate.EventId" value="Opdater Event" class="btn btn-primary" />
+            <input type="submit" asp-route-eventId="@Model.EventUpdate.EventId" value="Rediger" class="btn btn-primary" />
             <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
         </div>
         <input type="hidden" asp-for="@Model.EventUpdate.Member.MemberId" />

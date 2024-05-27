@@ -10,6 +10,8 @@ namespace TennisProjekt24.Pages.Bookings
     public class AddBookingModel : PageModel
     {
 
+        //BRUGES IKKE LÆNGERE
+
         private IBookingService _bookingService;
 
         private IMemberService _memberService;

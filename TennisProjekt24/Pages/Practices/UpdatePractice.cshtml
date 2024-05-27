@@ -43,7 +43,7 @@
         <span asp-validation-for="Practice.Instructor" class="text-danger"></span>
     </div>
     <div class="form-group">
-    <label asp-for="@Model.Practice.Type" class="control-label">Type af trænning</label>
+    <label asp-for="@Model.Practice.Type" class="control-label">Type af træning</label>
     <br />
     @foreach (var c in System.Enum.GetValues(typeof(PracticeTypeEnum)))
     {
@@ -57,7 +57,7 @@
     </div>
     <div>
         <br />
-        <input type="submit" value="Opdater" asp-page-handler="Update" class="btn btn-primary" />
+        <input type="submit" value="Rediger" asp-page-handler="Update" class="btn btn-primary" />
         <a asp-page="Index" class="btn btn-secondary">Gå tilbage</a>
     </div>
 </form>

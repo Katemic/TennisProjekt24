@@ -45,7 +45,7 @@
             @* <span asp-validation-for="Practice.Instructor" class="text-danger"></span> *@
         </div>
         <div class="form-group">
-            <label asp-for="@Model.Practice.Type" class="control-label">Type af trænning</label>
+            <label asp-for="@Model.Practice.Type" class="control-label">Type af træning</label>
             <br />
             @foreach (var c in System.Enum.GetValues(typeof(PracticeTypeEnum)))
             {
