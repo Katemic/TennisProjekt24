@@ -2,7 +2,11 @@
 @using TennisProjekt24.Models
 @model TennisProjekt24.Pages.Practices.UpdatePracticeModel
 @{
+    ViewData["Title"] = "Opdater træning";
 }
+
+<div class="card">
+
 <form method="post">
     <input type="hidden" asp-for="@Model.Practice.PracticeId"/>
     <div class="form-group datepickers" >
@@ -17,7 +21,8 @@
     </div>
     <div class="form-group">
         <label asp-for="@Model.Practice.Description" class="control-label">Beskrivelse</label>
-        <input asp-for="@Model.Practice.Description" class="form-control" />
+        @* <input asp-for="@Model.Practice.Description" class="form-control" /> *@
+        <textarea asp-for="@Model.Practice.Description" class="form-control" id="text" rows="7"></textarea>
         <span asp-validation-for="Practice.Description" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -51,7 +56,8 @@
     <span asp-validation-for="Practice.Type" class="text-danger"></span>
     </div>
     <div>
+        <br />
         <input type="submit" value="Opdater" asp-page-handler="Update" class="btn btn-primary" />
-        <input type="submit" asp-page-handler="Afbryd" class="btn btn-warning" value="Afbryd" />
+        <a asp-page="Index" class="btn btn-secondary">Gå tilbage</a>
     </div>
 </form>

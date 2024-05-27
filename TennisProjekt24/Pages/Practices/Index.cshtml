@@ -32,25 +32,31 @@
                 @if (Model.User != null)
                 {
 
+                    <div style="float:right">
+                        @if (Model.User.Admin)
+                        {
+                            <a class="btn btn-primary" asp-page="UpdatePractice" asp-route-id="@item.PracticeId">Opdater</a>
+                            <a class="btn btn-primary" asp-page="DeletePractice" asp-route-id="@item.PracticeId">Slet</a>
+                        }
+                    </div>
+                    <br />
+                    <br />
+                    <div style="float:right">
+                        @if (Model.User.Admin)
+                        {
+                            <a class="btn btn-primary" asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Se deltagere</a>
+                        }
+                        @if (item.MaxNoOfAttendees > item.Members.Count)
+                        {
+                            <a class="btn btn-primary" asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Deltag</a>
+                        }
+                        else
+                        {
+                            <span class="btn btn-secondary disabled">  Holdet er fyldt</span>
+                        }
+                        
 
-                    @if (Model.User.Admin)
-                    {
-                        <a class="card-link btn btn-primary" asp-page="DeletePractice" asp-route-id="@item.PracticeId">Slet</a>
-                        <a class="card-link btn btn-primary" asp-page="UpdatePractice" asp-route-id="@item.PracticeId">Opdater</a>
-                    }
-
-                    @if (item.MaxNoOfAttendees > item.Members.Count)
-                    {
-                        <a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Deltag</a>
-                    }
-                    else
-                    {
-                        <p>Holdet er fyldt | </p>
-                    }
-                    @if (Model.User.Admin)
-                    {
-                        <a asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Se deltagere</a>
-                    }
+                    </div>
                 }
 
             </div>

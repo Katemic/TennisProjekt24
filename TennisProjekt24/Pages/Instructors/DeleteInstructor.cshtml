@@ -3,21 +3,49 @@
 @{
     ViewData["Title"] = "Delete Instructor";
 }
+
+<head>
+    <link rel="stylesheet" href="~/css/delete.css" asp-append-version="true" />
+</head>
+
+
+
 <h1>Slet Træner</h1>
+
 
 <div class="card">
 
 <form method="post">
-    <div class="form-group">
-        <label>ID</label> : @Model.DeleteInstructor.InstructorId <br />
-        <label>Navn</label> : @Model.DeleteInstructor.Name <br />
-        <label>Telefonnummer</label> : @Model.DeleteInstructor.PhoneNumber <br />
-        <label>Beskrivelse</label> : @Model.DeleteInstructor.Description <br />
-        <label>Billede</label> : @Model.DeleteInstructor.Image <br />
-        <input type="submit" asp-page-handler="Delete" asp-route-id="@Model.DeleteInstructor.InstructorId" class="btn btn-danger" value="Slet" />
 
-        <input type="submit" value="Tilbage" class="btn btn-warning" asp-page-handler="Cancel" />
-    </div>
+
+        <div class="form-group">
+            <table>
+                <tr hidden>
+                    <th>ID</th>
+                    <td>@Model.DeleteInstructor.InstructorId</td>
+                </tr>
+                <tr>
+                    <th>Navn</th>
+                    <td>@Model.DeleteInstructor.Name</td>
+                </tr>
+                
+                <tr>
+                    <th>Tlf nr</th>
+                    <td>@Model.DeleteInstructor.PhoneNumber</td>
+                </tr>
+
+            </table>
+
+            <br />
+            <div>
+                <input type="submit" asp-page-handler="Delete" asp-route-id="@Model.DeleteInstructor.InstructorId" class="btn btn-danger" value="Slet" />
+                <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+            </div>
+            
+
+        </div>
+
+
 </form>
 
 </div>
