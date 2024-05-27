@@ -65,6 +65,8 @@ namespace TennisProjekt24.Pages.Practices
             {
                 if (!ModelState.IsValid)
                 {
+
+                    Instructors = SetSelectlist();
                     return Page();
                 }
                 _service.AddPractice(Practice);
