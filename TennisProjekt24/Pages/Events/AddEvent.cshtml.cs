@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations;
 using TennisProjekt24.Interfaces;
@@ -87,7 +88,18 @@ namespace TennisProjekt24.Pages.Events
             int sessionMemberId = (int)HttpContext.Session.GetInt32("MemberId");
             CurrentMember = _memberService.GetMember(sessionMemberId);
             NewEvent.Member = CurrentMember;
-            _eventService.AddEvent(NewEvent);  
+            try
+            {
+                _eventService.AddEvent(NewEvent);
+            }
+            catch (SqlException sql)
+            {
+                ViewData["ErrorMessage"] = sql.Message;
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+            }
             return RedirectToPage("Index");
         }
 

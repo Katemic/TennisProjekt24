@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 using System.ComponentModel.DataAnnotations;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
@@ -29,20 +30,6 @@ namespace TennisProjekt24.Pages.Events
         }
         public IActionResult OnPost()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
-            //if (Picture != null)
-            //{
-            //    if (EventUpdate.Image != null)
-            //    {
-            //        string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "/images/eventImages", EventUpdate.Image);
-            //        System.IO.File.Delete(filePath);
-            //    }
-
-            //    EventUpdate.Image = ProcessUploadedFile();
-            //}
             if (EventUpdate.Date < DateTime.Now)
             {
                 Message = "Vælg dato";
@@ -67,7 +54,18 @@ namespace TennisProjekt24.Pages.Events
 
                 return Page();
             }
-            _eventService.UpdateEvent(EventUpdate);
+            try
+            {
+                _eventService.UpdateEvent(EventUpdate.EventId, EventUpdate);
+            }
+            catch (SqlException sql)
+            {
+                ViewData["ErrorMessage"] = sql.Message;
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+            }
             return RedirectToPage("Index");
         }
         private string ProcessUploadedFile()

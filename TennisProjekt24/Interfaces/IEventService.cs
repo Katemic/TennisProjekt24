@@ -8,7 +8,7 @@ namespace TennisProjekt24.Interfaces
 
         bool DeleteEvent(int eventId);
 
-        bool UpdateEvent(Event ev);
+        bool UpdateEvent(int eventId, Event ev);
 
         Event GetEvent(int eventId);
 
