@@ -71,6 +71,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/FancyIndex">Booking</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Calender/Index">Kalender</a>
+                        </li>
                         @if (HttpContextAccessor.HttpContext.Session.GetInt32("MemberId") != null)
                         {
                             <li class="nav-item">

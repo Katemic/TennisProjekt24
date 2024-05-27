@@ -14,4 +14,12 @@
         none, Senior, UngSenior, Junior, Familie, Passiv
     }
 
+    public enum weekDays
+    {
+        Mandag, Tirsdag, Onsdag, Torsdag, Fredag, Lørdag, Søndag
+    }
+    public enum Months
+    {
+        Januar = 1, Februar, Marts, April, Maj, Juni, Juli, August, September, Oktober, November, December
+    }
 }
