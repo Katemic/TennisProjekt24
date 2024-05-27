@@ -6,6 +6,7 @@ using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
 using Microsoft.AspNetCore.Http;
 using TennisProjekt24.Services;
+using Microsoft.Data.SqlClient;
 
 namespace TennisProjekt24.Pages.Practices
 {

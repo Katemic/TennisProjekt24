@@ -4,24 +4,24 @@ namespace TennisProjekt24.Models
 {
     public enum PracticeTypeEnum
     {
-        Kids, Junior, Beginner, Intermediate, Advanced, ForEveryone
+        Barn, Junior, Begynder, Øvet, Alle
     }
     public class Practice
     {
         public int PracticeId {  get; set; }
-        [Required(ErrorMessage = "Date must not be empty")]
+        [Required(ErrorMessage = "Du skal angive en startdato")]
         public DateTime StartDate { get; set; }
-        [Required(ErrorMessage = "Title must not be empty")]
+        [Required(ErrorMessage = "Du skal give træningen en titel")]
         [StringLength(50)]
         public string Title { get; set; }
-        [Required, MaxLength(500)]
+        [Required(ErrorMessage = "Der skal være en beskrivelse"), MaxLength(500, ErrorMessage = $"Du kan maks bruge 500 anslag")]
         public string Description { get; set; } 
-        [Required(), Range(1, int.MaxValue, ErrorMessage = "Number of trainings must be more than 0")]
+        [Required(), Range(1, int.MaxValue, ErrorMessage = "Antal træninger skal være større end 0")]
         public int NoOfTrainings { get; set; }
-        [Required(), Range(1,int.MaxValue, ErrorMessage ="Max attendees must be more than 0")]
+        [Required(), Range(1,int.MaxValue, ErrorMessage ="Højeste antal deltagere skal være mere end 0")]
         public int MaxNoOfAttendees { get; set; }
-        public Instructor Instructor { get; set; }
-        [Required(ErrorMessage ="Choose a practice type")]
+        public Instructor? Instructor { get; set; }
+        [Required(ErrorMessage ="Vælg type")]
         public PracticeTypeEnum Type { get; set; }
         public List<Member> Members { get; set; }
 

@@ -10,10 +10,10 @@
 <form method="post">
     <div class="form-group">
         <label>ID</label> : @Model.DeleteInstructor.InstructorId <br />
-        <label>Name</label> : @Model.DeleteInstructor.Name <br />
-        <label>Phone Number</label> : @Model.DeleteInstructor.PhoneNumber <br />
-        <label>Description</label> : @Model.DeleteInstructor.Description <br />
-        <label>Image</label> : @Model.DeleteInstructor.Image <br />
+        <label>Navn</label> : @Model.DeleteInstructor.Name <br />
+        <label>Telefonnummer</label> : @Model.DeleteInstructor.PhoneNumber <br />
+        <label>Beskrivelse</label> : @Model.DeleteInstructor.Description <br />
+        <label>Billede</label> : @Model.DeleteInstructor.Image <br />
         <input type="submit" asp-page-handler="Delete" asp-route-id="@Model.DeleteInstructor.InstructorId" class="btn btn-danger" value="Slet" />
 
         <input type="submit" value="Tilbage" class="btn btn-warning" asp-page-handler="Cancel" />
