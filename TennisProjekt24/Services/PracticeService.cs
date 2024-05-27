@@ -61,7 +61,7 @@ namespace TennisProjekt24.Services
 
         public bool DeletePractice(int id)
         {
-            //Practice practice = GetPractice(id);
+            Practice practice = GetPractice(id);
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand command = new SqlCommand(_deletePracticeString, connection))

@@ -60,7 +60,7 @@ namespace TennisProjekt24.Pages.Practices
 
         public IActionResult OnPost()
         {
-            //Practice.Instructor = _instructorService.GetInstructor(InstructorId);
+            Practice.Instructor = _instructorService.GetInstructor(InstructorId);
             try
             {
                 if (!ModelState.IsValid)

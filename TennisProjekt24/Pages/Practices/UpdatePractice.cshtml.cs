@@ -43,17 +43,19 @@ namespace TennisProjekt24.Pages.Practices
 
         public IActionResult OnPostUpdate()
         {
-            //Practice.Instructor = _instructorService.GetInstructor(InstructorId);
+            Practice.Instructor = _instructorService.GetInstructor(InstructorId);
             if (!ModelState.IsValid)
             {
+                Instructors = MakeSelectList();
                 return Page();
             }
             if (_service.UpdatePractice(Practice, Practice.PracticeId))
                 return RedirectToPage("Index");
             else
-                //return (Page(), new { Instructors = _instructorService.GetAllInstructors()} );
+            {
+                Instructors = MakeSelectList();
                 return Page();
-
+            }
         }
 
         public IActionResult OnPostCancel()
