@@ -7,7 +7,7 @@ namespace TennisProjekt24.Models
     {
         [Required(ErrorMessage = "Vælg dato")]
         [FutureDate(ErrorMessage = "Dato må ikke ligge før nuværende tidspunkt")]
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
         [Required(ErrorMessage = "Tilføj titel")]
         [StringLength(50, ErrorMessage = "Titel må max være 50 karakterer")]
         public string Title { get; set; }

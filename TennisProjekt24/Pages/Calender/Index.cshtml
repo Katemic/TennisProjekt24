@@ -97,7 +97,7 @@ body {
                     }
                     @foreach(var ev in Model.Events)
                     {
-                        if(ev.Date.Day == date.Day && ev.Date.Month == date.Month && ev.Date.Month == Model.CurrentMonth && ev.Date.Year == Model.CurrentYear)
+                        if(ev.Date.Value.Day == date.Day && ev.Date.Value.Month == date.Month && ev.Date.Value.Month == Model.CurrentMonth && ev.Date.Value.Year == Model.CurrentYear)
                         {
                             <a class="nav-link text-dark form-text p-lg-0" asp-area="" asp-page="/Events/Index">@ev.Title</a>
                         }
