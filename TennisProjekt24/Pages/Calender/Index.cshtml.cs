@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 using TennisProjekt24.Helpers;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
@@ -18,6 +19,7 @@ namespace TennisProjekt24.Pages.Calender
         public DateTime FirstDay { get; set; }
         [BindProperty]
         public List<Event> Events { get; set; }
+        public string NameofMonth { get; set; }
 
         public IndexModel(IEventService eventService)
         {
@@ -25,24 +27,37 @@ namespace TennisProjekt24.Pages.Calender
         }
         public void OnGet()
         {
-            if (Months == 0)
+            try
             {
-                CurrentMonth = DateTime.Now.Month;
-            } else
-            {
-                CurrentMonth = (int)Months;
+                if (Months == 0)
+                {
+                    CurrentMonth = DateTime.Now.Month;
+                }
+                else
+                {
+                    CurrentMonth = (int)Months;
+                }
+                NameofMonth = ((Months)CurrentMonth).ToString();
+                if (CurrentYear == 0)
+                {
+                    CurrentYear = DateTime.Now.Year;
+                }
+                FirstDayOfMonth = new DateTime(CurrentYear, CurrentMonth, 1);
+                FirstDay = FirstDayOfMonth.AddDays(-(int)FirstDayOfMonth.DayOfWeek);
+                if (FirstDayOfMonth.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    FirstDay = FirstDayOfMonth.AddDays(-(int)FirstDayOfMonth.DayOfWeek - 7);
+                }
+                Events = _eventService.GetAllEvents();
             }
-            if (CurrentYear == 0)
+            catch (SqlException sql)
             {
-                CurrentYear = DateTime.Now.Year;
+                ViewData["ErrorMessage"] = sql.Message;
             }
-            FirstDayOfMonth = new DateTime(CurrentYear, CurrentMonth, 1);
-            FirstDay = FirstDayOfMonth.AddDays(-(int)FirstDayOfMonth.DayOfWeek);
-            if (FirstDayOfMonth.DayOfWeek == DayOfWeek.Sunday)
+            catch (Exception ex)
             {
-                FirstDay = FirstDayOfMonth.AddDays(-(int)FirstDayOfMonth.DayOfWeek - 7);
+                ViewData["ErrorMessage"] = ex.Message;
             }
-            Events = _eventService.GetAllEvents();
         }
     }
 }

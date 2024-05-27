@@ -25,10 +25,24 @@ body {
         /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
 
 	}
+.date {
+    font-weight:bold;
+    font-size:1rem;
+}
+}
+
+.button {
+    float: left
+}
+
+.heading {
+    text-align: center;
 }
 </style>
 
 <form method="get">
+    <div>
+        <div class="button">
         <select asp-for="Months" onchange="this.form.submit()" asp-items="Html.GetEnumSelectList<Months>()">
         <option value="">vælg måned</option>
     </select>
@@ -39,6 +53,11 @@ body {
             <option value="@i">@i</option>
         }
     </select>
+    </div>
+    <div class="heading">
+        <h1>@Model.NameofMonth @Model.CurrentYear</h1>
+    </div>
+    </div>
 </form>
 
 <table class="table">
@@ -72,9 +91,9 @@ body {
                 <div class="month">
                     @if (date.Month == Model.CurrentMonth) 
                     {
-                        
+                        <div class="date">
                         @date.Day
-                        
+                        </div>
                     }
                     @foreach(var ev in Model.Events)
                     {
