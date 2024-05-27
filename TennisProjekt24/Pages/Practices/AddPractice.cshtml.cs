@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Hosting;
 using TennisProjekt24.Interfaces;
 using TennisProjekt24.Models;
@@ -20,54 +21,74 @@ namespace TennisProjekt24.Pages.Practices
         [BindProperty]
         public List<SelectListItem> Instructors { get; set; }
         [BindProperty]
-        public int InstructorId {  get; set; } 
-        public IActionResult OnGet(List<Instructor> instructors)
+        public int InstructorId { get; set; }
+        public IActionResult OnGet()
         {
-            if (HttpContext.Session.GetInt32("MemberId") == null)
-            {
-                return RedirectToPage("/Members/LogIn");
-            }
-            else
-            {
-                if (instructors == null || instructors.Count == 0)
-                    Instructors = _instructorService.GetAllInstructors().Select(i =>
-                                                    new SelectListItem
-                                                    {
-                                                        Value = i.InstructorId.ToString(),
-                                                        Text = i.Name
-                                                    }
-                                                    ).ToList();
+            try {
+                if (HttpContext.Session.GetInt32("MemberId") == null)
+                {
+                    return RedirectToPage("/Members/LogIn");
+                }
                 else
-                    Instructors = instructors.Select(i =>
-                                                    new SelectListItem
-                                                    {
-                                                        Value = i.InstructorId.ToString(),
-                                                        Text = i.Name
-                                                    }
-                                                    ).ToList(); ;
-                return Page();
+                {
+                    Instructors = SetSelectlist();
+                    return Page();
+                }
             }
+            catch (SqlException sql)
+            {
+                ViewData["ErrorMessage"] = sql.Message;
+
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+
+            }
+            Instructors = SetSelectlist();
+            return Page();
+            
         }
 
         public AddPracticeModel(IPracticeService serv, IInstructorService instructorService)
         {
             _service = serv;
             _instructorService = instructorService;
-           
+            Instructors = SetSelectlist();
         }
 
 
         public IActionResult OnPost()
         {
             //Practice.Instructor = _instructorService.GetInstructor(InstructorId);
-
-            if (!ModelState.IsValid)
+            try
             {
-                return Page();
+                if (!ModelState.IsValid)
+                {
+                    return Page();
+                }
+                _service.AddPractice(Practice);
+                return RedirectToPage("Index");
             }
-            _service.AddPractice(Practice);
-            return RedirectToPage("Index");
+            catch (SqlException sql)
+            {
+                ViewData["ErrorMessage"] = sql.Message;
+
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+
+            }
+            return Page();
+           
         }
+
+        private List<SelectListItem> SetSelectlist() {
+            List<Instructor> list = _instructorService.GetAllInstructors();
+            return list.Select(x => new SelectListItem { Text = x.Name, Value = x.InstructorId.ToString() }).ToList();
+        }
+
     }
 }
 

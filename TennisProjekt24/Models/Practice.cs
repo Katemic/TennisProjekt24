@@ -14,7 +14,7 @@ namespace TennisProjekt24.Models
         [Required(ErrorMessage = "Du skal give træningen en titel")]
         [StringLength(50)]
         public string Title { get; set; }
-        [Required, MaxLength(500)]
+        [Required(ErrorMessage = "Der skal være en beskrivelse"), MaxLength(500, ErrorMessage = $"Du kan maks bruge 500 anslag")]
         public string Description { get; set; } 
         [Required(), Range(1, int.MaxValue, ErrorMessage = "Antal træninger skal være større end 0")]
         public int NoOfTrainings { get; set; }

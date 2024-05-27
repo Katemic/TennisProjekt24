@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TennisProjekt24.Models;
 
-namespace TennisProjekt24.Services.TestsProjektTest24
+namespace TestsProjektTest24
 {
     [TestClass()]
     public class PracticeServiceTests
@@ -18,7 +18,7 @@ namespace TennisProjekt24.Services.TestsProjektTest24
         private void Setup() { 
             service = new PracticeService();
             instructorService = new InstructorService();
-            tester = new Practice(0, DateTime.Now, "Test fra unit", "Der testes", 4, 5, instructorService.GetInstructor(2), PracticeTypeEnum.ForEveryone);
+            tester = new Practice(0, DateTime.Now, "Test fra unit", "Der testes", 4, 5, instructorService.GetInstructor(2), PracticeTypeEnum.Alle);
         }
         [TestMethod()]
         public void AddPracticeTest()
