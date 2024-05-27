@@ -9,7 +9,16 @@
     <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
 </head>
 
-<h1>Tilmelding og deltagere</h1>
+
+@if (Model.CurrentMember.Admin)
+{
+    <h1>Tilmelding og deltagere</h1>
+}
+else
+{
+    <h1>Tilmelding</h1>
+}
+
 
 <div class="card">
 
@@ -38,17 +47,19 @@
 
         </div>
     </form>
-
-    <br />
-
+  </div>
+  @if(Model.CurrentMember.Admin)
+{
+  <div class="card">
+    <h3>Deltagerliste</h3>
     <table class="table" value="Deltagere">
         <thead>
             <tr>
                 <th>
-                    Brugernavn
+                    Navn
                 </th>
                 <th>
-                    Navn
+                    Tlf nr
                 </th>
             </tr>
         </thead>
@@ -59,10 +70,10 @@
                 {
                     <tr>
                         <td>
-                            @item.Username
+                            @item.Name
                         </td>
                         <td>
-                            @item.Name
+                            @item.PhoneNumber
                         </td>
                     </tr>
                 }
@@ -74,7 +85,9 @@
     
     
 
-</div>
+</div>  
+}
+
 <br />
 <div>
     <a asp-page="/Practices/Index" class="btn btn-secondary">Tilbage</a>

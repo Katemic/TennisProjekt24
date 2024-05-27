@@ -23,7 +23,7 @@
         <div class="card" style="width: 35rem;">
             <div class="card-body">
                 <h3> @item.Title</h3>
-                <h4>@item.StartDate</h4>
+                <h4>Start: @item.StartDate.ToString("dddd, dd MMMM yyyy HH:mm")</h4>
                 <h5>@item.Type</h5>
                 <h6>Antal deltagere: @item.Members.Count / @item.MaxNoOfAttendees</h6>
                 <h6>Antal træningsdage: @item.NoOfTrainings</h6>
@@ -68,8 +68,8 @@
 
     .avatar {
         vertical-align: middle;
-        width: 40px;
-        height: 40px;
+        width: 70px;
+        height: 60px;
         border-radius: 40%;
     }
 
@@ -87,6 +87,6 @@
 
         /*change the number below to scale to the appropriate size*/
         .thumbnail:hover {
-            transform: scale(3);
+            transform: scale(2);
         }
 </style>
