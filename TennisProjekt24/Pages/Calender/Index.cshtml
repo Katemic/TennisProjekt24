@@ -83,16 +83,11 @@ body {
         <tr>
             @for (int i = 0; i < 42; i++)
             {
-                DateTime date = Model.FirstDay.AddDays(i + 1);
+                DateTime date = Model.FirstDay.AddDays(i);
                 
                 if (i % 7 == 0 && i > 0)
                 {
                     @:</tr><tr>
-                }
-                
-                if ((i == 0) && (Model.FirstDayOfMonth.DayOfWeek == DayOfWeek.Sunday))
-                {
-                    date = Model.FirstDay.AddDays(i);
                 }
                 <td>
                 <div class="grid">
@@ -110,7 +105,6 @@ body {
                             <div class="event">
                             <a class="nav-link form-text p-lg-0 text-black text-center" asp-area="" asp-page="/Events/Index">@ev.Title</a>
                             </div>
-                            @* <a class="btn btn-primary btn-sm rounded-pill" asp-page="/Events/Index">@ev.Title</a> *@
                         }
                     }
                     </div>
