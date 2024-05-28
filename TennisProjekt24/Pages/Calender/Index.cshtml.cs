@@ -43,10 +43,10 @@ namespace TennisProjekt24.Pages.Calender
                     CurrentYear = DateTime.Now.Year;
                 }
                 FirstDayOfMonth = new DateTime(CurrentYear, CurrentMonth, 1);
-                FirstDay = FirstDayOfMonth.AddDays(-(int)FirstDayOfMonth.DayOfWeek);
+                FirstDay = FirstDayOfMonth.AddDays(-(int)FirstDayOfMonth.DayOfWeek + 1);
                 if (FirstDayOfMonth.DayOfWeek == DayOfWeek.Sunday)
                 {
-                    FirstDay = FirstDayOfMonth.AddDays(-(int)FirstDayOfMonth.DayOfWeek - 7);
+                    FirstDay = FirstDayOfMonth.AddDays(-(int)FirstDayOfMonth.DayOfWeek - 6);
                 }
                 Events = _eventService.GetAllEvents();
             }
