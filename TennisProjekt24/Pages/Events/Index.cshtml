@@ -49,13 +49,17 @@
 
 
 
-                <div class="column; fw-bold" style="flex:10%">
+                <div class="column; fw-bold" style="flex:15%">
                     <table>
                         <tr>
-                            <td >@item.Title</td>
+                            <td style="font-size:130%" >@item.Title</td>
+                        </tr>
+                        <tr><td><p></p></td></tr>
+                        <tr>
+                            <td>@item.Date.Value.ToString("dddd, dd MMMM yyyy")</td>
                         </tr>
                         <tr>
-                            <td>@item.Date.Value.ToString("dddd, dd MMMM yyyy HH:mm")</td>
+                            <td>@item.Date.Value.ToString("HH:mm")</td>
                         </tr>
                         <tr>
                             <td>Lokation: @item.Place</td>
@@ -80,10 +84,11 @@
                         <tr>
 
                             <td>
-                                <span>Beskrivelse:</span>
+                                <span>@* Beskrivelse: *@</span>
                             </td>
 
                         </tr>
+                        <tr><td><p></p></td></tr>
                         <tr>
                             <td><br /></td>
                         </tr>
