@@ -53,9 +53,9 @@ namespace TennisProjekt24.Pages.Events
             CurrentMember = _memberService.GetMember(sessionMemberId);
             Attendee.Event = _eventService.GetEvent(eventId);
             Attendee.Member = CurrentMember;
-            if (Attendee.NoOfParticipants > 5 || Attendee.NoOfParticipants < 1)
+            if (Attendee.NoOfParticipants > 10 || Attendee.NoOfParticipants < 1)
             {
-                Message = "Vælg antal mellem 1 og 5";
+                Message = "Vælg antal mellem 1 og 10";
                 EventBook = _eventService.GetEvent(eventId);
                 return Page();
             }

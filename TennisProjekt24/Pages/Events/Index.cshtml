@@ -22,7 +22,7 @@
             <a asp-page="AddEvent" class="btn btn-primary">Opret event</a>
         }
 
-        <a asp-page="MyEvents" class="btn btn-primary">Mine event tilmeldinger</a>
+        @* <a asp-page="MyEvents" class="btn btn-primary">Mine event tilmeldinger</a> *@
     }
 
 </div>
@@ -55,7 +55,7 @@
                             <td >@item.Title</td>
                         </tr>
                         <tr>
-                            <td>@item.Date</td>
+                            <td>@item.Date.Value.ToString("dddd, dd MMMM yyyy HH:mm")</td>
                         </tr>
                         <tr>
                             <td>Lokation: @item.Place</td>
@@ -80,7 +80,7 @@
                         <tr>
 
                             <td>
-                                <span>Beskrivelse</span>
+                                <span>Beskrivelse:</span>
                             </td>
 
                         </tr>
@@ -134,7 +134,7 @@
 
                                     if (isAttending)
                                     {
-                                        <a asp-page="/Events/RemoveEvBook" asp-route-eventId="@item.EventId" asp-route-id="@item.Member.MemberId" class="btn btn-primary">Afmeld</a>
+                                        <a asp-page="/Events/RemoveEvBook" asp-route-eventId="@item.EventId" asp-route-id="@Model.CurrentMember.MemberId" class="btn btn-primary">Afmeld</a>
                                     }
                                     else
                                     {

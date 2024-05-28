@@ -8,7 +8,9 @@ namespace TennisProjekt24.Models
         public int PostId { get; set; }
         public DateTime DateTime { get; set; }
         public Member? Poster { get; set; }
+        [Required(ErrorMessage = "Tilføj titel")]
         public string Title { get; set; }
+        [Required(ErrorMessage = "Tilføj tekst")]
         public string Text { get; set; }
         [Range(1, 100, ErrorMessage = "Erfaringsniveau er påkrævet")]
         public SkillTypeEnum SkillType { get; set; }

@@ -15,11 +15,11 @@
 
         <form method="post">
 
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="@Model.UpdatedPost.NewsPostId" class="control-label">OpslagID</label>
                 <input asp-for="@Model.UpdatedPost.NewsPostId" class="form-control" readonly="readonly" />
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="@Model.UpdatedPost.Date" class="control-label">Dato</label>
                 <input asp-for="@Model.UpdatedPost.Date" class="form-control" readonly="readonly" />
             </div>

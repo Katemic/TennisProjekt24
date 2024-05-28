@@ -9,19 +9,19 @@
     <link rel="stylesheet" href="~/css/delete.css" asp-append-version="true" />
 </head>
 
-
+<h1>Fjern tilmelding</h1>
 <div class="card">
 
     <form method="post">
 
         <table >
-            <tr>
+            <tr hidden>
                 <th>Event Id</th>
                 <td>@Model.EventBook.EventId</td>
             </tr>
             <tr>
                 <th>Dato</th>
-                <td>@Model.EventBook.Date</td>
+                <td>@Model.EventBook.Date.Value.ToString("dddd, dd MMMM yyyy HH:mm")</td>
             </tr>
             <tr>
                 <th>Titel</th>
@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <th>Beskrivelse</th>
-                <td>@Model.EventBook.Description</td>
+                <td><pre>@Model.EventBook.Description</pre></td>
             </tr>
             <tr>
                 <th>Arrangør</th>
@@ -48,15 +48,20 @@
             <form method="post" asp-page-handler="Admin">
                 <input type="hidden" name="eventId" value="@Model.EventBook.EventId" />
                 <input type="hidden" name="memberToRemoveId" value="@Model.MemberToRemoveId" />
-                <button type="submit">Afmeld Deltager</button>
+                <div>
+                    <button class="btn btn-danger" type="submit">Afmeld Deltager</button>
+                    <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+                </div>
+                
             </form>
         }
         else
         {
-            <input type="submit" value="Afmeld" asp-route-eventId="@Model.EventBook.EventId" asp-route-memberId="@Model.CurrentMember.MemberId" class="btn btn-success" />
+            <input type="submit" value="Afmeld" asp-route-eventId="@Model.EventBook.EventId" asp-route-memberId="@Model.CurrentMember.MemberId" class="btn btn-danger" />
+            <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
         }
 
-        <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+        
 
     </form>
 

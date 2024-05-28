@@ -4,7 +4,7 @@
     ViewData["Title"] = "Practice index for members";
 }
 
-
+<h1>Hold Tilmeldinger</h1>
 
 @if (Model.Practices.Count != 0)
 {
@@ -13,13 +13,16 @@
         <div class="card" style="width: 30rem;">
             <div class="card-body">
                 <h3> @item.Title</h3>
-                <h4>@item.StartDate</h4>
+                <h4>start: @item.StartDate.ToString("dddd, dd MMMM yyyy HH:mm")</h4>
                 <h5>@item.Type</h5>
-                <h6>Ved: @item.Instructor.Name</h6>
-                <p>@item.Description</p>
+                <h6>Træner: @item.Instructor.Name</h6>
+                <pre>@item.Description</pre>
             </div>
 
         </div>
     }
 }
+
+<br />
+<a asp-page="/Members/Profile" class="btn btn-secondary">Tilbage</a>
 

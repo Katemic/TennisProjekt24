@@ -4,35 +4,50 @@
     ViewData["Title"] = "Delete court";
 }
 
+<head>
+    <link rel="stylesheet" href="~/css/delete.css" asp-append-version="true" />
+</head>
+
 <h1>Slet bane</h1>
 
 
 <div class="card">
 
     <form method="post">
+
         <div class="form-group">
-            <label>Udendørs</label> : @if (Model.DeleteCourt.Outdoor)
-            {
-                <div> Udendørs </div>
-            }
-            else
-            {
-                <div> Indendørs </div>
-            }
-            <label>Bane nummer</label> : @Model.DeleteCourt.CourtNumber <br />
-            <label>Bane typen</label> : @Model.DeleteCourt.CourtType <br />
-            <label>Tilgængelighed</label> : @if (Model.DeleteCourt.Availability)
-            {
-                <div> Tilgængelig </div>
-            }
-            else
-            {
-                <div> Utilgængelig </div>
-            }
-            <br />
-            <input type="submit" asp-page-handler="Delete" asp-route-courtId="@Model.DeleteCourt.CourtId" value="Slet bane" class="btn btn-danger" />
-            <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+            <table>
+
+                <tr>
+                    <th>Lokation</th>
+                    @if (Model.DeleteCourt.Outdoor)
+                    {
+                        <td>Udendørs</td>
+                    }
+                    else
+                    {
+                        <td>Indendørs</td>
+                    }
+
+                </tr>
+                <tr>
+                    <th>Bane nummer</th>
+                    <td>@Model.DeleteCourt.CourtNumber</td>
+                </tr>
+                <tr>
+                    <th>Banetype</th>
+                    <td>@Model.DeleteCourt.CourtType</td>
+                </tr>
+
+            </table>
+
         </div>
+
+        <br />
+        <input type="submit" asp-page-handler="Delete" asp-route-courtId="@Model.DeleteCourt.CourtId" value="Slet bane" class="btn btn-danger" />
+        <a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+
+
     </form>
 
 </div>

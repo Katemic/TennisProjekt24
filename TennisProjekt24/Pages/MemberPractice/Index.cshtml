@@ -5,10 +5,32 @@
 @{
 }
 
+<head>
+    <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+</head>
+
+
+@if (Model.CurrentMember.Admin)
+{
+    <h1>Tilmelding og deltagere</h1>
+}
+else
+{
+    <h1>Tilmelding</h1>
+}
+
 
 <div class="card">
 
     <form method="post">
+        <div >
+            <h3>@Model.Practice.Title</h3>
+            <pre>@Model.Practice.Description</pre>
+        </div>
+
+        <br />
+        <br />
+
         <div class="form-group">
             @if (Model.Practice.Members.Find(x => x.MemberId == (int)HttpContextAccessor.HttpContext.Session.GetInt32("MemberId")) != null)
             {
@@ -16,7 +38,7 @@
             }
             else if (Model.Practice.MaxNoOfAttendees > Model.Practice.Members.Count)
             {
-                <input asp-route-practiceId="@Model.Practice.PracticeId" type="submit" value="Attend" class="btn btn-primary" />
+                <input asp-route-practiceId="@Model.Practice.PracticeId" type="submit" value="Tilmed" class="btn btn-primary" />
             }
             else
             {
@@ -25,18 +47,19 @@
 
         </div>
     </form>
-    <p>
-        @Model.Practice.Description
-    </p>
-
+  </div>
+  @if(Model.CurrentMember.Admin)
+{
+  <div class="card">
+    <h3>Deltagerliste</h3>
     <table class="table" value="Deltagere">
         <thead>
             <tr>
                 <th>
-                    Brugernavn
+                    Navn
                 </th>
                 <th>
-                    Navn
+                    Tlf nr
                 </th>
             </tr>
         </thead>
@@ -47,16 +70,25 @@
                 {
                     <tr>
                         <td>
-                            @item.Username
+                            @item.Name
                         </td>
                         <td>
-                            @item.Name
+                            @item.PhoneNumber
                         </td>
                     </tr>
                 }
             }
         </tbody>
-        <td><a asp-page="/Practices/Index">Back</a></td>
+        @* <td><a asp-page="/Practices/Index">Back</a></td> *@
     </table>
 
+    
+    
+
+</div>  
+}
+
+<br />
+<div>
+    <a asp-page="/Practices/Index" class="btn btn-secondary">Tilbage</a>
 </div>

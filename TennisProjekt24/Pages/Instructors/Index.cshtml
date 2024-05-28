@@ -72,8 +72,11 @@
                             
                             @if (Model.User.Admin)
                             {
-                                <a asp-page="DeleteInstructor" asp-route-id="@item.InstructorId" class="btn btn-primary">Slet</a>
-                                <a asp-page="UpdateInstructor" asp-route-id="@item.InstructorId" class="btn btn-primary">Opdater</a>
+                                @if (item.InstructorId != 1)
+                                {
+                                    <a asp-page="DeleteInstructor" asp-route-id="@item.InstructorId" class="btn btn-primary">Slet</a>
+                                }
+                                <a asp-page="UpdateInstructor" asp-route-id="@item.InstructorId" class="btn btn-primary">Rediger</a>
 
                             }
                         }

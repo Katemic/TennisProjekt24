@@ -14,56 +14,60 @@
 
 
 </p>
-        @* TODO Flere koloner på card *@
-        @if(Model.Practices.Count != 0)
-        { 
-            @foreach(var item in Model.Practices)
-            {
-                <div class="card" style="width: 35rem;">    
-                <div class="card-body">
-                <h3 > @item.Title</h3>
-                <h4>@item.StartDate</h4>
+@* TODO Flere koloner på card *@
+
+@if (Model.Practices.Count != 0)
+{
+    @foreach (var item in Model.Practices)
+    {
+        <div class="card" style="width: 35rem;">
+            <div class="card-body">
+                <h3> @item.Title</h3>
+                <h4>Start: @item.StartDate.ToString("dddd, dd MMMM yyyy HH:mm")</h4>
                 <h5>@item.Type</h5>
                 <h6>Antal deltagere: @item.Members.Count / @item.MaxNoOfAttendees</h6>
-                <h6>Antal træningsdage: @item.NoOfTrainings</h6>
+                <h6>Antal træninger: @item.NoOfTrainings</h6>
                 <h6>Træner: @item.Instructor.Name <img src="~/images/instructorimages/@item.Instructor.Image" class="avatar thumbnail" /></h6>
                 <pre style="font-family:Verdana; white-space:pre-wrap ">@item.Description</pre>
                 @if (Model.User != null)
                 {
 
+                    <div style="float:right">
+                        @if (Model.User.Admin)
+                        {
+                            <a class="btn btn-primary" asp-page="UpdatePractice" asp-route-id="@item.PracticeId">Rediger</a>
+                            <a class="btn btn-primary" asp-page="DeletePractice" asp-route-id="@item.PracticeId">Slet</a>
+                        }
+                    @* </div>
+                    <div style="float:right"> *@
+                        @if (Model.User.Admin)
+                        {
+                            <a class="btn btn-primary" asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Se deltagere</a>
+                        }
+                        @if (item.MaxNoOfAttendees > item.Members.Count)
+                        {
+                            <a class="btn btn-primary" asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Tilmelding</a>
+                        }
+                        else
+                        {
+                            <span class="btn btn-secondary disabled">  Holdet er fyldt</span>
+                        }
+                        
 
-                    @if (Model.User.Admin)
-                    {
-                        <a class="card-link btn btn-primary" asp-page="DeletePractice" asp-route-id="@item.PracticeId">Slet</a>
-                        <a class="card-link btn btn-primary" asp-page="UpdatePractice" asp-route-id="@item.PracticeId">Opdater</a>
-                    }
-
-                    @if (item.MaxNoOfAttendees > item.Members.Count)
-                    {
-                        <a class="btn btn-primary" asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Deltag</a>
-                    }
-                    else
-                    {
-                        <p>
-                            Holdet er fyldt | @if (Model.User.Admin)
-                            {
-                                <a class="btn btn-primary" asp-page="/MemberPractice/Index" asp-route-id="@item.PracticeId">Se deltagere</a>
-                            }
-                        </p>
-                    }
+                    </div>
                 }
-            </div>
 
+            </div>
         </div>
-            <br />
-            }
-        }
+        <br />
+    }
+}
 <style>
 
     .avatar {
         vertical-align: middle;
-        width: 40px;
-        height: 40px;
+        width: 70px;
+        height: 60px;
         border-radius: 40%;
     }
 
@@ -81,6 +85,6 @@
 
         /*change the number below to scale to the appropriate size*/
         .thumbnail:hover {
-            transform: scale(3);
+            transform: scale(2);
         }
 </style>

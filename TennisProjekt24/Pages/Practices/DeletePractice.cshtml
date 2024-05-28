@@ -3,23 +3,83 @@
 @{
     ViewData["Title"] = "Slet træningshold";
 }
-<h1>Slet Træningshold</h1>
+
+<head>
+    <link rel="stylesheet" href="~/css/delete.css" asp-append-version="true" />
+</head>
+
+<h1>Delete Practice</h1>
 
 <div class="card">
     <form method="post">
+
         <div class="form-group">
-            <label>Practice ID</label> : @Model.DeletePractice.PracticeId <br />
-            <label>Start Date</label> : @Model.DeletePractice.StartDate <br />
-            <label>Title</label> : @Model.DeletePractice.Title <br />
-            <label>Description</label> : @Model.DeletePractice.Description <br />
-            <label>Number of Trainings</label> : @Model.DeletePractice.NoOfTrainings <br />
-            <label>Max Number of Attendees</label> : @Model.DeletePractice.MaxNoOfAttendees <br />
-            <label>Instructor</label> : @Model.DeletePractice.Instructor.Name
-            <label>Type</label> : @Model.DeletePractice.Type <br />
+            <table>
+
+                <tr hidden>
+                    <th>ID</th>
+                    <td>@Model.DeletePractice.PracticeId</td>
+                </tr>
+                <tr>
+                    <th>Startdato</th>
+                    <td>@Model.DeletePractice.StartDate</td>
+                </tr>
+                <tr>
+                    <th>Titel</th>
+                    <td>@Model.DeletePractice.Title</td>
+                </tr>
+                <tr>
+                    <th>Beskrivelse</th>
+                    <td>
+                        <pre style="font-family:Verdana; white-space:pre-wrap ">@Model.DeletePractice.Description</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Antal træninger</th>
+                    <td>@Model.DeletePractice.NoOfTrainings</td>
+                </tr>
+                <tr>
+                    <th>Max antal deltagere</th>
+                    <td>@Model.DeletePractice.MaxNoOfAttendees</td>
+                </tr>
+                <tr>
+                    <th>Træner</th>
+                    <td>@Model.DeletePractice.Instructor.Name</td>
+                </tr>
+                <tr>
+                    <th>Type</th>
+                    <td>@Model.DeletePractice.Type</td>
+                </tr>
+
+            </table>
+
+            <br />
+
             <input type="submit" asp-page-handler="Delete" asp-route-id="@Model.DeletePractice.PracticeId" class="btn btn-danger" value="Slet" />
-            <input type="submit" asp-page-handler="Cancel" class="btn btn-warning" value="Afbryd" />
+            <a asp-page="Index" class="btn btn-secondary">Gå tilbage</a>
 
         </div>
+
+
+
+
+
+
+
+@* 
+        <div class="form-group">
+            <label>ID</label> : @Model.DeletePractice.PracticeId <br />
+            <label>Startato</label> : @Model.DeletePractice.StartDate <br />
+            <label>Titel</label> : @Model.DeletePractice.Title <br />
+            <label>Beskrivelse</label> : @Model.DeletePractice.Description <br />
+            <label>Antal træninger</label> : @Model.DeletePractice.NoOfTrainings <br />
+            <label>Max antal deltagere</label> : @Model.DeletePractice.MaxNoOfAttendees <br />
+            <label>Træner</label> : @Model.DeletePractice.Instructor.Name
+            <label>Type</label> : @Model.DeletePractice.Type <br />
+            <input type="submit" asp-page-handler="Delete" asp-route-id="@Model.DeletePractice.PracticeId" class="btn btn-danger" value="Slet" />
+            <a asp-page="Index" class="btn btn-secondary">Gå tilbage</a>
+
+        </div> *@
 
     </form>
 

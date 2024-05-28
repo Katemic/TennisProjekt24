@@ -11,7 +11,7 @@
 
 <h1>Deltagere</h1>
 
-<a asp-page="Index" class="btn btn-secondary">Tilbage</a>
+
 
 @if(Model.CurrentAttendees != 0)
 {
@@ -74,7 +74,7 @@ else
                             @item.Note
                         </td>
                         <td>
-                            <a asp-page="/Events/UpdateParticipant" asp-route-eventId="@item.Event.EventId" class="btn btn-primary" asp-route-memberId="@item.Member.MemberId">Opdater</a>
+                            <a asp-page="/Events/UpdateParticipant" asp-route-eventId="@item.Event.EventId" class="btn btn-primary" asp-route-memberId="@item.Member.MemberId">Rediger</a>
                             @if (Model.CurrentMember.Admin == true)
                             {
                                 <a asp-page="/Events/RemoveEvBook" asp-page-handler="Admin" asp-route-eventId="@item.Event.EventId" class="btn btn-primary" asp-route-adminmemberId="@item.Member.MemberId" asp-route-adminMode="1">Afmeld</a>
@@ -90,3 +90,5 @@ else
     </table>
 
 </div>
+<br />
+<a asp-page="Index" class="btn btn-secondary">Tilbage</a>

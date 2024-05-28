@@ -5,44 +5,47 @@
     ViewData["Title"] = "Tilføj træningshold";
 }
 
+<h1>Opret Træningshold</h1>
+
+
 <div class="card">
     <form method="post">
         <div class="form-group datepickers">
-            <label asp-for="@Model.Practice.StartDate" class="control-label"></label>
+            <label asp-for="@Model.Practice.StartDate" class="control-label">Startdato</label>
             <input asp-for="@Model.Practice.StartDate" class="form-control" />
             <span asp-validation-for="Practice.StartDate" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="@Model.Practice.Title" class="control-label"></label>
+            <label asp-for="@Model.Practice.Title" class="control-label">Titel</label>
             <input asp-for="@Model.Practice.Title" class="form-control" />
             <span asp-validation-for="Practice.Title" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="@Model.Practice.Description" class="control-label"></label>
+            <label asp-for="@Model.Practice.Description" class="control-label">Beskrivelse</label>
             @* <input asp-for="@Model.Practice.Description" class="form-control" /> *@
-            <textarea asp-for="@Model.Practice.Description" class="form-control" id="text" rows="10"></textarea>
+            <textarea asp-for="@Model.Practice.Description" class="form-control" id="text" rows="7"></textarea>
             <span asp-validation-for="Practice.Description" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="@Model.Practice.NoOfTrainings" class="control-label"></label>
+            <label asp-for="@Model.Practice.NoOfTrainings" class="control-label">Antal træninger</label>
             <input asp-for="@Model.Practice.NoOfTrainings" class="form-control" />
             <span asp-validation-for="Practice.NoOfTrainings" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="@Model.Practice.MaxNoOfAttendees" class="control-label"></label>
+            <label asp-for="@Model.Practice.MaxNoOfAttendees" class="control-label">Max antal deltagere</label>
             <input asp-for="@Model.Practice.MaxNoOfAttendees" class="form-control" />
             <span asp-validation-for="Practice.MaxNoOfAttendees" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="@Model.InstructorId" class="control-label"></label>
+            <label asp-for="@Model.InstructorId" class="control-label">Træner</label>
             <select asp-for="@Model.InstructorId" asp-items="Model.Instructors" class="form-control">
                 <option value="">Vælg en træner</option>
             </select>
             @* <span asp-validation-for="Practice.Instructor" class="text-danger"></span> *@
         </div>
         <div class="form-group">
-            <label asp-for="@Model.Practice.Type" class="control-label">Type af trænning</label>
+            <label asp-for="@Model.Practice.Type" class="control-label">Type af træning</label>
             <br />
             @foreach (var c in System.Enum.GetValues(typeof(PracticeTypeEnum)))
             {
@@ -53,8 +56,9 @@
             <span asp-validation-for="Practice.Type" class="text-danger"></span>
         </div>
         <div>
+            <br />
             <input type="submit" value="Opret" class="btn btn-primary" />
-            <a asp-page="Index" class="btn btn-primary">Gå tilbage</a>
+            <a asp-page="Index" class="btn btn-secondary">Gå tilbage</a>
             @* <input type="submit" asp-page-handler="Cancel" class="btn btn-warning" value="Afbryd" /> *@
         </div>
     </form>

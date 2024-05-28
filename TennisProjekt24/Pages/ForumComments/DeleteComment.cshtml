@@ -1,23 +1,56 @@
 ﻿@page
 @model TennisProjekt24.Pages.ForumComments.DeleteCommentModel
 @{
+    ViewData["Title"] = "Slet Kommentar";
 }
+
+<head>
+    <link rel="stylesheet" href="~/css/delete.css" asp-append-version="true" />
+</head>
+
 
 <h1>Slet kommentar</h1>
 
 <div class="card">
 
-<form method="post">
-    <div class="form-group">
-        @* <label>CommentId</label> : @Model.DeleteComment.CommentId <br /> *@
-        <label>PostId</label> : @Model.DeleteComment.PostId <br />
-        <label>Medlem</label> : @Model.DeleteComment.Commenter.Name <br />
-        <label>Text</label> : @Model.DeleteComment.Text <br />
-        <label>Dato</label> : @Model.DeleteComment.DateTime <br />
+    <form method="post">
+
+        <div class="form-group">
+            <table>
+                <tr>
+                    <th>Dato</th>
+                    <td>@Model.DeleteComment.DateTime.ToString("dddd, dd MMMM yyyy HH:mm")</td>
+                </tr>
+                <tr>
+                    <th>Medlem</th>
+                    <td>@Model.DeleteComment.Commenter.Name</td>
+                </tr>
+                <tr>
+                    <th>Tekst</th>
+                    <td>@Model.DeleteComment.Text</td>
+                </tr>
+               
+
+
+            </table>
+
+        </div>
+
         <br />
         <input class="btn btn-danger" type="submit" asp-page-handler="Delete" asp-route-commentId="@Model.DeleteComment.CommentId" asp-route-postId="@Model.DeleteComment.PostId" value="Slet" />
-            <a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@Model.DeleteComment.PostId" class="btn btn-secondary">Tilbage</a>
-    </div>
-    
-</form>
+        <a asp-page="/BuddyForums/GetBuddyForum" asp-route-postId="@Model.DeleteComment.PostId" class="btn btn-secondary">Tilbage</a>
+
+
+
+
+        @* div class="form-group">
+            <label>CommentId</label> : @Model.DeleteComment.CommentId <br />
+            <label>PostId</label> : @Model.DeleteComment.PostId <br />
+            <label>Medlem</label> : @Model.DeleteComment.Commenter.Name <br />
+            <label>Text</label> : @Model.DeleteComment.Text <br />
+            <label>Dato</label> : @Model.DeleteComment.DateTime <br />
+            
+        </div> *@
+
+    </form>
 </div>

@@ -104,3 +104,8 @@ body {
 .show {
     display: block;
 }
+
+pre {
+    white-space: pre-wrap;
+    font-family: Verdana
+}
