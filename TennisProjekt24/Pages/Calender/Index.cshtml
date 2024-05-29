@@ -71,7 +71,7 @@ body {
 <table class="table">
     <thead>
         <tr>
-            @foreach (var weekDay in System.Enum.GetValues(typeof(weekDays)))
+            @foreach (var weekDay in System.Enum.GetValues(typeof(WeekDays)))
             {
                 <th>
                     @weekDay.ToString()

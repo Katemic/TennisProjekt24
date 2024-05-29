@@ -14,7 +14,7 @@
         none, Senior, UngSenior, Junior, Familie, Passiv
     }
 
-    public enum weekDays
+    public enum WeekDays
     {
         Mandag, Tirsdag, Onsdag, Torsdag, Fredag, Lørdag, Søndag
     }
